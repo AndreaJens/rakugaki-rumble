@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 GameDatabaseAccessor="*res://scripts/database.gd"
 InputOverseer="*res://scripts/InputOverseer.gd"
+SyncManager="*res://addons/godot-rollback-netcode/SyncManager.gd"
 
 [display]
 
@@ -28,6 +29,10 @@ window/size/viewport_height=636
 window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/vsync/vsync_mode=0
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-rollback-netcode/plugin.cfg")
 
 [input]
 
@@ -151,6 +156,18 @@ replenish_healthbars_debug={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194335,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
+sync_debug={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194342,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
+}
+
+[network]
+
+rollback/max_buffer_size=8
+rollback/classes/network_adaptor="res://addons/godot-rollback-netcode/NetworkAdaptor.gd"
+rollback/classes/message_serializer="res://addons/godot-rollback-netcode/MessageSerializer.gd"
+rollback/classes/hash_serializer="res://addons/godot-rollback-netcode/HashSerializer.gd"
 
 [rendering]
 

@@ -15,16 +15,29 @@ enum ReservedMoveIndex
 
 @export var characterData : CharacterData
 @export var initialLogicalPosition : Vector2i = Vector2i(0, 0)
-@export var onLeftSide : bool
 @onready var characterState : CharacterState = $CharacterState
-@onready var animationPlayer : AnimationPlayer = $AnimationPlayer
+@onready var animationPlayer : NetworkAnimationPlayer = $AnimationPlayer
 var moveNameToIndex : Dictionary = {}
 var currentMove : CharacterMove = null
 @onready var pushBox : MoveBox = $PushBox
 var hitBoxes : Array[HitBox] = []
 var hurtBoxes : Array[HurtBox] = []
-var _currentMoveHasHit : bool = false
 var comboCounter : int = 0
+
+# FUNCTIONS FOR SNOPEK ROLLBACK ADDON
+func _save_state() -> Dictionary:
+	var stateDict = characterState._save_state()
+	return stateDict
+
+func _load_state(state : Dictionary) -> void:
+	characterState._load_state(state)
+	_apply_move_load_state()
+	update_screen_position()
+	_update_boxes()
+	if characterState.onLeftSide: 
+		scale = Vector2(1, 1)
+	else:
+		scale = Vector2(-1, 1)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -40,19 +53,15 @@ func _ready():
 	for child in $HurtBoxes.get_children():
 		if child is HurtBox:
 			hurtBoxes.push_back(child)
-
-func save_state() -> Array[int]:
-	return characterState.to_state_array()
-
-func load_state(state : Array[int]):
-	characterState.load_from_state_array(state)
-	var currentFrame = characterState.currentFrame
-	apply_new_move( characterData.characterMoves[characterState.moveId] )
-	characterState.currentFrame = currentFrame
-	set_animation_frame(characterState.currentFrame)
 	
 func get_sprite() -> Sprite2D:
 	return $Sprite2D
+	
+func is_on_left_side() -> bool:
+	return characterState.onLeftSide
+	
+func set_on_left_side(onLeftSide : bool):
+	characterState.onLeftSide = onLeftSide
 	
 func deactivate_boxes():
 	pushBox.active = false
@@ -95,7 +104,7 @@ func add_meter(meterGain : int):
 	_clamp_state_variables()
 
 func mark_successful_hit():
-	_currentMoveHasHit = true
+	characterState.currentMoveHasHit = true
 
 func pause_animation():
 	animationPlayer.pause()
@@ -143,6 +152,12 @@ func is_airborne() -> bool:
 func is_ko() -> bool:
 	return characterState.currentHealth <= 0
 
+func _apply_move_load_state():
+	deactivate_boxes()
+	var move = characterData.characterMoves[characterState.moveId]
+	animationPlayer.set_current_animation(move.animationName)
+	set_animation_frame(characterState.currentFrame)
+
 func apply_move_by_name(moveName : String) -> bool:
 	if moveNameToIndex.has(moveName):
 		apply_new_move(characterData.characterMoves[moveNameToIndex[moveName]])
@@ -151,13 +166,13 @@ func apply_move_by_name(moveName : String) -> bool:
 
 func apply_new_move(move : CharacterMove):
 	deactivate_boxes()
-	_currentMoveHasHit = false
+	characterState.currentMoveHasHit = false
 	characterState.moveId = moveNameToIndex[move.internalName]
 	animationPlayer.set_current_animation(move.animationName)
 	set_animation_frame(move.startingFrame)
 	characterState.currentFrame = move.startingFrame
 	var horizontalDirectionMult = 1
-	if (!onLeftSide):
+	if (!is_on_left_side()):
 		horizontalDirectionMult = -1
 	var logicalVel := move.logicalVelocityPerFrame
 	var logicalAcc := move.logicalAccelerationPerFrame
@@ -180,8 +195,8 @@ func apply_new_move(move : CharacterMove):
 	currentMove = move
 	
 func turn_around():
-	onLeftSide = !onLeftSide
-	if onLeftSide: 
+	characterState.onLeftSide = !characterState.onLeftSide
+	if characterState.onLeftSide: 
 		scale = Vector2(1, 1)
 	else:
 		scale = Vector2(-1, 1)
@@ -221,7 +236,7 @@ func _update_boxes():
 		for hurtBox in hurtBoxes:
 			hurtBox.visible = false
 	# mirror boxes when needed
-	if onLeftSide:
+	if is_on_left_side():
 		if pushBox.is_mirrored():
 			pushBox.mirror()
 		for hitBox in hitBoxes:
@@ -297,7 +312,7 @@ func _update_character_stance():
 
 func update_hit_boxes_logic():
 	for hitBox in hitBoxes:
-		if _currentMoveHasHit and hitBox.deactivateOnHit:
+		if characterState.currentMoveHasHit and hitBox.deactivateOnHit:
 			hitBox.active = false
 
 func _update_current_move( inputManager : InputBufferManager ):
@@ -311,7 +326,7 @@ func _update_current_move( inputManager : InputBufferManager ):
 				continue
 			if !moveNameToIndex.has(followup.targetMoveName):
 				continue
-			if !followup.onWhiff and !_currentMoveHasHit:
+			if !followup.onWhiff and !characterState.currentMoveHasHit:
 				continue
 			var moveIndex : int = moveNameToIndex[followup.targetMoveName]
 			var moveToTest = characterData.characterMoves[moveIndex]
@@ -327,7 +342,7 @@ func _update_current_move( inputManager : InputBufferManager ):
 				apply_new_move(moveToTest)
 				newMovePerformed = true
 				break
-			elif moveToTest.check_input_match(inputBuffer, onLeftSide):
+			elif moveToTest.check_input_match(inputBuffer, is_on_left_side()):
 				apply_new_move(moveToTest)
 				newMovePerformed = true
 				break
@@ -358,3 +373,4 @@ func update( inputManager : InputBufferManager ):
 	update_screen_position()
 	_update_boxes()
 					
+

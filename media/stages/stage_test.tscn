@@ -132,7 +132,6 @@ follow_viewport_enabled = true
 
 [node name="Character1" parent="Characters" instance=ExtResource("2_ykrlp")]
 position = Vector2(213, 610)
-onLeftSide = true
 
 [node name="Character2" parent="Characters" instance=ExtResource("2_ykrlp")]
 position = Vector2(1037, 610)

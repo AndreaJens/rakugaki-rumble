@@ -1,5 +1,12 @@
 class_name InputBufferManager extends Node
 
+enum InputBufferState {
+	AllPressedButtons = 0,
+	NewlyPressedButtons = 4,
+	RawBuffer = 1,
+	RefinedBuffer = 2,
+}
+
 @export var playerIdentifier : String = "p1"
 @export var maxBufferSize : int = 50
 @export var deviceId : int = -1
@@ -17,16 +24,39 @@ var _baseActionDict : Dictionary = {
 
 var _actionDict : Dictionary = {}
 
+# SNOPEK FUNCTIONS
+
+func _save_state() -> Dictionary:
+	var dict = {}
+	dict[InputBufferState.AllPressedButtons] = _pressedButtons
+	dict[InputBufferState.RawBuffer] = _rawBuffer.duplicate()
+	dict[InputBufferState.RefinedBuffer] = _buffer.duplicate()
+	return dict
+
+func _load_state(state : Dictionary) -> void:
+	_pressedButtons = state[InputBufferState.AllPressedButtons]
+	_rawBuffer.clear()
+	_rawBuffer = state[InputBufferState.RawBuffer].duplicate()
+	_buffer.duplicate()
+	_buffer = state[InputBufferState.RefinedBuffer].duplicate()
+	
+func _get_local_input() -> Dictionary:
+	return _readout_buttons()
+	
+func _network_preprocess(input: Dictionary) -> void:
+	var currentInput : int = input[InputBufferState.NewlyPressedButtons]
+	var allPressedButtons : int = input[InputBufferState.AllPressedButtons]
+	_process_new_input(currentInput, allPressedButtons)
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	for key in _baseActionDict:
 		_actionDict[key + "_" + playerIdentifier] = _baseActionDict[key]
 
-
 func _process(_delta):
 	pass
-	
-func update_buffer():
+
+func _readout_buttons() -> Dictionary:
 	var currentInput : int = 0
 	var allPressedButtons : int = 0
 	for key in _actionDict:
@@ -58,12 +88,24 @@ func update_buffer():
 					currentInput |= _baseActionDict[key]
 				elif InputOverseer.input_is_action_just_released(key, deviceId):
 					currentInput |= _baseActionDict[key] <<  GameDatabaseAccessor.GameInputButton.ReleaseBitShiftModifier
+	var outInput = {}
+	outInput[InputBufferState.AllPressedButtons] = allPressedButtons
+	outInput[InputBufferState.NewlyPressedButtons] = currentInput
+	return outInput
+
+func _process_new_input(currentInput : int, allPressedButtons : int):
 	_buffer.push_back(currentInput)
 	_rawBuffer.push_back(allPressedButtons)
 	if _buffer.size() > maxBufferSize:
 		_buffer.pop_front()
 		_rawBuffer.pop_front()
 	_pressedButtons = allPressedButtons
+	
+func update_buffer():
+	var newInput = _readout_buttons()
+	var currentInput : int = newInput[InputBufferState.NewlyPressedButtons]
+	var allPressedButtons : int = newInput[InputBufferState.AllPressedButtons]
+	_process_new_input(currentInput, allPressedButtons)
 
 func get_current_buffer() -> Array[int]:
 	return _buffer

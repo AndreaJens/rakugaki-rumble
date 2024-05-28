@@ -10,6 +10,7 @@ var _cameraLogicalPosition : Vector2i
 @onready var character2 : Character = $Characters/Character2
 var _hitFreezeFrames : int = -1
 var _comboHitFreeze : bool = false
+var networkMode : bool = false
 
 enum HitDetectionFlags {
 	HasHit = 0,
@@ -17,7 +18,6 @@ enum HitDetectionFlags {
 	DamageToApply = 2,
 	MeterGain = 3
 }
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#character2/Sprite2D.flip_h = true
@@ -55,21 +55,17 @@ func _update_character_state():
 	
 	if character1.can_turn_around():
 		if character1.characterState.logicalPosition.x <= character2.characterState.logicalPosition.x:
-			character1.onLeftSide = true 
-			#character1.get_sprite().flip_h = false
+			character1.set_on_left_side(true) 
 			character1.scale = Vector2(1, 1)
 		else:
-			character1.onLeftSide = false 
+			character1.set_on_left_side(false) 
 			character1.scale = Vector2(-1, 1)
-			#character1.get_sprite().flip_h = true
 	if character2.can_turn_around():
 		if character2.characterState.logicalPosition.x < character1.characterState.logicalPosition.x:
-			character2.onLeftSide = true 
+			character2.set_on_left_side(true) 
 			character2.scale = Vector2(1, 1)
-			#character2.get_sprite().flip_h = false
 		else:
-			character2.onLeftSide = false 
-			#character2.get_sprite().flip_h = true
+			character2.set_on_left_side(false) 
 			character2.scale = Vector2(-1, 1)
 		
 func _adjust_character_momentum(character : Character):
@@ -216,17 +212,19 @@ func _update_hud():
 		$Canvas/Hud/ComboCounter2.scale.x = 0.7
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
+	if networkMode:
+		return
 	_update_system_input()
 	_update_character_input()
 	if _hitFreezeFrames >= 0:
 		_hitFreezeFrames -= 1
 		camera.zoom = Vector2(1.1, 1.1)
-		character1.pause_animation()
-		character2.pause_animation()
+		#character1.pause_animation()
+		#character2.pause_animation()
 		if _hitFreezeFrames == 0:
 			_comboHitFreeze = false
-			character1.resume_animation()
-			character2.resume_animation()
+			#character1.resume_animation()
+			#character2.resume_animation()
 	else:
 		camera.zoom = Vector2(1., 1.)
 		_update_character_state()	
@@ -239,3 +237,24 @@ func _process(_delta):
 		_update_hit_detection()
 	_update_hud()
 	
+func _network_process(_input: Dictionary) -> void:
+	if _hitFreezeFrames >= 0:
+		_hitFreezeFrames -= 1
+		camera.zoom = Vector2(1.1, 1.1)
+		#character1.pause_animation()
+		#character2.pause_animation()
+		if _hitFreezeFrames == 0:
+			_comboHitFreeze = false
+			#character1.resume_animation()
+			#character2.resume_animation()
+	else:
+		camera.zoom = Vector2(1., 1.)
+		_update_character_state()	
+		_adjust_character_momentum(character1)
+		_adjust_character_momentum(character2)
+		_update_camera()
+		_constrain_character_position_to_camera_viewport(character1)
+		_constrain_character_position_to_camera_viewport(character2)
+		collisionManager.update_character_position_on_collision(character1, character2, stage)
+		_update_hit_detection()
+	_update_hud()
