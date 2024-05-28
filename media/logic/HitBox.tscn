@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy2ewlewinwbv"]
+
+[ext_resource type="Script" path="res://scripts/hitbox.gd" id="1_lbq3n"]
+[ext_resource type="Texture2D" uid="uid://bhtvqpaccmrgl" path="res://media/logic/hitboxTex.png" id="2_58gdn"]
+
+[node name="HitBox" type="Node2D"]
+script = ExtResource("1_lbq3n")
+
+[node name="Box" type="Sprite2D" parent="."]
+z_index = 100
+texture_repeat = 2
+texture = ExtResource("2_58gdn")
+region_enabled = true
+region_rect = Rect2(0, 0, 100, 100)

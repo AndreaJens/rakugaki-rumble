@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=4 format=3 uid="uid://cvo76pti88wvv"]
+
+[ext_resource type="Resource" uid="uid://csyfkukhxifa0" path="res://media/characters/all_chara_common/moves/cancels/jc_on_hit.tres" id="1_xeyj7"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="2_b6e2m"]
+[ext_resource type="Resource" uid="uid://cofxbc52qbcei" path="res://media/characters/chara_naomi/moves/cancels/to_adv_kick_hit.tres" id="2_o1ljo"]
+
+[resource]
+script = ExtResource("2_b6e2m")
+characterState = 0
+internalName = "attack2"
+displayName = ""
+animationName = "attack2"
+startingFrame = 0
+endingFrame = 21
+isHitStunState = false
+keepMomentumPercent = 0
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(5000, 0)
+logicalAccelerationPerFrame = Vector2i(-300, 0)
+input = Array[int]([1, 16])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_xeyj7"), ExtResource("2_o1ljo")])
+guardFrames = Vector2i(-1, -1)
+bufferStartLeniency = 5
+bufferLengthLeniency = 3
+useRawBuffer = false

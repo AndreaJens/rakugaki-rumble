@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=2 format=3 uid="uid://cfys72n7q1uwv"]
+
+[ext_resource type="Script" path="res://scripts/move.gd" id="2_4npbd"]
+
+[resource]
+script = ExtResource("2_4npbd")
+characterState = 0
+internalName = "attackJumpKick"
+displayName = ""
+animationName = "attack_jumpKick"
+startingFrame = 3
+endingFrame = 24
+isHitStunState = false
+keepMomentumPercent = 100
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(30000, -20000)
+logicalAccelerationPerFrame = Vector2i(-500, 2000)
+input = Array[int]([1, 5, 4, 16])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([])
+guardFrames = Vector2i(-1, -1)
+bufferStartLeniency = 5
+bufferLengthLeniency = 10
+useRawBuffer = false

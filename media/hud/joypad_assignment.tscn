@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://bnvhvrlrbjles"]
+
+[ext_resource type="Texture2D" uid="uid://cmgpjjhaegknl" path="res://media/hud/controllerSelect.png" id="1_kbh3g"]
+[ext_resource type="Script" path="res://scripts/joypadAssignment.gd" id="1_yujl2"]
+[ext_resource type="Texture2D" uid="uid://crpau7fso5ht0" path="res://media/hud/joy.png" id="2_hhuom"]
+[ext_resource type="Texture2D" uid="uid://bxqilhbqug2gd" path="res://media/hud/joyP1.png" id="3_7errx"]
+[ext_resource type="Texture2D" uid="uid://dq4sp3j4pt7mc" path="res://media/hud/joyP2.png" id="4_pe80u"]
+[ext_resource type="Texture2D" uid="uid://1ffp14trw62q" path="res://media/hud/ready.png" id="5_4k606"]
+[ext_resource type="Texture2D" uid="uid://cw01fttpgqul3" path="res://media/hud/kb.png" id="6_jvr54"]
+[ext_resource type="Texture2D" uid="uid://bid1cjnqcww0g" path="res://media/hud/selectP2.png" id="7_r7unp"]
+[ext_resource type="Texture2D" uid="uid://g2wrhji86gab" path="res://media/hud/selectP1.png" id="8_s85x5"]
+
+[node name="JoypadAssignment" type="Node2D"]
+script = ExtResource("1_yujl2")
+joyGeneric = ExtResource("2_hhuom")
+joyPlayer1 = ExtResource("3_7errx")
+joyPlayer2 = ExtResource("4_pe80u")
+readyTex = ExtResource("5_4k606")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("1_kbh3g")
+centered = false
+
+[node name="Joypads" type="Node2D" parent="."]
+
+[node name="Joystick1" type="Sprite2D" parent="Joypads"]
+position = Vector2(640, 180)
+texture = ExtResource("2_hhuom")
+
+[node name="Joystick2" type="Sprite2D" parent="Joypads"]
+position = Vector2(640, 280)
+texture = ExtResource("2_hhuom")
+
+[node name="Joystick3" type="Sprite2D" parent="Joypads"]
+position = Vector2(640, 380)
+texture = ExtResource("2_hhuom")
+
+[node name="Joystick4" type="Sprite2D" parent="Joypads"]
+position = Vector2(640, 480)
+texture = ExtResource("2_hhuom")
+
+[node name="Joystick5" type="Sprite2D" parent="Joypads"]
+position = Vector2(640, 580)
+texture = ExtResource("2_hhuom")
+
+[node name="KB" type="Node2D" parent="."]
+
+[node name="KB1" type="Sprite2D" parent="KB"]
+position = Vector2(1040, 40)
+texture = ExtResource("6_jvr54")
+
+[node name="KB2" type="Sprite2D" parent="KB"]
+position = Vector2(240, 40)
+texture = ExtResource("6_jvr54")
+
+[node name="Confirm" type="Node2D" parent="."]
+
+[node name="ConfirmP2" type="Sprite2D" parent="Confirm"]
+position = Vector2(1190, 675)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("7_r7unp")
+
+[node name="ConfirmP1" type="Sprite2D" parent="Confirm"]
+position = Vector2(90, 675)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("8_s85x5")

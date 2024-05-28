@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MoveCancelRoute" load_steps=2 format=3 uid="uid://60uwhp2o0kdx"]
+
+[ext_resource type="Script" path="res://scripts/cancelRoute.gd" id="1_xqccy"]
+
+[resource]
+script = ExtResource("1_xqccy")
+targetMoveName = "attack1Dash"
+startFrame = -1
+endFrame = -1
+onHit = true
+onBlock = true
+onWhiff = true
+automaticCancelOnLanding = false
+activeIfNothingPressed = false
+autoCancelWhenValid = false
+autoPerformAtMoveEnd = false

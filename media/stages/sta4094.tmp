@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://c07vx7o11k05c"]
+
+[ext_resource type="Script" path="res://media/stages/stage_test.gd" id="1_xmmq4"]
+[ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="2_8rf0r"]
+[ext_resource type="Script" path="res://scripts/InputBufferManager.gd" id="2_o2pvg"]
+[ext_resource type="PackedScene" uid="uid://d1k45q87lrm2u" path="res://media/characters/chara_naomi/characterNaomi.tscn" id="2_ykrlp"]
+[ext_resource type="Script" path="res://scripts/stage.gd" id="3_bjea5"]
+[ext_resource type="Script" path="res://scripts/CollisionManager.gd" id="5_avhut"]
+
+[node name="GameSceneTest" type="Node2D"]
+script = ExtResource("1_xmmq4")
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(567, 318)
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="InputManagerP1" type="Node" parent="."]
+script = ExtResource("2_o2pvg")
+deviceId = 0
+
+[node name="InputManagerP2" type="Node" parent="."]
+script = ExtResource("2_o2pvg")
+playerIdentifier = "p2"
+
+[node name="Stage" type="Node2D" parent="."]
+script = ExtResource("3_bjea5")
+stageSize = Vector2i(1880, 636)
+stageTexture = ExtResource("2_8rf0r")
+
+[node name="StageSprite" type="Sprite2D" parent="Stage"]
+position = Vector2(567, 318)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_8rf0r")
+
+[node name="Character1" parent="." instance=ExtResource("2_ykrlp")]
+position = Vector2(213, 610)
+onLeftSide = true
+
+[node name="Character2" parent="." instance=ExtResource("2_ykrlp")]
+position = Vector2(1037, 610)
+
+[node name="CollisionManager" type="Node" parent="."]
+script = ExtResource("5_avhut")

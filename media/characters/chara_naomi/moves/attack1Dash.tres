@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=3 format=3 uid="uid://u5qkprdh3f63"]
+
+[ext_resource type="Resource" uid="uid://csyfkukhxifa0" path="res://media/characters/all_chara_common/moves/cancels/jc_on_hit.tres" id="1_0r7sq"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="2_g5kyd"]
+
+[resource]
+script = ExtResource("2_g5kyd")
+characterState = 0
+internalName = "attack1Dash"
+displayName = ""
+animationName = "attack1"
+startingFrame = 6
+endingFrame = 26
+isHitStunState = false
+keepMomentumPercent = 100
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(20000, 0)
+logicalAccelerationPerFrame = Vector2i(-1500, 0)
+input = Array[int]([16])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_0r7sq")])
+guardFrames = Vector2i(-1, -1)
+bufferStartLeniency = 5
+bufferLengthLeniency = 10
+useRawBuffer = false

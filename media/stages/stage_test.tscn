@@ -1,0 +1,138 @@
+[gd_scene load_steps=15 format=3 uid="uid://c07vx7o11k05c"]
+
+[ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_xmmq4"]
+[ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="2_8rf0r"]
+[ext_resource type="Script" path="res://scripts/InputBufferManager.gd" id="2_o2pvg"]
+[ext_resource type="PackedScene" uid="uid://d1k45q87lrm2u" path="res://media/characters/chara_naomi/characterNaomi.tscn" id="2_ykrlp"]
+[ext_resource type="Script" path="res://scripts/stage.gd" id="3_bjea5"]
+[ext_resource type="Script" path="res://scripts/CollisionManager.gd" id="5_avhut"]
+[ext_resource type="Texture2D" uid="uid://bi2nxs31s558p" path="res://media/hud/blackPaper.png" id="6_7wx2e"]
+[ext_resource type="Texture2D" uid="uid://chacxkkh0a044" path="res://media/hud/barUnder_2.png" id="6_o3lni"]
+[ext_resource type="Texture2D" uid="uid://rlp54xxypgt1" path="res://media/hud/comboCounter.png" id="7_fac75"]
+[ext_resource type="Texture2D" uid="uid://cbljd7fwsals3" path="res://media/hud/barUnder.png" id="8_u8mdb"]
+[ext_resource type="Texture2D" uid="uid://dfw40muvkdqep" path="res://media/hud/barOver.png" id="9_e4c1u"]
+[ext_resource type="Texture2D" uid="uid://dbol5vang2oxw" path="res://media/hud/tapeOverlay.png" id="9_uk4xi"]
+[ext_resource type="Texture2D" uid="uid://dcmxaism2tms1" path="res://media/hud/tapeOverlay2.png" id="10_5nypi"]
+[ext_resource type="Texture2D" uid="uid://bt240ifwrpb5p" path="res://media/hud/barFull.png" id="10_s6m8d"]
+
+[node name="GameSceneTest" type="Node2D"]
+script = ExtResource("1_xmmq4")
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(566, 319)
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="CollisionManager" type="Node" parent="."]
+script = ExtResource("5_avhut")
+
+[node name="InputManagerP1" type="Node" parent="."]
+script = ExtResource("2_o2pvg")
+deviceId = 0
+
+[node name="InputManagerP2" type="Node" parent="."]
+script = ExtResource("2_o2pvg")
+playerIdentifier = "p2"
+
+[node name="Stage" type="Node2D" parent="."]
+script = ExtResource("3_bjea5")
+stageSize = Vector2i(1878, 840)
+characterOffset = Vector2i(300, 720)
+stageTexture = ExtResource("2_8rf0r")
+
+[node name="StageSprite" type="Sprite2D" parent="Stage"]
+position = Vector2(567, 318)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_8rf0r")
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="Hud" type="Control" parent="Canvas"]
+custom_minimum_size = Vector2(1134, 636)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -567.0
+offset_top = -318.0
+offset_right = 567.0
+offset_bottom = 318.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Sprite2D" parent="Canvas/Hud"]
+position = Vector2(560, -234)
+texture = ExtResource("6_7wx2e")
+
+[node name="Bar1Bg" type="Sprite2D" parent="Canvas/Hud"]
+position = Vector2(88, 14)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("6_o3lni")
+centered = false
+
+[node name="Bar2Bg" type="Sprite2D" parent="Canvas/Hud"]
+position = Vector2(1049, 14)
+scale = Vector2(-0.6, 0.6)
+texture = ExtResource("6_o3lni")
+centered = false
+
+[node name="HpBarChar1" type="TextureProgressBar" parent="Canvas/Hud"]
+layout_mode = 0
+offset_left = 108.0
+offset_top = 36.0
+offset_right = 701.0
+offset_bottom = 98.0
+scale = Vector2(0.6, 0.6)
+value = 35.0
+fill_mode = 1
+texture_under = ExtResource("8_u8mdb")
+texture_over = ExtResource("9_e4c1u")
+texture_progress = ExtResource("10_s6m8d")
+
+[node name="HpBarChar2" type="TextureProgressBar" parent="Canvas/Hud"]
+layout_mode = 0
+offset_left = 1029.0
+offset_top = 36.0
+offset_right = 1622.0
+offset_bottom = 96.0
+scale = Vector2(-0.6, 0.6)
+value = 53.0
+fill_mode = 1
+texture_under = ExtResource("8_u8mdb")
+texture_over = ExtResource("9_e4c1u")
+texture_progress = ExtResource("10_s6m8d")
+
+[node name="overlay1" type="Sprite2D" parent="Canvas/Hud"]
+position = Vector2(291, 59)
+scale = Vector2(0.553774, 0.538278)
+texture = ExtResource("9_uk4xi")
+
+[node name="overlay2" type="Sprite2D" parent="Canvas/Hud"]
+position = Vector2(838, 51)
+scale = Vector2(0.571698, 0.563736)
+texture = ExtResource("10_5nypi")
+
+[node name="ComboCounter1" type="Sprite2D" parent="Canvas/Hud"]
+position = Vector2(337, 132)
+rotation = -0.207694
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("7_fac75")
+
+[node name="ComboCounter2" type="Sprite2D" parent="Canvas/Hud"]
+position = Vector2(790, 130)
+rotation = 0.139626
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("7_fac75")
+
+[node name="Characters" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Character1" parent="Characters" instance=ExtResource("2_ykrlp")]
+position = Vector2(213, 610)
+onLeftSide = true
+
+[node name="Character2" parent="Characters" instance=ExtResource("2_ykrlp")]
+position = Vector2(1037, 610)

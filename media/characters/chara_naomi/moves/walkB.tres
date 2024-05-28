@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=4 format=3 uid="uid://bytmk4u3xtkwc"]
+
+[ext_resource type="Resource" uid="uid://bbpnd2ay6mxes" path="res://media/characters/all_chara_common/moves/cancels/kara_backward_jump.tres" id="1_rj2y8"]
+[ext_resource type="Resource" uid="uid://dkvcd6s744tx2" path="res://media/characters/all_chara_common/moves/cancels/to_idle_landing.tres" id="1_snwmk"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="6_sboek"]
+
+[resource]
+script = ExtResource("6_sboek")
+characterState = 0
+internalName = "walkBOnce"
+displayName = ""
+animationName = "walkB"
+startingFrame = 0
+endingFrame = 12
+isHitStunState = false
+keepMomentumPercent = 0
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(-15000, -20000)
+logicalAccelerationPerFrame = Vector2i(0, 2500)
+input = Array[int]([8])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_rj2y8"), ExtResource("1_snwmk")])
+guardFrames = Vector2i(-1, -1)
+bufferStartLeniency = 3
+bufferLengthLeniency = 2
+useRawBuffer = true

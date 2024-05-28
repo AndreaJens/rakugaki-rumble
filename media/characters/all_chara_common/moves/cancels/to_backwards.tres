@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MoveCancelRoute" load_steps=2 format=3 uid="uid://bnj601as867sa"]
+
+[ext_resource type="Script" path="res://scripts/cancelRoute.gd" id="1_yd4dj"]
+
+[resource]
+script = ExtResource("1_yd4dj")
+targetMoveName = "walkB"
+startFrame = -1
+endFrame = -1
+onHit = true
+onBlock = true
+onWhiff = true
+automaticCancelOnLanding = false
+activeIfNothingPressed = false

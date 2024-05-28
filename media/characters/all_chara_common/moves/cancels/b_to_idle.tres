@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MoveCancelRoute" load_steps=2 format=3 uid="uid://dh4pg4f82e5o5"]
+
+[ext_resource type="Script" path="res://scripts/cancelRoute.gd" id="1_gp06p"]
+
+[resource]
+script = ExtResource("1_gp06p")
+targetMoveName = "b2idle"
+startFrame = -1
+endFrame = -1
+onHit = true
+onBlock = true
+onWhiff = true
+automaticCancelOnLanding = false
+activeIfNothingPressed = false

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=2 format=3 uid="uid://eihlj5s4au5f"]
+
+[ext_resource type="Script" path="res://scripts/move.gd" id="4_vv4l0"]
+
+[resource]
+script = ExtResource("4_vv4l0")
+characterState = 0
+internalName = "knockdown"
+displayName = ""
+animationName = "knockdown"
+startingFrame = 0
+endingFrame = 15
+isHitStunState = false
+keepMomentumPercent = 0
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(0, 0)
+logicalAccelerationPerFrame = Vector2i(0, 0)
+input = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([])
+guardFrames = Vector2i(-1, -1)
+bufferStartLeniency = 3
+bufferLengthLeniency = 10
+useRawBuffer = false
