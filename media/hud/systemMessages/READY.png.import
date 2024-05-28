@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rlp54xxypgt1"
-path="res://.godot/imported/comboCounter.png-58ed10822a82198f7433322f16de1e3d.ctex"
+uid="uid://duoiyrihmo6pt"
+path="res://.godot/imported/READY.png-e275de891ecf7dca71e6e1e22f5203e4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://media/hud/comboCounter.png"
-dest_files=["res://.godot/imported/comboCounter.png-58ed10822a82198f7433322f16de1e3d.ctex"]
+source_file="res://media/hud/systemMessages/READY.png"
+dest_files=["res://.godot/imported/READY.png-e275de891ecf7dca71e6e1e22f5203e4.ctex"]
 
 [params]
 

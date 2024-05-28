@@ -8,9 +8,12 @@ extends Node2D
 var _cameraLogicalPosition : Vector2i
 @onready var character1 : Character = $Characters/Character1
 @onready var character2 : Character = $Characters/Character2
+@onready var hudMain : HudManager = $Canvas/Hud
 var _hitFreezeFrames : int = -1
 var _comboHitFreeze : bool = false
+var _roundRestartCounter : int = -1
 var networkMode : bool = false
+@export var preventDeath : bool = false
 
 enum HitDetectionFlags {
 	HasHit = 0,
@@ -21,6 +24,11 @@ enum HitDetectionFlags {
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#character2/Sprite2D.flip_h = true
+	_reset_round()
+	_init_hud()
+	
+func _reset_round():
+	hudMain.hide_message()
 	stage.update_stage_position()
 	var stagePos = stage.position * GameDatabaseAccessor.screenCoordMultiplierInt
 	var charOffset = stage.characterOffset * GameDatabaseAccessor.screenCoordMultiplierInt
@@ -41,8 +49,14 @@ func _update_system_input():
 	if InputOverseer.input_is_action_just_pressed_kb("toggle_boxes_debug"):
 			GameDatabaseAccessor.showBoxes = !GameDatabaseAccessor.showBoxes
 	if InputOverseer.input_is_action_just_pressed_kb("replenish_healthbars_debug"):
+			if character1.is_ko():
+				character1.reset_character_to_idle_full_health()
+			if character2.is_ko():
+				character2.reset_character_to_idle_full_health()
+			_roundRestartCounter = -1
 			character1.characterState.currentHealth = character1.characterData.characterMaxHealth
 			character2.characterState.currentHealth = character2.characterData.characterMaxHealth
+			hudMain.hide_message()
 
 func _update_character_input():
 	inputManagerP1.update_buffer()
@@ -52,6 +66,9 @@ func _update_character_state():
 	
 	character1.update(inputManagerP1)
 	character2.update(inputManagerP2)
+	
+	character1.immortal = preventDeath
+	character2.immortal = preventDeath
 	
 	if character1.can_turn_around():
 		if character1.characterState.logicalPosition.x <= character2.characterState.logicalPosition.x:
@@ -191,25 +208,27 @@ func _update_hit_detection():
 		character1.comboCounter = 0
 		var _success = character1.apply_move_by_name(p2AttackResult[HitDetectionFlags.TargetReaction])
 
+func _init_hud():
+	$Canvas/Hud/CharacterName1.texture = character1.characterData.characterNameTexture
+	$Canvas/Hud/CharacterName1.position.x = $Canvas/Hud/HpBarChar1.position.x
+	$Canvas/Hud/CharacterName2.texture = character2.characterData.characterNameTexture
+	if $Canvas/Hud/CharacterName2.texture:
+		$Canvas/Hud/CharacterName2.position.x = (
+			$Canvas/Hud/HpBarChar2.position.x - 
+			$Canvas/Hud/CharacterName2.texture.get_width() * 
+			$Canvas/Hud/CharacterName2.scale.x)
+	$Canvas/Hud/CharacterName1.visible = true
+	$Canvas/Hud/CharacterName2.visible = true
+	
 func _update_hud():
-	$Canvas/Hud/HpBarChar1.max_value = character1.characterData.characterMaxHealth
-	$Canvas/Hud/HpBarChar1.value = character1.characterState.currentHealth
-	$Canvas/Hud/HpBarChar2.max_value = character2.characterData.characterMaxHealth
-	$Canvas/Hud/HpBarChar2.value = character2.characterState.currentHealth
-	if character1.comboCounter > 0:
-		$Canvas/Hud/ComboCounter1.visible = true
-	else:
-		$Canvas/Hud/ComboCounter1.visible = false
-	if character2.comboCounter > 0:
-		$Canvas/Hud/ComboCounter2.visible = true
-	else:
-		$Canvas/Hud/ComboCounter2.visible = false
+	hudMain.update(character1, character2)
 	if _hitFreezeFrames >= 5 and _comboHitFreeze:
-		$Canvas/Hud/ComboCounter1.scale.x = 1.3
-		$Canvas/Hud/ComboCounter2.scale.x = 1.3
+		hudMain.updateComboCounterZoom(1.3)
 	else:
-		$Canvas/Hud/ComboCounter1.scale.x = 0.7
-		$Canvas/Hud/ComboCounter2.scale.x = 0.7
+		hudMain.updateComboCounterZoom(0.7)
+	if ((character1.is_ko() and !character1.is_airborne()) or 
+		(character2.is_ko() and !character2.is_airborne())) and _roundRestartCounter < 0:
+		_roundRestartCounter = 120
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if networkMode:
@@ -219,13 +238,14 @@ func _process(_delta):
 	if _hitFreezeFrames >= 0:
 		_hitFreezeFrames -= 1
 		camera.zoom = Vector2(1.1, 1.1)
-		#character1.pause_animation()
-		#character2.pause_animation()
 		if _hitFreezeFrames == 0:
 			_comboHitFreeze = false
-			#character1.resume_animation()
-			#character2.resume_animation()
 	else:
+		if _roundRestartCounter > 0:
+			_roundRestartCounter -= 1
+			if _roundRestartCounter == 0:
+				_roundRestartCounter = -1
+				_reset_round()
 		camera.zoom = Vector2(1., 1.)
 		_update_character_state()	
 		_adjust_character_momentum(character1)

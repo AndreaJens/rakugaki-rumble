@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c07vx7o11k05c"]
+[gd_scene load_steps=20 format=3 uid="uid://c07vx7o11k05c"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_xmmq4"]
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="2_8rf0r"]
@@ -7,16 +7,22 @@
 [ext_resource type="Script" path="res://scripts/stage.gd" id="3_bjea5"]
 [ext_resource type="Script" path="res://scripts/CollisionManager.gd" id="5_avhut"]
 [ext_resource type="Texture2D" uid="uid://bi2nxs31s558p" path="res://media/hud/blackPaper.png" id="6_7wx2e"]
+[ext_resource type="Script" path="res://scripts/Hud.gd" id="6_8oj7r"]
 [ext_resource type="Texture2D" uid="uid://chacxkkh0a044" path="res://media/hud/barUnder_2.png" id="6_o3lni"]
-[ext_resource type="Texture2D" uid="uid://rlp54xxypgt1" path="res://media/hud/comboCounter.png" id="7_fac75"]
+[ext_resource type="Texture2D" uid="uid://rlp54xxypgt1" path="res://media/hud/systemMessages/comboCounter.png" id="7_fac75"]
+[ext_resource type="Texture2D" uid="uid://duoiyrihmo6pt" path="res://media/hud/systemMessages/READY.png" id="8_sxsep"]
 [ext_resource type="Texture2D" uid="uid://cbljd7fwsals3" path="res://media/hud/barUnder.png" id="8_u8mdb"]
+[ext_resource type="Texture2D" uid="uid://c4tbln5cbmxfo" path="res://media/hud/systemMessages/ENGAGE.png" id="9_3pmh2"]
 [ext_resource type="Texture2D" uid="uid://dfw40muvkdqep" path="res://media/hud/barOver.png" id="9_e4c1u"]
 [ext_resource type="Texture2D" uid="uid://dbol5vang2oxw" path="res://media/hud/tapeOverlay.png" id="9_uk4xi"]
 [ext_resource type="Texture2D" uid="uid://dcmxaism2tms1" path="res://media/hud/tapeOverlay2.png" id="10_5nypi"]
 [ext_resource type="Texture2D" uid="uid://bt240ifwrpb5p" path="res://media/hud/barFull.png" id="10_s6m8d"]
+[ext_resource type="Texture2D" uid="uid://cdri01htadvuu" path="res://media/characters/chara_naomi/sprites/name.png" id="11_ccb2l"]
+[ext_resource type="Texture2D" uid="uid://cjkjbei8cjcsc" path="res://media/hud/systemMessages/KO.png" id="16_cynt4"]
 
 [node name="GameSceneTest" type="Node2D"]
 script = ExtResource("1_xmmq4")
+preventDeath = true
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(566, 319)
@@ -62,6 +68,10 @@ offset_right = 567.0
 offset_bottom = 318.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("6_8oj7r")
+koTexture = ExtResource("16_cynt4")
+readyTexture = ExtResource("8_sxsep")
+engageTexture = ExtResource("9_3pmh2")
 
 [node name="Background" type="Sprite2D" parent="Canvas/Hud"]
 position = Vector2(560, -234)
@@ -86,7 +96,7 @@ offset_top = 36.0
 offset_right = 701.0
 offset_bottom = 98.0
 scale = Vector2(0.6, 0.6)
-value = 35.0
+value = 50.0
 fill_mode = 1
 texture_under = ExtResource("8_u8mdb")
 texture_over = ExtResource("9_e4c1u")
@@ -99,11 +109,25 @@ offset_top = 36.0
 offset_right = 1622.0
 offset_bottom = 96.0
 scale = Vector2(-0.6, 0.6)
-value = 53.0
+value = 50.0
 fill_mode = 1
 texture_under = ExtResource("8_u8mdb")
 texture_over = ExtResource("9_e4c1u")
 texture_progress = ExtResource("10_s6m8d")
+
+[node name="CharacterName1" type="Sprite2D" parent="Canvas/Hud"]
+visible = false
+position = Vector2(189, 70)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("11_ccb2l")
+centered = false
+
+[node name="CharacterName2" type="Sprite2D" parent="Canvas/Hud"]
+visible = false
+position = Vector2(754, 70)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("11_ccb2l")
+centered = false
 
 [node name="overlay1" type="Sprite2D" parent="Canvas/Hud"]
 position = Vector2(291, 59)
@@ -126,6 +150,10 @@ position = Vector2(790, 130)
 rotation = 0.139626
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("7_fac75")
+
+[node name="SystemMessage" type="Sprite2D" parent="Canvas/Hud"]
+position = Vector2(566, 319)
+texture = ExtResource("16_cynt4")
 
 [node name="Characters" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true

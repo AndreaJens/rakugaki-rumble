@@ -10,7 +10,8 @@ enum ReservedMoveIndex
 	Idle = 0,
 	Falling = 1,
 	HurtGround = 2,
-	HurtAir = 3
+	HurtAir = 3,
+	Ko = 4,
 }
 
 @export var characterData : CharacterData
@@ -23,6 +24,7 @@ var currentMove : CharacterMove = null
 var hitBoxes : Array[HitBox] = []
 var hurtBoxes : Array[HurtBox] = []
 var comboCounter : int = 0
+@export var immortal : bool = false
 
 # FUNCTIONS FOR SNOPEK ROLLBACK ADDON
 func _save_state() -> Dictionary:
@@ -82,11 +84,22 @@ func reset_character(resetMeter : bool = false):
 		characterState.currentMeter = 0
 	characterState.logicalPosition = initialLogicalPosition
 	characterState.logicalVelocity = Vector2i(0, 0)
+	characterState.logicalAcceleration = Vector2i(0, 0)
 	characterState.moveId = ReservedMoveIndex.Idle
 	characterState.currentFrame = characterData.characterMoves[characterState.moveId].startingFrame
 	deactivate_boxes()
 	apply_new_move( characterData.characterMoves[characterState.moveId] )
 	update_screen_position()
+	_update_boxes()
+
+func reset_character_to_idle_full_health():
+	characterState.currentHealth = characterData.characterMaxHealth
+	characterState.logicalVelocity = Vector2i(0, 0)
+	characterState.logicalAcceleration = Vector2i(0, 0)
+	characterState.moveId = ReservedMoveIndex.Idle
+	characterState.currentFrame = characterData.characterMoves[characterState.moveId].startingFrame
+	deactivate_boxes()
+	apply_new_move( characterData.characterMoves[characterState.moveId] )
 	_update_boxes()
 
 func _clamp_state_variables():
@@ -150,7 +163,7 @@ func is_airborne() -> bool:
 	return characterState.characterStanceType == Character.State.Air 
 	
 func is_ko() -> bool:
-	return characterState.currentHealth <= 0
+	return !immortal and characterState.currentHealth <= 0
 
 func _apply_move_load_state():
 	deactivate_boxes()
@@ -321,6 +334,11 @@ func _update_current_move( inputManager : InputBufferManager ):
 		characterState.currentFrame += 1
 		set_animation_frame(characterState.currentFrame)
 		# look for followups
+		if is_ko():
+			if characterState.moveId != ReservedMoveIndex.Ko:
+				if !is_airborne():
+					apply_new_move(characterData.characterMoves[ReservedMoveIndex.Ko])
+			return
 		for followup in currentMove.cancelRoutes:
 			if !followup.is_valid(characterState.currentFrame):
 				continue

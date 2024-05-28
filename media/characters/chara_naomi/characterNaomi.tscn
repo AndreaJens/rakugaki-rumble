@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://d1k45q87lrm2u"]
+[gd_scene load_steps=25 format=3 uid="uid://d1k45q87lrm2u"]
 
 [ext_resource type="Texture2D" uid="uid://doqv7ldx2lsqk" path="res://media/characters/chara_naomi/sprites/naomi1.png" id="1_kcwyh"]
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_qst3w"]
@@ -194,6 +194,108 @@ tracks/13/keys = {
 "values": ["hurtG"]
 }
 
+[sub_resource type="Animation" id="Animation_xu7d6"]
+resource_name = "ko"
+length = 0.666668
+loop_mode = 1
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [12]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1e-05),
+"update": 0,
+"values": [Vector2(0, -330)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:texture")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_kcwyh")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PushBox:active")
+tracks/3/interp = 0
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PushBox:boxSize")
+tracks/4/interp = 0
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2i(0, -50000, 300000, 150000)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D:z_index")
+tracks/5/interp = 0
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("HurtBoxes/HurtBox:active")
+tracks/6/interp = 0
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("HurtBoxes/HurtBox:boxSize")
+tracks/7/interp = 0
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2i(0, -50000, 250000, 150000)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ylmg1"]
 _data = {
 "RESET": SubResource("Animation_lbo0m"),
@@ -208,6 +310,7 @@ _data = {
 "jumpB": ExtResource("13_infkm"),
 "jumpF": ExtResource("14_qlbv2"),
 "knockdown": ExtResource("15_aymfn"),
+"ko": SubResource("Animation_xu7d6"),
 "walkB": ExtResource("16_oqlyk"),
 "walkF": ExtResource("17_3ja5f")
 }
