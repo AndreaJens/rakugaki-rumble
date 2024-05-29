@@ -1,8 +1,11 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=4 format=3 uid="uid://cvo76pti88wvv"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=7 format=3 uid="uid://cvo76pti88wvv"]
 
 [ext_resource type="Resource" uid="uid://csyfkukhxifa0" path="res://media/characters/all_chara_common/moves/cancels/jc_on_hit.tres" id="1_xeyj7"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="2_b6e2m"]
 [ext_resource type="Resource" uid="uid://cofxbc52qbcei" path="res://media/characters/chara_naomi/moves/cancels/to_adv_kick_hit.tres" id="2_o1ljo"]
+[ext_resource type="Resource" uid="uid://baswyhkygam8p" path="res://media/characters/chara_naomi/moves/cancels/to_jknee_hit.tres" id="3_wufs5"]
+[ext_resource type="Resource" uid="uid://d2quvuuy1qvv0" path="res://media/characters/all_chara_common/moves/cancels/jc_b_on_hit.tres" id="4_exl53"]
+[ext_resource type="Resource" uid="uid://d2nccsnvqunof" path="res://media/characters/all_chara_common/moves/cancels/jc_n_on_hit.tres" id="5_ewm0h"]
 
 [resource]
 script = ExtResource("2_b6e2m")
@@ -15,11 +18,11 @@ endingFrame = 21
 isHitStunState = false
 keepMomentumPercent = 0
 loop = false
-canTurnMidMove = false
+canTurnMidMove = true
 logicalVelocityPerFrame = Vector2i(5000, 0)
 logicalAccelerationPerFrame = Vector2i(-300, 0)
 input = Array[int]([1, 16])
-cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_xeyj7"), ExtResource("2_o1ljo")])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("2_o1ljo"), ExtResource("3_wufs5"), ExtResource("1_xeyj7"), ExtResource("4_exl53"), ExtResource("5_ewm0h")])
 guardFrames = Vector2i(-1, -1)
 bufferStartLeniency = 5
 bufferLengthLeniency = 3

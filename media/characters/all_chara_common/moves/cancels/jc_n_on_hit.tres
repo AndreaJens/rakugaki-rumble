@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MoveCancelRoute" load_steps=2 format=3 uid="uid://d2nccsnvqunof"]
+
+[ext_resource type="Script" path="res://scripts/cancelRoute.gd" id="1_67lhj"]
+
+[resource]
+script = ExtResource("1_67lhj")
+targetMoveName = "jumpN"
+startFrame = -1
+endFrame = -1
+onHit = true
+onBlock = false
+onWhiff = false
+automaticCancelOnLanding = false
+activeIfNothingPressed = false
+autoCancelWhenValid = false
+autoPerformAtMoveEnd = false

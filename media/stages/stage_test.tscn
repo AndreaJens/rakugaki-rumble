@@ -39,6 +39,7 @@ deviceId = 0
 [node name="InputManagerP2" type="Node" parent="."]
 script = ExtResource("2_o2pvg")
 playerIdentifier = "p2"
+deviceId = 1
 
 [node name="Stage" type="Node2D" parent="."]
 script = ExtResource("3_bjea5")
@@ -54,7 +55,7 @@ texture = ExtResource("2_8rf0r")
 [node name="Canvas" type="CanvasLayer" parent="."]
 layer = 0
 
-[node name="Hud" type="Control" parent="Canvas"]
+[node name="Hud" type="Control" parent="Canvas" node_paths=PackedStringArray("systemMessageBillboard")]
 custom_minimum_size = Vector2(1134, 636)
 layout_mode = 3
 anchors_preset = 8
@@ -72,6 +73,7 @@ script = ExtResource("6_8oj7r")
 koTexture = ExtResource("16_cynt4")
 readyTexture = ExtResource("8_sxsep")
 engageTexture = ExtResource("9_3pmh2")
+systemMessageBillboard = NodePath("../../SystemMessages/System/SystemMessage")
 
 [node name="Background" type="Sprite2D" parent="Canvas/Hud"]
 position = Vector2(560, -234)
@@ -151,10 +153,6 @@ rotation = 0.139626
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("7_fac75")
 
-[node name="SystemMessage" type="Sprite2D" parent="Canvas/Hud"]
-position = Vector2(566, 319)
-texture = ExtResource("16_cynt4")
-
 [node name="Characters" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
 
@@ -163,3 +161,16 @@ position = Vector2(213, 610)
 
 [node name="Character2" parent="Characters" instance=ExtResource("2_ykrlp")]
 position = Vector2(1037, 610)
+
+[node name="SystemMessages" type="CanvasLayer" parent="."]
+
+[node name="System" type="Control" parent="SystemMessages"]
+custom_minimum_size = Vector2(1134, 636)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SystemMessage" type="Sprite2D" parent="SystemMessages/System"]
+position = Vector2(566, 319)
+texture = ExtResource("16_cynt4")

@@ -17,7 +17,7 @@ enum ReservedMoveIndex
 @export var characterData : CharacterData
 @export var initialLogicalPosition : Vector2i = Vector2i(0, 0)
 @onready var characterState : CharacterState = $CharacterState
-@onready var animationPlayer : NetworkAnimationPlayer = $AnimationPlayer
+@onready var animationPlayer : AnimationPlayer = $AnimationPlayer
 var moveNameToIndex : Dictionary = {}
 var currentMove : CharacterMove = null
 @onready var pushBox : MoveBox = $PushBox

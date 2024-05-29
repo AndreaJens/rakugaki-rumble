@@ -26,6 +26,7 @@ func _ready():
 	#character2/Sprite2D.flip_h = true
 	_reset_round()
 	_init_hud()
+	add_to_group('network_sync')
 	
 func _reset_round():
 	hudMain.hide_message()

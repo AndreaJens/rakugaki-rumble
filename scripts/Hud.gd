@@ -9,7 +9,7 @@ enum SystemMessage {
 @export var koTexture : Texture2D
 @export var readyTexture : Texture2D
 @export var engageTexture : Texture2D
-@onready var systemMessageBillboard : Sprite2D = $SystemMessage
+@export var systemMessageBillboard : Sprite2D
 
 var messageToTexture = {}
 # Called when the node enters the scene tree for the first time.

@@ -52,6 +52,7 @@ func _network_preprocess(input: Dictionary) -> void:
 func _ready():
 	for key in _baseActionDict:
 		_actionDict[key + "_" + playerIdentifier] = _baseActionDict[key]
+	add_to_group('network_sync')
 
 func _process(_delta):
 	pass

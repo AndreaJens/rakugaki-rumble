@@ -19,6 +19,10 @@ class_name CharacterMove extends Resource
 @export var bufferLengthLeniency := 10
 @export var useRawBuffer := false
 
+func _conditional_print(obj):
+	if internalName == "attackJumpKick":
+		print(obj)
+
 func check_input_match(inputBuffer : Array[int], onLeftSide : bool = true) -> bool:
 	if input.is_empty():
 		return false
@@ -29,6 +33,7 @@ func check_input_match(inputBuffer : Array[int], onLeftSide : bool = true) -> bo
 	var lowerBound = max(-1, bufferLength - bufferLengthLeniency - bufferStartLeniency)
 	var startupLeniencyCounter = 0
 	var numberOfMatches = 0
+	var currentBufferIndex = bufferLength - 1
 	for i in range(inputLength - 1, -1, -1):
 		var inputToCheck = input[i]
 		if !onLeftSide:
@@ -55,7 +60,9 @@ func check_input_match(inputBuffer : Array[int], onLeftSide : bool = true) -> bo
 				@warning_ignore("int_as_enum_without_cast")
 				inputToCheck &= ~GameDatabaseAccessor.GameInputButton.ReleaseLeft
 				
-		for k in range(bufferLength - 1, lowerBound, -1):
+		var testRangeIndex = currentBufferIndex
+		for k in range(testRangeIndex, lowerBound, -1):
+			currentBufferIndex = k
 			var currentInput = inputBuffer[k]
 			var currentInputIsDirection = currentInput & GameDatabaseAccessor.GameInputButton.AnyDirection
 			var inputToCheckIsDirection = inputToCheck & GameDatabaseAccessor.GameInputButton.AnyDirection
@@ -70,6 +77,14 @@ func check_input_match(inputBuffer : Array[int], onLeftSide : bool = true) -> bo
 				return false
 			if (currentInput & inputToCheck) == inputToCheck:
 				numberOfMatches += 1
+				for j in range(k, lowerBound, -1):
+					currentBufferIndex -= 1
+					var testInput = inputBuffer[j]
+					if (!(testInput & GameDatabaseAccessor.GameInputButton.AnyDirection) or
+						testInput != inputBuffer[k]):
+							break
+				#_conditional_print("match %d %d %d" % [k, currentInput, inputToCheck])
+				#_conditional_print(inputBuffer)
 				break
 		if numberOfMatches >= inputLength:
 			return true

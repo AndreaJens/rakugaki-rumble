@@ -20,5 +20,5 @@ input = Array[int]([1, 5, 4, 16])
 cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([])
 guardFrames = Vector2i(-1, -1)
 bufferStartLeniency = 5
-bufferLengthLeniency = 10
+bufferLengthLeniency = 12
 useRawBuffer = false
