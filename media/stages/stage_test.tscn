@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c07vx7o11k05c"]
+[gd_scene load_steps=26 format=3 uid="uid://c07vx7o11k05c"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_xmmq4"]
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="2_8rf0r"]
@@ -24,11 +24,13 @@
 [ext_resource type="Texture2D" uid="uid://dcjqqkhyf5828" path="res://media/hud/roundWinCounter.png" id="15_13s2k"]
 [ext_resource type="Texture2D" uid="uid://dau2j1nwuiacj" path="res://media/hud/systemMessages/foil.png" id="20_3hgdt"]
 [ext_resource type="Script" path="res://scripts/SystemMessageHud.gd" id="20_4frnj"]
+[ext_resource type="Texture2D" uid="uid://bli3wuidvroat" path="res://media/hud/systemMessages/train.png" id="21_cgrsi"]
 
 [node name="GameSceneTest" type="Node2D"]
 script = ExtResource("1_xmmq4")
 phaseTransitionMaxCounter = 100
 debugMode = true
+preventDeath = true
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(566, 319)
@@ -61,7 +63,7 @@ texture = ExtResource("2_8rf0r")
 [node name="Canvas" type="CanvasLayer" parent="."]
 layer = 0
 
-[node name="Hud" type="Control" parent="Canvas" node_paths=PackedStringArray("systemMessageManager")]
+[node name="Hud" type="Control" parent="Canvas" node_paths=PackedStringArray("systemMessageManager", "trainingMessage")]
 custom_minimum_size = Vector2(1134, 636)
 layout_mode = 3
 anchors_preset = 8
@@ -82,6 +84,7 @@ engageTexture = ExtResource("9_rgnl3")
 roundNeutralTexture = ExtResource("10_l3lhp")
 roundWonTexture = ExtResource("11_efqef")
 systemMessageManager = NodePath("../../SystemMessages/System")
+trainingMessage = NodePath("TrainingModeFlag")
 
 [node name="Background" type="Sprite2D" parent="Canvas/Hud"]
 position = Vector2(560, -234)
@@ -182,6 +185,12 @@ texture = ExtResource("15_13s2k")
 position = Vector2(72, 0)
 scale = Vector2(0.33, 0.33)
 texture = ExtResource("15_13s2k")
+
+[node name="TrainingModeFlag" type="Sprite2D" parent="Canvas/Hud"]
+visible = false
+position = Vector2(567, 53)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("21_cgrsi")
 
 [node name="ComboCounter1" type="Sprite2D" parent="Canvas/Hud"]
 position = Vector2(337, 132)

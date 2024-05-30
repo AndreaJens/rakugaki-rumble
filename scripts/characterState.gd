@@ -16,6 +16,8 @@ enum CharacterStateValues{
 	IsOnLeftSide = 12,
 	ComboCounter = 13,
 	RoundPhaseState = 14,
+	BounceCounter = 15,
+	AffectedByHitFreeze = 16,
 }
 
 @export var logicalPosition : Vector2i = Vector2i(0, 0)
@@ -29,6 +31,8 @@ enum CharacterStateValues{
 @export var currentMoveHasHit : bool = false
 @export var onLeftSide : bool = false
 @export var comboCounter : int = 0
+@export var bounceCounter : int = 0
+@export var affectedByHitFreeze : bool = false
 @export var roundState : SceneGame.RoundPhaseState = SceneGame.RoundPhaseState.ActiveMatch
 
 func _save_state() -> Dictionary:
@@ -48,6 +52,8 @@ func _save_state() -> Dictionary:
 		CharacterStateValues.IsOnLeftSide : onLeftSide,
 		CharacterStateValues.ComboCounter : comboCounter,
 		CharacterStateValues.RoundPhaseState : roundState,
+		CharacterStateValues.BounceCounter : bounceCounter,
+		CharacterStateValues.AffectedByHitFreeze : affectedByHitFreeze,
 	}
 
 func _load_state( state : Dictionary ) -> void:
@@ -66,4 +72,6 @@ func _load_state( state : Dictionary ) -> void:
 	currentMoveHasHit = state[CharacterStateValues.CurrentMoveHasHit]
 	onLeftSide = state[CharacterStateValues.IsOnLeftSide]
 	comboCounter = state[CharacterStateValues.ComboCounter]
+	bounceCounter = state[CharacterStateValues.BounceCounter]
 	roundState = state[CharacterStateValues.RoundPhaseState]
+	affectedByHitFreeze = state[CharacterStateValues.AffectedByHitFreeze]

@@ -86,6 +86,9 @@ func reset_character(resetMeter : bool = false):
 	characterState.logicalAcceleration = Vector2i(0, 0)
 	characterState.moveId = ReservedMoveIndex.Idle
 	characterState.currentFrame = characterData.characterMoves[characterState.moveId].startingFrame
+	characterState.comboCounter = 0
+	characterState.bounceCounter = 0
+	characterState.affectedByHitFreeze = false
 	deactivate_boxes()
 	apply_new_move( characterData.characterMoves[characterState.moveId] )
 	update_screen_position()
@@ -342,6 +345,9 @@ func can_perform_move(moveToTest : CharacterMove) -> bool:
 				return false
 	return true
 
+func can_be_updated():
+	return !characterState.affectedByHitFreeze
+
 func can_be_dealt_damage() -> bool:
 	return characterState.roundState == SceneGame.RoundPhaseState.ActiveMatch
 
@@ -349,6 +355,9 @@ func can_gain_meter() -> bool:
 	return characterState.roundState == SceneGame.RoundPhaseState.ActiveMatch
 
 func _update_current_move( inputManager : InputBufferManager, extraLeniency : int = 0 ):
+	if !currentMove	or !currentMove.isHitStunState:
+		characterState.bounceCounter = 0
+		characterState.affectedByHitFreeze = false
 	if currentMove:
 		var newMovePerformed := false
 		characterState.currentFrame += 1

@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=9 format=3 uid="uid://6epfw5kjo1vx"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=10 format=3 uid="uid://6epfw5kjo1vx"]
 
 [ext_resource type="Resource" uid="uid://y3ak51w0bbe4" path="res://media/characters/chara_naomi/moves/cancels/to_adv_kick.tres" id="1_ht36o"]
 [ext_resource type="Resource" uid="uid://60uwhp2o0kdx" path="res://media/characters/chara_naomi/moves/cancels/to_dash_slash.tres" id="1_wnlfe"]
+[ext_resource type="Resource" uid="uid://6g40lpvle3au" path="res://media/characters/chara_naomi/moves/cancels/to_jknee.tres" id="2_o2spl"]
 [ext_resource type="Resource" uid="uid://xuie720qplxx" path="res://media/characters/all_chara_common/moves/cancels/to_forward_jump.tres" id="3_irwn4"]
 [ext_resource type="Resource" uid="uid://cg45jqlfenv7t" path="res://media/characters/all_chara_common/moves/cancels/to_backward_jump.tres" id="4_vax66"]
 [ext_resource type="Resource" uid="uid://cb245tum6ybk6" path="res://media/characters/all_chara_common/moves/cancels/to_backwards_once.tres" id="5_031kp"]
@@ -24,9 +25,12 @@ canBeUsedBeforeRoundBegins = true
 canTurnMidMove = true
 logicalVelocityPerFrame = Vector2i(12000, 0)
 logicalAccelerationPerFrame = Vector2i(0, 0)
-input = Array[int]([4])
-cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_ht36o"), ExtResource("1_wnlfe"), ExtResource("3_irwn4"), ExtResource("4_vax66"), ExtResource("5_61p2r"), ExtResource("5_031kp"), ExtResource("5_ield2")])
-guardFrames = Vector2i(-1, -1)
 bufferStartLeniency = 0
 bufferLengthLeniency = 2
 useRawBuffer = true
+input = Array[int]([4])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_ht36o"), ExtResource("2_o2spl"), ExtResource("1_wnlfe"), ExtResource("3_irwn4"), ExtResource("4_vax66"), ExtResource("5_61p2r"), ExtResource("5_031kp"), ExtResource("5_ield2")])
+guardFrames = Vector2i(-1, -1)

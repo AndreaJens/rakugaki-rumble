@@ -12,6 +12,7 @@ enum SystemMessage {
 @export var roundNeutralTexture : Texture2D
 @export var roundWonTexture : Texture2D
 @export var systemMessageManager : SystemMessageHud
+@export var trainingMessage : Sprite2D
 
 @onready var roundCountersP1 : Node2D = $RoundCountersP1
 @onready var roundCountersP2 : Node2D = $RoundCountersP2
