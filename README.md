@@ -4,25 +4,25 @@ repository for a small Godot 4.2 fighting game project, with a sketchbook aesthe
 ## Controls
 
 ### P1:
-WASD = movement
-U = attack (also: I, O)
+* WASD = movement
+* U = attack (also: I, O)
 
 ### P2:
-Arrows = movement
-Numpad1 = attack (also: Numpad2, Numpad3, J, K, L)
+* Arrows = movement
+* Numpad1 = attack (also: Numpad2, Numpad3, J, K, L)
 
 ### on joypad (P1: first connected device, P2: second device): 
-arrows = movement
-A = attack
-keyboard controls are always active
+* D-Pad = movement
+* A = attack
+* keyboard controls are always active even when a joypad is connected
 
 ### Debug hotkeys
-F1: save state
-F2: load state
-F3: show hitboxes
-F4: reset health
-F5: toggle training mode
-ALT+ENTER: full screen
+* F1: save state
+* F2: load state
+* F3: show hitboxes
+* F4: reset health
+* F5: toggle training mode
+* ALT+ENTER: full screen
 
 ### Extra remarks
 * the input buffer accepts negative edge inputs too for specials
