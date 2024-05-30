@@ -9,33 +9,43 @@ class_name CharacterMove extends Resource
 @export var isHitStunState := false
 @export var keepMomentumPercent : int = 0
 @export var loop : bool
+@export var canBeUsedBeforeRoundBegins := false
 @export var canTurnMidMove : bool = false
 @export var logicalVelocityPerFrame : Vector2i
 @export var logicalAccelerationPerFrame : Vector2i
-@export var input : Array[GameDatabaseAccessor.GameInputButton]
-@export var cancelRoutes : Array[MoveCancelRoute] = []
-@export var guardFrames := Vector2i(-1, -1) 
+@export_category("Move Input")
 @export var bufferStartLeniency := 3
 @export var bufferLengthLeniency := 10
 @export var useRawBuffer := false
+@export var input : Array[GameDatabaseAccessor.GameInputButton]
+@export var inputVariant1 : Array[GameDatabaseAccessor.GameInputButton]
+@export var inputVariant2 : Array[GameDatabaseAccessor.GameInputButton]
+@export var inputVariant3 : Array[GameDatabaseAccessor.GameInputButton]
+@export_category("Cancels")
+@export var cancelRoutes : Array[MoveCancelRoute] = []
+@export var guardFrames := Vector2i(-1, -1) 
 
 func _conditional_print(obj):
 	if internalName == "attackJumpKick":
 		print(obj)
 
-func check_input_match(inputBuffer : Array[int], onLeftSide : bool = true) -> bool:
-	if input.is_empty():
+func check_input_against_buffer(
+	moveInput : Array[GameDatabaseAccessor.GameInputButton],
+	inputBuffer : Array[int], 
+	onLeftSide : bool = true,
+	extraLeniency : int = 0 ) -> bool:
+	if moveInput.is_empty():
 		return false
-	if inputBuffer.size() < input.size():
+	if inputBuffer.size() < moveInput.size():
 		return false
-	var inputLength = input.size()
+	var inputLength = moveInput.size()
 	var bufferLength = inputBuffer.size()
-	var lowerBound = max(-1, bufferLength - bufferLengthLeniency - bufferStartLeniency)
+	var lowerBound = max(-1, bufferLength - bufferLengthLeniency - bufferStartLeniency - extraLeniency)
 	var startupLeniencyCounter = 0
 	var numberOfMatches = 0
 	var currentBufferIndex = bufferLength - 1
 	for i in range(inputLength - 1, -1, -1):
-		var inputToCheck = input[i]
+		var inputToCheck = moveInput[i]
 		if !onLeftSide:
 			# apply side correction
 			if inputToCheck & GameDatabaseAccessor.GameInputButton.Right:
@@ -73,7 +83,7 @@ func check_input_match(inputBuffer : Array[int], onLeftSide : bool = true) -> bo
 			)
 			if (numberOfMatches == 0 and skipCondition and inputToCheck != 0):
 				startupLeniencyCounter += 1
-			if startupLeniencyCounter > bufferStartLeniency:
+			if startupLeniencyCounter > (bufferStartLeniency + extraLeniency):
 				return false
 			if (currentInput & inputToCheck) == inputToCheck:
 				numberOfMatches += 1
@@ -87,5 +97,22 @@ func check_input_match(inputBuffer : Array[int], onLeftSide : bool = true) -> bo
 				#_conditional_print(inputBuffer)
 				break
 		if numberOfMatches >= inputLength:
+			return true
+	return false
+
+func check_input_match(
+	inputBuffer : Array[int], 
+	onLeftSide : bool = true,
+	extraLeniency : int = 0) -> bool:
+	if (check_input_against_buffer(input, inputBuffer, onLeftSide, extraLeniency)):
+		return true
+	if (!inputVariant1.is_empty()):
+		if (check_input_against_buffer(inputVariant1, inputBuffer, onLeftSide, extraLeniency)):
+			return true
+	if (!inputVariant2.is_empty()):
+		if (check_input_against_buffer(inputVariant2, inputBuffer, onLeftSide, extraLeniency)):
+			return true
+	if (!inputVariant3.is_empty()):
+		if (check_input_against_buffer(inputVariant3, inputBuffer, onLeftSide, extraLeniency)):
 			return true
 	return false

@@ -23,7 +23,6 @@ var currentMove : CharacterMove = null
 @onready var pushBox : MoveBox = $PushBox
 var hitBoxes : Array[HitBox] = []
 var hurtBoxes : Array[HurtBox] = []
-var comboCounter : int = 0
 @export var immortal : bool = false
 
 # FUNCTIONS FOR SNOPEK ROLLBACK ADDON
@@ -109,7 +108,15 @@ func _clamp_state_variables():
 		min(characterState.currentMeter, characterData.characterMaxMeter))
 
 func deal_damage(damage : int):
-	characterState.currentHealth -= damage
+	if can_be_dealt_damage():
+		add_health(-damage)
+
+func gain_meter(meterGain : int):
+	if can_gain_meter():
+		add_meter(meterGain)
+
+func add_health(health : int):
+	characterState.currentHealth += health
 	_clamp_state_variables()
 
 func add_meter(meterGain : int):
@@ -167,8 +174,8 @@ func is_ko() -> bool:
 
 func _apply_move_load_state():
 	deactivate_boxes()
-	var move = characterData.characterMoves[characterState.moveId]
-	animationPlayer.set_current_animation(move.animationName)
+	currentMove = characterData.characterMoves[characterState.moveId]
+	animationPlayer.set_current_animation(currentMove.animationName)
 	set_animation_frame(characterState.currentFrame)
 
 func apply_move_by_name(moveName : String) -> bool:
@@ -328,7 +335,20 @@ func update_hit_boxes_logic():
 		if characterState.currentMoveHasHit and hitBox.deactivateOnHit:
 			hitBox.active = false
 
-func _update_current_move( inputManager : InputBufferManager ):
+func can_perform_move(moveToTest : CharacterMove) -> bool:
+	if (characterState.roundState == SceneGame.RoundPhaseState.Ready or
+		characterState.roundState == SceneGame.RoundPhaseState.Engage):
+			if !moveToTest.canBeUsedBeforeRoundBegins:
+				return false
+	return true
+
+func can_be_dealt_damage() -> bool:
+	return characterState.roundState == SceneGame.RoundPhaseState.ActiveMatch
+
+func can_gain_meter() -> bool:
+	return characterState.roundState == SceneGame.RoundPhaseState.ActiveMatch
+
+func _update_current_move( inputManager : InputBufferManager, extraLeniency : int = 0 ):
 	if currentMove:
 		var newMovePerformed := false
 		characterState.currentFrame += 1
@@ -348,6 +368,8 @@ func _update_current_move( inputManager : InputBufferManager ):
 				continue
 			var moveIndex : int = moveNameToIndex[followup.targetMoveName]
 			var moveToTest = characterData.characterMoves[moveIndex]
+			if !can_perform_move(moveToTest):
+				continue
 			var inputBuffer = []
 			if moveToTest.useRawBuffer:
 				inputBuffer = inputManager.get_current_raw_buffer()
@@ -360,7 +382,7 @@ func _update_current_move( inputManager : InputBufferManager ):
 				apply_new_move(moveToTest)
 				newMovePerformed = true
 				break
-			elif moveToTest.check_input_match(inputBuffer, is_on_left_side()):
+			elif moveToTest.check_input_match(inputBuffer, is_on_left_side(), extraLeniency):
 				apply_new_move(moveToTest)
 				newMovePerformed = true
 				break
@@ -370,6 +392,8 @@ func _update_current_move( inputManager : InputBufferManager ):
 					if followup.autoPerformAtMoveEnd:
 						var moveIndex : int = moveNameToIndex[followup.targetMoveName]
 						var moveToTest = characterData.characterMoves[moveIndex]
+						if !can_perform_move(moveToTest):
+							continue
 						apply_new_move(moveToTest)
 						newMovePerformed = true
 						break
@@ -382,10 +406,10 @@ func _update_current_move( inputManager : InputBufferManager ):
 					else:
 						apply_new_move(characterData.characterMoves[ReservedMoveIndex.Idle])
 
-func update( inputManager : InputBufferManager ):
+func update( inputManager : InputBufferManager, extraInputLeniency : int = 0 ):
 	_update_boxes()
 	_clamp_state_variables()
-	_update_current_move(inputManager)
+	_update_current_move(inputManager, extraInputLeniency)
 	_update_character_logical_position()
 	_update_character_stance()
 	update_screen_position()

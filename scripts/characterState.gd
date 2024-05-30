@@ -14,6 +14,8 @@ enum CharacterStateValues{
 	LogicalAccelerationY = 10,
 	CurrentMoveHasHit = 11,
 	IsOnLeftSide = 12,
+	ComboCounter = 13,
+	RoundPhaseState = 14,
 }
 
 @export var logicalPosition : Vector2i = Vector2i(0, 0)
@@ -26,6 +28,8 @@ enum CharacterStateValues{
 @export var characterStanceType : Character.State = Character.State.Ground
 @export var currentMoveHasHit : bool = false
 @export var onLeftSide : bool = false
+@export var comboCounter : int = 0
+@export var roundState : SceneGame.RoundPhaseState = SceneGame.RoundPhaseState.ActiveMatch
 
 func _save_state() -> Dictionary:
 	return {
@@ -42,6 +46,8 @@ func _save_state() -> Dictionary:
 		CharacterStateValues.CurrentStance : characterStanceType,
 		CharacterStateValues.CurrentMoveHasHit : currentMoveHasHit,
 		CharacterStateValues.IsOnLeftSide : onLeftSide,
+		CharacterStateValues.ComboCounter : comboCounter,
+		CharacterStateValues.RoundPhaseState : roundState,
 	}
 
 func _load_state( state : Dictionary ) -> void:
@@ -50,7 +56,7 @@ func _load_state( state : Dictionary ) -> void:
 	currentHealth = state[CharacterStateValues.CurrentHealth]
 	currentMeter = state[CharacterStateValues.CurrentMeter]
 	logicalPosition = Vector2i( state[CharacterStateValues.LogicalPositionX], 
-								state[CharacterStateValues.LogicalPositionX] )
+								state[CharacterStateValues.LogicalPositionY] )
 	logicalVelocity = Vector2i( state[CharacterStateValues.LogicalVelocityX], 
 								state[CharacterStateValues.LogicalVelocityY] )
 	logicalAcceleration = Vector2i( state[CharacterStateValues.LogicalAccelerationX], 
@@ -59,3 +65,5 @@ func _load_state( state : Dictionary ) -> void:
 	characterStanceType = state[CharacterStateValues.CurrentStance]
 	currentMoveHasHit = state[CharacterStateValues.CurrentMoveHasHit]
 	onLeftSide = state[CharacterStateValues.IsOnLeftSide]
+	comboCounter = state[CharacterStateValues.ComboCounter]
+	roundState = state[CharacterStateValues.RoundPhaseState]

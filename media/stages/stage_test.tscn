@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c07vx7o11k05c"]
+[gd_scene load_steps=25 format=3 uid="uid://c07vx7o11k05c"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_xmmq4"]
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="2_8rf0r"]
@@ -10,19 +10,25 @@
 [ext_resource type="Script" path="res://scripts/Hud.gd" id="6_8oj7r"]
 [ext_resource type="Texture2D" uid="uid://chacxkkh0a044" path="res://media/hud/barUnder_2.png" id="6_o3lni"]
 [ext_resource type="Texture2D" uid="uid://rlp54xxypgt1" path="res://media/hud/systemMessages/comboCounter.png" id="7_fac75"]
-[ext_resource type="Texture2D" uid="uid://duoiyrihmo6pt" path="res://media/hud/systemMessages/READY.png" id="8_sxsep"]
+[ext_resource type="Texture2D" uid="uid://rq1cp8mt1588" path="res://media/hud/systemMessages/KO2.png" id="7_in12c"]
+[ext_resource type="Texture2D" uid="uid://coyjvbp47wp13" path="res://media/hud/systemMessages/READY2.png" id="8_fj0i6"]
 [ext_resource type="Texture2D" uid="uid://cbljd7fwsals3" path="res://media/hud/barUnder.png" id="8_u8mdb"]
-[ext_resource type="Texture2D" uid="uid://c4tbln5cbmxfo" path="res://media/hud/systemMessages/ENGAGE.png" id="9_3pmh2"]
 [ext_resource type="Texture2D" uid="uid://dfw40muvkdqep" path="res://media/hud/barOver.png" id="9_e4c1u"]
+[ext_resource type="Texture2D" uid="uid://dmqf6wnqjfuy5" path="res://media/hud/systemMessages/ENGAGE2.png" id="9_rgnl3"]
 [ext_resource type="Texture2D" uid="uid://dbol5vang2oxw" path="res://media/hud/tapeOverlay.png" id="9_uk4xi"]
 [ext_resource type="Texture2D" uid="uid://dcmxaism2tms1" path="res://media/hud/tapeOverlay2.png" id="10_5nypi"]
+[ext_resource type="Texture2D" uid="uid://c3wjxt53gpjo7" path="res://media/hud/roundWinCounterLight.png" id="10_l3lhp"]
 [ext_resource type="Texture2D" uid="uid://bt240ifwrpb5p" path="res://media/hud/barFull.png" id="10_s6m8d"]
 [ext_resource type="Texture2D" uid="uid://cdri01htadvuu" path="res://media/characters/chara_naomi/sprites/name.png" id="11_ccb2l"]
-[ext_resource type="Texture2D" uid="uid://cjkjbei8cjcsc" path="res://media/hud/systemMessages/KO.png" id="16_cynt4"]
+[ext_resource type="Texture2D" uid="uid://b3gfqacv5wqjs" path="res://media/hud/roundWinCounterFullW.png" id="11_efqef"]
+[ext_resource type="Texture2D" uid="uid://dcjqqkhyf5828" path="res://media/hud/roundWinCounter.png" id="15_13s2k"]
+[ext_resource type="Texture2D" uid="uid://dau2j1nwuiacj" path="res://media/hud/systemMessages/foil.png" id="20_3hgdt"]
+[ext_resource type="Script" path="res://scripts/SystemMessageHud.gd" id="20_4frnj"]
 
 [node name="GameSceneTest" type="Node2D"]
 script = ExtResource("1_xmmq4")
-preventDeath = true
+phaseTransitionMaxCounter = 100
+debugMode = true
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(566, 319)
@@ -55,7 +61,7 @@ texture = ExtResource("2_8rf0r")
 [node name="Canvas" type="CanvasLayer" parent="."]
 layer = 0
 
-[node name="Hud" type="Control" parent="Canvas" node_paths=PackedStringArray("systemMessageBillboard")]
+[node name="Hud" type="Control" parent="Canvas" node_paths=PackedStringArray("systemMessageManager")]
 custom_minimum_size = Vector2(1134, 636)
 layout_mode = 3
 anchors_preset = 8
@@ -70,10 +76,12 @@ offset_bottom = 318.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_8oj7r")
-koTexture = ExtResource("16_cynt4")
-readyTexture = ExtResource("8_sxsep")
-engageTexture = ExtResource("9_3pmh2")
-systemMessageBillboard = NodePath("../../SystemMessages/System/SystemMessage")
+koTexture = ExtResource("7_in12c")
+readyTexture = ExtResource("8_fj0i6")
+engageTexture = ExtResource("9_rgnl3")
+roundNeutralTexture = ExtResource("10_l3lhp")
+roundWonTexture = ExtResource("11_efqef")
+systemMessageManager = NodePath("../../SystemMessages/System")
 
 [node name="Background" type="Sprite2D" parent="Canvas/Hud"]
 position = Vector2(560, -234)
@@ -141,6 +149,40 @@ position = Vector2(838, 51)
 scale = Vector2(0.571698, 0.563736)
 texture = ExtResource("10_5nypi")
 
+[node name="RoundCountersP1" type="Node2D" parent="Canvas/Hud"]
+position = Vector2(445, 20)
+
+[node name="Round1" type="Sprite2D" parent="Canvas/Hud/RoundCountersP1"]
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("15_13s2k")
+
+[node name="Round2" type="Sprite2D" parent="Canvas/Hud/RoundCountersP1"]
+position = Vector2(-36, 0)
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("15_13s2k")
+
+[node name="Round3" type="Sprite2D" parent="Canvas/Hud/RoundCountersP1"]
+position = Vector2(-72, 0)
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("15_13s2k")
+
+[node name="RoundCountersP2" type="Node2D" parent="Canvas/Hud"]
+position = Vector2(691, 20)
+
+[node name="Round1" type="Sprite2D" parent="Canvas/Hud/RoundCountersP2"]
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("15_13s2k")
+
+[node name="Round2" type="Sprite2D" parent="Canvas/Hud/RoundCountersP2"]
+position = Vector2(36, 0)
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("15_13s2k")
+
+[node name="Round3" type="Sprite2D" parent="Canvas/Hud/RoundCountersP2"]
+position = Vector2(72, 0)
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("15_13s2k")
+
 [node name="ComboCounter1" type="Sprite2D" parent="Canvas/Hud"]
 position = Vector2(337, 132)
 rotation = -0.207694
@@ -164,13 +206,25 @@ position = Vector2(1037, 610)
 
 [node name="SystemMessages" type="CanvasLayer" parent="."]
 
-[node name="System" type="Control" parent="SystemMessages"]
+[node name="System" type="Control" parent="SystemMessages" node_paths=PackedStringArray("systemMessageSprite", "plasticFoilSprite")]
 custom_minimum_size = Vector2(1134, 636)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1134.0
+offset_bottom = 636.0
+script = ExtResource("20_4frnj")
+koTexture = ExtResource("7_in12c")
+readyTexture = ExtResource("8_fj0i6")
+engageTexture = ExtResource("9_rgnl3")
+systemMessageSprite = NodePath("Foil/SystemMessage")
+plasticFoilSprite = NodePath("Foil")
+animationPixelsPerTick = 48
 
-[node name="SystemMessage" type="Sprite2D" parent="SystemMessages/System"]
+[node name="Foil" type="Sprite2D" parent="SystemMessages/System"]
+visible = false
+texture = ExtResource("20_3hgdt")
+centered = false
+
+[node name="SystemMessage" type="Sprite2D" parent="SystemMessages/System/Foil"]
 position = Vector2(566, 319)
-texture = ExtResource("16_cynt4")
+texture = ExtResource("7_in12c")

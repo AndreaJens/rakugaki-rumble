@@ -14,6 +14,7 @@ endingFrame = 1200
 isHitStunState = true
 keepMomentumPercent = 100
 loop = false
+canBeUsedBeforeRoundBegins = false
 canTurnMidMove = false
 logicalVelocityPerFrame = Vector2i(-7000, -25000)
 logicalAccelerationPerFrame = Vector2i(0, 2000)
