@@ -1,8 +1,8 @@
 class_name HitBox extends MoveBox
 
 @export var attackType : GameDatabaseAccessor.AttackType = GameDatabaseAccessor.AttackType.None
-@export var moveReactionOnHitGround : String = "hurtG"
-@export var moveReactionOnHitAir : String = "hurtA"
+@export var moveReactionOnHitGround : String = GameDatabaseAccessor.defaultGroundHitReaction
+@export var moveReactionOnHitAir : String = GameDatabaseAccessor.defaultAirHitReaction
 @export var damage : int = 0
 @export var meterGain : int = 0
 @export var canBeBlocked : bool = true

@@ -254,7 +254,7 @@ func _update_character_state():
 				character2.set_on_left_side(false) 
 				character2.scale = Vector2(-1, 1)
 		
-func _adjust_character_momentum(character : Character):
+func _adjust_character_momentum(character : Character, opponent : Character):
 	if !character.can_be_updated():
 		return
 	if !character.currentMove:
@@ -263,23 +263,48 @@ func _adjust_character_momentum(character : Character):
 		return
 	if !character.is_airborne():
 		return
+	if opponent.zeroInstallActive:
+		return
 	var leftWallDistance : int = collisionManager.distance_from_left_corner(character, stage)
 	var rightWallDistance : int = collisionManager.distance_from_right_corner(character, stage)
 	@warning_ignore("integer_division")
 	var boxHalfSize : int = character.get_collision_box().size.x / 2
-	if ((leftWallDistance <= boxHalfSize and character.get_logical_velocity().x < 0) or 
-		(rightWallDistance <= boxHalfSize and character.get_logical_velocity().x > 0)):
-			character.multiply_horizontal_movement(-150, false)
-			character.multiply_vertical_movement(125)
-			character.characterState.bounceCounter += 1
-			_hitFreezeFrames = hitFreezeWallFrames
-			character.characterState.affectedByHitFreeze = true
-			_comboHitFreeze = false
+	@warning_ignore("integer_division")
+	var stageHalfSize : int = stage.logicalSize.x / 2
+	if ((leftWallDistance <= boxHalfSize and 
+			character.get_logical_velocity().x < 0) or 
+		(rightWallDistance <= boxHalfSize and 
+			character.get_logical_velocity().x > 0)):
+			if (!opponent.infinityInstallActive and 
+			character.characterState.bounceCounter >= 
+			GameDatabaseAccessor.defaultMaxNumberOfBounces):
+				if (leftWallDistance <= boxHalfSize and 
+				character.get_logical_velocity().x < 0):
+					character.characterState.logicalPosition.x = (
+						stage.logicalPosition.x - stageHalfSize +
+						boxHalfSize)
+				else:
+					character.characterState.logicalPosition.x = (
+						stage.logicalPosition.x + stageHalfSize -
+						boxHalfSize)
+				character.update_screen_position()
+				character.apply_move_by_name(
+					GameDatabaseAccessor.defaultWallsplatReaction
+				)
+			else:
+				character.multiply_horizontal_movement(-150, false)
+				character.multiply_vertical_movement(125)
+				character.characterState.bounceCounter += 1
+				_hitFreezeFrames = hitFreezeWallFrames
+				character.characterState.affectedByHitFreeze = true
+				_comboHitFreeze = false
 		
 func _constrain_character_position_to_camera_viewport(character : Character):
 	var collBox = character.get_collision_box()
-	var leftBoundary = collBox.position.x - collBox.size.x / 2
-	var rightBoundary = collBox.position.x + collBox.size.x / 2
+	@warning_ignore("integer_division")
+	var boxHalfSize : int = collBox.size.x / 2
+	var leftBoundary = collBox.position.x - boxHalfSize
+	var rightBoundary = collBox.position.x + boxHalfSize
 	var cameraViewport = get_viewport_rect().size * GameDatabaseAccessor.screenCoordMultiplierInt
 	var leftCameraBoundary = _cameraLogicalPosition.x - cameraViewport.x / 2
 	var rightCameraBoundary = _cameraLogicalPosition.x + cameraViewport.x / 2
@@ -288,6 +313,12 @@ func _constrain_character_position_to_camera_viewport(character : Character):
 		currentCharacterLogicalPosition.x += abs(leftBoundary - leftCameraBoundary)
 	elif rightBoundary > rightCameraBoundary:
 		currentCharacterLogicalPosition.x -= abs(rightBoundary - rightCameraBoundary)
+	@warning_ignore("integer_division")
+	var stageHalfSize : int = stage.logicalSize.x / 2
+	var minX = stage.logicalPosition.x - stageHalfSize + boxHalfSize 
+	var maxX = stage.logicalPosition.x + stageHalfSize - boxHalfSize 
+	currentCharacterLogicalPosition.x = max(minX,
+		min(currentCharacterLogicalPosition.x, maxX))
 	character.set_new_logical_position(currentCharacterLogicalPosition)
 			
 func _update_camera(immediate : bool = false):
@@ -319,7 +350,7 @@ func _update_camera(immediate : bool = false):
 func _process_damage_collisions(attacker : Character, defender : Character) -> Dictionary:
 	var result : Dictionary = {}
 	result[HitDetectionFlags.HasHit] = false
-	result[HitDetectionFlags.TargetReaction] = "hurtG"
+	result[HitDetectionFlags.TargetReaction] = GameDatabaseAccessor.defaultGroundHitReaction
 	result[HitDetectionFlags.DamageToApply] = 0
 	result[HitDetectionFlags.MeterGain] = 0
 	for hitBox in attacker.hitBoxes:
@@ -418,8 +449,8 @@ func _process(_delta):
 	if character1.can_be_updated() or character2.can_be_updated():
 		_update_game_phase_transition()
 		_update_character_state()	
-		_adjust_character_momentum(character1)
-		_adjust_character_momentum(character2)
+		_adjust_character_momentum(character1, character2)
+		_adjust_character_momentum(character2, character1)
 		if hitFreezeOnWallCollisionBothPlayers:
 			if character1.characterState.affaffectedByHitFreeze:
 				character2.characterState.affectedByHitFreeze = true
@@ -448,8 +479,8 @@ func _network_process(_input: Dictionary) -> void:
 	if character1.can_be_updated() or character2.can_be_updated():
 		_update_game_phase_transition()
 		_update_character_state()	
-		_adjust_character_momentum(character1)
-		_adjust_character_momentum(character2)
+		_adjust_character_momentum(character1, character2)
+		_adjust_character_momentum(character2, character1)
 		if !_comboHitFreeze and hitFreezeOnWallCollisionBothPlayers:
 			if character1.characterState.affaffectedByHitFreeze:
 				character2.characterState.affectedByHitFreeze = true

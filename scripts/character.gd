@@ -25,6 +25,24 @@ var hitBoxes : Array[HitBox] = []
 var hurtBoxes : Array[HurtBox] = []
 @export var immortal : bool = false
 
+@export var infinityInstallActive : bool = false:
+	set (value):
+		if !characterState.hasInfinityInstallActive and value:
+			characterState.installDurationFrameCounter = GameDatabaseAccessor.defaultInstallDurationTicks
+		if !value:
+			characterState.installDurationFrameCounter = -1
+		infinityInstallActive = value
+		characterState.hasInfinityInstallActive = infinityInstallActive
+		
+@export var zeroInstallActive : bool = false:
+	set (value):
+		if !characterState.hasZeroInstallActive and value:
+			characterState.installDurationFrameCounter = GameDatabaseAccessor.defaultInstallDurationTicks
+		if !value:
+			characterState.installDurationFrameCounter = -1
+		zeroInstallActive = value
+		characterState.hasZeroInstallActive = zeroInstallActive
+
 # FUNCTIONS FOR SNOPEK ROLLBACK ADDON
 func _save_state() -> Dictionary:
 	var stateDict = characterState._save_state()
@@ -32,6 +50,10 @@ func _save_state() -> Dictionary:
 
 func _load_state(state : Dictionary) -> void:
 	characterState._load_state(state)
+	var installFrames = characterState.installDurationFrameCounter
+	infinityInstallActive = characterState.hasInfinityInstallActive
+	zeroInstallActive = characterState.hasZeroInstallActive
+	characterState.installDurationFrameCounter = installFrames
 	_apply_move_load_state()
 	update_screen_position()
 	_update_boxes()
@@ -64,6 +86,9 @@ func is_on_left_side() -> bool:
 func set_on_left_side(onLeftSide : bool):
 	characterState.onLeftSide = onLeftSide
 	
+func has_active_install() -> bool:
+	return zeroInstallActive or infinityInstallActive
+	
 func deactivate_boxes():
 	pushBox.active = false
 	if pushBox.is_mirrored():
@@ -89,6 +114,8 @@ func reset_character(resetMeter : bool = false):
 	characterState.comboCounter = 0
 	characterState.bounceCounter = 0
 	characterState.affectedByHitFreeze = false
+	infinityInstallActive = false
+	zeroInstallActive = false
 	deactivate_boxes()
 	apply_new_move( characterData.characterMoves[characterState.moveId] )
 	update_screen_position()
@@ -96,6 +123,9 @@ func reset_character(resetMeter : bool = false):
 
 func reset_character_to_idle_full_health():
 	characterState.currentHealth = characterData.characterMaxHealth
+	characterState.currentMeter =  characterData.characterMaxMeter
+	infinityInstallActive = false
+	zeroInstallActive = false
 	characterState.logicalVelocity = Vector2i(0, 0)
 	characterState.logicalAcceleration = Vector2i(0, 0)
 	characterState.moveId = ReservedMoveIndex.Idle
@@ -309,6 +339,16 @@ func _update_character_logical_position():
 	characterState.logicalVelocity.y += characterState.logicalAcceleration.y
 	characterState.logicalPosition.x += characterState.logicalVelocity.x
 	characterState.logicalPosition.y += characterState.logicalVelocity.y
+	characterState.logicalVelocity.x = max(
+		-GameDatabaseAccessor.characterAbsVelocityCapX, 
+		min(GameDatabaseAccessor.characterAbsVelocityCapX, characterState.logicalVelocity.x))	
+
+func _update_character_installs():
+	if has_active_install() and characterState.installDurationFrameCounter >= 0:
+		characterState.installDurationFrameCounter -= 1
+		if characterState.installDurationFrameCounter < 0:
+			infinityInstallActive = false
+			zeroInstallActive = false	
 	
 func _update_character_stance():
 	if (characterState.logicalPosition.y >= initialLogicalPosition.y):
@@ -393,6 +433,7 @@ func _update_current_move( inputManager : InputBufferManager, extraLeniency : in
 				break
 			elif moveToTest.check_input_match(inputBuffer, is_on_left_side(), extraLeniency):
 				apply_new_move(moveToTest)
+				#print(moveToTest.internalName)
 				newMovePerformed = true
 				break
 		if characterState.currentFrame >= currentMove.endingFrame:
@@ -418,6 +459,7 @@ func _update_current_move( inputManager : InputBufferManager, extraLeniency : in
 func update( inputManager : InputBufferManager, extraInputLeniency : int = 0 ):
 	_update_boxes()
 	_clamp_state_variables()
+	_update_character_installs()
 	_update_current_move(inputManager, extraInputLeniency)
 	_update_character_logical_position()
 	_update_character_stance()

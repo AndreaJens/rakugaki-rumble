@@ -18,6 +18,9 @@ enum CharacterStateValues{
 	RoundPhaseState = 14,
 	BounceCounter = 15,
 	AffectedByHitFreeze = 16,
+	InfinityInstallActive = 17,
+	ZeroInstallActive = 18,
+	InstallFrameCounter = 19
 }
 
 @export var logicalPosition : Vector2i = Vector2i(0, 0)
@@ -34,6 +37,9 @@ enum CharacterStateValues{
 @export var bounceCounter : int = 0
 @export var affectedByHitFreeze : bool = false
 @export var roundState : SceneGame.RoundPhaseState = SceneGame.RoundPhaseState.ActiveMatch
+@export var hasInfinityInstallActive : bool = false
+@export var hasZeroInstallActive : bool = false
+@export var installDurationFrameCounter : int = -1
 
 func _save_state() -> Dictionary:
 	return {
@@ -54,6 +60,9 @@ func _save_state() -> Dictionary:
 		CharacterStateValues.RoundPhaseState : roundState,
 		CharacterStateValues.BounceCounter : bounceCounter,
 		CharacterStateValues.AffectedByHitFreeze : affectedByHitFreeze,
+		CharacterStateValues.InfinityInstallActive : hasInfinityInstallActive,
+		CharacterStateValues.ZeroInstallActive : hasZeroInstallActive,
+		CharacterStateValues.InstallFrameCounter : installDurationFrameCounter,
 	}
 
 func _load_state( state : Dictionary ) -> void:
@@ -75,3 +84,6 @@ func _load_state( state : Dictionary ) -> void:
 	bounceCounter = state[CharacterStateValues.BounceCounter]
 	roundState = state[CharacterStateValues.RoundPhaseState]
 	affectedByHitFreeze = state[CharacterStateValues.AffectedByHitFreeze]
+	hasInfinityInstallActive = state[CharacterStateValues.InfinityInstallActive]
+	hasZeroInstallActive = state[CharacterStateValues.ZeroInstallActive]
+	installDurationFrameCounter = state[CharacterStateValues.InstallFrameCounter]

@@ -1,6 +1,5 @@
-[gd_scene load_steps=28 format=3 uid="uid://d1k45q87lrm2u"]
+[gd_scene load_steps=29 format=3 uid="uid://d1k45q87lrm2u"]
 
-[ext_resource type="Texture2D" uid="uid://doqv7ldx2lsqk" path="res://media/characters/chara_naomi/sprites/naomi1.png" id="1_kcwyh"]
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_qst3w"]
 [ext_resource type="Script" path="res://scripts/characterState.gd" id="2_ssm87"]
 [ext_resource type="Resource" uid="uid://qiywbrf1e5yu" path="res://media/characters/chara_naomi/naomiRes.tres" id="2_tinh8"]
@@ -13,6 +12,7 @@
 [ext_resource type="Animation" uid="uid://kpcrr12d2xa6" path="res://media/characters/chara_naomi/animations/attack2.res" id="7_0sf12"]
 [ext_resource type="Animation" uid="uid://628o4tbetrry" path="res://media/characters/chara_naomi/animations/attack_jumpKick.res" id="8_rrsh8"]
 [ext_resource type="Animation" uid="uid://bhpkns3k7ft27" path="res://media/characters/chara_naomi/animations/falling.res" id="9_5ldx8"]
+[ext_resource type="Animation" uid="uid://co061aciik6xj" path="res://media/characters/chara_naomi/animations/attack_jumpKnee.res" id="9_cswrf"]
 [ext_resource type="Animation" uid="uid://b72b2ya7ct8l7" path="res://media/characters/chara_naomi/animations/hurtGround.res" id="10_yq68h"]
 [ext_resource type="Animation" uid="uid://c6gsmdu4gowty" path="res://media/characters/chara_naomi/animations/hurtGround_2.res" id="11_8yggv"]
 [ext_resource type="Animation" uid="uid://cx1gmhto1ggw4" path="res://media/characters/chara_naomi/animations/idle.res" id="12_fl2va"]
@@ -23,6 +23,8 @@
 [ext_resource type="Animation" uid="uid://dkundvh7eovse" path="res://media/characters/chara_naomi/animations/walkB.res" id="16_oqlyk"]
 [ext_resource type="Animation" uid="uid://cb0530djunvpy" path="res://media/characters/chara_naomi/animations/walkF.res" id="17_3ja5f"]
 [ext_resource type="Script" path="res://addons/godot-rollback-netcode/NetworkAnimationPlayer.gd" id="18_1xnwy"]
+[ext_resource type="Animation" uid="uid://b1spetyanf6gk" path="res://media/characters/chara_naomi/animations/wallsplat.res" id="20_dlgro"]
+[ext_resource type="Animation" uid="uid://16kbpqy63eyj" path="res://media/characters/chara_naomi/animations/infinity_install.res" id="21_nooab"]
 
 [sub_resource type="Animation" id="Animation_rlh3y"]
 length = 0.001
@@ -38,154 +40,17 @@ tracks/0/keys = {
 "update": 1,
 "values": [13]
 }
-
-[sub_resource type="Animation" id="Animation_0g8rs"]
-resource_name = "attack_jumpKnee"
-length = 0.583336
-step = 0.0166667
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("4_vcdga")]
-}
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame")
-tracks/1/interp = 0
+tracks/1/path = NodePath(".:infinityInstallActive")
+tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0500001, 0.216667, 0.583334),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [13, 8, 9, 1]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("PushBox:active")
-tracks/2/interp = 0
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("PushBox:boxSize")
-tracks/3/interp = 0
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Rect2i(-50000, -100000, 200000, 200000)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:offset")
-tracks/4/interp = 0
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.0500001),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, -360), Vector2(125, -360)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Sprite2D:z_index")
-tracks/5/interp = 0
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [10]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("HitBoxes/HitBox:active")
-tracks/6/interp = 0
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.0500001, 0.216667),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [false, true, false]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("HitBoxes/HitBox:boxSize")
-tracks/7/interp = 0
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0.0500001),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Rect2i(150000, -200000, 180000, 220000)]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("HitBoxes/HitBox:damage")
-tracks/8/interp = 0
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [16000]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("HurtBoxes/HurtBox:active")
-tracks/9/interp = 0
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.0500001),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [false, true]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("HurtBoxes/HurtBox:boxSize")
-tracks/10/interp = 0
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Rect2i(75000, -165000, 200000, 320000)]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("HitBoxes/HitBox:moveReactionOnHitGround")
-tracks/11/interp = 0
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": ["hurtG"]
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_kxitt"]
@@ -297,18 +162,20 @@ _data = {
 "attack1_air": ExtResource("6_fhwy0"),
 "attack2": ExtResource("7_0sf12"),
 "attack_jumpKick": ExtResource("8_rrsh8"),
-"attack_jumpKnee": SubResource("Animation_0g8rs"),
+"attack_jumpKnee": ExtResource("9_cswrf"),
 "falling": ExtResource("9_5ldx8"),
 "hurtGround": ExtResource("10_yq68h"),
 "hurtGround_2": ExtResource("11_8yggv"),
 "idle": ExtResource("12_fl2va"),
+"infinity_install": ExtResource("21_nooab"),
 "jumpB": ExtResource("13_infkm"),
 "jumpF": ExtResource("14_qlbv2"),
 "knockdown": ExtResource("15_aymfn"),
 "ko": ExtResource("16_dyn1c"),
 "walkB": ExtResource("16_oqlyk"),
 "walkF": ExtResource("17_3ja5f"),
-"walkF_t": SubResource("Animation_kxitt")
+"walkF_t": SubResource("Animation_kxitt"),
+"wallsplat": ExtResource("20_dlgro")
 }
 
 [node name="Character" type="Node2D"]
@@ -321,8 +188,8 @@ script = ExtResource("2_ssm87")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("1_kcwyh")
-offset = Vector2(0, -330)
+texture = ExtResource("4_vcdga")
+offset = Vector2(0, -370)
 hframes = 4
 vframes = 4
 frame = 13
@@ -338,9 +205,9 @@ script = ExtResource("18_1xnwy")
 [node name="HitBoxes" type="Node2D" parent="."]
 
 [node name="HitBox" parent="HitBoxes" instance=ExtResource("5_35kqm")]
-damage = 16000
-active = true
-boxSize = Rect2i(150000, -200000, 180000, 220000)
+moveReactionOnHitGround = "hurtG"
+damage = 12000
+boxSize = Rect2i(150000, -200000, 300000, 300000)
 
 [node name="HitBox2" parent="HitBoxes" instance=ExtResource("5_35kqm")]
 
@@ -353,7 +220,7 @@ boxSize = Rect2i(150000, -200000, 180000, 220000)
 [node name="HurtBoxes" type="Node2D" parent="."]
 
 [node name="HurtBox" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
-boxSize = Rect2i(0, -50000, 250000, 150000)
+boxSize = Rect2i(-50000, -165000, 250000, 320000)
 
 [node name="HurtBox2" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
 boxSize = Rect2i(270000, -200000, 200000, 200000)
@@ -366,4 +233,4 @@ boxSize = Rect2i(270000, -200000, 200000, 200000)
 
 [node name="PushBox" parent="." instance=ExtResource("5_phuw5")]
 active = true
-boxSize = Rect2i(0, -50000, 300000, 150000)
+boxSize = Rect2i(0, -120000, 200000, 250000)

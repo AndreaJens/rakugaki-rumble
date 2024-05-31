@@ -19,6 +19,7 @@ enum SystemMessage {
 
 var _roundCountersP1Nodes = []
 var _roundCountersP2Nodes = []
+var internalUpdateTick = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -33,6 +34,8 @@ func _process(_delta):
 	pass
 
 func update(character1 : Character, character2 : Character, updateSystemMessages : bool = true):
+	internalUpdateTick += 1
+	internalUpdateTick %= 6000
 	$HpBarChar1.max_value = character1.characterData.characterMaxHealth
 	$HpBarChar1.value = character1.characterState.currentHealth
 	$HpBarChar2.max_value = character2.characterData.characterMaxHealth
@@ -45,6 +48,12 @@ func update(character1 : Character, character2 : Character, updateSystemMessages
 		$ComboCounter2.visible = true
 	else:
 		$ComboCounter2.visible = false
+	$Infinity1.visible = character1.infinityInstallActive
+	$Infinity2.visible = character2.infinityInstallActive
+	var scaleVal : float = 0.6 + 0.2 * (internalUpdateTick % 20) / 20.0
+	$Infinity1.scale = Vector2(scaleVal, scaleVal)
+	$Infinity2.scale = Vector2(scaleVal, scaleVal)
+
 	if updateSystemMessages:
 		systemMessageManager.update()
 

@@ -59,6 +59,20 @@ func handle_left_character_collision(leftChar : Character, rightChar : Character
 				logicalPositionC1.x -= distance_l
 			else:
 				logicalPositionC1.x -= intersection.size.x
+	elif logicalVelocityC2.x <= 0:
+		var distance_l = distance_from_left_corner(leftChar, stage)
+		var distance_r = distance_from_right_corner(rightChar, stage)
+		if (distance_l < intersection.size.x):
+			logicalPositionC2.x += intersection.size.x - distance_l
+			logicalPositionC1.x -= distance_l
+		elif (distance_r < intersection.size.x):
+			logicalPositionC2.x += distance_r
+			logicalPositionC1.x -= intersection.size.x - distance_r
+		else:
+			@warning_ignore("integer_division")
+			logicalPositionC1.x  -= intersection.size.x / 2
+			@warning_ignore("integer_division")
+			logicalPositionC2.x  += intersection.size.x / 2
 	else:
 		@warning_ignore("integer_division")
 		logicalPositionC1.x  -= intersection.size.x / 2

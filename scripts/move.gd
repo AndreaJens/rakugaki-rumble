@@ -24,10 +24,8 @@ class_name CharacterMove extends Resource
 @export_category("Cancels")
 @export var cancelRoutes : Array[MoveCancelRoute] = []
 @export var guardFrames := Vector2i(-1, -1) 
-
-func _conditional_print(obj):
-	if internalName == "attackJumpKick":
-		print(obj)
+@export_category("Extra Effects")
+@export var timestopFrames := 0
 
 func check_input_against_buffer(
 	moveInput : Array[GameDatabaseAccessor.GameInputButton],

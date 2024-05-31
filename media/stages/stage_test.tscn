@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c07vx7o11k05c"]
+[gd_scene load_steps=27 format=3 uid="uid://c07vx7o11k05c"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_xmmq4"]
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="2_8rf0r"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://dau2j1nwuiacj" path="res://media/hud/systemMessages/foil.png" id="20_3hgdt"]
 [ext_resource type="Script" path="res://scripts/SystemMessageHud.gd" id="20_4frnj"]
 [ext_resource type="Texture2D" uid="uid://bli3wuidvroat" path="res://media/hud/systemMessages/train.png" id="21_cgrsi"]
+[ext_resource type="Texture2D" uid="uid://m1l7s5y74qbc" path="res://media/hud/systemMessages/infinity.png" id="23_ilvvi"]
 
 [node name="GameSceneTest" type="Node2D"]
 script = ExtResource("1_xmmq4")
@@ -203,6 +204,18 @@ position = Vector2(790, 130)
 rotation = 0.139626
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("7_fac75")
+
+[node name="Infinity1" type="Sprite2D" parent="Canvas/Hud"]
+visible = false
+position = Vector2(58, 53)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("23_ilvvi")
+
+[node name="Infinity2" type="Sprite2D" parent="Canvas/Hud"]
+visible = false
+position = Vector2(1076, 53)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("23_ilvvi")
 
 [node name="Characters" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true

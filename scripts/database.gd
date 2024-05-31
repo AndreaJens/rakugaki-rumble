@@ -99,5 +99,11 @@ enum AttackType {
 @export var showBoxes : bool = false
 @export var player1Device : int = -1
 @export var player2Device : int = -1
+@export var defaultGroundHitReaction : String = "hurtG"
+@export var defaultAirHitReaction : String = "hurtA"
+@export var defaultWallsplatReaction : String = "wallsplat"
+@export var defaultInstallDurationTicks : int = 300
+@export var defaultMaxNumberOfBounces : int = 2
+@export var characterAbsVelocityCapX : int = 1000000
 
 
