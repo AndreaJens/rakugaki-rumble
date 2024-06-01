@@ -20,7 +20,15 @@ enum CharacterStateValues{
 	AffectedByHitFreeze = 16,
 	InfinityInstallActive = 17,
 	ZeroInstallActive = 18,
-	InstallFrameCounter = 19
+	InstallFrameCounter = 19,
+	ComboDamage = 20,
+	MeterBroken = 21,
+}
+
+enum WallBounceId {
+	None = 0,
+	Left = 0,
+	Right = 0,
 }
 
 @export var logicalPosition : Vector2i = Vector2i(0, 0)
@@ -33,6 +41,7 @@ enum CharacterStateValues{
 @export var characterStanceType : Character.State = Character.State.Ground
 @export var currentMoveHasHit : bool = false
 @export var onLeftSide : bool = false
+@export var comboDamage : int = 0
 @export var comboCounter : int = 0
 @export var bounceCounter : int = 0
 @export var affectedByHitFreeze : bool = false
@@ -40,6 +49,7 @@ enum CharacterStateValues{
 @export var hasInfinityInstallActive : bool = false
 @export var hasZeroInstallActive : bool = false
 @export var installDurationFrameCounter : int = -1
+@export var meterBroken : bool = false
 
 func _save_state() -> Dictionary:
 	return {
@@ -57,12 +67,14 @@ func _save_state() -> Dictionary:
 		CharacterStateValues.CurrentMoveHasHit : currentMoveHasHit,
 		CharacterStateValues.IsOnLeftSide : onLeftSide,
 		CharacterStateValues.ComboCounter : comboCounter,
+		CharacterStateValues.ComboDamage : comboDamage,
 		CharacterStateValues.RoundPhaseState : roundState,
 		CharacterStateValues.BounceCounter : bounceCounter,
 		CharacterStateValues.AffectedByHitFreeze : affectedByHitFreeze,
 		CharacterStateValues.InfinityInstallActive : hasInfinityInstallActive,
 		CharacterStateValues.ZeroInstallActive : hasZeroInstallActive,
 		CharacterStateValues.InstallFrameCounter : installDurationFrameCounter,
+		CharacterStateValues.MeterBroken : meterBroken,
 	}
 
 func _load_state( state : Dictionary ) -> void:
@@ -80,6 +92,7 @@ func _load_state( state : Dictionary ) -> void:
 	characterStanceType = state[CharacterStateValues.CurrentStance]
 	currentMoveHasHit = state[CharacterStateValues.CurrentMoveHasHit]
 	onLeftSide = state[CharacterStateValues.IsOnLeftSide]
+	comboDamage = state[CharacterStateValues.ComboDamage]
 	comboCounter = state[CharacterStateValues.ComboCounter]
 	bounceCounter = state[CharacterStateValues.BounceCounter]
 	roundState = state[CharacterStateValues.RoundPhaseState]
@@ -87,3 +100,4 @@ func _load_state( state : Dictionary ) -> void:
 	hasInfinityInstallActive = state[CharacterStateValues.InfinityInstallActive]
 	hasZeroInstallActive = state[CharacterStateValues.ZeroInstallActive]
 	installDurationFrameCounter = state[CharacterStateValues.InstallFrameCounter]
+	meterBroken = state[CharacterStateValues.MeterBroken]

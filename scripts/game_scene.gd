@@ -21,10 +21,14 @@ var _cameraLogicalPosition : Vector2i
 var _hitFreezeFrames : int = -1
 var _lastFrameComboHitFreeze : bool = false
 var _comboHitFreeze : bool = false
+var _wallHitFreeze : bool = false
 var _roundPhaseCounter : int = -1
 var _roundPhaseState : RoundPhaseState = RoundPhaseState.Ready
 var _roundWonCharacter1 : int = 0
 var _roundWonCharacter2 : int = 0
+@export_category("Match Settings")
+@export var roundsToWin : int = 3
+@export var hasWallDamage : bool = true
 @export_category("Settings")
 @export var phaseTransitionMaxCounter = 120
 @export var hitFreezeComboFrames = 10
@@ -58,6 +62,9 @@ enum GameStateVars {
 	TimerTicks = 9,
 	RoundWonCharacter1 = 10,
 	RoundWonCharacter2 = 11,
+	HitFreezeWallBool = 12,
+	WallSplatFreezeFrames = 13,
+	WallSplatCharacterId = 14,
 	SystemMessageManagerState = 900,
 	InputManagerCharacter1 = 901,
 	InputManagerCharacter2 = 902,
@@ -71,6 +78,7 @@ func _save_state() -> Dictionary:
 	stateDict[GameStateVars.HitFreezeLastFrame] = _lastFrameComboHitFreeze
 	stateDict[GameStateVars.HitFreezeCounter] = _hitFreezeFrames
 	stateDict[GameStateVars.HitFreezeBool] = _comboHitFreeze
+	stateDict[GameStateVars.HitFreezeWallBool] = _wallHitFreeze
 	stateDict[GameStateVars.CameraLogicalPositionX] = _cameraLogicalPosition.x
 	stateDict[GameStateVars.CameraLogicalPositionY] = _cameraLogicalPosition.y
 	stateDict[GameStateVars.RoundPhaseState] = _roundPhaseState
@@ -88,6 +96,7 @@ func _load_state(state : Dictionary) -> void:
 	character1._load_state(state[GameStateVars.Character1State])
 	character2._load_state(state[GameStateVars.Character2State])
 	_comboHitFreeze = state[GameStateVars.HitFreezeBool]
+	_wallHitFreeze = state[GameStateVars.HitFreezeWallBool]
 	_hitFreezeFrames = state[GameStateVars.HitFreezeCounter]
 	_lastFrameComboHitFreeze = state[GameStateVars.HitFreezeLastFrame]
 	_cameraLogicalPosition.x = state[GameStateVars.CameraLogicalPositionX]
@@ -111,6 +120,7 @@ func _ready():
 	_init_hud()
 	_lastStateSaved = _save_state()
 	hudMain.trainingMessage.visible = preventDeath
+	hudMain.hide_unused_round_counters(roundsToWin)
 	add_to_group('network_sync')
 	
 func _reset_round():
@@ -139,13 +149,21 @@ func _update_system_input():
 	if debugMode:
 		if InputOverseer.input_is_action_just_pressed_kb("toggle_boxes_debug"):
 				GameDatabaseAccessor.showBoxes = !GameDatabaseAccessor.showBoxes
-		elif InputOverseer.input_is_action_just_pressed_kb("replenish_healthbars_debug"):
+		elif InputOverseer.input_is_action_just_pressed_kb("refill_resources_debug"):
 				if character1.is_ko():
 					character1.reset_character_to_idle_full_health()
 				if character2.is_ko():
 					character2.reset_character_to_idle_full_health()
 				character1.characterState.currentHealth = character1.characterData.characterMaxHealth
 				character2.characterState.currentHealth = character2.characterData.characterMaxHealth
+				character1.characterState.currentMeter = character1.characterData.characterMaxMeter
+				character2.characterState.currentMeter = character2.characterData.characterMaxMeter
+				character1.characterState.meterBroken = false
+				character1.infinityInstallActive = false
+				character1.zeroInstallActive = false
+				character2.characterState.meterBroken = false
+				character2.infinityInstallActive = false
+				character2.zeroInstallActive = false
 				_roundPhaseState = RoundPhaseState.ActiveMatch
 				_roundPhaseCounter = -1
 				hudMain.hide_message(true)
@@ -182,7 +200,11 @@ func _update_game_phase_transition():
 	var phaseTransitionMessageThreshold = phaseTransitionMaxCounter / 4
 	if  _roundPhaseState == RoundPhaseState.Ready and _roundPhaseCounter < 0:
 		_roundPhaseCounter = phaseTransitionMaxCounter
-		hudMain.show_message(HudManager.SystemMessage.Ready)
+		if (_roundWonCharacter1 == roundsToWin - 1 or
+		_roundWonCharacter2 == roundsToWin - 1):
+			hudMain.show_message(HudManager.SystemMessage.Matchpoint)
+		else:
+			hudMain.show_message(HudManager.SystemMessage.Ready)
 	elif _roundPhaseState == RoundPhaseState.Ready and _roundPhaseCounter > 0:
 		_roundPhaseCounter -= 1
 		if _roundPhaseCounter == phaseTransitionMessageThreshold:
@@ -225,15 +247,41 @@ func _update_character_input():
 	inputManagerP1.update_buffer()
 	inputManagerP2.update_buffer()
 
+func _adjust_character_sfx():
+	var visibleInstallBg : bool = false
+	if (character1.currentMove and character1.currentMove.timestopFrames > 0):
+		visibleInstallBg = true
+	elif (character2.currentMove and character2.currentMove.timestopFrames > 0):
+		visibleInstallBg = true
+	$Characters/InstallBackground.visible = visibleInstallBg
+	$Characters/InstallBackground.position = camera.position
+
 func _update_character_state():
 	# this is a measure to improve move detection during hit freeze
 	var extraInputLeniency = 0
 	if !_comboHitFreeze and _lastFrameComboHitFreeze:
 		extraInputLeniency = hitFreezeComboFrames
+	var character1previousMove = character1.currentMove
+	var character2previousMove = character2.currentMove
 	if character1.can_be_updated():
 		character1.update(inputManagerP1, extraInputLeniency)
 	if character2.can_be_updated():
 		character2.update(inputManagerP2, extraInputLeniency)
+	
+	# TIMESTOP! ZA WARUDO!
+	if ((!character1previousMove and character1.currentMove) or 
+		(character1previousMove and character1.currentMove and
+		character1previousMove.internalName != character1.currentMove.internalName)):
+		if character1.currentMove.timestopFrames > 0:
+			_hitFreezeFrames = character1.currentMove.timestopFrames 
+			character2.characterState.affectedByHitFreeze = true
+			
+	if ((!character2previousMove and character2.currentMove) or 
+		(character2previousMove and character2.currentMove and
+		character2previousMove.internalName != character2.currentMove.internalName)):
+		if character2.currentMove.timestopFrames > 0:
+			_hitFreezeFrames = character2.currentMove.timestopFrames 
+			character1.characterState.affectedByHitFreeze = true
 	
 	character1.immortal = preventDeath
 	character2.immortal = preventDeath
@@ -253,7 +301,29 @@ func _update_character_state():
 			else:
 				character2.set_on_left_side(false) 
 				character2.scale = Vector2(-1, 1)
-		
+
+func _apply_wall_damage(character : Character, opponent : Character):
+	if !hasWallDamage:
+		return
+	#print("Wall speed %d!" % character.get_logical_velocity().x)
+	@warning_ignore("integer_division")
+	var damage : int = max(1, abs(character.get_logical_velocity().x / 20))
+	if opponent.infinityInstallActive:
+		@warning_ignore("integer_division")
+		damage = max(1, abs(character.get_logical_velocity().x / 500))
+		#print(damage)
+	character.deal_damage(damage)
+	opponent.characterState.comboCounter += 1
+	opponent.characterState.comboDamage += damage
+	
+func _apply_wallsplat_damage(character : Character, opponent : Character):
+	#print("Wall speed %d!" % character.get_logical_velocity().x)
+	@warning_ignore("integer_division")
+	var damage : int = max(1, abs(character.get_logical_velocity().x / 10))
+	character.deal_damage(damage)
+	opponent.characterState.comboCounter += 1
+	opponent.characterState.comboDamage += damage
+	
 func _adjust_character_momentum(character : Character, opponent : Character):
 	if !character.can_be_updated():
 		return
@@ -271,33 +341,48 @@ func _adjust_character_momentum(character : Character, opponent : Character):
 	var boxHalfSize : int = character.get_collision_box().size.x / 2
 	@warning_ignore("integer_division")
 	var stageHalfSize : int = stage.logicalSize.x / 2
-	if ((leftWallDistance <= boxHalfSize and 
-			character.get_logical_velocity().x < 0) or 
-		(rightWallDistance <= boxHalfSize and 
-			character.get_logical_velocity().x > 0)):
-			if (!opponent.infinityInstallActive and 
-			character.characterState.bounceCounter >= 
-			GameDatabaseAccessor.defaultMaxNumberOfBounces):
-				if (leftWallDistance <= boxHalfSize and 
-				character.get_logical_velocity().x < 0):
-					character.characterState.logicalPosition.x = (
-						stage.logicalPosition.x - stageHalfSize +
-						boxHalfSize)
+	var horizontalMomentumMultiplier : int = 150
+	if opponent.infinityInstallActive:
+		horizontalMomentumMultiplier = 180
+	if !_wallHitFreeze:
+		if ((leftWallDistance <= boxHalfSize and 
+				character.get_logical_velocity().x < 0) or 
+			(rightWallDistance <= boxHalfSize and 
+				character.get_logical_velocity().x > 0)):
+				if (!opponent.infinityInstallActive and 
+				character.characterState.bounceCounter >= 
+				GameDatabaseAccessor.defaultMaxNumberOfBounces):
+					if (leftWallDistance <= boxHalfSize and 
+					character.get_logical_velocity().x < 0):
+						character.characterState.logicalPosition.x = (
+							stage.logicalPosition.x - stageHalfSize +
+							boxHalfSize)
+					else:
+						character.characterState.logicalPosition.x = (
+							stage.logicalPosition.x + stageHalfSize -
+							boxHalfSize)
+					character.update_screen_position()
+					_apply_wallsplat_damage(character, opponent)
+					if character.is_ko():
+						character.apply_move_by_name(
+							GameDatabaseAccessor.defaultWallsplatReaction + "_ko"
+						)
+					else:
+						character.apply_move_by_name(
+							GameDatabaseAccessor.defaultWallsplatReaction
+						)
+					_wallHitFreeze = true
+					_comboHitFreeze = false
 				else:
-					character.characterState.logicalPosition.x = (
-						stage.logicalPosition.x + stageHalfSize -
-						boxHalfSize)
-				character.update_screen_position()
-				character.apply_move_by_name(
-					GameDatabaseAccessor.defaultWallsplatReaction
-				)
-			else:
-				character.multiply_horizontal_movement(-150, false)
-				character.multiply_vertical_movement(125)
-				character.characterState.bounceCounter += 1
-				_hitFreezeFrames = hitFreezeWallFrames
-				character.characterState.affectedByHitFreeze = true
-				_comboHitFreeze = false
+					character.multiply_horizontal_movement(-horizontalMomentumMultiplier, false)
+					character.multiply_vertical_movement(125)
+					character.characterState.bounceCounter += 1
+					#print("BOUNCE %d" % character.characterState.bounceCounter)
+					_apply_wall_damage(character, opponent)
+					_hitFreezeFrames = hitFreezeWallFrames
+					character.characterState.affectedByHitFreeze = true
+					_wallHitFreeze = true
+					_comboHitFreeze = false
 		
 func _constrain_character_position_to_camera_viewport(character : Character):
 	var collBox = character.get_collision_box()
@@ -323,7 +408,7 @@ func _constrain_character_position_to_camera_viewport(character : Character):
 			
 func _update_camera(immediate : bool = false):
 	if immediate:
-		camera.position_smoothing_enabled = false
+		camera.reset_smoothing()
 	else:
 		camera.position_smoothing_enabled = true
 	var cameraTargetPosition = (character1.position + character2.position) / 2
@@ -360,7 +445,8 @@ func _process_damage_collisions(attacker : Character, defender : Character) -> D
 					if (attacker.get_box_top_left(hitBox).
 							intersects(defender.get_box_top_left(hurtBox))):
 						result[HitDetectionFlags.HasHit] = true
-						result[HitDetectionFlags.DamageToApply] = hitBox.damage
+						var rawDamage = hitBox.damage
+						result[HitDetectionFlags.DamageToApply] = attacker.adjust_move_damage(rawDamage)
 						if defender.is_airborne():
 							result[HitDetectionFlags.TargetReaction] = hitBox.moveReactionOnHitAir
 						else:
@@ -374,8 +460,10 @@ func _process_damage_collisions(attacker : Character, defender : Character) -> D
 func _update_hit_detection():
 	if !character1.currentMove or !character1.currentMove.isHitStunState:
 		character2.characterState.comboCounter = 0
+		character2.characterState.comboDamage = 0
 	if !character2.currentMove or !character2.currentMove.isHitStunState:
 		character1.characterState.comboCounter = 0
+		character1.characterState.comboDamage = 0
 	var p1AttackResult = _process_damage_collisions(character1, character2)
 	var p2AttackResult = _process_damage_collisions(character2, character1)
 	# manage damage and hit reactions
@@ -385,29 +473,47 @@ func _update_hit_detection():
 		character1.characterState.affectedByHitFreeze = true
 		character2.characterState.affectedByHitFreeze = true
 		_comboHitFreeze = true
+		_wallHitFreeze = false
 		if character2.currentMove and character2.currentMove.isHitStunState:
 			character1.characterState.comboCounter += 1
+			character1.characterState.comboDamage += p1AttackResult[HitDetectionFlags.DamageToApply]
 		else:
 			character1.characterState.comboCounter = 0
+			character1.characterState.comboDamage = 0
 	if p2AttackResult[HitDetectionFlags.HasHit]:
 		character2.mark_successful_hit()
 		_hitFreezeFrames = hitFreezeComboFrames
 		character1.characterState.affectedByHitFreeze = true
 		character2.characterState.affectedByHitFreeze = true
 		_comboHitFreeze = true
+		_wallHitFreeze = false
 		if character1.currentMove and character1.currentMove.isHitStunState:
 			character2.characterState.comboCounter += 1
+			character2.characterState.comboDamage += p2AttackResult[HitDetectionFlags.DamageToApply]
 		else:
 			character2.characterState.comboCounter = 0
+			character2.characterState.comboDamage = 0
 	if p1AttackResult[HitDetectionFlags.HasHit]:
+		@warning_ignore("integer_division")
+		var meterGainHitCharacter = (
+			p1AttackResult[HitDetectionFlags.MeterGain] / 
+			GameDatabaseAccessor.hitCharacterMeterGainFraction)
 		character1.gain_meter(p1AttackResult[HitDetectionFlags.MeterGain])
+		character2.gain_meter(meterGainHitCharacter)
 		character2.deal_damage(p1AttackResult[HitDetectionFlags.DamageToApply])
 		character2.characterState.comboCounter = 0
+		character2.characterState.comboDamage = 0
 		var _success = character2.apply_move_by_name(p1AttackResult[HitDetectionFlags.TargetReaction])
 	if p2AttackResult[HitDetectionFlags.HasHit]:
+		@warning_ignore("integer_division")
+		var meterGainHitCharacter = (
+			p2AttackResult[HitDetectionFlags.MeterGain] / 
+			GameDatabaseAccessor.hitCharacterMeterGainFraction)
 		character2.gain_meter(p2AttackResult[HitDetectionFlags.MeterGain])
+		character1.gain_meter(meterGainHitCharacter)
 		character1.deal_damage(p2AttackResult[HitDetectionFlags.DamageToApply])
 		character1.characterState.comboCounter = 0
+		character1.characterState.comboDamage = 0
 		var _success = character1.apply_move_by_name(p2AttackResult[HitDetectionFlags.TargetReaction])
 
 func _init_hud():
@@ -427,7 +533,11 @@ func _update_hud():
 	hudMain.update(character1, character2)
 	@warning_ignore("integer_division")
 	var comboCounterHitFreezeFrames = hitFreezeComboFrames / 2
+	@warning_ignore("integer_division")
+	var comboCounterWallHitFreezeFrames = hitFreezeWallFrames / 2
 	if _hitFreezeFrames >= comboCounterHitFreezeFrames and _comboHitFreeze:
+		hudMain.update_combo_counter_zoom(1.3)
+	elif _hitFreezeFrames >= comboCounterWallHitFreezeFrames and _wallHitFreeze:
 		hudMain.update_combo_counter_zoom(1.3)
 	else:
 		hudMain.update_combo_counter_zoom(0.7)
@@ -439,9 +549,13 @@ func _process(_delta):
 	_update_character_input()
 	if _hitFreezeFrames >= 0:
 		_hitFreezeFrames -= 1
-		camera.zoom = Vector2(1.1, 1.1)
+		if (_comboHitFreeze or _wallHitFreeze):
+			camera.zoom = Vector2(1.1, 1.1)
+		else:
+			camera.zoom = Vector2(1., 1.)
 		if _hitFreezeFrames == 0:
 			_comboHitFreeze = false
+			_wallHitFreeze = false
 			character1.characterState.affectedByHitFreeze = false
 			character2.characterState.affectedByHitFreeze = false
 	else:
@@ -451,7 +565,7 @@ func _process(_delta):
 		_update_character_state()	
 		_adjust_character_momentum(character1, character2)
 		_adjust_character_momentum(character2, character1)
-		if hitFreezeOnWallCollisionBothPlayers:
+		if _wallHitFreeze and hitFreezeOnWallCollisionBothPlayers:
 			if character1.characterState.affaffectedByHitFreeze:
 				character2.characterState.affectedByHitFreeze = true
 			elif character2.characterState.affaffectedByHitFreeze:
@@ -459,6 +573,7 @@ func _process(_delta):
 		_update_camera()
 		_constrain_character_position_to_camera_viewport(character1)
 		_constrain_character_position_to_camera_viewport(character2)
+		_adjust_character_sfx()
 		collisionManager.update_character_position_on_collision(character1, character2, stage)
 		_update_hit_detection()
 	_lastFrameComboHitFreeze = _comboHitFreeze
@@ -466,14 +581,15 @@ func _process(_delta):
 	
 func _network_process(_input: Dictionary) -> void:
 	if _hitFreezeFrames >= 0:
-		_hitFreezeFrames -= 1
-		camera.zoom = Vector2(1.1, 1.1)
-		#character1.pause_animation()
-		#character2.pause_animation()
+		if (_comboHitFreeze or _wallHitFreeze):
+			camera.zoom = Vector2(1.1, 1.1)
+		else:
+			camera.zoom = Vector2(1., 1.)
 		if _hitFreezeFrames == 0:
 			_comboHitFreeze = false
-			#character1.resume_animation()
-			#character2.resume_animation()
+			_wallHitFreeze = false
+			character1.characterState.affectedByHitFreeze = false
+			character2.characterState.affectedByHitFreeze = false
 	else:
 		camera.zoom = Vector2(1., 1.)
 	if character1.can_be_updated() or character2.can_be_updated():
@@ -481,7 +597,7 @@ func _network_process(_input: Dictionary) -> void:
 		_update_character_state()	
 		_adjust_character_momentum(character1, character2)
 		_adjust_character_momentum(character2, character1)
-		if !_comboHitFreeze and hitFreezeOnWallCollisionBothPlayers:
+		if _wallHitFreeze and hitFreezeOnWallCollisionBothPlayers:
 			if character1.characterState.affaffectedByHitFreeze:
 				character2.characterState.affectedByHitFreeze = true
 			elif character2.characterState.affaffectedByHitFreeze:
@@ -489,6 +605,7 @@ func _network_process(_input: Dictionary) -> void:
 		_update_camera()
 		_constrain_character_position_to_camera_viewport(character1)
 		_constrain_character_position_to_camera_viewport(character2)
+		_adjust_character_sfx()
 		collisionManager.update_character_position_on_collision(character1, character2, stage)
 		_update_hit_detection()
 	_lastFrameComboHitFreeze = _comboHitFreeze

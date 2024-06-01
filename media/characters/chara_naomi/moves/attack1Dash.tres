@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=4 format=3 uid="uid://u5qkprdh3f63"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=5 format=3 uid="uid://u5qkprdh3f63"]
 
 [ext_resource type="Resource" uid="uid://csyfkukhxifa0" path="res://media/characters/all_chara_common/moves/cancels/jc_on_hit.tres" id="1_0r7sq"]
+[ext_resource type="Resource" uid="uid://b3dvs8txb8pji" path="res://media/characters/all_chara_common/moves/cancels/zero_install_hit.tres" id="2_5kgmq"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="2_g5kyd"]
 [ext_resource type="Resource" uid="uid://k85f7ldgjhu7" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_hit.tres" id="4_nmp0m"]
 
@@ -13,12 +14,13 @@ animationName = "attack1"
 startingFrame = 6
 endingFrame = 26
 isHitStunState = false
-keepMomentumPercent = 100
 loop = false
-canBeUsedBeforeRoundBegins = false
 canTurnMidMove = false
 logicalVelocityPerFrame = Vector2i(20000, 0)
 logicalAccelerationPerFrame = Vector2i(-1500, 0)
+keepMomentumPercent = 100
+meterCost = 0
+canBeUsedBeforeRoundBegins = false
 bufferStartLeniency = 5
 bufferLengthLeniency = 10
 useRawBuffer = false
@@ -26,6 +28,6 @@ input = Array[int]([16])
 inputVariant1 = Array[int]([])
 inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
-cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_0r7sq"), ExtResource("4_nmp0m")])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_0r7sq"), ExtResource("2_5kgmq"), ExtResource("4_nmp0m")])
 guardFrames = Vector2i(-1, -1)
 timestopFrames = 0

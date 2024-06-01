@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MoveCancelRoute" load_steps=2 format=3 uid="uid://c6bibtakoncnd"]
+
+[ext_resource type="Script" path="res://scripts/cancelRoute.gd" id="1_o2yd6"]
+
+[resource]
+script = ExtResource("1_o2yd6")
+targetMoveName = "zero_install"
+startFrame = -1
+endFrame = -1
+onHit = true
+onBlock = true
+onWhiff = true
+automaticCancelOnLanding = false
+activeIfNothingPressed = false
+autoCancelWhenValid = false
+autoPerformAtMoveEnd = false

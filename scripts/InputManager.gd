@@ -16,9 +16,67 @@ var _baseActionDict : Dictionary = {
 var _actionsToDuplicate : Array[String] = []
 var _deviceActionDict : Dictionary = {}
 
+var axisTriggeredX : bool = false
+var axisTriggeredY : bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
+	
+# fix for analogs not firing correctly for actions added to D-Pad too
+#func _unhandled_input(event : InputEvent) -> void:
+	#if event is InputEventJoypadMotion:# and event.device == _device:
+		#if abs(event.axis_value) < 0.5 and axisTriggeredX and (
+			#event.axis == JOY_AXIS_LEFT_X or event.axis == JOY_AXIS_RIGHT_X):
+			#axisTriggeredX = false
+			#var eventToFire = InputEventAction.new()
+			#eventToFire.action = _deviceActionDict["move_r"]
+			#eventToFire.pressed = false
+			#Input.parse_input_event(eventToFire)
+			#var eventToFire2 = InputEventAction.new()
+			#eventToFire2.action = _deviceActionDict["move_l"]
+			#eventToFire2.pressed = false
+			#Input.parse_input_event(eventToFire2)
+		#elif abs(event.axis_value) < 0.5 and axisTriggeredY and (
+			#event.axis == JOY_AXIS_LEFT_Y or event.axis == JOY_AXIS_RIGHT_Y):
+			#axisTriggeredY = false
+			#var eventToFire = InputEventAction.new()
+			#eventToFire.action = _deviceActionDict["move_u"]
+			#eventToFire.pressed = false
+			#Input.parse_input_event(eventToFire)
+			#var eventToFire2 = InputEventAction.new()
+			#eventToFire2.action = _deviceActionDict["move_d"]
+			#eventToFire2.pressed = false
+			#Input.parse_input_event(eventToFire2)
+		#elif abs(event.axis_value)  >= 0.5:
+			#if (event.axis == JOY_AXIS_LEFT_X or 
+			#event.axis == JOY_AXIS_RIGHT_X) and not axisTriggeredX:
+				#if event.axis_value <= -0.5:
+					#axisTriggeredX = true
+					#var eventToFire = InputEventAction.new()
+					#eventToFire.action = _deviceActionDict["move_l"]
+					#eventToFire.pressed = true
+					#Input.parse_input_event(eventToFire)
+				#elif event.axis_value >= 0.5:
+					#axisTriggeredX = true
+					#var eventToFire = InputEventAction.new()
+					#eventToFire.action = _deviceActionDict["move_r"]
+					#eventToFire.pressed = true
+					#Input.parse_input_event(eventToFire)
+			#elif  (event.axis == JOY_AXIS_LEFT_Y or 
+				#event.axis == JOY_AXIS_RIGHT_Y)  and not axisTriggeredY:
+				#if event.axis_value <= -0.5:
+					#axisTriggeredY = true
+					#var eventToFire = InputEventAction.new()
+					#eventToFire.action = _deviceActionDict["move_u"]
+					#eventToFire.pressed = true
+					#Input.parse_input_event(eventToFire)
+				#elif event.axis_value >= 0.5:
+					#axisTriggeredY = true
+					#var eventToFire = InputEventAction.new()
+					#eventToFire.action = _deviceActionDict["move_d"]
+					#eventToFire.pressed = true
+					#Input.parse_input_event(eventToFire)
 		
 func initialize(device: int):
 	if device == -1:
@@ -63,9 +121,9 @@ func is_action_just_released(action: String) -> bool:
 
 func get_action_strength(action: String) -> float:
 	return Input.get_action_strength(_deviceActionDict[action])
+	
+func get_axis_value(axis :int) -> float:
+	return Input.get_joy_axis(_device, axis)
 
 func get_mapped_action(action: String) -> String:
 	return _deviceActionDict[action]
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-

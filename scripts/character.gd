@@ -28,7 +28,7 @@ var hurtBoxes : Array[HurtBox] = []
 @export var infinityInstallActive : bool = false:
 	set (value):
 		if !characterState.hasInfinityInstallActive and value:
-			characterState.installDurationFrameCounter = GameDatabaseAccessor.defaultInstallDurationTicks
+			characterState.installDurationFrameCounter = GameDatabaseAccessor.defaultInfinityInstallDurationTicks
 		if !value:
 			characterState.installDurationFrameCounter = -1
 		infinityInstallActive = value
@@ -37,7 +37,7 @@ var hurtBoxes : Array[HurtBox] = []
 @export var zeroInstallActive : bool = false:
 	set (value):
 		if !characterState.hasZeroInstallActive and value:
-			characterState.installDurationFrameCounter = GameDatabaseAccessor.defaultInstallDurationTicks
+			characterState.installDurationFrameCounter = GameDatabaseAccessor.defaultZeroInstallDurationTicks
 		if !value:
 			characterState.installDurationFrameCounter = -1
 		zeroInstallActive = value
@@ -89,6 +89,13 @@ func set_on_left_side(onLeftSide : bool):
 func has_active_install() -> bool:
 	return zeroInstallActive or infinityInstallActive
 	
+func adjust_move_damage(damage : int) -> int:
+	if zeroInstallActive and damage > 0:
+		@warning_ignore("integer_division")
+		damage = damage * 2 / 3
+		damage = max(1, damage)
+	return damage
+	
 func deactivate_boxes():
 	pushBox.active = false
 	if pushBox.is_mirrored():
@@ -114,6 +121,7 @@ func reset_character(resetMeter : bool = false):
 	characterState.comboCounter = 0
 	characterState.bounceCounter = 0
 	characterState.affectedByHitFreeze = false
+	characterState.meterBroken = false
 	infinityInstallActive = false
 	zeroInstallActive = false
 	deactivate_boxes()
@@ -124,10 +132,14 @@ func reset_character(resetMeter : bool = false):
 func reset_character_to_idle_full_health():
 	characterState.currentHealth = characterData.characterMaxHealth
 	characterState.currentMeter =  characterData.characterMaxMeter
+	characterState.meterBroken = false
 	infinityInstallActive = false
 	zeroInstallActive = false
 	characterState.logicalVelocity = Vector2i(0, 0)
 	characterState.logicalAcceleration = Vector2i(0, 0)
+	characterState.comboCounter = 0
+	characterState.bounceCounter = 0
+	characterState.affectedByHitFreeze = false
 	characterState.moveId = ReservedMoveIndex.Idle
 	characterState.currentFrame = characterData.characterMoves[characterState.moveId].startingFrame
 	deactivate_boxes()
@@ -219,6 +231,12 @@ func apply_move_by_name(moveName : String) -> bool:
 
 func apply_new_move(move : CharacterMove):
 	deactivate_boxes()
+	if move.meterCost > characterState.currentMeter:
+		characterState.meterBroken = true
+	if move.forcedMeterBreak:
+		characterState.meterBroken = true
+		characterState.currentMeter = 0
+	add_meter(-move.meterCost)
 	characterState.currentMoveHasHit = false
 	characterState.moveId = moveNameToIndex[move.internalName]
 	animationPlayer.set_current_animation(move.animationName)
@@ -343,12 +361,28 @@ func _update_character_logical_position():
 		-GameDatabaseAccessor.characterAbsVelocityCapX, 
 		min(GameDatabaseAccessor.characterAbsVelocityCapX, characterState.logicalVelocity.x))	
 
+#func _update_install_aura():
+	#$Aura.visible = has_active_install()
+	#if has_active_install():
+		#$Aura.scale = get_sprite().scale
+		#$Aura.texture = get_sprite().texture
+		#$Aura.offset = get_sprite().offset
+		#$Aura.z_index = get_sprite().z_index
+		#$Aura.hframes = get_sprite().hframes
+		#$Aura.vframes = get_sprite().vframes
+		#$Aura.frame = get_sprite().frame
+		#var zoomLevel : float = 0.9
+		#if characterState.installDurationFrameCounter % 20 < 10:
+			#zoomLevel = 1.1
+		#$Aura.scale = Vector2(zoomLevel * $Aura.scale.x, zoomLevel * $Aura.scale.y)
+			
 func _update_character_installs():
 	if has_active_install() and characterState.installDurationFrameCounter >= 0:
 		characterState.installDurationFrameCounter -= 1
 		if characterState.installDurationFrameCounter < 0:
 			infinityInstallActive = false
 			zeroInstallActive = false	
+	#_update_install_aura()
 	
 func _update_character_stance():
 	if (characterState.logicalPosition.y >= initialLogicalPosition.y):
@@ -383,6 +417,9 @@ func can_perform_move(moveToTest : CharacterMove) -> bool:
 		characterState.roundState == SceneGame.RoundPhaseState.Engage):
 			if !moveToTest.canBeUsedBeforeRoundBegins:
 				return false
+	if moveToTest.meterCost > characterState.currentMeter and (
+		characterState.meterBroken or !moveToTest.canMeterBreak):
+		return false
 	return true
 
 func can_be_updated():
@@ -392,6 +429,10 @@ func can_be_dealt_damage() -> bool:
 	return characterState.roundState == SceneGame.RoundPhaseState.ActiveMatch
 
 func can_gain_meter() -> bool:
+	if has_active_install():
+		return false
+	if characterState.meterBroken:
+		return false
 	return characterState.roundState == SceneGame.RoundPhaseState.ActiveMatch
 
 func _update_current_move( inputManager : InputBufferManager, extraLeniency : int = 0 ):

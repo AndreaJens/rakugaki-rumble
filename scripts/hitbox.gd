@@ -4,7 +4,7 @@ class_name HitBox extends MoveBox
 @export var moveReactionOnHitGround : String = GameDatabaseAccessor.defaultGroundHitReaction
 @export var moveReactionOnHitAir : String = GameDatabaseAccessor.defaultAirHitReaction
 @export var damage : int = 0
-@export var meterGain : int = 0
+@export var meterGain : int = 3000
 @export var canBeBlocked : bool = true
 @export var chipDamageOnBlock : int = 0
 @export var meterGainOnBlock : int = 0

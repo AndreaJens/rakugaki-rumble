@@ -3,16 +3,23 @@ class_name CharacterMove extends Resource
 @export var characterState : Character.State
 @export var internalName : String
 @export var displayName : String
+@export_category("Animation")
 @export var animationName : String
 @export var startingFrame : int
 @export var endingFrame : int
+@export_category("Logic")
 @export var isHitStunState := false
-@export var keepMomentumPercent : int = 0
 @export var loop : bool
-@export var canBeUsedBeforeRoundBegins := false
 @export var canTurnMidMove : bool = false
+@export_category("Movement")
 @export var logicalVelocityPerFrame : Vector2i
 @export var logicalAccelerationPerFrame : Vector2i
+@export var keepMomentumPercent : int = 0
+@export_category("Conditions")
+@export var meterCost : int
+@export var canMeterBreak : bool = false
+@export var forcedMeterBreak : bool = false
+@export var canBeUsedBeforeRoundBegins := false
 @export_category("Move Input")
 @export var bufferStartLeniency := 3
 @export var bufferLengthLeniency := 10

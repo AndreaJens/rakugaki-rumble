@@ -71,3 +71,12 @@ func event_is_action_pressed(event: InputEvent, action: StringName) -> bool:
 		else:
 			return Input.is_action_pressed(action)
 	return false
+
+func input_get_axis_value(axis : int, deviceId : int) -> float:
+	if inputManagers.size() <= deviceId or deviceId < 0:
+		return 0.
+	if Input.get_connected_joypads().size() < deviceId:
+		return 0.
+	if focused:
+		return inputManagers[deviceId].get_axis_value(axis)
+	return 0.

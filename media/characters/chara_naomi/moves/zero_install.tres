@@ -1,13 +1,13 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=2 format=3 uid="uid://dwcbp04ce0f6h"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=2 format=3 uid="uid://dmfkrbe7lnwa6"]
 
-[ext_resource type="Script" path="res://scripts/move.gd" id="7_7eiak"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="1_ukp5v"]
 
 [resource]
-script = ExtResource("7_7eiak")
+script = ExtResource("1_ukp5v")
 characterState = 0
-internalName = "infinity_install"
+internalName = "zero_install"
 displayName = ""
-animationName = "infinity_install"
+animationName = "zero_install"
 startingFrame = 0
 endingFrame = 18
 isHitStunState = false
@@ -18,10 +18,10 @@ logicalAccelerationPerFrame = Vector2i(0, 900)
 keepMomentumPercent = 0
 meterCost = 30000
 canBeUsedBeforeRoundBegins = false
-bufferStartLeniency = 5
-bufferLengthLeniency = 4
+bufferStartLeniency = 3
+bufferLengthLeniency = 3
 useRawBuffer = false
-input = Array[int]([32])
+input = Array[int]([1, 32])
 inputVariant1 = Array[int]([])
 inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])

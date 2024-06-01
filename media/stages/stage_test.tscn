@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c07vx7o11k05c"]
+[gd_scene load_steps=32 format=3 uid="uid://c07vx7o11k05c"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_xmmq4"]
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="2_8rf0r"]
@@ -24,12 +24,19 @@
 [ext_resource type="Texture2D" uid="uid://dcjqqkhyf5828" path="res://media/hud/roundWinCounter.png" id="15_13s2k"]
 [ext_resource type="Texture2D" uid="uid://dau2j1nwuiacj" path="res://media/hud/systemMessages/foil.png" id="20_3hgdt"]
 [ext_resource type="Script" path="res://scripts/SystemMessageHud.gd" id="20_4frnj"]
+[ext_resource type="Texture2D" uid="uid://bgr8eufmx8jq1" path="res://media/hud/brushBackground.png" id="20_ra0yn"]
 [ext_resource type="Texture2D" uid="uid://bli3wuidvroat" path="res://media/hud/systemMessages/train.png" id="21_cgrsi"]
+[ext_resource type="Texture2D" uid="uid://chtbjs5lxwjyb" path="res://media/hud/brushBarFull.png" id="21_iu523"]
+[ext_resource type="Texture2D" uid="uid://c8v7xpqaxin5j" path="res://media/hud/systemMessages/zero.png" id="21_nlghf"]
+[ext_resource type="Texture2D" uid="uid://d1ppdraidfurf" path="res://media/hud/exclam.png" id="22_v32x4"]
 [ext_resource type="Texture2D" uid="uid://m1l7s5y74qbc" path="res://media/hud/systemMessages/infinity.png" id="23_ilvvi"]
+[ext_resource type="Texture2D" uid="uid://cad7j7aa46sk5" path="res://media/hud/systemMessages/MATCHPOINT.png" id="26_qkodm"]
 
 [node name="GameSceneTest" type="Node2D"]
 script = ExtResource("1_xmmq4")
+hasWallDamage = false
 phaseTransitionMaxCounter = 100
+hitFreezeWallFrames = 10
 debugMode = true
 preventDeath = true
 
@@ -78,17 +85,15 @@ offset_right = 567.0
 offset_bottom = 318.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("6_8oj7r")
-koTexture = ExtResource("7_in12c")
-readyTexture = ExtResource("8_fj0i6")
-engageTexture = ExtResource("9_rgnl3")
 roundNeutralTexture = ExtResource("10_l3lhp")
 roundWonTexture = ExtResource("11_efqef")
 systemMessageManager = NodePath("../../SystemMessages/System")
 trainingMessage = NodePath("TrainingModeFlag")
 
 [node name="Background" type="Sprite2D" parent="Canvas/Hud"]
-position = Vector2(560, -234)
+position = Vector2(566, -234)
 texture = ExtResource("6_7wx2e")
 
 [node name="Bar1Bg" type="Sprite2D" parent="Canvas/Hud"]
@@ -170,6 +175,16 @@ position = Vector2(-72, 0)
 scale = Vector2(0.33, 0.33)
 texture = ExtResource("15_13s2k")
 
+[node name="Round4" type="Sprite2D" parent="Canvas/Hud/RoundCountersP1"]
+position = Vector2(-108, 0)
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("15_13s2k")
+
+[node name="Round5" type="Sprite2D" parent="Canvas/Hud/RoundCountersP1"]
+position = Vector2(-144, 0)
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("15_13s2k")
+
 [node name="RoundCountersP2" type="Node2D" parent="Canvas/Hud"]
 position = Vector2(691, 20)
 
@@ -184,6 +199,16 @@ texture = ExtResource("15_13s2k")
 
 [node name="Round3" type="Sprite2D" parent="Canvas/Hud/RoundCountersP2"]
 position = Vector2(72, 0)
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("15_13s2k")
+
+[node name="Round4" type="Sprite2D" parent="Canvas/Hud/RoundCountersP2"]
+position = Vector2(108, 0)
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("15_13s2k")
+
+[node name="Round5" type="Sprite2D" parent="Canvas/Hud/RoundCountersP2"]
+position = Vector2(144, 0)
 scale = Vector2(0.33, 0.33)
 texture = ExtResource("15_13s2k")
 
@@ -205,17 +230,77 @@ rotation = 0.139626
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("7_fac75")
 
+[node name="SpBar1" type="Node2D" parent="Canvas/Hud"]
+position = Vector2(58, 60)
+
+[node name="BrushUnderlay" type="Sprite2D" parent="Canvas/Hud/SpBar1"]
+texture = ExtResource("20_ra0yn")
+
+[node name="SuperMeter" type="TextureProgressBar" parent="Canvas/Hud/SpBar1"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -51.0
+offset_top = -38.0
+offset_right = 51.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 50.0
+fill_mode = 3
+texture_progress = ExtResource("21_iu523")
+
+[node name="MAX" type="Sprite2D" parent="Canvas/Hud/SpBar1"]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("22_v32x4")
+
+[node name="SpBar2" type="Node2D" parent="Canvas/Hud"]
+position = Vector2(1076, 60)
+
+[node name="BrushUnderlay" type="Sprite2D" parent="Canvas/Hud/SpBar2"]
+texture = ExtResource("20_ra0yn")
+
+[node name="SuperMeter" type="TextureProgressBar" parent="Canvas/Hud/SpBar2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -51.0
+offset_top = -38.0
+offset_right = 51.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 50.0
+fill_mode = 3
+texture_progress = ExtResource("21_iu523")
+
+[node name="MAX" type="Sprite2D" parent="Canvas/Hud/SpBar2"]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("22_v32x4")
+
 [node name="Infinity1" type="Sprite2D" parent="Canvas/Hud"]
 visible = false
 position = Vector2(58, 53)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("23_ilvvi")
 
+[node name="Zero1" type="Sprite2D" parent="Canvas/Hud"]
+visible = false
+position = Vector2(58, 53)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("21_nlghf")
+
 [node name="Infinity2" type="Sprite2D" parent="Canvas/Hud"]
 visible = false
 position = Vector2(1076, 53)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("23_ilvvi")
+
+[node name="Zero2" type="Sprite2D" parent="Canvas/Hud"]
+visible = false
+position = Vector2(1076, 53)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("21_nlghf")
 
 [node name="Characters" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
@@ -226,6 +311,13 @@ position = Vector2(213, 610)
 [node name="Character2" parent="Characters" instance=ExtResource("2_ykrlp")]
 position = Vector2(1037, 610)
 
+[node name="InstallBackground" type="Sprite2D" parent="Characters"]
+modulate = Color(1, 1, 1, 0.752941)
+z_index = 90
+position = Vector2(566, 320)
+scale = Vector2(2, 2)
+texture = ExtResource("6_7wx2e")
+
 [node name="SystemMessages" type="CanvasLayer" parent="."]
 
 [node name="System" type="Control" parent="SystemMessages" node_paths=PackedStringArray("systemMessageSprite", "plasticFoilSprite")]
@@ -234,10 +326,12 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 1134.0
 offset_bottom = 636.0
+mouse_filter = 2
 script = ExtResource("20_4frnj")
 koTexture = ExtResource("7_in12c")
 readyTexture = ExtResource("8_fj0i6")
 engageTexture = ExtResource("9_rgnl3")
+matchpointTexture = ExtResource("26_qkodm")
 systemMessageSprite = NodePath("Foil/SystemMessage")
 plasticFoilSprite = NodePath("Foil")
 animationPixelsPerTick = 48

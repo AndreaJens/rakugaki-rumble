@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=3 format=3 uid="uid://cfys72n7q1uwv"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=4 format=3 uid="uid://cfys72n7q1uwv"]
 
 [ext_resource type="Resource" uid="uid://k85f7ldgjhu7" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_hit.tres" id="1_62p53"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="2_4npbd"]
+[ext_resource type="Resource" uid="uid://b3dvs8txb8pji" path="res://media/characters/all_chara_common/moves/cancels/zero_install_hit.tres" id="2_cl3hl"]
 
 [resource]
 script = ExtResource("2_4npbd")
@@ -12,12 +13,13 @@ animationName = "attack_jumpKick"
 startingFrame = 3
 endingFrame = 24
 isHitStunState = false
-keepMomentumPercent = 100
 loop = false
-canBeUsedBeforeRoundBegins = false
 canTurnMidMove = false
 logicalVelocityPerFrame = Vector2i(30000, -20000)
 logicalAccelerationPerFrame = Vector2i(-500, 2000)
+keepMomentumPercent = 100
+meterCost = 0
+canBeUsedBeforeRoundBegins = false
 bufferStartLeniency = 5
 bufferLengthLeniency = 10
 useRawBuffer = false
@@ -25,6 +27,6 @@ input = Array[int]([1, 5, 4, 16])
 inputVariant1 = Array[int]([1, 5, 4, 16384])
 inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
-cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_62p53")])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("2_cl3hl"), ExtResource("1_62p53")])
 guardFrames = Vector2i(-1, -1)
 timestopFrames = 0
