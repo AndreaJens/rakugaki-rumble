@@ -64,20 +64,6 @@ func _process(_delta):
 func _readout_buttons() -> Dictionary:
 	var currentInput : int = 0
 	var allPressedButtons : int = 0
-	# ANALOG STICKS FIRST
-	#if deviceId >= 0:
-		#if (InputOverseer.input_get_axis_value(deviceId, JOY_AXIS_LEFT_X) >= 0.5):
-			#allPressedButtons |= GameDatabaseAccessor.GameInputButton.Right
-			#currentInput |= GameDatabaseAccessor.GameInputButton.Right
-		#elif (InputOverseer.input_get_axis_value(deviceId, JOY_AXIS_LEFT_X) <= -0.5):
-			#allPressedButtons |= GameDatabaseAccessor.GameInputButton.Left
-			#currentInput |= GameDatabaseAccessor.GameInputButton.Left
-		#if (InputOverseer.input_get_axis_value(deviceId, JOY_AXIS_LEFT_Y) >= 0.5):
-			#allPressedButtons |= GameDatabaseAccessor.GameInputButton.Up
-			#currentInput |= GameDatabaseAccessor.GameInputButton.Up
-		#elif (InputOverseer.input_get_axis_value(deviceId, JOY_AXIS_LEFT_Y) <= -0.5):
-			#allPressedButtons |= GameDatabaseAccessor.GameInputButton.Down
-			#currentInput |= GameDatabaseAccessor.GameInputButton.Down
 		
 	for key in _actionDict:
 		if (_actionDict[key] & GameDatabaseAccessor.GameInputButton.AnyDirection):

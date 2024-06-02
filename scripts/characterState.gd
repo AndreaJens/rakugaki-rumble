@@ -47,6 +47,10 @@ enum WallBounceId {
 @export var affectedByHitFreeze : bool = false
 @export var roundState : SceneGame.RoundPhaseState = SceneGame.RoundPhaseState.ActiveMatch
 @export var hasInfinityInstallActive : bool = false
+	#set(value):
+		#if !value:
+			#print("wtf?")
+		#hasInfinityInstallActive = value
 @export var hasZeroInstallActive : bool = false
 @export var installDurationFrameCounter : int = -1
 @export var meterBroken : bool = false

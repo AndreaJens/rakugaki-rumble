@@ -4,8 +4,8 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 
 var mapOptions = {
-	0 : SceneManager.SceneType.SingleMatchMultiplayer,
-	1 : SceneManager.SceneType.Training,
+	0 : SceneManager.SceneType.CharacterSelectionMultiplayer,
+	1 : SceneManager.SceneType.CharacterSelectionTraining,
 }
 
 func _ready():

@@ -1,10 +1,9 @@
-[gd_scene load_steps=28 format=3 uid="uid://fnvspxaugubd"]
+[gd_scene load_steps=27 format=3 uid="uid://fnvspxaugubd"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_wago2"]
 [ext_resource type="Resource" uid="uid://8twlm04m24uq" path="res://media/characters/chara_rhozetta/characterData.tres" id="2_3jd0h"]
 [ext_resource type="Script" path="res://scripts/characterState.gd" id="2_kfbbf"]
 [ext_resource type="Script" path="res://addons/godot-rollback-netcode/NetworkAnimationPlayer.gd" id="3_o8kwn"]
-[ext_resource type="Texture2D" uid="uid://cpvhbgr7f2jwx" path="res://media/characters/chara_rhozetta/sprites/rhozetta2.png" id="4_8v82f"]
 [ext_resource type="PackedScene" uid="uid://cy2ewlewinwbv" path="res://media/logic/HitBox.tscn" id="4_aq1u3"]
 [ext_resource type="Texture2D" uid="uid://t1ms8cgwq76o" path="res://media/characters/chara_rhozetta/sprites/rhozetta1.png" id="4_ottud"]
 [ext_resource type="PackedScene" uid="uid://cbaqvnlrwjidk" path="res://media/logic/HurtBox.tscn" id="5_my4pl"]
@@ -244,11 +243,11 @@ script = ExtResource("2_kfbbf")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("4_8v82f")
-offset = Vector2(100, -350)
+texture = ExtResource("4_ottud")
+offset = Vector2(60, -320)
 hframes = 4
 vframes = 4
-frame = 5
+frame = 12
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -292,4 +291,4 @@ boxSize = Rect2i(270000, -200000, 200000, 200000)
 
 [node name="PushBox" parent="." instance=ExtResource("6_50ynk")]
 active = true
-boxSize = Rect2i(-20000, -100000, 200000, 200000)
+boxSize = Rect2i(0, -50000, 300000, 150000)

@@ -30,19 +30,21 @@ var hurtBoxes : Array[HurtBox] = []
 	set (value):
 		if !characterState.hasInfinityInstallActive and value:
 			characterState.installDurationFrameCounter = GameDatabaseAccessor.defaultInfinityInstallDurationTicks
-		if !value:
-			characterState.installDurationFrameCounter = -1
-		infinityInstallActive = value
-		characterState.hasInfinityInstallActive = infinityInstallActive
+		if value:
+			characterState.hasInfinityInstallActive = value
+	get:
+		return characterState.hasInfinityInstallActive
 		
 @export var zeroInstallActive : bool = false:
 	set (value):
 		if !characterState.hasZeroInstallActive and value:
 			characterState.installDurationFrameCounter = GameDatabaseAccessor.defaultZeroInstallDurationTicks
-		if !value:
-			characterState.installDurationFrameCounter = -1
-		zeroInstallActive = value
-		characterState.hasZeroInstallActive = zeroInstallActive
+		#if !value:
+			#characterState.installDurationFrameCounter = -1
+		if value:
+			characterState.hasZeroInstallActive = value
+	get:
+		return characterState.hasZeroInstallActive
 
 # FUNCTIONS FOR SNOPEK ROLLBACK ADDON
 func _save_state() -> Dictionary:
@@ -123,7 +125,7 @@ func set_on_left_side(onLeftSide : bool):
 	characterState.onLeftSide = onLeftSide
 	
 func has_active_install() -> bool:
-	return zeroInstallActive or infinityInstallActive
+	return characterState.hasZeroInstallActive or characterState.hasInfinityInstallActive
 
 func update_victory_pose():
 	if !is_airborne() and characterState.moveId != ReservedMoveIndex.Victory:
@@ -162,8 +164,10 @@ func reset_character(resetMeter : bool = false):
 	characterState.bounceCounter = 0
 	characterState.affectedByHitFreeze = false
 	characterState.meterBroken = false
-	infinityInstallActive = false
-	zeroInstallActive = false
+	disable_all_installs()
+	#infinityInstallActive = false
+	#zeroInstallActive = false
+	
 	deactivate_boxes()
 	apply_new_move( characterData.characterMoves[characterState.moveId] )
 	update_screen_position()
@@ -173,8 +177,9 @@ func reset_character_to_idle_full_health():
 	characterState.currentHealth = characterData.characterMaxHealth
 	characterState.currentMeter =  characterData.characterMaxMeter
 	characterState.meterBroken = false
-	infinityInstallActive = false
-	zeroInstallActive = false
+	#infinityInstallActive = false
+	#zeroInstallActive = false
+	disable_all_installs()
 	characterState.logicalVelocity = Vector2i(0, 0)
 	characterState.logicalAcceleration = Vector2i(0, 0)
 	characterState.comboCounter = 0
@@ -418,11 +423,18 @@ func _update_character_logical_position():
 			
 func _update_character_installs():
 	if has_active_install() and characterState.installDurationFrameCounter >= 0:
+		#print(characterState.installDurationFrameCounter)
 		characterState.installDurationFrameCounter -= 1
 		if characterState.installDurationFrameCounter < 0:
-			infinityInstallActive = false
-			zeroInstallActive = false	
+			disable_all_installs()
+			#infinityInstallActive = false
+			#zeroInstallActive = false	
 	#_update_install_aura()
+
+func disable_all_installs():
+	characterState.hasInfinityInstallActive = false
+	characterState.hasZeroInstallActive = false
+	characterState.installDurationFrameCounter = -1
 	
 func _update_character_stance():
 	if (characterState.logicalPosition.y >= initialLogicalPosition.y):

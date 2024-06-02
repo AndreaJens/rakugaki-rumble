@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://dtrh7m0aho8ro"]
+
+[ext_resource type="Script" path="res://scripts/scene_character_selection.gd" id="1_edawh"]
+[ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="2_p7346"]
+[ext_resource type="Script" path="res://scripts/generic_menu.gd" id="3_6r5vb"]
+[ext_resource type="Texture2D" uid="uid://dpbb30jc0c643" path="res://media/hud/systemMessages/VS.png" id="4_r42vn"]
+[ext_resource type="Texture2D" uid="uid://cdri01htadvuu" path="res://media/characters/chara_naomi/sprites/name.png" id="4_y8r6v"]
+[ext_resource type="Texture2D" uid="uid://ljub10t2iwni" path="res://media/characters/chara_rhozetta/sprites/name.png" id="5_gpk7r"]
+
+[node name="SceneCharacterSelection" type="Node2D" node_paths=PackedStringArray("_menu_p1", "_menu_p2")]
+script = ExtResource("1_edawh")
+_menu_p1 = NodePath("MenuP1")
+_menu_p2 = NodePath("MenuP2")
+
+[node name="Stage" type="Node2D" parent="."]
+
+[node name="StageSprite" type="Sprite2D" parent="Stage"]
+position = Vector2(567, 318)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_p7346")
+
+[node name="MenuP1" type="Node2D" parent="." node_paths=PackedStringArray("_optionSprites")]
+position = Vector2(283, 318)
+scale = Vector2(0.6, 0.6)
+script = ExtResource("3_6r5vb")
+_optionSprites = [NodePath("Naomi"), NodePath("Rho-Zetta")]
+
+[node name="Naomi" type="Sprite2D" parent="MenuP1"]
+texture = ExtResource("4_y8r6v")
+
+[node name="Rho-Zetta" type="Sprite2D" parent="MenuP1"]
+position = Vector2(0, 120)
+texture = ExtResource("5_gpk7r")
+
+[node name="MenuP2" type="Node2D" parent="." node_paths=PackedStringArray("_optionSprites")]
+position = Vector2(850, 318)
+scale = Vector2(0.6, 0.6)
+script = ExtResource("3_6r5vb")
+_optionSprites = [NodePath("Naomi"), NodePath("Rho-Zetta")]
+
+[node name="Naomi" type="Sprite2D" parent="MenuP2"]
+texture = ExtResource("4_y8r6v")
+
+[node name="Rho-Zetta" type="Sprite2D" parent="MenuP2"]
+position = Vector2(0, 120)
+texture = ExtResource("5_gpk7r")
+
+[node name="VS" type="Sprite2D" parent="."]
+position = Vector2(567, 318)
+texture = ExtResource("4_r42vn")

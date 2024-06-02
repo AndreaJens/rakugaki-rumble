@@ -1,5 +1,10 @@
 class_name SceneGame extends Node2D
 
+var character1Path : String
+var character2Path : String
+var player1DeviceId : int = 0
+var player2DeviceId : int = 1
+
 enum RoundPhaseState {
 	Ready = 0,
 	Engage = 1,
@@ -15,7 +20,9 @@ enum RoundPhaseState {
 enum AdditionalGameSceneStartupParameter{
 	Character1Path = 0,
 	Character2Path = 1,
-	StagePath = 2
+	StagePath = 2,
+	Player1DeviceId = 3,
+	Player2DeviceId = 4
 }
 var additionalSceneStartupParameters : Dictionary = {}
 
@@ -141,13 +148,19 @@ func _load_state(state : Dictionary) -> void:
 func _ready():
 	#character2/Sprite2D.flip_h = true
 	if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Character1Path):
-		var characterPath = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Character1Path]
-		var success = character1.initialize_from_directory(characterPath)
-		print("character %s loaded with status %s" % [characterPath, success])
+		character1Path = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Character1Path]
+		var success = character1.initialize_from_directory(character1Path)
+		print("character %s loaded with status %s" % [character1Path, success])
 	if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Character2Path):
-		var characterPath = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Character2Path]
-		var success = character2.initialize_from_directory(characterPath)
-		print("character %s loaded with status %s" % [characterPath, success])
+		character2Path = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Character2Path]
+		var success = character2.initialize_from_directory(character2Path)
+		print("character %s loaded with status %s" % [character2Path, success])
+	if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player1DeviceId):
+		player1DeviceId = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player1DeviceId]
+	if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player2DeviceId):
+		player2DeviceId = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player2DeviceId]
+	inputManagerP1.deviceId = player1DeviceId
+	inputManagerP2.deviceId = player2DeviceId
 	_reset_round()
 	_init_hud()
 	_lastStateSaved = _save_state()
@@ -242,11 +255,13 @@ func _update_system_input():
 				character1.characterState.currentMeter = character1.characterData.characterMaxMeter
 				character2.characterState.currentMeter = character2.characterData.characterMaxMeter
 				character1.characterState.meterBroken = false
-				character1.infinityInstallActive = false
-				character1.zeroInstallActive = false
+				#character1.infinityInstallActive = false
+				#character1.zeroInstallActive = false
+				character1.disable_all_installs()
 				character2.characterState.meterBroken = false
-				character2.infinityInstallActive = false
-				character2.zeroInstallActive = false
+				#character2.infinityInstallActive = false
+				#character2.zeroInstallActive = false
+				character2.disable_all_installs()
 				_roundPhaseState = RoundPhaseState.ActiveMatch
 				_roundPhaseCounter = -1
 				rematchMenuP1.reset_and_hide()

@@ -50,10 +50,10 @@ func update(character1 : Character, character2 : Character, updateSystemMessages
 	else:
 		$ComboCounter2.visible = false
 	# INSTALLS
-	$Infinity1.visible = character1.infinityInstallActive
-	$Infinity2.visible = character2.infinityInstallActive
-	$Zero1.visible = character1.zeroInstallActive
-	$Zero2.visible = character2.zeroInstallActive
+	$Infinity1.visible = character1.characterState.hasInfinityInstallActive
+	$Infinity2.visible = character2.characterState.hasInfinityInstallActive
+	$Zero1.visible = character1.characterState.hasZeroInstallActive
+	$Zero2.visible = character2.characterState.hasZeroInstallActive
 	$SpBar1.visible = !character1.has_active_install()
 	$SpBar2.visible = !character2.has_active_install()
 	$SpBar1/MAX.visible = character1.characterState.currentMeter == character1.characterData.characterMaxMeter 
