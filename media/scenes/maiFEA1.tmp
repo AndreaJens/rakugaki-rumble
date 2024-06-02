@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://h4xo8lh6rcuf"]
+
+[ext_resource type="Script" path="res://scripts/MasterScene.gd" id="1_bjvus"]
+[ext_resource type="PackedScene" uid="uid://dp367r3taipby" path="res://media/scenes/scene_mode_selection.tscn" id="2_uuqrh"]
+
+[node name="MainScene" type="Node"]
+script = ExtResource("1_bjvus")
+
+[node name="SceneModeSelection" parent="." instance=ExtResource("2_uuqrh")]

@@ -79,9 +79,10 @@ enum GameInputButton{
 	ReleaseAction4 = Action4 << ReleaseBitShiftModifier,
 	ReleaseAction5 = Action5 << ReleaseBitShiftModifier,
 	# menu stuff
-	Confirm = 1 << 20,
-	Cancel =  1 << 21,
-	AllMenuButtons = Confirm | Cancel
+	Pause = 1 << 32,
+	Confirm = 1 << 33,
+	Cancel =  1 << 34,
+	AllMenuButtons = Confirm | Cancel | Pause
 }
 
 enum AttackType {

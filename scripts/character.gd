@@ -12,6 +12,7 @@ enum ReservedMoveIndex
 	HurtGround = 2,
 	HurtAir = 3,
 	Ko = 4,
+	Victory = 5
 }
 
 @export var characterData : CharacterData
@@ -88,6 +89,10 @@ func set_on_left_side(onLeftSide : bool):
 	
 func has_active_install() -> bool:
 	return zeroInstallActive or infinityInstallActive
+
+func update_victory_pose():
+	if !is_airborne() and characterState.moveId != ReservedMoveIndex.Victory:
+		apply_new_move(characterData.characterMoves[ReservedMoveIndex.Victory])
 	
 func adjust_move_damage(damage : int) -> int:
 	if zeroInstallActive and damage > 0:
@@ -413,6 +418,12 @@ func update_hit_boxes_logic():
 			hitBox.active = false
 
 func can_perform_move(moveToTest : CharacterMove) -> bool:
+	if characterState.roundState == SceneGame.RoundPhaseState.PostMatchMenu:
+		return false
+	if ((characterState.roundState == SceneGame.RoundPhaseState.Ko or 
+		characterState.roundState == SceneGame.RoundPhaseState.PreKo) and 
+		!moveToTest.canBeUsedBeforeAfterRoundEnds):
+		return false
 	if (characterState.roundState == SceneGame.RoundPhaseState.Ready or
 		characterState.roundState == SceneGame.RoundPhaseState.Engage):
 			if !moveToTest.canBeUsedBeforeRoundBegins:

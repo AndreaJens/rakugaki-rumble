@@ -4,14 +4,17 @@ enum RoundPhaseState {
 	Ready = 0,
 	Engage = 1,
 	ActiveMatch = 2,
-	Ko = 3,
-	VictoryPose = 4,
-	PostMatchMenu = 5
+	PreKo = 3,
+	Ko = 4,
+	VictoryPose = 5,
+	PostMatchMenu = 6,
+	PreRestartMatch = 7,
 }
 
 @onready var inputManagerP1 : InputBufferManager = $InputManagerP1
 @onready var inputManagerP2 : InputBufferManager = $InputManagerP2
 @onready var collisionManager : CollisionManager = $CollisionManager
+@onready var pauseMenu : GenericMenu = $SystemMessages/PauseMenu
 @onready var stage : Stage = $Stage
 @onready var camera : Camera2D = $Camera
 var _cameraLogicalPosition : Vector2i
@@ -26,8 +29,13 @@ var _roundPhaseCounter : int = -1
 var _roundPhaseState : RoundPhaseState = RoundPhaseState.Ready
 var _roundWonCharacter1 : int = 0
 var _roundWonCharacter2 : int = 0
+var _timerTicks : int = -1
+@onready var rematchMenuP1 : RematchMenu = $SystemMessages/System/RematchMenuP1
+@onready var rematchMenuP2 : RematchMenu = $SystemMessages/System/RematchMenuP2
+
 @export_category("Match Settings")
-@export var roundsToWin : int = 3
+@export_range(0, 5, 1) var roundsToWin : int = 3
+@export_range(0, 99, 1, "suffix:s") var timerSeconds : int = 45
 @export var hasWallDamage : bool = true
 @export_category("Settings")
 @export var phaseTransitionMaxCounter = 120
@@ -69,6 +77,8 @@ enum GameStateVars {
 	InputManagerCharacter1 = 901,
 	InputManagerCharacter2 = 902,
 	PreventDeathFlag = 999,
+	PostMatchMenu1State = 9001,
+	PostMatchMenu2State = 9001,
 }
 
 func _save_state() -> Dictionary:
@@ -85,11 +95,14 @@ func _save_state() -> Dictionary:
 	stateDict[GameStateVars.RoundPhaseFrameCounter] = _roundPhaseCounter
 	stateDict[GameStateVars.RoundWonCharacter1] = _roundWonCharacter1
 	stateDict[GameStateVars.RoundWonCharacter2] = _roundWonCharacter2
+	stateDict[GameStateVars.TimerTicks] = _timerTicks
 	stateDict[GameStateVars.PreventDeathFlag] = preventDeath
 	if !networkMode:
 		stateDict[GameStateVars.SystemMessageManagerState] = hudMain.systemMessageManager._save_state().duplicate()
 		stateDict[GameStateVars.InputManagerCharacter1] = inputManagerP1._save_state().duplicate()
 		stateDict[GameStateVars.InputManagerCharacter2] = inputManagerP2._save_state().duplicate()
+		stateDict[GameStateVars.PostMatchMenu1State] = rematchMenuP1._save_state()
+		stateDict[GameStateVars.PostMatchMenu2State] = rematchMenuP2._save_state()
 	return stateDict
 	
 func _load_state(state : Dictionary) -> void:
@@ -105,11 +118,14 @@ func _load_state(state : Dictionary) -> void:
 	_roundPhaseCounter = state[GameStateVars.RoundPhaseFrameCounter]
 	_roundWonCharacter1 = state[GameStateVars.RoundWonCharacter1]
 	_roundWonCharacter2 = state[GameStateVars.RoundWonCharacter2]
+	_timerTicks = state[GameStateVars.TimerTicks]
 	preventDeath = state[GameStateVars.PreventDeathFlag]
 	if !networkMode:
 		hudMain.systemMessageManager._load_state(state[GameStateVars.SystemMessageManagerState])
 		inputManagerP1._load_state(state[GameStateVars.InputManagerCharacter1])
 		inputManagerP2._load_state(state[GameStateVars.InputManagerCharacter2])
+		rematchMenuP1._load_state(state[GameStateVars.PostMatchMenu1State])
+		rematchMenuP2._load_state(state[GameStateVars.PostMatchMenu2State])
 	hudMain.update(character1, character2, false)
 	hudMain.update_round_won(_roundWonCharacter1, _roundWonCharacter2)
 
@@ -122,16 +138,67 @@ func _ready():
 	hudMain.trainingMessage.visible = preventDeath
 	hudMain.hide_unused_round_counters(roundsToWin)
 	add_to_group('network_sync')
+
+func _is_paused() -> bool:
+	return (pauseMenu and pauseMenu.visible)
+
+func _can_pause_game() -> bool:
+	if networkMode:
+		return false
+	if _roundPhaseState != RoundPhaseState.ActiveMatch:
+		return false
+	return true
+
+func _check_for_game_pause():
+	if !_can_pause_game():
+		return
+	if (InputOverseer.input_is_action_just_pressed_all_devices("pause") or
+		InputOverseer.input_is_action_just_pressed_kb("pause_p1") or
+		InputOverseer.input_is_action_just_pressed_kb("pause_p2")):
+			if _is_paused():
+				pauseMenu.reset_and_hide()
+			else:
+				pauseMenu.reset_and_hide()
+				pauseMenu.visible = true
+
+func _update_input_for_pause_menu() -> int:
+	var allButtonsPressed = 0
+	if (InputOverseer.input_is_action_just_pressed_all_devices("confirm") or 
+		InputOverseer.input_is_action_just_pressed_kb("confirm_p1") or
+		InputOverseer.input_is_action_just_pressed_kb("confirm_p2")):
+			allButtonsPressed = allButtonsPressed | GameDatabaseAccessor.GameInputButton.Confirm
+	if (InputOverseer.input_is_action_pressed_all_devices("move_u") or 
+		InputOverseer.input_is_action_pressed_kb("move_u_p1") or
+		InputOverseer.input_is_action_pressed_kb("move_u_p2")):
+			allButtonsPressed = allButtonsPressed | GameDatabaseAccessor.GameInputButton.Up
+	if (InputOverseer.input_is_action_pressed_all_devices("move_d") or 
+		InputOverseer.input_is_action_pressed_kb("move_d_p1") or
+		InputOverseer.input_is_action_pressed_kb("move_d_p2")):
+			allButtonsPressed = allButtonsPressed | GameDatabaseAccessor.GameInputButton.Down
+	return allButtonsPressed
+
+func _update_pause_menu():
+	var buttonsPressed = _update_input_for_pause_menu()
+	pauseMenu.update(buttonsPressed)
+	if pauseMenu.selection_performed():
+		if pauseMenu.get_highlighted_option() == 0:
+			pauseMenu.reset_and_hide()
+		else:
+			SceneManager.goto_scene_type(SceneManager.SceneType.ModeSelection)
 	
-func _reset_round():
+func _reset_round(resetCharacterMeter : bool = false):
 	hudMain.hide_message()
+	rematchMenuP1.reset_and_hide()
+	rematchMenuP2.reset_and_hide()
 	stage.update_stage_position()
 	var stagePos = stage.position * GameDatabaseAccessor.screenCoordMultiplierInt
 	var charOffset = stage.characterOffset * GameDatabaseAccessor.screenCoordMultiplierInt
 	character1.initialLogicalPosition = Vector2(stagePos.x - charOffset.x, charOffset.y)
 	character2.initialLogicalPosition = Vector2(stagePos.x + charOffset.x, charOffset.y)
-	character1.reset_character()
-	character2.reset_character()
+	character1.reset_character(resetCharacterMeter)
+	character2.reset_character(resetCharacterMeter)
+	if timerSeconds > 0:
+		_timerTicks = timerSeconds * GameDatabaseAccessor.frameRateFps
 	if startActivePhaseImmediately:
 		_roundPhaseState = RoundPhaseState.ActiveMatch
 	else:
@@ -146,13 +213,13 @@ func _update_system_input():
 		else:
 			print("fullscreen")
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-	if debugMode:
+	if debugMode and !networkMode:
 		if InputOverseer.input_is_action_just_pressed_kb("toggle_boxes_debug"):
 				GameDatabaseAccessor.showBoxes = !GameDatabaseAccessor.showBoxes
 		elif InputOverseer.input_is_action_just_pressed_kb("refill_resources_debug"):
-				if character1.is_ko():
+				if character1.is_ko() or character1.characterState.moveId == Character.ReservedMoveIndex.Victory:
 					character1.reset_character_to_idle_full_health()
-				if character2.is_ko():
+				if character2.is_ko() or character2.characterState.moveId == Character.ReservedMoveIndex.Victory:
 					character2.reset_character_to_idle_full_health()
 				character1.characterState.currentHealth = character1.characterData.characterMaxHealth
 				character2.characterState.currentHealth = character2.characterData.characterMaxHealth
@@ -166,42 +233,60 @@ func _update_system_input():
 				character2.zeroInstallActive = false
 				_roundPhaseState = RoundPhaseState.ActiveMatch
 				_roundPhaseCounter = -1
+				rematchMenuP1.reset_and_hide()
+				rematchMenuP2.reset_and_hide()
 				hudMain.hide_message(true)
 		elif InputOverseer.input_is_action_just_pressed_kb("save_state_debug"):
 			_lastStateSaved = _save_state()
 		elif InputOverseer.input_is_action_just_pressed_kb("load_state_debug"):
 			if !_lastStateSaved.is_empty():
 				_load_state(_lastStateSaved)
-		elif InputOverseer.input_is_action_just_pressed_kb("toggle_training_mode"):
-			if preventDeath:
-				preventDeath = false
-				hudMain.trainingMessage.visible = false
-			else:
-				preventDeath = true
-				hudMain.trainingMessage.visible = true
-				if character1.is_ko():
-					character1.reset_character_to_idle_full_health()
-				if character2.is_ko():
-					character2.reset_character_to_idle_full_health()
-				character1.characterState.currentHealth = character1.characterData.characterMaxHealth
-				character2.characterState.currentHealth = character2.characterData.characterMaxHealth
-				_roundPhaseState = RoundPhaseState.ActiveMatch
-				_roundPhaseCounter = -1
-				hudMain.hide_message(true)
+		#elif InputOverseer.input_is_action_just_pressed_kb("toggle_training_mode"):
+			#if preventDeath:
+				#preventDeath = false
+				#hudMain.trainingMessage.visible = false
+			#else:
+				#preventDeath = true
+				#hudMain.trainingMessage.visible = true
+				#if character1.is_ko() or character1.characterState.moveId == Character.ReservedMoveIndex.Victory:
+					#character1.reset_character_to_idle_full_health()
+				#if character2.is_ko() or character2.characterState.moveId == Character.ReservedMoveIndex.Victory:
+					#character2.reset_character_to_idle_full_health()
+				#character1.characterState.currentHealth = character1.characterData.characterMaxHealth
+				#character2.characterState.currentHealth = character2.characterData.characterMaxHealth
+				#_roundPhaseState = RoundPhaseState.ActiveMatch
+				#_roundPhaseCounter = -1
+				#rematchMenuP1.reset_and_hide()
+				#rematchMenuP2.reset_and_hide()
+				#hudMain.hide_message(true)
 
 func _establish_round_winner():
 	if character1.is_ko():
 		_roundWonCharacter2 += 1
 	if character2.is_ko():
 		_roundWonCharacter1 += 1
+		
+func _restart_match():
+	_roundWonCharacter1 = 0
+	_roundWonCharacter2 = 0
+	hudMain.update_round_won(_roundWonCharacter1, _roundWonCharacter2)
+	_reset_round(true)
+
+func _update_post_match_menu():
+	if _roundPhaseState != RoundPhaseState.PostMatchMenu:
+		return
+	if rematchMenuP1.visible:
+		rematchMenuP1.update(inputManagerP1.get_all_pressed_buttons())
+	if rematchMenuP2.visible:
+		rematchMenuP2.update(inputManagerP2.get_all_pressed_buttons())
 
 func _update_game_phase_transition():
 	@warning_ignore("integer_division")
 	var phaseTransitionMessageThreshold = phaseTransitionMaxCounter / 4
 	if  _roundPhaseState == RoundPhaseState.Ready and _roundPhaseCounter < 0:
 		_roundPhaseCounter = phaseTransitionMaxCounter
-		if (_roundWonCharacter1 == roundsToWin - 1 or
-		_roundWonCharacter2 == roundsToWin - 1):
+		if (roundsToWin > 0 and (_roundWonCharacter1 >= roundsToWin - 1 or
+		_roundWonCharacter2 >= roundsToWin - 1)):
 			hudMain.show_message(HudManager.SystemMessage.Matchpoint)
 		else:
 			hudMain.show_message(HudManager.SystemMessage.Ready)
@@ -222,6 +307,16 @@ func _update_game_phase_transition():
 			_roundPhaseCounter = -1
 			_roundPhaseState = RoundPhaseState.ActiveMatch
 	elif _roundPhaseState == RoundPhaseState.ActiveMatch:
+		if ((character1.is_ko() and character1.is_airborne()) or 
+		(character2.is_ko() and character2.is_airborne())):
+			_roundPhaseCounter = -1
+			_roundPhaseState = RoundPhaseState.PreKo
+		elif ((character1.is_ko() and !character1.is_airborne()) or 
+		(character2.is_ko() and !character2.is_airborne())) and _roundPhaseCounter < 0:
+			_roundPhaseCounter = phaseTransitionMaxCounter
+			hudMain.show_message(HudManager.SystemMessage.Ko)
+			_roundPhaseState = RoundPhaseState.Ko
+	elif _roundPhaseState == RoundPhaseState.PreKo:
 		if ((character1.is_ko() and !character1.is_airborne()) or 
 		(character2.is_ko() and !character2.is_airborne())) and _roundPhaseCounter < 0:
 			_roundPhaseCounter = phaseTransitionMaxCounter
@@ -237,9 +332,47 @@ func _update_game_phase_transition():
 				hudMain.hide_message()
 			if _roundPhaseCounter == 0:
 				_roundPhaseCounter = -1
-				_reset_round()
+				if (_roundWonCharacter1 >= roundsToWin or
+					_roundWonCharacter2 >= roundsToWin) and (
+						_roundWonCharacter1 != _roundWonCharacter2):
+					if (_roundWonCharacter1 > _roundWonCharacter2):
+						hudMain.show_message(HudManager.SystemMessage.P1Win)
+					else:
+						hudMain.show_message(HudManager.SystemMessage.P2Win)
+					_roundPhaseState = RoundPhaseState.PostMatchMenu
+					_roundPhaseCounter = phaseTransitionMaxCounter
+				else:
+					_reset_round()
+	elif _roundPhaseState == RoundPhaseState.PostMatchMenu:
+		if _roundPhaseCounter > 0:
+			_roundPhaseCounter -= 1
+			if _roundPhaseCounter == 0:
+				rematchMenuP1.visible = true
+				rematchMenuP2.visible = true
+		if rematchMenuP1.selection_performed() and rematchMenuP2.selection_performed():
+			if (rematchMenuP1.get_highlighted_option() == RematchMenu.Option.No or
+				rematchMenuP2.get_highlighted_option() == RematchMenu.Option.No):
+					#change scene
+					SceneManager.goto_scene_type(SceneManager.SceneType.ModeSelection)
+					pass
+			else:
+				rematchMenuP1.reset_and_hide()
+				rematchMenuP2.reset_and_hide()
+				hudMain.hide_message()
+				_roundPhaseState = RoundPhaseState.PreRestartMatch
+				_roundPhaseCounter = phaseTransitionMessageThreshold
+	elif _roundPhaseState == RoundPhaseState.PreRestartMatch:
+		if _roundPhaseCounter > 0:
+			_roundPhaseCounter -= 1
+			if _roundPhaseCounter == 0:
+				_roundPhaseCounter = -1
+				_restart_match()
 	character1.characterState.roundState = _roundPhaseState
 	character2.characterState.roundState = _roundPhaseState
+	if !character1.is_ko() and _roundPhaseState >= RoundPhaseState.Ko:
+		character1.update_victory_pose()
+	if !character2.is_ko() and _roundPhaseState >= RoundPhaseState.Ko:
+		character2.update_victory_pose()
 
 func _update_character_input():
 	#if (_roundPhaseState == RoundPhaseState.ActiveMatch or 
@@ -349,9 +482,10 @@ func _adjust_character_momentum(character : Character, opponent : Character):
 				character.get_logical_velocity().x < 0) or 
 			(rightWallDistance <= boxHalfSize and 
 				character.get_logical_velocity().x > 0)):
-				if (!opponent.infinityInstallActive and 
+				if (character.is_ko() or (
+					!opponent.infinityInstallActive and 
 				character.characterState.bounceCounter >= 
-				GameDatabaseAccessor.defaultMaxNumberOfBounces):
+				GameDatabaseAccessor.defaultMaxNumberOfBounces)):
 					if (leftWallDistance <= boxHalfSize and 
 					character.get_logical_velocity().x < 0):
 						character.characterState.logicalPosition.x = (
@@ -385,6 +519,8 @@ func _adjust_character_momentum(character : Character, opponent : Character):
 					_comboHitFreeze = false
 		
 func _constrain_character_position_to_camera_viewport(character : Character):
+	if !camera.is_inside_tree():
+		return
 	var collBox = character.get_collision_box()
 	@warning_ignore("integer_division")
 	var boxHalfSize : int = collBox.size.x / 2
@@ -411,6 +547,8 @@ func _update_camera(immediate : bool = false):
 		camera.reset_smoothing()
 	else:
 		camera.position_smoothing_enabled = true
+	if !camera.is_inside_tree():
+		return
 	var cameraTargetPosition = (character1.position + character2.position) / 2
 	var cameraViewportSize = get_viewport_rect().size
 	var cameraX = cameraTargetPosition.x
@@ -541,12 +679,12 @@ func _update_hud():
 		hudMain.update_combo_counter_zoom(1.3)
 	else:
 		hudMain.update_combo_counter_zoom(0.7)
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	if networkMode:
-		return
-	_update_system_input()
-	_update_character_input()
+
+func _update_timer():
+	if timerSeconds > 0 and !preventDeath:
+		_timerTicks -= 1
+	
+func _common_update_process():
 	if _hitFreezeFrames >= 0:
 		_hitFreezeFrames -= 1
 		if (_comboHitFreeze or _wallHitFreeze):
@@ -578,35 +716,18 @@ func _process(_delta):
 		_update_hit_detection()
 	_lastFrameComboHitFreeze = _comboHitFreeze
 	_update_hud()
+	_update_post_match_menu()
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	if networkMode:
+		return
+	_update_system_input()
+	_check_for_game_pause()
+	if _is_paused():
+		_update_pause_menu()
+	else:
+		_update_character_input()
+		_common_update_process()
 	
 func _network_process(_input: Dictionary) -> void:
-	if _hitFreezeFrames >= 0:
-		if (_comboHitFreeze or _wallHitFreeze):
-			camera.zoom = Vector2(1.1, 1.1)
-		else:
-			camera.zoom = Vector2(1., 1.)
-		if _hitFreezeFrames == 0:
-			_comboHitFreeze = false
-			_wallHitFreeze = false
-			character1.characterState.affectedByHitFreeze = false
-			character2.characterState.affectedByHitFreeze = false
-	else:
-		camera.zoom = Vector2(1., 1.)
-	if character1.can_be_updated() or character2.can_be_updated():
-		_update_game_phase_transition()
-		_update_character_state()	
-		_adjust_character_momentum(character1, character2)
-		_adjust_character_momentum(character2, character1)
-		if _wallHitFreeze and hitFreezeOnWallCollisionBothPlayers:
-			if character1.characterState.affaffectedByHitFreeze:
-				character2.characterState.affectedByHitFreeze = true
-			elif character2.characterState.affaffectedByHitFreeze:
-				character1.characterState.affectedByHitFreeze = true
-		_update_camera()
-		_constrain_character_position_to_camera_viewport(character1)
-		_constrain_character_position_to_camera_viewport(character2)
-		_adjust_character_sfx()
-		collisionManager.update_character_position_on_collision(character1, character2, stage)
-		_update_hit_detection()
-	_lastFrameComboHitFreeze = _comboHitFreeze
-	_update_hud()
+	_common_update_process()

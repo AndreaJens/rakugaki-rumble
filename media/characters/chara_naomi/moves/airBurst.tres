@@ -21,6 +21,7 @@ meterCost = 30000
 canMeterBreak = true
 forcedMeterBreak = false
 canBeUsedBeforeRoundBegins = false
+canBeUsedBeforeAfterRoundEnds = false
 bufferStartLeniency = 3
 bufferLengthLeniency = 5
 useRawBuffer = false

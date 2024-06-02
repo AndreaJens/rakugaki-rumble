@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_qst3w"]
 [ext_resource type="Script" path="res://scripts/characterState.gd" id="2_ssm87"]
 [ext_resource type="Resource" uid="uid://qiywbrf1e5yu" path="res://media/characters/chara_naomi/naomiRes.tres" id="2_tinh8"]
-[ext_resource type="Texture2D" uid="uid://doqv7ldx2lsqk" path="res://media/characters/chara_naomi/sprites/naomi1.png" id="4_t56r0"]
 [ext_resource type="Texture2D" uid="uid://7adt8b0o686h" path="res://media/characters/chara_naomi/sprites/naomi2.png" id="4_vcdga"]
 [ext_resource type="PackedScene" uid="uid://cy2ewlewinwbv" path="res://media/logic/HitBox.tscn" id="5_35kqm"]
 [ext_resource type="Animation" uid="uid://cr6li0yaypxxv" path="res://media/characters/chara_naomi/animations/attack1.res" id="5_656ri"]
@@ -26,8 +25,10 @@
 [ext_resource type="Script" path="res://addons/godot-rollback-netcode/NetworkAnimationPlayer.gd" id="18_1xnwy"]
 [ext_resource type="Animation" uid="uid://b1spetyanf6gk" path="res://media/characters/chara_naomi/animations/wallsplat.res" id="20_dlgro"]
 [ext_resource type="Animation" uid="uid://16kbpqy63eyj" path="res://media/characters/chara_naomi/animations/infinity_install.res" id="21_nooab"]
+[ext_resource type="Animation" uid="uid://miktwj21c51q" path="res://media/characters/chara_naomi/animations/walkF_t.res" id="22_oib15"]
 [ext_resource type="Animation" uid="uid://bfvubsln46adh" path="res://media/characters/chara_naomi/animations/zero_install.res" id="22_riev1"]
 [ext_resource type="Animation" uid="uid://dmjtc5kb0u2os" path="res://media/characters/chara_naomi/animations/airBurst.res" id="24_7aeea"]
+[ext_resource type="Animation" uid="uid://4wwlk1x4mx0c" path="res://media/characters/chara_naomi/animations/victory.res" id="25_545bl"]
 
 [sub_resource type="Animation" id="Animation_rlh3y"]
 length = 0.001
@@ -68,108 +69,6 @@ tracks/2/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_kxitt"]
-resource_name = "walkF_t"
-length = 0.466669
-loop_mode = 1
-step = 0.0166667
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.216667, 0.316667),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [2, 3, 5, 3]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:offset")
-tracks/1/interp = 0
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.216667, 0.316667),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(100, -360), Vector2(0, -340), Vector2(100, -360), Vector2(0, -340)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:texture")
-tracks/2/interp = 0
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("4_vcdga")]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("PushBox:active")
-tracks/3/interp = 0
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("PushBox:boxSize")
-tracks/4/interp = 0
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Rect2i(0, -100000, 240000, 200000)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Sprite2D:z_index")
-tracks/5/interp = 0
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("HurtBoxes/HurtBox:boxSize")
-tracks/6/interp = 0
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Rect2i(75000, -165000, 200000, 320000)]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("HurtBoxes/HurtBox:active")
-tracks/7/interp = 0
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [true]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x75eu"]
 _data = {
 "RESET": SubResource("Animation_rlh3y"),
@@ -188,9 +87,10 @@ _data = {
 "jumpF": ExtResource("14_qlbv2"),
 "knockdown": ExtResource("15_aymfn"),
 "ko": ExtResource("16_dyn1c"),
+"victory": ExtResource("25_545bl"),
 "walkB": ExtResource("16_oqlyk"),
 "walkF": ExtResource("17_3ja5f"),
-"walkF_t": SubResource("Animation_kxitt"),
+"walkF_t": ExtResource("22_oib15"),
 "wallsplat": ExtResource("20_dlgro"),
 "zero_install": ExtResource("22_riev1")
 }
@@ -198,15 +98,18 @@ _data = {
 [node name="Character" type="Node2D"]
 script = ExtResource("1_qst3w")
 characterData = ExtResource("2_tinh8")
+initialLogicalPosition = null
+immortal = null
 
 [node name="CharacterState" type="Node" parent="."]
 script = ExtResource("2_ssm87")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 100
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("4_t56r0")
-offset = Vector2(0, -385)
+texture = ExtResource("4_vcdga")
+offset = Vector2(0, -370)
 hframes = 4
 vframes = 4
 frame = 13
@@ -237,7 +140,7 @@ boxSize = Rect2i(150000, -200000, 300000, 300000)
 [node name="HurtBoxes" type="Node2D" parent="."]
 
 [node name="HurtBox" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
-boxSize = Rect2i(-75000, -200000, 200000, 300000)
+boxSize = Rect2i(-50000, -165000, 250000, 320000)
 
 [node name="HurtBox2" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
 boxSize = Rect2i(270000, -200000, 200000, 200000)
@@ -249,5 +152,4 @@ boxSize = Rect2i(270000, -200000, 200000, 200000)
 [node name="HurtBox5" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
 
 [node name="PushBox" parent="." instance=ExtResource("5_phuw5")]
-active = true
-boxSize = Rect2i(-50000, -200000, 200000, 200000)
+boxSize = Rect2i(0, -120000, 200000, 250000)

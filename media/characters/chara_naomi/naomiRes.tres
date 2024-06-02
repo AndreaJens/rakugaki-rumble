@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=30 format=3 uid="uid://qiywbrf1e5yu"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=31 format=3 uid="uid://qiywbrf1e5yu"]
 
 [ext_resource type="Resource" uid="uid://p47xfht07jma" path="res://media/characters/chara_naomi/moves/idle.tres" id="1_1hkwy"]
 [ext_resource type="Script" path="res://scripts/characterData.gd" id="1_u7ctv"]
@@ -17,6 +17,7 @@
 [ext_resource type="Resource" uid="uid://dreocw0ub6uvv" path="res://media/characters/all_chara_common/moves/forward_to_idle.tres" id="5_mtauf"]
 [ext_resource type="Resource" uid="uid://dg1fd1m6j6qv4" path="res://media/characters/chara_naomi/moves/attack1Air.tres" id="5_vtntq"]
 [ext_resource type="Resource" uid="uid://cfys72n7q1uwv" path="res://media/characters/chara_naomi/moves/attackJumpKick.tres" id="6_6ss6r"]
+[ext_resource type="Resource" uid="uid://iftbfj5mag5o" path="res://media/characters/all_chara_common/moves/victory.tres" id="6_22kyx"]
 [ext_resource type="Resource" uid="uid://dql61k4lwv4t8" path="res://media/characters/chara_naomi/moves/wallsplat.tres" id="7_d85sl"]
 [ext_resource type="Resource" uid="uid://upssns403afo" path="res://media/characters/chara_naomi/moves/attackKnee.tres" id="7_hxaci"]
 [ext_resource type="Resource" uid="uid://byjs0ny75vxos" path="res://media/characters/chara_naomi/moves/attackJumpKickAir.tres" id="7_me4oq"]
@@ -37,4 +38,4 @@ characterDisplayName = "Naomi"
 characterMaxHealth = 100000
 characterMaxMeter = 30000
 characterNameTexture = ExtResource("21_tvj7t")
-characterMoves = Array[Resource("res://scripts/move.gd")]([ExtResource("1_1hkwy"), ExtResource("2_fd1iy"), ExtResource("3_w8mbb"), ExtResource("4_m4ai3"), ExtResource("5_bk88r"), ExtResource("5_dn7hy"), ExtResource("7_d85sl"), ExtResource("7_hxaci"), ExtResource("6_6ss6r"), ExtResource("7_me4oq"), ExtResource("4_wp1ec"), ExtResource("5_vtntq"), ExtResource("8_6w6yr"), ExtResource("1_uvrso"), ExtResource("3_26k0q"), ExtResource("4_gqu7m"), ExtResource("5_1yif7"), ExtResource("3_jx27h"), ExtResource("2_qsvjh"), ExtResource("5_mtauf"), ExtResource("7_safhy"), ExtResource("10_8h2rf"), ExtResource("13_wywu3"), ExtResource("24_f6hx0"), ExtResource("24_axx4q"), ExtResource("26_nvnap"), ExtResource("27_bji48")])
+characterMoves = Array[Resource("res://scripts/move.gd")]([ExtResource("1_1hkwy"), ExtResource("2_fd1iy"), ExtResource("3_w8mbb"), ExtResource("4_m4ai3"), ExtResource("5_bk88r"), ExtResource("6_22kyx"), ExtResource("5_dn7hy"), ExtResource("7_d85sl"), ExtResource("7_hxaci"), ExtResource("6_6ss6r"), ExtResource("7_me4oq"), ExtResource("4_wp1ec"), ExtResource("5_vtntq"), ExtResource("8_6w6yr"), ExtResource("1_uvrso"), ExtResource("3_26k0q"), ExtResource("4_gqu7m"), ExtResource("5_1yif7"), ExtResource("3_jx27h"), ExtResource("2_qsvjh"), ExtResource("5_mtauf"), ExtResource("7_safhy"), ExtResource("10_8h2rf"), ExtResource("13_wywu3"), ExtResource("24_f6hx0"), ExtResource("24_axx4q"), ExtResource("26_nvnap"), ExtResource("27_bji48")])

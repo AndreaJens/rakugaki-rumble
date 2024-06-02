@@ -20,6 +20,7 @@ class_name CharacterMove extends Resource
 @export var canMeterBreak : bool = false
 @export var forcedMeterBreak : bool = false
 @export var canBeUsedBeforeRoundBegins := false
+@export var canBeUsedBeforeAfterRoundEnds : bool = false
 @export_category("Move Input")
 @export var bufferStartLeniency := 3
 @export var bufferLengthLeniency := 10

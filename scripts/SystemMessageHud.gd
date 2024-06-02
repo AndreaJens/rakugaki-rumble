@@ -3,6 +3,8 @@ class_name SystemMessageHud extends Control
 @export var readyTexture : Texture2D
 @export var engageTexture : Texture2D
 @export var matchpointTexture : Texture2D
+@export var p1WinsTexture : Texture2D
+@export var p2WinsTexture : Texture2D
 @export var systemMessageSprite : Sprite2D
 @export var plasticFoilSprite : Sprite2D
 @export var animationPixelsPerTick : int
@@ -49,6 +51,8 @@ func _ready():
 		HudManager.SystemMessage.Ready : readyTexture,
 		HudManager.SystemMessage.Engage : engageTexture,
 		HudManager.SystemMessage.Matchpoint : matchpointTexture,
+		HudManager.SystemMessage.P1Win : p1WinsTexture,
+		HudManager.SystemMessage.P2Win : p2WinsTexture,
 	}
 	add_to_group('network_sync')
 # Called every frame. 'delta' is the elapsed time since the previous frame.

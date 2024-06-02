@@ -41,6 +41,16 @@ func input_is_action_just_released_kb(action: StringName) -> bool:
 		return Input.is_action_just_released(action)
 	return false
 
+func input_is_action_pressed_all_devices(action: StringName) -> bool:
+	if focused:
+		return Input.is_action_pressed(action)
+	return false
+
+func input_is_action_just_pressed_all_devices(action: StringName) -> bool:
+	if focused:
+		return Input.is_action_just_pressed(action)
+	return false
+
 func input_is_action_pressed(action: StringName, deviceId : int) -> bool:
 	if inputManagers.size() <= deviceId or deviceId < 0:
 		return false

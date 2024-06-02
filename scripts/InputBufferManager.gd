@@ -10,6 +10,7 @@ enum InputBufferState {
 @export var playerIdentifier : String = "p1"
 @export var maxBufferSize : int = 50
 @export var deviceId : int = -1
+@export var checkAllDevices : bool = false
 var _buffer : Array[int]
 var _rawBuffer : Array[int]
 var _pressedButtons : int
@@ -19,6 +20,8 @@ var _baseActionDict : Dictionary = {
 	"move_d" : GameDatabaseAccessor.GameInputButton.Down,
 	"move_l" : GameDatabaseAccessor.GameInputButton.Left,
 	"move_r" : GameDatabaseAccessor.GameInputButton.Right,
+	"confirm" : GameDatabaseAccessor.GameInputButton.Confirm,
+	"cancel" : GameDatabaseAccessor.GameInputButton.Cancel,
 	"attack1" : GameDatabaseAccessor.GameInputButton.Action1,
 	"attack2" : GameDatabaseAccessor.GameInputButton.Action2,
 }
@@ -111,13 +114,13 @@ func _readout_buttons() -> Dictionary:
 	return outInput
 
 func _process_new_input(currentInput : int, allPressedButtons : int):
-	_buffer.push_back(currentInput)
-	_rawBuffer.push_back(allPressedButtons)
+	_buffer.push_back(currentInput & ~GameDatabaseAccessor.GameInputButton.AllMenuButtons)
+	_rawBuffer.push_back(allPressedButtons & ~GameDatabaseAccessor.GameInputButton.AllMenuButtons)
 	if _buffer.size() > maxBufferSize:
 		_buffer.pop_front()
 		_rawBuffer.pop_front()
 	_pressedButtons = allPressedButtons
-	
+
 func update_buffer():
 	var newInput = _readout_buttons()
 	var currentInput : int = newInput[InputBufferState.NewlyPressedButtons]
