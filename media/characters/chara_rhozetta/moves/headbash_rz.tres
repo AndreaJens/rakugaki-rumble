@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=8 format=3 uid="uid://bgvo52gear6kb"]
+
+[ext_resource type="Script" path="res://scripts/move.gd" id="1_bkb5p"]
+[ext_resource type="Resource" uid="uid://b3dvs8txb8pji" path="res://media/characters/all_chara_common/moves/cancels/zero_install_hit.tres" id="1_ra1wa"]
+[ext_resource type="Resource" uid="uid://k85f7ldgjhu7" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_hit.tres" id="2_l3dyb"]
+[ext_resource type="Resource" uid="uid://csyfkukhxifa0" path="res://media/characters/all_chara_common/moves/cancels/jc_on_hit.tres" id="3_o7u2d"]
+[ext_resource type="Resource" uid="uid://0dci8befj4tm" path="res://media/characters/chara_rhozetta/moves/cancels/to_rampage_hit.tres" id="3_vo58y"]
+[ext_resource type="Resource" uid="uid://d2nccsnvqunof" path="res://media/characters/all_chara_common/moves/cancels/jc_n_on_hit.tres" id="4_ia75b"]
+[ext_resource type="Resource" uid="uid://d2quvuuy1qvv0" path="res://media/characters/all_chara_common/moves/cancels/jc_b_on_hit.tres" id="5_he81a"]
+
+[resource]
+script = ExtResource("1_bkb5p")
+characterState = 0
+internalName = "headbash"
+displayName = "Headbash"
+animationName = "headbash"
+startingFrame = 0
+endingFrame = 22
+isHitStunState = false
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(40000, 2000)
+logicalAccelerationPerFrame = Vector2i(-400, 2000)
+keepMomentumPercent = 20
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = false
+canBeUsedBeforeAfterRoundEnds = false
+bufferStartLeniency = 3
+bufferLengthLeniency = 5
+useRawBuffer = false
+input = Array[int]([16])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_ra1wa"), ExtResource("2_l3dyb"), ExtResource("3_vo58y"), ExtResource("3_o7u2d"), ExtResource("4_ia75b"), ExtResource("5_he81a")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0

@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=4 format=3 uid="uid://c1pvdkq1cc5c5"]
+
+[ext_resource type="Resource" uid="uid://cl66uvx235nwr" path="res://media/characters/chara_rhozetta/moves/cancels/to_airspikes.tres" id="1_m7oee"]
+[ext_resource type="Resource" uid="uid://dkvcd6s744tx2" path="res://media/characters/all_chara_common/moves/cancels/to_idle_landing.tres" id="2_eeiit"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="3_58rax"]
+
+[resource]
+script = ExtResource("3_58rax")
+characterState = 0
+internalName = "jumpB"
+displayName = ""
+animationName = "jumpB"
+startingFrame = 0
+endingFrame = 20
+isHitStunState = false
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(-15000, -45000)
+logicalAccelerationPerFrame = Vector2i(0, 4100)
+keepMomentumPercent = 0
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = true
+canBeUsedBeforeAfterRoundEnds = false
+bufferStartLeniency = 3
+bufferLengthLeniency = 10
+useRawBuffer = true
+input = Array[int]([10])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_m7oee"), ExtResource("2_eeiit")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0

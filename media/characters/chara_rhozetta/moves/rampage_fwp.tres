@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=7 format=3 uid="uid://dvbrdvc1pgp58"]
+
+[ext_resource type="Resource" uid="uid://b3dvs8txb8pji" path="res://media/characters/all_chara_common/moves/cancels/zero_install_hit.tres" id="1_domdw"]
+[ext_resource type="Resource" uid="uid://k85f7ldgjhu7" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_hit.tres" id="2_p5qui"]
+[ext_resource type="Resource" uid="uid://csyfkukhxifa0" path="res://media/characters/all_chara_common/moves/cancels/jc_on_hit.tres" id="3_sss53"]
+[ext_resource type="Resource" uid="uid://d2nccsnvqunof" path="res://media/characters/all_chara_common/moves/cancels/jc_n_on_hit.tres" id="4_64nw0"]
+[ext_resource type="Resource" uid="uid://d2quvuuy1qvv0" path="res://media/characters/all_chara_common/moves/cancels/jc_b_on_hit.tres" id="5_v3fnd"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="6_ynb60"]
+
+[resource]
+script = ExtResource("6_ynb60")
+characterState = 0
+internalName = "rampage_fwp"
+displayName = "Rampage"
+animationName = "rampage"
+startingFrame = 21
+endingFrame = 50
+isHitStunState = false
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(40000, 0)
+logicalAccelerationPerFrame = Vector2i(0, 4000)
+keepMomentumPercent = 100
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = false
+canBeUsedBeforeAfterRoundEnds = false
+bufferStartLeniency = 5
+bufferLengthLeniency = 10
+useRawBuffer = false
+input = Array[int]([])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_domdw"), ExtResource("2_p5qui"), ExtResource("3_sss53"), ExtResource("4_64nw0"), ExtResource("5_v3fnd")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0

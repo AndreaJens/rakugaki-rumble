@@ -11,6 +11,14 @@ enum RoundPhaseState {
 	PreRestartMatch = 7,
 }
 
+# additional scene parameters for startup - will be called in _ready
+enum AdditionalGameSceneStartupParameter{
+	Character1Path = 0,
+	Character2Path = 1,
+	StagePath = 2
+}
+var additionalSceneStartupParameters : Dictionary = {}
+
 @onready var inputManagerP1 : InputBufferManager = $InputManagerP1
 @onready var inputManagerP2 : InputBufferManager = $InputManagerP2
 @onready var collisionManager : CollisionManager = $CollisionManager
@@ -132,6 +140,14 @@ func _load_state(state : Dictionary) -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#character2/Sprite2D.flip_h = true
+	if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Character1Path):
+		var characterPath = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Character1Path]
+		var success = character1.initialize_from_directory(characterPath)
+		print("character %s loaded with status %s" % [characterPath, success])
+	if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Character2Path):
+		var characterPath = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Character2Path]
+		var success = character2.initialize_from_directory(characterPath)
+		print("character %s loaded with status %s" % [characterPath, success])
 	_reset_round()
 	_init_hud()
 	_lastStateSaved = _save_state()
@@ -421,17 +437,25 @@ func _update_character_state():
 	if character1.can_be_updated():
 		if character1.can_turn_around():
 			if character1.characterState.logicalPosition.x <= character2.characterState.logicalPosition.x:
+				#if !character1.characterState.onLeftSide:
+					#character1.characterState.logicalVelocity.x = -character1.characterState.logicalVelocity.x
 				character1.set_on_left_side(true) 
 				character1.scale = Vector2(1, 1)
 			else:
+				#if character1.characterState.onLeftSide:
+					#character1.characterState.logicalVelocity.x = -character1.characterState.logicalVelocity.x
 				character1.set_on_left_side(false) 
 				character1.scale = Vector2(-1, 1)
 	if character2.can_be_updated():
 		if character2.can_turn_around():
 			if character2.characterState.logicalPosition.x < character1.characterState.logicalPosition.x:
+				#if !character2.characterState.onLeftSide:
+					#character2.characterState.logicalVelocity.x = -character2.characterState.logicalVelocity.x
 				character2.set_on_left_side(true) 
 				character2.scale = Vector2(1, 1)
 			else:
+				#if character2.characterState.onLeftSide:
+					#character2.characterState.logicalVelocity.x = -character2.characterState.logicalVelocity.x
 				character2.set_on_left_side(false) 
 				character2.scale = Vector2(-1, 1)
 

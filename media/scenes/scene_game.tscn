@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_xmmq4"]
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="2_8rf0r"]
 [ext_resource type="Script" path="res://scripts/InputBufferManager.gd" id="2_o2pvg"]
-[ext_resource type="PackedScene" uid="uid://d1k45q87lrm2u" path="res://media/characters/chara_naomi/characterNaomi.tscn" id="2_ykrlp"]
 [ext_resource type="Script" path="res://scripts/stage.gd" id="3_bjea5"]
 [ext_resource type="Script" path="res://scripts/CollisionManager.gd" id="5_avhut"]
 [ext_resource type="Texture2D" uid="uid://bi2nxs31s558p" path="res://media/hud/blackPaper.png" id="6_7wx2e"]
@@ -30,6 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://c8v7xpqaxin5j" path="res://media/hud/systemMessages/zero.png" id="21_nlghf"]
 [ext_resource type="Texture2D" uid="uid://d1ppdraidfurf" path="res://media/hud/exclam.png" id="22_v32x4"]
 [ext_resource type="Texture2D" uid="uid://m1l7s5y74qbc" path="res://media/hud/systemMessages/infinity.png" id="23_ilvvi"]
+[ext_resource type="PackedScene" uid="uid://bvrseqwr8eytr" path="res://media/characters/all_chara_common/character_blueprint.tscn" id="25_rv40u"]
 [ext_resource type="Texture2D" uid="uid://cad7j7aa46sk5" path="res://media/hud/systemMessages/MATCHPOINT.png" id="26_qkodm"]
 [ext_resource type="Texture2D" uid="uid://c1x86njda7i0o" path="res://media/hud/systemMessages/P1_WINS.png" id="31_p3bpk"]
 [ext_resource type="Texture2D" uid="uid://dlcxjp7wufdyx" path="res://media/hud/systemMessages/P2_WINS.png" id="32_np2o6"]
@@ -313,12 +313,6 @@ texture = ExtResource("21_nlghf")
 [node name="Characters" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
 
-[node name="Character1" parent="Characters" instance=ExtResource("2_ykrlp")]
-position = Vector2(213, 610)
-
-[node name="Character2" parent="Characters" instance=ExtResource("2_ykrlp")]
-position = Vector2(1037, 610)
-
 [node name="InstallBackground" type="Sprite2D" parent="Characters"]
 visible = false
 modulate = Color(1, 1, 1, 0.752941)
@@ -326,6 +320,12 @@ z_index = 90
 position = Vector2(566, 320)
 scale = Vector2(2, 2)
 texture = ExtResource("6_7wx2e")
+
+[node name="Character1" parent="Characters" instance=ExtResource("25_rv40u")]
+initialLogicalPosition = Vector2i(250000, 540000)
+
+[node name="Character2" parent="Characters" instance=ExtResource("25_rv40u")]
+initialLogicalPosition = Vector2i(109000, 540000)
 
 [node name="SystemMessages" type="CanvasLayer" parent="."]
 

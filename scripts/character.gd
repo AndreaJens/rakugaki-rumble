@@ -63,9 +63,44 @@ func _load_state(state : Dictionary) -> void:
 	else:
 		scale = Vector2(-1, 1)
 
+func initialize_from_directory(characterDataPath : String) -> bool:
+	var characterPath = "res://media/characters/" + characterDataPath + "/characterData.tres"
+	if ResourceLoader.exists(characterPath):
+		characterData = ResourceLoader.load(characterPath)
+		var blankLibraryPath = "res://media/characters/" + characterDataPath + "/anim_library.tres"
+		var library = ResourceLoader.load(blankLibraryPath)
+		if animationPlayer.has_animation_library(characterData.characterAnimationLibraryPrefix):
+			animationPlayer.remove_animation_library(characterData.characterAnimationLibraryPrefix)
+		animationPlayer.add_animation_library(characterData.characterAnimationLibraryPrefix, library)
+		for move in characterData.characterMoves:
+			var commonFolderPath : String = "res://media/characters/all_chara_common/animations/"
+			var characterFolderPath : String = "res://media/characters/" + characterDataPath + "/animations/"
+			var resourceName : String = commonFolderPath + move.animationName + ".res"
+			var commonResourceName : String = characterFolderPath + move.animationName + ".res"
+			if ResourceLoader.exists(resourceName):
+				var anim = ResourceLoader.load(resourceName)
+				animationPlayer.get_animation_library(characterData.characterAnimationLibraryPrefix).add_animation(move.animationName, anim)
+			elif ResourceLoader.exists(commonResourceName):
+				var anim = ResourceLoader.load(commonResourceName)
+				animationPlayer.get_animation_library(characterData.characterAnimationLibraryPrefix).add_animation(move.animationName, anim)
+			else:
+				print("Animation %s could not be loaded?" % move.animationName)
+				print("  Path 1: %s" % resourceName)
+				print("  Path 2: %s" % commonResourceName)
+		_initialize()
+		return true
+	else:
+		return false
+	
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if characterData:
+		_initialize()
+
+func _initialize():
 	var moveIndex = 0
+	moveNameToIndex.clear()
 	for move in characterData.characterMoves:
 		moveNameToIndex[move.internalName] = moveIndex
 		moveIndex += 1
@@ -225,7 +260,7 @@ func is_ko() -> bool:
 func _apply_move_load_state():
 	deactivate_boxes()
 	currentMove = characterData.characterMoves[characterState.moveId]
-	animationPlayer.set_current_animation(currentMove.animationName)
+	animationPlayer.set_current_animation(characterData.characterAnimationLibraryPrefix + "/" + currentMove.animationName)
 	set_animation_frame(characterState.currentFrame)
 
 func apply_move_by_name(moveName : String) -> bool:
@@ -233,7 +268,7 @@ func apply_move_by_name(moveName : String) -> bool:
 		apply_new_move(characterData.characterMoves[moveNameToIndex[moveName]])
 		return true
 	return false
-
+	
 func apply_new_move(move : CharacterMove):
 	deactivate_boxes()
 	if move.meterCost > characterState.currentMeter:
@@ -244,7 +279,7 @@ func apply_new_move(move : CharacterMove):
 	add_meter(-move.meterCost)
 	characterState.currentMoveHasHit = false
 	characterState.moveId = moveNameToIndex[move.internalName]
-	animationPlayer.set_current_animation(move.animationName)
+	animationPlayer.set_current_animation(characterData.characterAnimationLibraryPrefix + "/" + move.animationName)
 	set_animation_frame(move.startingFrame)
 	characterState.currentFrame = move.startingFrame
 	var horizontalDirectionMult = 1

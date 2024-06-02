@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=31 format=3 uid="uid://qiywbrf1e5yu"]
+
+[ext_resource type="Resource" uid="uid://p47xfht07jma" path="res://media/characters/chara_naomi/moves/idle.tres" id="1_1hkwy"]
+[ext_resource type="Script" path="res://scripts/characterData.gd" id="1_u7ctv"]
+[ext_resource type="Resource" uid="uid://uy1sow0amqcq" path="res://media/characters/chara_naomi/moves/attack1.tres" id="1_uvrso"]
+[ext_resource type="Resource" uid="uid://gbfl51brk8fc" path="res://media/characters/chara_naomi/moves/falling.tres" id="2_fd1iy"]
+[ext_resource type="Resource" uid="uid://6epfw5kjo1vx" path="res://media/characters/chara_naomi/moves/walkF.tres" id="2_qsvjh"]
+[ext_resource type="Resource" uid="uid://b328vcqtybp4l" path="res://media/characters/chara_naomi/moves/backJump.tres" id="3_26k0q"]
+[ext_resource type="Resource" uid="uid://bytmk4u3xtkwc" path="res://media/characters/chara_naomi/moves/walkB.tres" id="3_jx27h"]
+[ext_resource type="Resource" uid="uid://8nngma4n2sh2" path="res://media/characters/chara_naomi/moves/hurtG.tres" id="3_w8mbb"]
+[ext_resource type="Resource" uid="uid://464fmh0j53it" path="res://media/characters/chara_naomi/moves/forwardJump.tres" id="4_gqu7m"]
+[ext_resource type="Resource" uid="uid://cvem15jqqkllp" path="res://media/characters/chara_naomi/moves/hurtA.tres" id="4_m4ai3"]
+[ext_resource type="Resource" uid="uid://u5qkprdh3f63" path="res://media/characters/chara_naomi/moves/attack1Dash.tres" id="4_wp1ec"]
+[ext_resource type="Resource" uid="uid://cqk64yei22asp" path="res://media/characters/chara_naomi/moves/neutralJump.tres" id="5_1yif7"]
+[ext_resource type="Resource" uid="uid://cw380fuqyj5k8" path="res://media/characters/chara_naomi/moves/ko.tres" id="5_bk88r"]
+[ext_resource type="Resource" uid="uid://eihlj5s4au5f" path="res://media/characters/chara_naomi/moves/knockdown.tres" id="5_dn7hy"]
+[ext_resource type="Resource" uid="uid://dreocw0ub6uvv" path="res://media/characters/all_chara_common/moves/forward_to_idle.tres" id="5_mtauf"]
+[ext_resource type="Resource" uid="uid://dg1fd1m6j6qv4" path="res://media/characters/chara_naomi/moves/attack1Air.tres" id="5_vtntq"]
+[ext_resource type="Resource" uid="uid://cfys72n7q1uwv" path="res://media/characters/chara_naomi/moves/attackJumpKick.tres" id="6_6ss6r"]
+[ext_resource type="Resource" uid="uid://iftbfj5mag5o" path="res://media/characters/all_chara_common/moves/victory.tres" id="6_22kyx"]
+[ext_resource type="Resource" uid="uid://dql61k4lwv4t8" path="res://media/characters/chara_naomi/moves/wallsplat.tres" id="7_d85sl"]
+[ext_resource type="Resource" uid="uid://upssns403afo" path="res://media/characters/chara_naomi/moves/attackKnee.tres" id="7_hxaci"]
+[ext_resource type="Resource" uid="uid://byjs0ny75vxos" path="res://media/characters/chara_naomi/moves/attackJumpKickAir.tres" id="7_me4oq"]
+[ext_resource type="Resource" uid="uid://j3mbwgsubeft" path="res://media/characters/all_chara_common/moves/backwards_to_idle.tres" id="7_safhy"]
+[ext_resource type="Resource" uid="uid://cvo76pti88wvv" path="res://media/characters/chara_naomi/moves/attack2.tres" id="8_6w6yr"]
+[ext_resource type="Resource" uid="uid://bh7s5rfnvdi7f" path="res://media/characters/chara_naomi/moves/landing.tres" id="10_8h2rf"]
+[ext_resource type="Resource" uid="uid://x2njdec1btr7" path="res://media/characters/chara_naomi/moves/walkBOnce.tres" id="13_wywu3"]
+[ext_resource type="Texture2D" uid="uid://cdri01htadvuu" path="res://media/characters/chara_naomi/sprites/name.png" id="21_tvj7t"]
+[ext_resource type="Resource" uid="uid://dwcbp04ce0f6h" path="res://media/characters/chara_naomi/moves/infinity_install.tres" id="24_axx4q"]
+[ext_resource type="Resource" uid="uid://dmfkrbe7lnwa6" path="res://media/characters/chara_naomi/moves/zero_install.tres" id="24_f6hx0"]
+[ext_resource type="Resource" uid="uid://ccv4hvujosyyh" path="res://media/characters/chara_naomi/moves/wallsplat_ko.tres" id="26_nvnap"]
+[ext_resource type="Resource" uid="uid://cxhs31va118u0" path="res://media/characters/chara_naomi/moves/airBurst.tres" id="27_bji48"]
+
+[resource]
+script = ExtResource("1_u7ctv")
+characterFullName = "Naomi Rukino"
+characterDisplayName = "Naomi"
+characterAnimationLibraryPrefix = "naomi"
+characterMaxHealth = 100000
+characterMaxMeter = 30000
+characterNameTexture = ExtResource("21_tvj7t")
+characterMoves = Array[Resource("res://scripts/move.gd")]([ExtResource("1_1hkwy"), ExtResource("2_fd1iy"), ExtResource("3_w8mbb"), ExtResource("4_m4ai3"), ExtResource("5_bk88r"), ExtResource("6_22kyx"), ExtResource("5_dn7hy"), ExtResource("7_d85sl"), ExtResource("7_hxaci"), ExtResource("6_6ss6r"), ExtResource("7_me4oq"), ExtResource("4_wp1ec"), ExtResource("5_vtntq"), ExtResource("8_6w6yr"), ExtResource("1_uvrso"), ExtResource("3_26k0q"), ExtResource("4_gqu7m"), ExtResource("5_1yif7"), ExtResource("3_jx27h"), ExtResource("2_qsvjh"), ExtResource("5_mtauf"), ExtResource("7_safhy"), ExtResource("10_8h2rf"), ExtResource("13_wywu3"), ExtResource("24_f6hx0"), ExtResource("24_axx4q"), ExtResource("26_nvnap"), ExtResource("27_bji48")])

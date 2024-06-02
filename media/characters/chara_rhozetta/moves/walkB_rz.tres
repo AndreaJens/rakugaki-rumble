@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=8 format=3 uid="uid://radkaxx6ohcu"]
+
+[ext_resource type="Resource" uid="uid://c6bibtakoncnd" path="res://media/characters/all_chara_common/moves/cancels/zero_install_all.tres" id="1_53h4p"]
+[ext_resource type="Resource" uid="uid://bcmdanssjtek8" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_all.tres" id="2_m3g7o"]
+[ext_resource type="Resource" uid="uid://3g85v573bw00" path="res://media/characters/chara_rhozetta/moves/cancels/to_rampage.tres" id="3_4n8fr"]
+[ext_resource type="Resource" uid="uid://bbpnd2ay6mxes" path="res://media/characters/all_chara_common/moves/cancels/kara_backward_jump.tres" id="3_n7yyf"]
+[ext_resource type="Resource" uid="uid://brl6l3gi4kp0r" path="res://media/characters/chara_rhozetta/moves/cancels/to_headbash.tres" id="4_tth03"]
+[ext_resource type="Resource" uid="uid://dkvcd6s744tx2" path="res://media/characters/all_chara_common/moves/cancels/to_idle_landing.tres" id="5_exsqt"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="6_ma1g2"]
+
+[resource]
+script = ExtResource("6_ma1g2")
+characterState = 0
+internalName = "walkBOnce"
+displayName = ""
+animationName = "walkB"
+startingFrame = 0
+endingFrame = 12
+isHitStunState = false
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(-15000, -20000)
+logicalAccelerationPerFrame = Vector2i(0, 2500)
+keepMomentumPercent = 0
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = true
+canBeUsedBeforeAfterRoundEnds = false
+bufferStartLeniency = 3
+bufferLengthLeniency = 2
+useRawBuffer = true
+input = Array[int]([8])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_53h4p"), ExtResource("2_m3g7o"), ExtResource("3_4n8fr"), ExtResource("3_n7yyf"), ExtResource("4_tth03"), ExtResource("5_exsqt")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0

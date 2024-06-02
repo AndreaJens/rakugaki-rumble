@@ -1,0 +1,295 @@
+[gd_scene load_steps=28 format=3 uid="uid://fnvspxaugubd"]
+
+[ext_resource type="Script" path="res://scripts/character.gd" id="1_wago2"]
+[ext_resource type="Resource" uid="uid://8twlm04m24uq" path="res://media/characters/chara_rhozetta/characterData.tres" id="2_3jd0h"]
+[ext_resource type="Script" path="res://scripts/characterState.gd" id="2_kfbbf"]
+[ext_resource type="Script" path="res://addons/godot-rollback-netcode/NetworkAnimationPlayer.gd" id="3_o8kwn"]
+[ext_resource type="Texture2D" uid="uid://cpvhbgr7f2jwx" path="res://media/characters/chara_rhozetta/sprites/rhozetta2.png" id="4_8v82f"]
+[ext_resource type="PackedScene" uid="uid://cy2ewlewinwbv" path="res://media/logic/HitBox.tscn" id="4_aq1u3"]
+[ext_resource type="Texture2D" uid="uid://t1ms8cgwq76o" path="res://media/characters/chara_rhozetta/sprites/rhozetta1.png" id="4_ottud"]
+[ext_resource type="PackedScene" uid="uid://cbaqvnlrwjidk" path="res://media/logic/HurtBox.tscn" id="5_my4pl"]
+[ext_resource type="Animation" uid="uid://cwqckuspeuaev" path="res://media/characters/chara_rhozetta/animations/idle.res" id="5_p1w35"]
+[ext_resource type="PackedScene" uid="uid://c5k34hfd8kc10" path="res://media/logic/PushBox.tscn" id="6_50ynk"]
+[ext_resource type="Animation" uid="uid://cf0jeqvstggjb" path="res://media/characters/chara_rhozetta/animations/walkF.res" id="6_h5eb7"]
+[ext_resource type="Animation" uid="uid://d3e5rxtdljf55" path="res://media/characters/chara_rhozetta/animations/walkB.res" id="7_fh8yx"]
+[ext_resource type="Animation" uid="uid://k3njloytx2q0" path="res://media/characters/chara_rhozetta/animations/jumpF.res" id="8_88ovt"]
+[ext_resource type="Animation" uid="uid://ccxp7igxijm7d" path="res://media/characters/chara_rhozetta/animations/falling.res" id="8_io2t7"]
+[ext_resource type="Animation" uid="uid://3pivxgmrbt2g" path="res://media/characters/chara_rhozetta/animations/jumpB.res" id="10_pfply"]
+[ext_resource type="Animation" uid="uid://cppqawhbnib8s" path="res://media/characters/chara_rhozetta/animations/hurtGround.res" id="11_ijcff"]
+[ext_resource type="Animation" uid="uid://r46xp58v0nj1" path="res://media/characters/chara_rhozetta/animations/hurtGround_2.res" id="12_fetpv"]
+[ext_resource type="Animation" uid="uid://dsqst1c3px0o4" path="res://media/characters/chara_rhozetta/animations/knockdown.res" id="13_4lin0"]
+[ext_resource type="Animation" uid="uid://cgivkxhyx6hy8" path="res://media/characters/chara_rhozetta/animations/ko.res" id="14_mali6"]
+[ext_resource type="Animation" uid="uid://ltw0bee4rc1d" path="res://media/characters/chara_rhozetta/animations/headbash.res" id="16_by3qg"]
+[ext_resource type="Animation" uid="uid://khasea0eiqsv" path="res://media/characters/chara_rhozetta/animations/wallsplat.res" id="16_co4v5"]
+[ext_resource type="Animation" uid="uid://ih8c3jrppkin" path="res://media/characters/chara_rhozetta/animations/airspikes.res" id="18_sec5t"]
+[ext_resource type="Animation" uid="uid://dy6qysv4y53nd" path="res://media/characters/chara_rhozetta/animations/rampage.res" id="19_5nqbn"]
+
+[sub_resource type="Animation" id="Animation_6uhfb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HurtBoxes/HurtBox:active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HurtBoxes/HurtBox:boxSize")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2i(0, 0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HitBoxes/HitBox:damage")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [12000]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HitBoxes/HitBox:active")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HitBoxes/HitBox:boxSize")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2i(150000, -200000, 300000, 300000)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("HurtBoxes/HurtBox2:active")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("HurtBoxes/HurtBox2:boxSize")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2i(270000, -200000, 200000, 200000)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v28wi"]
+_data = {
+"RESET": SubResource("Animation_6uhfb")
+}
+
+[sub_resource type="Animation" id="Animation_350nr"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_ottud")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -370)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:z_index")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PushBox:active")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("PushBox:boxSize")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2i(0, -120000, 200000, 250000)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("HurtBoxes/HurtBox:boxSize")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2i(-50000, -165000, 250000, 320000)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("HurtBoxes/HurtBox:active")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6hfc3"]
+_data = {
+"RESET": SubResource("Animation_350nr"),
+"airspikes": ExtResource("18_sec5t"),
+"falling": ExtResource("8_io2t7"),
+"headbash": ExtResource("16_by3qg"),
+"hurtGround": ExtResource("11_ijcff"),
+"hurtGround_2": ExtResource("12_fetpv"),
+"idle": ExtResource("5_p1w35"),
+"jumpB": ExtResource("10_pfply"),
+"jumpF": ExtResource("8_88ovt"),
+"knockdown": ExtResource("13_4lin0"),
+"ko": ExtResource("14_mali6"),
+"rampage": ExtResource("19_5nqbn"),
+"walkB": ExtResource("7_fh8yx"),
+"walkF": ExtResource("6_h5eb7"),
+"wallsplat": ExtResource("16_co4v5")
+}
+
+[node name="Character" type="Node2D"]
+script = ExtResource("1_wago2")
+characterData = ExtResource("2_3jd0h")
+
+[node name="CharacterState" type="Node" parent="."]
+script = ExtResource("2_kfbbf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 6
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("4_8v82f")
+offset = Vector2(100, -350)
+hframes = 4
+vframes = 4
+frame = 5
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+deterministic = true
+libraries = {
+"": SubResource("AnimationLibrary_v28wi"),
+"rhozetta": SubResource("AnimationLibrary_6hfc3")
+}
+script = ExtResource("3_o8kwn")
+
+[node name="HitBoxes" type="Node2D" parent="."]
+
+[node name="HitBox" parent="HitBoxes" instance=ExtResource("4_aq1u3")]
+moveReactionOnHitGround = "hurtG"
+moveReactionOnHitAir = "hurtA"
+damage = 12000
+boxSize = Rect2i(150000, -200000, 300000, 300000)
+
+[node name="HitBox2" parent="HitBoxes" instance=ExtResource("4_aq1u3")]
+
+[node name="HitBox3" parent="HitBoxes" instance=ExtResource("4_aq1u3")]
+
+[node name="HitBox4" parent="HitBoxes" instance=ExtResource("4_aq1u3")]
+
+[node name="HitBox5" parent="HitBoxes" instance=ExtResource("4_aq1u3")]
+
+[node name="HurtBoxes" type="Node2D" parent="."]
+
+[node name="HurtBox" parent="HurtBoxes" instance=ExtResource("5_my4pl")]
+boxSize = Rect2i(0, 0, 0, 0)
+
+[node name="HurtBox2" parent="HurtBoxes" instance=ExtResource("5_my4pl")]
+boxSize = Rect2i(270000, -200000, 200000, 200000)
+
+[node name="HurtBox3" parent="HurtBoxes" instance=ExtResource("5_my4pl")]
+
+[node name="HurtBox4" parent="HurtBoxes" instance=ExtResource("5_my4pl")]
+
+[node name="HurtBox5" parent="HurtBoxes" instance=ExtResource("5_my4pl")]
+
+[node name="PushBox" parent="." instance=ExtResource("6_50ynk")]
+active = true
+boxSize = Rect2i(-20000, -100000, 200000, 200000)

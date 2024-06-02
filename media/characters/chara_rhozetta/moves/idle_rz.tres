@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=11 format=3 uid="uid://b8s40hds7rawh"]
+
+[ext_resource type="Resource" uid="uid://3g85v573bw00" path="res://media/characters/chara_rhozetta/moves/cancels/to_rampage.tres" id="1_sch0y"]
+[ext_resource type="Resource" uid="uid://brl6l3gi4kp0r" path="res://media/characters/chara_rhozetta/moves/cancels/to_headbash.tres" id="2_0jc0u"]
+[ext_resource type="Resource" uid="uid://c6bibtakoncnd" path="res://media/characters/all_chara_common/moves/cancels/zero_install_all.tres" id="3_6507w"]
+[ext_resource type="Resource" uid="uid://bcmdanssjtek8" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_all.tres" id="4_yfrq0"]
+[ext_resource type="Resource" uid="uid://cg45jqlfenv7t" path="res://media/characters/all_chara_common/moves/cancels/to_backward_jump.tres" id="5_5dc4r"]
+[ext_resource type="Resource" uid="uid://xuie720qplxx" path="res://media/characters/all_chara_common/moves/cancels/to_forward_jump.tres" id="6_m4ar8"]
+[ext_resource type="Resource" uid="uid://c160x7jyc01hb" path="res://media/characters/all_chara_common/moves/cancels/to_neutral_jump.tres" id="7_un7ak"]
+[ext_resource type="Resource" uid="uid://d4k2fmlsmtu5t" path="res://media/characters/all_chara_common/moves/cancels/to_forward.tres" id="8_i84da"]
+[ext_resource type="Resource" uid="uid://bnj601as867sa" path="res://media/characters/all_chara_common/moves/cancels/to_backwards.tres" id="9_p0fvb"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="10_8mk7n"]
+
+[resource]
+script = ExtResource("10_8mk7n")
+characterState = 0
+internalName = "idle"
+displayName = ""
+animationName = "idle"
+startingFrame = 0
+endingFrame = 40
+isHitStunState = false
+loop = true
+canTurnMidMove = true
+logicalVelocityPerFrame = Vector2i(0, 0)
+logicalAccelerationPerFrame = Vector2i(0, 0)
+keepMomentumPercent = 0
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = true
+canBeUsedBeforeAfterRoundEnds = false
+bufferStartLeniency = 3
+bufferLengthLeniency = 10
+useRawBuffer = false
+input = Array[int]([])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_sch0y"), ExtResource("2_0jc0u"), ExtResource("3_6507w"), ExtResource("4_yfrq0"), ExtResource("5_5dc4r"), ExtResource("6_m4ar8"), ExtResource("7_un7ak"), ExtResource("8_i84da"), ExtResource("9_p0fvb")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0

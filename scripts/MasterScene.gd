@@ -20,7 +20,6 @@ func goto_scene(path : String, type : SceneManager.SceneType):
 #
 #	# Add it to the active scene, as child of root.
 #	get_tree().root.add_child(current_scene)
-
 func _add_extra_scene_parameters(scene, type : SceneManager.SceneType):
 	match type:
 		SceneManager.SceneType.Training:
@@ -28,9 +27,17 @@ func _add_extra_scene_parameters(scene, type : SceneManager.SceneType):
 			scene.debugMode = true
 			scene.networkMode = false
 			scene.roundsToWin = 0
+			scene.additionalSceneStartupParameters = {
+				SceneGame.AdditionalGameSceneStartupParameter.Character1Path : "chara_naomi",
+				SceneGame.AdditionalGameSceneStartupParameter.Character2Path : "chara_rhozetta"
+			}
 		SceneManager.SceneType.SingleMatchMultiplayer:
 			scene.preventDeath = false
 			scene.debugMode = false
 			scene.networkMode = false
 			scene.roundsToWin = 3
+			scene.additionalSceneStartupParameters = {
+				SceneGame.AdditionalGameSceneStartupParameter.Character1Path : "chara_naomi",
+				SceneGame.AdditionalGameSceneStartupParameter.Character2Path : "chara_naomi"
+			}
 	
