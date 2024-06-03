@@ -1,30 +1,34 @@
-# Square Space Fight
-repository for a small Godot 4.2 fighting game project, with a sketchbook aesthetic
+# Rakugaki Rumble
+A small Godot 4.2 fighting game project, with a sketchbook aesthetic
 
 ## Controls
 
 ### P1:
 * WASD = movement
-* U = attack (also: I)
-* O = install
+* U = attack, confirm (also: I)
+* O = install, cancel
+* ESC = pause (also: Tab)
 
 ### P2:
 * Arrows = movement
-* Numpad1 = attack (also: Numpad2 J, K)
-* Numpad3 = install (also: L)
+* Numpad1 = attack, confirm (also: Numpad2 J, K)
+* Numpad3 = install, cancel (also: L)
+* Numpad+ = pause (also: Numpad/)
 
 ### on joypad (P1: first connected device, P2: second device): 
 * arrows = movement
-* A = attack
-* B = install
+* A = attack, confirm
+* B = install, cancel
+* start/select = pause
 * keyboard controls are always active
 
-### debug hotkeys
+### training mode hotkeys
 * F1/LT: save state
 * F2/RT: load state
 * F3/RB: show hitboxes
 * F4/LB: reset health, refill meter
-* F5/R3: toggle training mode
+
+### other controls
 * ALT+ENTER: full screen
 
 ### Universal Mechanics (notation uses joypad buttons and numpad notation)
@@ -34,13 +38,20 @@ repository for a small Godot 4.2 fighting game project, with a sketchbook aesthe
 * B (while in air hit stun): Interrupt Stumble (with full meter. If performed without full meter, it will disable the super meter for the whole round) 
 
 ### Movelist (notation uses joypad buttons and numpad notation)
+
 #### Naomi
-* A: slash attack (cancels into all Command Normals and Specials, jump cancel on hit)
-* while walking forward A: dash slash (forward jump cancel on hit)
-* 2A: upwards kick (cancels into all Specials, jump cancel on hit, auto-corrects side)
-* j.A: jumping slash
-* 236A: flying kick (air ok)
-* 632A: jaguar knee (cancels into j.236A on hit)
+* A: Five Nails Death Slash (cancels into all Command Normals and Specials, jump cancel on hit)
+* while walking forward A: Five Nails Dash Slash (forward jump cancel on hit)
+* 2A: Skyward Scraper (cancels into all Specials, jump cancel on hit, auto-corrects side)
+* j.A: Five Nails Air Slash
+* 236A: Cheetah Thrust Kick (air ok)
+* 632A: Jaguar Knee (cancels into j.236A on hit)
+
+#### Rho-Zetta
+* 4A/5A/6A: Headbash (cancels into all Command Normals and Specials, jump cancel on hit)
+* 2A: The Pit and the Pendulum (cancels into all Specials, jump cancel on hit, auto-corrects side)
+* j.A: Spikes and Yikes (cancels into Run Amok Rampage on hit)
+* 46A: Run Amok Rampage (2 hits, cancels into 2A on hit, forward jump cancel on hit, can be performed from back dash)
 
 ### Basic combo structure:
 * hitting the opponent during the start of their hitstun frames floats them. A sample starter can be either A > 2A, 2A > 236A or e.g. A > 236A

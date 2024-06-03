@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="SquareSpaceFight"
+config/name="Rakugaki Rumble"
 run/main_scene="res://media/scenes/main_scene.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 run/max_fps=60
