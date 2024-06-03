@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=11 format=3 uid="uid://cxnbj31b0vegk"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=12 format=3 uid="uid://cxnbj31b0vegk"]
 
 [ext_resource type="Resource" uid="uid://3g85v573bw00" path="res://media/characters/chara_rhozetta/moves/cancels/to_rampage.tres" id="1_dkk6t"]
+[ext_resource type="Resource" uid="uid://dobcqftssw7ge" path="res://media/characters/chara_rhozetta/moves/cancels/to_pendulum.tres" id="2_3hgt0"]
 [ext_resource type="Resource" uid="uid://brl6l3gi4kp0r" path="res://media/characters/chara_rhozetta/moves/cancels/to_headbash.tres" id="2_ixkrp"]
 [ext_resource type="Resource" uid="uid://c6bibtakoncnd" path="res://media/characters/all_chara_common/moves/cancels/zero_install_all.tres" id="3_bnj2e"]
 [ext_resource type="Resource" uid="uid://bcmdanssjtek8" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_all.tres" id="4_wo857"]
@@ -37,6 +38,6 @@ input = Array[int]([4])
 inputVariant1 = Array[int]([])
 inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
-cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_dkk6t"), ExtResource("2_ixkrp"), ExtResource("3_bnj2e"), ExtResource("4_wo857"), ExtResource("5_ftdjo"), ExtResource("6_votga"), ExtResource("7_2sld7"), ExtResource("8_jkfqi"), ExtResource("9_nltif")])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_dkk6t"), ExtResource("2_3hgt0"), ExtResource("2_ixkrp"), ExtResource("3_bnj2e"), ExtResource("4_wo857"), ExtResource("5_ftdjo"), ExtResource("6_votga"), ExtResource("7_2sld7"), ExtResource("8_jkfqi"), ExtResource("9_nltif")])
 guardFrames = Vector2i(-1, -1)
 timestopFrames = 0

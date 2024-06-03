@@ -13,6 +13,7 @@ var _lastInputReceived : int = 0
 @export var _optionSprites : Array[Sprite2D] = []
 var _animationTicks : int = 0
 var _optionSelected : bool = 0
+var active : bool = true
 const animationPeriod : int = 20
 
 func reset_and_hide():
@@ -42,13 +43,14 @@ func _update_highlighted_option():
 	for sprite in _optionSprites:
 		sprite.offset.x = 0
 		sprite.scale = Vector2(1., 1.)
-	_optionSprites[_index].scale = Vector2(1.1, 1.1)
-	if !selection_performed():
+	if active or selection_performed():
+		_optionSprites[_index].scale = Vector2(1.1, 1.1)
+	if active and !selection_performed():
 		_optionSprites[_index].offset.x = -4
 		@warning_ignore("integer_division")
 		var animationPeriodHalf = animationPeriod / 2
 		if _animationTicks > animationPeriodHalf:
-			_optionSprites[_index].offset.x = 4
+			_optionSprites[_index].offset.x = 4	
 
 func selection_performed() -> bool:
 	return _optionSelected
@@ -57,15 +59,19 @@ func get_highlighted_option() -> int:
 	return options[_index]
 	
 func update(allButtonsPressed : int):
-	if !_optionSelected:
-		if ((allButtonsPressed & ~_lastInputReceived) & GameDatabaseAccessor.GameInputButton.Down):
-			_index += 1
-			_index %= options.size()
-		elif ((allButtonsPressed & ~_lastInputReceived) & GameDatabaseAccessor.GameInputButton.Up):
-			_index -= 1
-			if _index < 0: _index = options.size() - 1
-	if ((allButtonsPressed & ~_lastInputReceived) & GameDatabaseAccessor.GameInputButton.Confirm):
-		_optionSelected = true
+	if active:
+		if !_optionSelected:
+			if ((allButtonsPressed & ~_lastInputReceived) & GameDatabaseAccessor.GameInputButton.Down):
+				_index += 1
+				_index %= options.size()
+			elif ((allButtonsPressed & ~_lastInputReceived) & GameDatabaseAccessor.GameInputButton.Up):
+				_index -= 1
+				if _index < 0: _index = options.size() - 1
+		if ((allButtonsPressed & ~_lastInputReceived) & GameDatabaseAccessor.GameInputButton.Confirm):
+			_optionSelected = true
+		elif ((allButtonsPressed & ~_lastInputReceived) & GameDatabaseAccessor.GameInputButton.Cancel):
+			if _optionSelected:
+				_optionSelected = false
 	_lastInputReceived = allButtonsPressed
 	_animationTicks += 1
 	_animationTicks %= animationPeriod

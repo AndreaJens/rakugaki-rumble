@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=11 format=3 uid="uid://b8s40hds7rawh"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=12 format=3 uid="uid://b8s40hds7rawh"]
 
 [ext_resource type="Resource" uid="uid://3g85v573bw00" path="res://media/characters/chara_rhozetta/moves/cancels/to_rampage.tres" id="1_sch0y"]
 [ext_resource type="Resource" uid="uid://brl6l3gi4kp0r" path="res://media/characters/chara_rhozetta/moves/cancels/to_headbash.tres" id="2_0jc0u"]
+[ext_resource type="Resource" uid="uid://dobcqftssw7ge" path="res://media/characters/chara_rhozetta/moves/cancels/to_pendulum.tres" id="2_2glsm"]
 [ext_resource type="Resource" uid="uid://c6bibtakoncnd" path="res://media/characters/all_chara_common/moves/cancels/zero_install_all.tres" id="3_6507w"]
 [ext_resource type="Resource" uid="uid://bcmdanssjtek8" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_all.tres" id="4_yfrq0"]
 [ext_resource type="Resource" uid="uid://cg45jqlfenv7t" path="res://media/characters/all_chara_common/moves/cancels/to_backward_jump.tres" id="5_5dc4r"]
@@ -37,6 +38,6 @@ input = Array[int]([])
 inputVariant1 = Array[int]([])
 inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
-cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_sch0y"), ExtResource("2_0jc0u"), ExtResource("3_6507w"), ExtResource("4_yfrq0"), ExtResource("5_5dc4r"), ExtResource("6_m4ar8"), ExtResource("7_un7ak"), ExtResource("8_i84da"), ExtResource("9_p0fvb")])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_sch0y"), ExtResource("2_2glsm"), ExtResource("2_0jc0u"), ExtResource("3_6507w"), ExtResource("4_yfrq0"), ExtResource("5_5dc4r"), ExtResource("6_m4ar8"), ExtResource("7_un7ak"), ExtResource("8_i84da"), ExtResource("9_p0fvb")])
 guardFrames = Vector2i(-1, -1)
 timestopFrames = 0

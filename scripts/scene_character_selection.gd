@@ -35,6 +35,10 @@ func _ready():
 		nextSceneType = additionalSceneStartupParameters[AdditionalSceneCharacterSelectStartupParameter.NextSceneType]
 
 func _update_input_p1() -> int:
+	if (InputOverseer.input_is_action_just_pressed("cancel", player1DeviceId)  or 
+		InputOverseer.input_is_action_just_pressed_kb("cancel_p1")):
+			if !_menu_p1.selection_performed() and !_menu_p2.selection_performed():
+				SceneManager.goto_scene_type(SceneManager.SceneType.ModeSelection)
 	var allButtonsPressed = 0
 	if (InputOverseer.input_is_action_just_pressed("confirm", player1DeviceId) or 
 		InputOverseer.input_is_action_just_pressed_kb("confirm_p1")):
@@ -45,6 +49,9 @@ func _update_input_p1() -> int:
 	if (InputOverseer.input_is_action_pressed("move_d", player1DeviceId)  or 
 		InputOverseer.input_is_action_pressed_kb("move_d_p1")):
 			allButtonsPressed = allButtonsPressed | GameDatabaseAccessor.GameInputButton.Down
+	if (InputOverseer.input_is_action_just_pressed("cancel", player1DeviceId)  or 
+		InputOverseer.input_is_action_just_pressed_kb("cancel_p1")):
+			allButtonsPressed = allButtonsPressed | GameDatabaseAccessor.GameInputButton.Cancel
 	return allButtonsPressed
 
 func _update_input_p2() -> int:
@@ -58,13 +65,27 @@ func _update_input_p2() -> int:
 	if (InputOverseer.input_is_action_pressed("move_d", player2DeviceId)  or 
 		InputOverseer.input_is_action_pressed_kb("move_d_p2")):
 			allButtonsPressed = allButtonsPressed | GameDatabaseAccessor.GameInputButton.Down
+	if (InputOverseer.input_is_action_just_pressed("cancel", player2DeviceId)  or 
+		InputOverseer.input_is_action_just_pressed_kb("cancel_p2")):
+			allButtonsPressed = allButtonsPressed | GameDatabaseAccessor.GameInputButton.Cancel
 	return allButtonsPressed
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	var buttonsPressedP1 = _update_input_p1()
-	var buttonsPressedP2 = _update_input_p2()
-	_menu_p1.update(buttonsPressedP1)
-	_menu_p2.update(buttonsPressedP2)
+	if nextSceneType == SceneManager.SceneType.Training:
+		var buttonsPressedP1 = _update_input_p1()
+		if _menu_p1.selection_performed():
+			_menu_p2.active = true
+			_menu_p1.active = false
+		else:
+			_menu_p2.active = false
+			_menu_p1.active = true
+		_menu_p1.update(buttonsPressedP1)
+		_menu_p2.update(buttonsPressedP1)
+	else:
+		var buttonsPressedP1 = _update_input_p1()
+		var buttonsPressedP2 = _update_input_p2()
+		_menu_p1.update(buttonsPressedP1)
+		_menu_p2.update(buttonsPressedP2)	
 	if _menu_p1.selection_performed() and _menu_p2.selection_performed():
 		character1Path = mapOptions[_menu_p1.get_highlighted_option()]
 		character2Path = mapOptions[_menu_p2.get_highlighted_option()]

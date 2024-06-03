@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MoveCancelRoute" load_steps=2 format=3 uid="uid://dwu61c2qyqr2i"]
+
+[ext_resource type="Script" path="res://scripts/cancelRoute.gd" id="1_gq3ds"]
+
+[resource]
+script = ExtResource("1_gq3ds")
+targetMoveName = "rampage_auto"
+startFrame = -1
+endFrame = -1
+onHit = false
+onBlock = false
+onWhiff = false
+automaticCancelOnLanding = false
+activeIfNothingPressed = false
+autoCancelWhenValid = false
+autoPerformAtMoveEnd = true

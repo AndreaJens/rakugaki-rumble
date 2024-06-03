@@ -1,11 +1,6 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=8 format=3 uid="uid://cppl6r71admm0"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=3 format=3 uid="uid://cppl6r71admm0"]
 
-[ext_resource type="Resource" uid="uid://b3dvs8txb8pji" path="res://media/characters/all_chara_common/moves/cancels/zero_install_hit.tres" id="1_bjyvr"]
-[ext_resource type="Resource" uid="uid://k85f7ldgjhu7" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_hit.tres" id="2_7576o"]
-[ext_resource type="Resource" uid="uid://csyfkukhxifa0" path="res://media/characters/all_chara_common/moves/cancels/jc_on_hit.tres" id="3_uyp1n"]
-[ext_resource type="Resource" uid="uid://d2nccsnvqunof" path="res://media/characters/all_chara_common/moves/cancels/jc_n_on_hit.tres" id="4_hlacd"]
-[ext_resource type="Resource" uid="uid://d2quvuuy1qvv0" path="res://media/characters/all_chara_common/moves/cancels/jc_b_on_hit.tres" id="5_pyurs"]
-[ext_resource type="Resource" uid="uid://bcch6wphl5uw2" path="res://media/characters/chara_rhozetta/moves/cancels/to_rampage_auto.tres" id="6_7hi8k"]
+[ext_resource type="Resource" uid="uid://dwu61c2qyqr2i" path="res://media/characters/chara_rhozetta/moves/cancels/to_rampage_auto_first.tres" id="1_k04tt"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="6_fwvrt"]
 
 [resource]
@@ -13,13 +8,13 @@ script = ExtResource("6_fwvrt")
 characterState = 0
 internalName = "rampage"
 displayName = "Rampage"
-animationName = "rampage"
+animationName = "rampage_startup"
 startingFrame = 0
-endingFrame = 21
+endingFrame = 10
 isHitStunState = false
 loop = false
 canTurnMidMove = false
-logicalVelocityPerFrame = Vector2i(40000, 0)
+logicalVelocityPerFrame = Vector2i(0, 0)
 logicalAccelerationPerFrame = Vector2i(0, 4000)
 keepMomentumPercent = 100
 meterCost = 0
@@ -31,9 +26,9 @@ bufferStartLeniency = 5
 bufferLengthLeniency = 10
 useRawBuffer = false
 input = Array[int]([8, 4, 16])
-inputVariant1 = Array[int]([])
+inputVariant1 = Array[int]([8, 4, 16384])
 inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
-cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_bjyvr"), ExtResource("2_7576o"), ExtResource("3_uyp1n"), ExtResource("4_hlacd"), ExtResource("5_pyurs"), ExtResource("6_7hi8k")])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_k04tt")])
 guardFrames = Vector2i(-1, -1)
 timestopFrames = 0

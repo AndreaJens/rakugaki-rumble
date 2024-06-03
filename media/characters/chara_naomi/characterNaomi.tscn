@@ -98,6 +98,7 @@ _data = {
 [node name="Character" type="Node2D"]
 script = ExtResource("1_qst3w")
 characterData = ExtResource("2_tinh8")
+infinityInstallActive = true
 
 [node name="CharacterState" type="Node" parent="."]
 script = ExtResource("2_ssm87")
@@ -107,10 +108,9 @@ z_index = 100
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("4_vcdga")
-offset = Vector2(0, -370)
+offset = Vector2(0, -385)
 hframes = 4
 vframes = 4
-frame = 10
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -138,7 +138,8 @@ boxSize = Rect2i(150000, -200000, 300000, 300000)
 [node name="HurtBoxes" type="Node2D" parent="."]
 
 [node name="HurtBox" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
-boxSize = Rect2i(-50000, -165000, 250000, 320000)
+active = true
+boxSize = Rect2i(-100000, -200000, 200000, 300000)
 
 [node name="HurtBox2" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
 boxSize = Rect2i(270000, -200000, 200000, 200000)
@@ -150,5 +151,4 @@ boxSize = Rect2i(270000, -200000, 200000, 200000)
 [node name="HurtBox5" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
 
 [node name="PushBox" parent="." instance=ExtResource("5_phuw5")]
-active = true
-boxSize = Rect2i(0, -120000, 200000, 250000)
+boxSize = Rect2i(0, -100000, 200000, 200000)
