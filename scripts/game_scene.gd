@@ -39,6 +39,7 @@ var _cameraLogicalPosition : Vector2i
 var _hitFreezeFrames : int = -1
 var _lastFrameComboHitFreeze : bool = false
 var _comboHitFreeze : bool = false
+var _spikeHitFreeze : bool = false
 var _wallHitFreeze : bool = false
 var _roundPhaseCounter : int = -1
 var _roundPhaseState : RoundPhaseState = RoundPhaseState.Ready
@@ -56,6 +57,7 @@ var _timerTicks : int = -1
 @export var phaseTransitionMaxCounter = 120
 @export var hitFreezeComboFrames = 10
 @export var hitFreezeWallFrames = 8
+@export var hitFreezeDownSpikeFrames = 25
 @export_category("Debug")
 @export var debugMode : bool = false
 @export var hitFreezeOnWallCollisionBothPlayers : bool = false
@@ -88,6 +90,7 @@ enum GameStateVars {
 	HitFreezeWallBool = 12,
 	WallSplatFreezeFrames = 13,
 	WallSplatCharacterId = 14,
+	HitFreezeSpikeBool = 15,
 	SystemMessageManagerState = 900,
 	InputManagerCharacter1 = 901,
 	InputManagerCharacter2 = 902,
@@ -104,6 +107,7 @@ func _save_state() -> Dictionary:
 	stateDict[GameStateVars.HitFreezeCounter] = _hitFreezeFrames
 	stateDict[GameStateVars.HitFreezeBool] = _comboHitFreeze
 	stateDict[GameStateVars.HitFreezeWallBool] = _wallHitFreeze
+	stateDict[GameStateVars.HitFreezeSpikeBool] = _spikeHitFreeze
 	stateDict[GameStateVars.CameraLogicalPositionX] = _cameraLogicalPosition.x
 	stateDict[GameStateVars.CameraLogicalPositionY] = _cameraLogicalPosition.y
 	stateDict[GameStateVars.RoundPhaseState] = _roundPhaseState
@@ -125,6 +129,7 @@ func _load_state(state : Dictionary) -> void:
 	character2._load_state(state[GameStateVars.Character2State])
 	_comboHitFreeze = state[GameStateVars.HitFreezeBool]
 	_wallHitFreeze = state[GameStateVars.HitFreezeWallBool]
+	_spikeHitFreeze = state[GameStateVars.HitFreezeSpikeBool]
 	_hitFreezeFrames = state[GameStateVars.HitFreezeCounter]
 	_lastFrameComboHitFreeze = state[GameStateVars.HitFreezeLastFrame]
 	_cameraLogicalPosition.x = state[GameStateVars.CameraLogicalPositionX]
@@ -492,6 +497,8 @@ func _apply_wallsplat_damage(character : Character, opponent : Character):
 	#print("Wall speed %d!" % character.get_logical_velocity().x)
 	@warning_ignore("integer_division")
 	var damage : int = max(1, abs(character.get_logical_velocity().x / 10))
+	@warning_ignore("integer_division")
+	damage = min(character.characterData.characterMaxHealth / 4, damage)
 	character.deal_damage(damage)
 	opponent.characterState.comboCounter += 1
 	opponent.characterState.comboDamage += damage
@@ -646,7 +653,11 @@ func _update_hit_detection():
 	# manage damage and hit reactions
 	if p1AttackResult[HitDetectionFlags.HasHit]:
 		character1.mark_successful_hit()
-		_hitFreezeFrames = hitFreezeComboFrames
+		if p1AttackResult[HitDetectionFlags.TargetReaction] == GameDatabaseAccessor.defaultDownSpikeReaction:
+			_hitFreezeFrames = hitFreezeDownSpikeFrames
+			_spikeHitFreeze = true
+		else:
+			_hitFreezeFrames = hitFreezeComboFrames
 		character1.characterState.affectedByHitFreeze = true
 		character2.characterState.affectedByHitFreeze = true
 		_comboHitFreeze = true
@@ -659,7 +670,11 @@ func _update_hit_detection():
 			character1.characterState.comboDamage = 0
 	if p2AttackResult[HitDetectionFlags.HasHit]:
 		character2.mark_successful_hit()
-		_hitFreezeFrames = hitFreezeComboFrames
+		if p2AttackResult[HitDetectionFlags.TargetReaction] == GameDatabaseAccessor.defaultDownSpikeReaction:
+			_hitFreezeFrames = hitFreezeDownSpikeFrames
+			_spikeHitFreeze = true
+		else:
+			_hitFreezeFrames = hitFreezeComboFrames
 		character1.characterState.affectedByHitFreeze = true
 		character2.characterState.affectedByHitFreeze = true
 		_comboHitFreeze = true
@@ -726,13 +741,16 @@ func _update_timer():
 func _common_update_process():
 	if _hitFreezeFrames >= 0:
 		_hitFreezeFrames -= 1
-		if (_comboHitFreeze or _wallHitFreeze):
+		if _spikeHitFreeze:
+			camera.zoom = Vector2(1.2, 1.2)
+		elif (_comboHitFreeze or _wallHitFreeze):
 			camera.zoom = Vector2(1.1, 1.1)
 		else:
 			camera.zoom = Vector2(1., 1.)
 		if _hitFreezeFrames == 0:
 			_comboHitFreeze = false
 			_wallHitFreeze = false
+			_spikeHitFreeze = false
 			character1.characterState.affectedByHitFreeze = false
 			character2.characterState.affectedByHitFreeze = false
 	else:

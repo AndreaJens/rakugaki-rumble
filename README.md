@@ -36,6 +36,7 @@ A small Godot 4.2 fighting game project, with a sketchbook aesthetic
 * B (ground): Infinity Install (with full meter, cancels every grounded attack, lasts 2.5 seconds - removes the Bounce Limit and increases the momentum transfer from the walls)
 * 2B (on the ground): Zero Install (with full meter, cancels every grounded attack, lasts 2.5 seconds - removes bounces all together but slashes damage to 66%)
 * B (while in air hit stun): Interrupt Stumble (with full meter. If performed without full meter, it will disable the super meter for the whole round) 
+* j.2A: universal air spike, stops the opponent momentum and slams them to the ground on hit
 
 ### Movelist (notation uses joypad buttons and numpad notation)
 
@@ -44,13 +45,15 @@ A small Godot 4.2 fighting game project, with a sketchbook aesthetic
 * while walking forward A: Five Nails Dash Slash (forward jump cancel on hit)
 * 2A: Skyward Scraper (cancels into all Specials, jump cancel on hit, auto-corrects side)
 * j.A: Five Nails Air Slash
-* 236A: Cheetah Thrust Kick (air ok)
+* j.2A: Armor Piercing Moonslice (universal air spike)
+* 236A: Cheetah Thrust Kick (air ok, the air version cancels into j.2A on hit)
 * 632A: Jaguar Knee (cancels into j.236A on hit)
 
 #### Rho-Zetta
 * 4A/5A/6A: Headbash (cancels into all Command Normals and Specials, jump cancel on hit)
 * 2A: The Pit and the Pendulum (cancels into all Specials, jump cancel on hit, auto-corrects side)
 * j.A: Spikes and Yikes (cancels into Run Amok Rampage on hit)
+* j.2A: Weight of the World (universal air spike)
 * 46A: Run Amok Rampage (2 hits, cancels into 2A on hit, forward jump cancel on hit, can be performed from back dash)
 
 ### Basic combo structure:

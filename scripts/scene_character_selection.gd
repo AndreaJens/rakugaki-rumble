@@ -34,6 +34,14 @@ func _ready():
 	if additionalSceneStartupParameters.has(AdditionalSceneCharacterSelectStartupParameter.NextSceneType):
 		nextSceneType = additionalSceneStartupParameters[AdditionalSceneCharacterSelectStartupParameter.NextSceneType]
 
+func _check_if_cancel_p1_selection_needed() -> bool:
+	if !_menu_p1.selection_performed():
+		return false
+	if (InputOverseer.input_is_action_just_pressed("cancel", player1DeviceId)  or 
+		InputOverseer.input_is_action_just_pressed_kb("cancel_p1")):
+			return true
+	return false
+		
 func _update_input_p1() -> int:
 	if (InputOverseer.input_is_action_just_pressed("cancel", player1DeviceId)  or 
 		InputOverseer.input_is_action_just_pressed_kb("cancel_p1")):
@@ -73,6 +81,11 @@ func _update_input_p2() -> int:
 func _process(_delta):
 	if nextSceneType == SceneManager.SceneType.Training:
 		var buttonsPressedP1 = _update_input_p1()
+		if _check_if_cancel_p1_selection_needed():
+			_menu_p1.active = true
+			_menu_p2.active = false
+			_menu_p1.cancel_selection()
+			_menu_p2.cancel_selection()
 		if _menu_p1.selection_performed():
 			_menu_p2.active = true
 			_menu_p1.active = false

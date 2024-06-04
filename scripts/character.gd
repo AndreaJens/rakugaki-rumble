@@ -144,6 +144,8 @@ func deactivate_boxes():
 		pushBox.mirror()
 	for hitBox in hitBoxes:
 		hitBox.active = false
+		hitBox.moveReactionOnHitGround = GameDatabaseAccessor.defaultGroundHitReaction
+		hitBox.moveReactionOnHitAir = GameDatabaseAccessor.defaultAirHitReaction
 		if hitBox.is_mirrored():
 			hitBox.mirror()
 	for hurtBox in hurtBoxes:

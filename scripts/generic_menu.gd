@@ -55,6 +55,9 @@ func _update_highlighted_option():
 func selection_performed() -> bool:
 	return _optionSelected
 
+func cancel_selection() -> void:
+	_optionSelected = false
+
 func get_highlighted_option() -> int:
 	return options[_index]
 	

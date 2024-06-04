@@ -100,6 +100,7 @@ enum AttackType {
 @export var showBoxes : bool = false
 @export var player1Device : int = -1
 @export var player2Device : int = -1
+@export var defaultDownSpikeReaction : String = "hurtSpike"
 @export var defaultGroundHitReaction : String = "hurtG"
 @export var defaultAirHitReaction : String = "hurtA"
 @export var defaultWallsplatReaction : String = "wallsplat"
