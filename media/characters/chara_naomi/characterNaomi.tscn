@@ -126,7 +126,7 @@ texture = ExtResource("4_67wg4")
 offset = Vector2(0, -340)
 hframes = 4
 vframes = 4
-frame = 7
+frame = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 

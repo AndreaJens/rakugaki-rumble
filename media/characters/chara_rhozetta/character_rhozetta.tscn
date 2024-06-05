@@ -424,15 +424,14 @@ z_index = 10
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("4_fduox")
-offset = Vector2(30, -350)
+offset = Vector2(40, -350)
 hframes = 4
 vframes = 4
-frame = 3
+frame = 10
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-deterministic = true
 libraries = {
 "": SubResource("AnimationLibrary_v28wi"),
 "rhozetta": SubResource("AnimationLibrary_6hfc3")

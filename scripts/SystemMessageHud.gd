@@ -36,6 +36,7 @@ func _save_state() -> Dictionary:
 func _load_state(state : Dictionary) -> void:
 	_position_tick = state[SystemMessageVar.PositionTick]
 	_currentMessageType = state[SystemMessageVar.CurrentMessageType]
+	_message_visible = state[SystemMessageVar.MessageVisible]
 	if state[SystemMessageVar.MessageVisible]:
 		plasticFoilSprite.visible = true
 		systemMessageSprite.visible = true

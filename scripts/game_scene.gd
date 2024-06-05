@@ -389,7 +389,13 @@ func _update_game_phase_transition():
 			if (rematchMenuP1.get_highlighted_option() == RematchMenu.Option.No or
 				rematchMenuP2.get_highlighted_option() == RematchMenu.Option.No):
 					#change scene
-					SceneManager.goto_scene_type(SceneManager.SceneType.ModeSelection)
+					if networkMode:
+						#if multiplayer.is_server():
+							#SyncManager.stop()
+							#SyncManager.clear_peers()
+						SceneManager.goto_scene_type(SceneManager.SceneType.NetplayMenu)
+					else:
+						SceneManager.goto_scene_type(SceneManager.SceneType.ModeSelection)
 					pass
 			else:
 				rematchMenuP1.reset_and_hide()

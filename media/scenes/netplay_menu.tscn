@@ -1,0 +1,130 @@
+[gd_scene load_steps=8 format=3 uid="uid://77im48dr5l1j"]
+
+[ext_resource type="Script" path="res://scripts/netplay_menu.gd" id="1_6hgq2"]
+[ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="1_53js3"]
+[ext_resource type="PackedScene" uid="uid://c07vx7o11k05c" path="res://media/scenes/scene_game.tscn" id="2_vvbpg"]
+[ext_resource type="Texture2D" uid="uid://cdri01htadvuu" path="res://media/characters/chara_naomi/sprites/name.png" id="4_3bi1f"]
+[ext_resource type="Texture2D" uid="uid://ljub10t2iwni" path="res://media/characters/chara_rhozetta/sprites/name.png" id="5_ssgc0"]
+[ext_resource type="Script" path="res://media/scenes/CharaSelectButton.gd" id="6_qbc81"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2bnrh"]
+font_size = 24
+font_color = Color(0, 0, 0, 1)
+
+[node name="NetPlayMenu" type="Node2D" node_paths=PackedStringArray("systemMessageLabel", "syncingMessageLabel", "ipAddressField", "portField", "playerNameField", "connectionUILayer", "characterNameSprite", "sceneParentNode", "charaSelectMenu")]
+script = ExtResource("1_6hgq2")
+systemMessageLabel = NodePath("SystemMessageLayer/StatusMessageLabel")
+syncingMessageLabel = NodePath("SystemMessageLayer/ResyncMessageLabel")
+ipAddressField = NodePath("ConnectionUI/IpAddressField")
+portField = NodePath("ConnectionUI/PortField")
+playerNameField = NodePath("ConnectionUI/PlayerNameField")
+connectionUILayer = NodePath("ConnectionUI")
+characterNameSprite = NodePath("ConnectionUI/CharacterName")
+sceneParentNode = NodePath("SceneParent")
+charaSelectMenu = NodePath("ConnectionUI/CharaSelectButton")
+sceneToInstantiate = ExtResource("2_vvbpg")
+
+[node name="Stage" type="Node2D" parent="."]
+
+[node name="StageSprite" type="Sprite2D" parent="Stage"]
+position = Vector2(567, 318)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_53js3")
+
+[node name="SceneParent" type="Node2D" parent="."]
+
+[node name="ConnectionUI" type="CanvasLayer" parent="."]
+
+[node name="IpAddressField" type="LineEdit" parent="ConnectionUI"]
+offset_left = 54.0
+offset_top = 83.0
+offset_right = 407.0
+offset_bottom = 116.0
+placeholder_text = "ip address goes here"
+
+[node name="PortField" type="LineEdit" parent="ConnectionUI"]
+offset_left = 420.0
+offset_top = 83.0
+offset_right = 494.0
+offset_bottom = 116.0
+placeholder_text = "port"
+
+[node name="PlayerNameField" type="LineEdit" parent="ConnectionUI"]
+offset_left = 55.0
+offset_top = 37.0
+offset_right = 410.0
+offset_bottom = 69.0
+placeholder_text = "player name goes here"
+
+[node name="HostButton" type="Button" parent="ConnectionUI"]
+offset_left = 53.0
+offset_top = 167.0
+offset_right = 224.0
+offset_bottom = 243.0
+text = "HOST GAME"
+
+[node name="ClientButton" type="Button" parent="ConnectionUI"]
+offset_left = 232.0
+offset_top = 167.0
+offset_right = 403.0
+offset_bottom = 243.0
+text = "CONNECT TO GAME
+"
+
+[node name="CharaSelectButton" type="MenuButton" parent="ConnectionUI"]
+offset_left = 551.0
+offset_top = 38.0
+offset_right = 798.0
+offset_bottom = 69.0
+text = "SELECT CHARACTER"
+flat = false
+item_count = 2
+popup/item_0/text = ""
+popup/item_0/icon = ExtResource("4_3bi1f")
+popup/item_0/id = 0
+popup/item_1/text = ""
+popup/item_1/icon = ExtResource("5_ssgc0")
+popup/item_1/id = 1
+script = ExtResource("6_qbc81")
+
+[node name="CharacterName" type="Sprite2D" parent="ConnectionUI"]
+position = Vector2(959, 82)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("4_3bi1f")
+
+[node name="SystemMessageLayer" type="CanvasLayer" parent="."]
+
+[node name="StatusMessageLabel" type="Label" parent="SystemMessageLayer"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -283.5
+offset_right = 283.5
+offset_bottom = 51.0
+grow_horizontal = 2
+text = "STATUS MESSAGE"
+label_settings = SubResource("LabelSettings_2bnrh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResyncMessageLabel" type="Label" parent="SystemMessageLayer"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -283.5
+offset_top = -51.0
+offset_right = 283.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "SYNCING...
+"
+label_settings = SubResource("LabelSettings_2bnrh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="button_up" from="ConnectionUI/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="button_up" from="ConnectionUI/ClientButton" to="." method="_on_client_button_pressed"]

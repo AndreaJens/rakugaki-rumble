@@ -6,10 +6,11 @@ extends Node2D
 var mapOptions = {
 	0 : SceneManager.SceneType.CharacterSelectionMultiplayer,
 	1 : SceneManager.SceneType.CharacterSelectionTraining,
+	2 : SceneManager.SceneType.NetplayMenu,
 }
 
 func _ready():
-	_menu.options = [0, 1]
+	_menu.options = [0, 1, 2]
 
 func _update_input() -> int:
 	var allButtonsPressed = 0

@@ -48,9 +48,10 @@ func _get_local_input() -> Dictionary:
 	return _readout_buttons()
 	
 func _network_preprocess(input: Dictionary) -> void:
-	var currentInput : int = input[InputBufferState.NewlyPressedButtons]
-	var allPressedButtons : int = input[InputBufferState.AllPressedButtons]
-	_process_new_input(currentInput, allPressedButtons)
+	if !input.is_empty():
+		var currentInput : int = input[InputBufferState.NewlyPressedButtons]
+		var allPressedButtons : int = input[InputBufferState.AllPressedButtons]
+		_process_new_input(currentInput, allPressedButtons)
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():

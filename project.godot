@@ -22,6 +22,9 @@ SceneManager="*res://scripts/SceneManager.gd"
 GameDatabaseAccessor="*res://scripts/database.gd"
 InputOverseer="*res://scripts/InputOverseer.gd"
 SyncManager="*res://addons/godot-rollback-netcode/SyncManager.gd"
+NetworkAssistant="*res://scripts/NetworkAssistant.gd"
+SyncReplay="*res://addons/godot-rollback-netcode/SyncReplay.gd"
+SyncDebugger="*res://addons/godot-rollback-netcode/SyncDebugger.gd"
 
 [display]
 
@@ -232,10 +235,13 @@ pause_p2={
 
 [network]
 
-rollback/max_buffer_size=8
-rollback/classes/network_adaptor="res://addons/godot-rollback-netcode/NetworkAdaptor.gd"
+rollback/max_buffer_size=10
+rollback/classes/network_adaptor="res://addons/godot-rollback-netcode/RPCNetworkAdaptor.gd"
 rollback/classes/message_serializer="res://addons/godot-rollback-netcode/MessageSerializer.gd"
 rollback/classes/hash_serializer="res://addons/godot-rollback-netcode/HashSerializer.gd"
+rollback/debug/rollback_ticks=2
+rollback/debug/random_rollback_ticks=3
+rollback/debug/skip_nth_message=7
 
 [rendering]
 

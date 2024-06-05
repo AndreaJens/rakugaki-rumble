@@ -21,7 +21,7 @@ texture = ExtResource("1_wfwob")
 position = Vector2(567, 400)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("2_gwhym")
-_optionSprites = [NodePath("VS"), NodePath("Training")]
+_optionSprites = [NodePath("VS"), NodePath("Training"), NodePath("Online")]
 
 [node name="VS" type="Sprite2D" parent="Menu"]
 texture = ExtResource("2_3rork")
@@ -29,6 +29,11 @@ texture = ExtResource("2_3rork")
 [node name="Training" type="Sprite2D" parent="Menu"]
 position = Vector2(0, 144)
 texture = ExtResource("3_xp24e")
+
+[node name="Online" type="Sprite2D" parent="Menu"]
+position = Vector2(0, 288)
+scale = Vector2(-1, 1)
+texture = ExtResource("2_3rork")
 
 [node name="Logo" type="Sprite2D" parent="."]
 position = Vector2(567, 200)

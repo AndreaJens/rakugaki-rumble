@@ -4,7 +4,8 @@ enum StateVars {
 	Index = 0,
 	LastInputPressed = 1,
 	AnimationTicks = 2,
-	SelectedOption = 3
+	SelectedOption = 3,
+	Visible = 4
 }
 
 enum Option {
@@ -17,7 +18,7 @@ var _lastInputReceived : int = 0
 @export var _options : Array[Option] = [Option.Yes, Option.No]
 @export var _optionSprites : Array[Sprite2D] = []
 var _animationTicks : int = 0
-var _optionSelected : bool = 0
+var _optionSelected : bool = false
 const animationPeriod : int = 20
 
 func reset_and_hide():
@@ -30,15 +31,17 @@ func _save_state() -> Dictionary:
 	var dict = {}
 	dict[StateVars.Index] = _index
 	dict[StateVars.LastInputPressed] = _lastInputReceived
-	dict[StateVars.AnimationTicks] = _animationTicks
+	#dict[StateVars.AnimationTicks] = _animationTicks
 	dict[StateVars.SelectedOption] = _optionSelected
+	dict[StateVars.Visible] = visible
 	return dict
 
 func _load_state(state : Dictionary) -> void:
 	_index = state[StateVars.Index]
 	_lastInputReceived = state[StateVars.LastInputPressed]
-	_animationTicks = state[StateVars.AnimationTicks]
+	#_animationTicks = state[StateVars.AnimationTicks]
 	_optionSelected = state[StateVars.SelectedOption]
+	visible = state[StateVars.Visible]
 	
 func _network_preprocess(_input: Dictionary) -> void:
 	pass
