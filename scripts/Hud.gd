@@ -34,8 +34,8 @@ func _ready():
 func _process(_delta):
 	pass
 
-func update(character1 : Character, character2 : Character, updateSystemMessages : bool = true):
-	internalUpdateTick += 1
+func update(character1 : Character, character2 : Character, sceneUpdateTick : int, updateSystemMessages : bool = true):
+	internalUpdateTick = sceneUpdateTick
 	internalUpdateTick %= 6000
 	$HpBarChar1.max_value = character1.characterData.characterMaxHealth
 	$HpBarChar1.value = character1.characterState.currentHealth

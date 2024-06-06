@@ -64,7 +64,7 @@ func selection_performed() -> bool:
 func get_highlighted_option() -> Option:
 	return _options[_index]
 	
-func update(allButtonsPressed : int):
+func update(allButtonsPressed : int, newAnimationTicks : int):
 	if !_optionSelected:
 		if ((allButtonsPressed & ~_lastInputReceived) & GameDatabaseAccessor.GameInputButton.Down):
 			_index += 1
@@ -75,7 +75,7 @@ func update(allButtonsPressed : int):
 	if ((allButtonsPressed & ~_lastInputReceived) & GameDatabaseAccessor.GameInputButton.Confirm):
 		_optionSelected = true
 	_lastInputReceived = allButtonsPressed
-	_animationTicks += 1
+	_animationTicks = newAnimationTicks
 	_animationTicks %= animationPeriod
 	_update_highlighted_option()
 # Called when the node enters the scene tree for the first time.

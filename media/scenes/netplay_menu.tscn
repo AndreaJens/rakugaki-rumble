@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://77im48dr5l1j"]
+[gd_scene load_steps=10 format=3 uid="uid://77im48dr5l1j"]
 
 [ext_resource type="Script" path="res://scripts/netplay_menu.gd" id="1_6hgq2"]
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="1_53js3"]
@@ -6,6 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://cdri01htadvuu" path="res://media/characters/chara_naomi/sprites/name.png" id="4_3bi1f"]
 [ext_resource type="Texture2D" uid="uid://ljub10t2iwni" path="res://media/characters/chara_rhozetta/sprites/name.png" id="5_ssgc0"]
 [ext_resource type="Script" path="res://media/scenes/CharaSelectButton.gd" id="6_qbc81"]
+[ext_resource type="Script" path="res://scripts/NetplayDeviceSelect.gd" id="7_dgxni"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_l7ho3"]
+font_size = 24
+font_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2bnrh"]
 font_size = 24
@@ -63,6 +68,13 @@ offset_right = 224.0
 offset_bottom = 243.0
 text = "HOST GAME"
 
+[node name="BackToMenuButton" type="Button" parent="ConnectionUI"]
+offset_left = 53.0
+offset_top = 512.0
+offset_right = 224.0
+offset_bottom = 588.0
+text = "BACK TO MENU"
+
 [node name="ClientButton" type="Button" parent="ConnectionUI"]
 offset_left = 232.0
 offset_top = 167.0
@@ -86,6 +98,37 @@ popup/item_1/text = ""
 popup/item_1/icon = ExtResource("5_ssgc0")
 popup/item_1/id = 1
 script = ExtResource("6_qbc81")
+
+[node name="DeviceSelect" type="MenuButton" parent="ConnectionUI"]
+offset_left = 551.0
+offset_top = 141.0
+offset_right = 798.0
+offset_bottom = 172.0
+text = "INPUT DEVICE"
+flat = false
+item_count = 6
+popup/item_0/text = "None (KB)"
+popup/item_0/id = 0
+popup/item_1/text = "Joypad 1"
+popup/item_1/id = 1
+popup/item_2/text = "Joypad 2"
+popup/item_2/id = 2
+popup/item_3/text = "Joypad 3"
+popup/item_3/id = 3
+popup/item_4/text = "Joypad 4"
+popup/item_4/id = 4
+popup/item_5/text = "Joypad 5"
+popup/item_5/id = 5
+script = ExtResource("7_dgxni")
+
+[node name="Label" type="Label" parent="ConnectionUI/DeviceSelect"]
+layout_mode = 0
+offset_left = 316.0
+offset_top = -2.0
+offset_right = 432.0
+offset_bottom = 32.0
+text = "None (KB)"
+label_settings = SubResource("LabelSettings_l7ho3")
 
 [node name="CharacterName" type="Sprite2D" parent="ConnectionUI"]
 position = Vector2(959, 82)
@@ -127,4 +170,5 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [connection signal="button_up" from="ConnectionUI/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="button_up" from="ConnectionUI/BackToMenuButton" to="." method="_on_back_to_menu_button_button_up"]
 [connection signal="button_up" from="ConnectionUI/ClientButton" to="." method="_on_client_button_pressed"]

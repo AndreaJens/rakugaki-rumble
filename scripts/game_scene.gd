@@ -1,5 +1,7 @@
 class_name SceneGame extends Node2D
 
+signal close_network_session
+
 var character1Path : String
 var character2Path : String
 var player1DeviceId : int = 0
@@ -46,6 +48,8 @@ var _roundPhaseState : RoundPhaseState = RoundPhaseState.Ready
 var _roundWonCharacter1 : int = 0
 var _roundWonCharacter2 : int = 0
 var _timerTicks : int = -1
+var _closeSignalSent : bool = false
+var _internalUpdateTick : int = 0
 @onready var rematchMenuP1 : RematchMenu = $SystemMessages/System/RematchMenuP1
 @onready var rematchMenuP2 : RematchMenu = $SystemMessages/System/RematchMenuP2
 
@@ -95,8 +99,10 @@ enum GameStateVars {
 	InputManagerCharacter1 = 901,
 	InputManagerCharacter2 = 902,
 	PreventDeathFlag = 999,
+	InternalUpdateTick = 9000,
 	PostMatchMenu1State = 9001,
 	PostMatchMenu2State = 9001,
+	CloseSignalSent = 10000,
 }
 
 func _save_state() -> Dictionary:
@@ -116,6 +122,8 @@ func _save_state() -> Dictionary:
 	stateDict[GameStateVars.RoundWonCharacter2] = _roundWonCharacter2
 	stateDict[GameStateVars.TimerTicks] = _timerTicks
 	stateDict[GameStateVars.PreventDeathFlag] = preventDeath
+	stateDict[GameStateVars.CloseSignalSent] = _closeSignalSent
+	stateDict[GameStateVars.InternalUpdateTick] = _internalUpdateTick
 	if !networkMode:
 		stateDict[GameStateVars.SystemMessageManagerState] = hudMain.systemMessageManager._save_state().duplicate()
 		stateDict[GameStateVars.InputManagerCharacter1] = inputManagerP1._save_state().duplicate()
@@ -140,13 +148,15 @@ func _load_state(state : Dictionary) -> void:
 	_roundWonCharacter2 = state[GameStateVars.RoundWonCharacter2]
 	_timerTicks = state[GameStateVars.TimerTicks]
 	preventDeath = state[GameStateVars.PreventDeathFlag]
+	_closeSignalSent = state[GameStateVars.CloseSignalSent]
+	_internalUpdateTick = state[GameStateVars.InternalUpdateTick]
 	if !networkMode:
 		hudMain.systemMessageManager._load_state(state[GameStateVars.SystemMessageManagerState])
 		inputManagerP1._load_state(state[GameStateVars.InputManagerCharacter1])
 		inputManagerP2._load_state(state[GameStateVars.InputManagerCharacter2])
 		rematchMenuP1._load_state(state[GameStateVars.PostMatchMenu1State])
 		rematchMenuP2._load_state(state[GameStateVars.PostMatchMenu2State])
-	hudMain.update(character1, character2, false)
+	hudMain.update(character1, character2, _internalUpdateTick, false)
 	hudMain.update_round_won(_roundWonCharacter1, _roundWonCharacter2)
 
 # Called when the node enters the scene tree for the first time.
@@ -312,9 +322,9 @@ func _update_post_match_menu():
 	if _roundPhaseState != RoundPhaseState.PostMatchMenu:
 		return
 	if rematchMenuP1.visible:
-		rematchMenuP1.update(inputManagerP1.get_all_pressed_buttons())
+		rematchMenuP1.update(inputManagerP1.get_all_pressed_buttons(), _internalUpdateTick)
 	if rematchMenuP2.visible:
-		rematchMenuP2.update(inputManagerP2.get_all_pressed_buttons())
+		rematchMenuP2.update(inputManagerP2.get_all_pressed_buttons(), _internalUpdateTick)
 
 func _update_game_phase_transition():
 	@warning_ignore("integer_division")
@@ -389,11 +399,10 @@ func _update_game_phase_transition():
 			if (rematchMenuP1.get_highlighted_option() == RematchMenu.Option.No or
 				rematchMenuP2.get_highlighted_option() == RematchMenu.Option.No):
 					#change scene
-					if networkMode:
-						#if multiplayer.is_server():
-							#SyncManager.stop()
-							#SyncManager.clear_peers()
-						SceneManager.goto_scene_type(SceneManager.SceneType.NetplayMenu)
+					if networkMode:		
+						if !_closeSignalSent:					
+							emit_signal("close_network_session")
+							_closeSignalSent = true
 					else:
 						SceneManager.goto_scene_type(SceneManager.SceneType.ModeSelection)
 					pass
@@ -728,7 +737,7 @@ func _init_hud():
 	hudMain.update_round_won(0, 0)
 	
 func _update_hud():
-	hudMain.update(character1, character2)
+	hudMain.update(character1, character2, _internalUpdateTick)
 	@warning_ignore("integer_division")
 	var comboCounterHitFreezeFrames = hitFreezeComboFrames / 2
 	@warning_ignore("integer_division")
@@ -745,6 +754,7 @@ func _update_timer():
 		_timerTicks -= 1
 	
 func _common_update_process():
+	_internalUpdateTick += 1
 	if _hitFreezeFrames >= 0:
 		_hitFreezeFrames -= 1
 		if _spikeHitFreeze:

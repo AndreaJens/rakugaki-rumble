@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bvrseqwr8eytr"]
+[gd_scene load_steps=8 format=3 uid="uid://bvrseqwr8eytr"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_1q0h5"]
 [ext_resource type="Script" path="res://scripts/characterState.gd" id="3_jdgsp"]
-[ext_resource type="Script" path="res://addons/godot-rollback-netcode/NetworkAnimationPlayer.gd" id="26_o64at"]
 [ext_resource type="PackedScene" uid="uid://cy2ewlewinwbv" path="res://media/logic/HitBox.tscn" id="27_tfmq8"]
 [ext_resource type="PackedScene" uid="uid://cbaqvnlrwjidk" path="res://media/logic/HurtBox.tscn" id="28_hw38u"]
 [ext_resource type="PackedScene" uid="uid://c5k34hfd8kc10" path="res://media/logic/PushBox.tscn" id="29_6i8xr"]
@@ -37,7 +36,6 @@ deterministic = true
 libraries = {
 "": SubResource("AnimationLibrary_gq6wu")
 }
-script = ExtResource("26_o64at")
 
 [node name="HitBoxes" type="Node2D" parent="."]
 

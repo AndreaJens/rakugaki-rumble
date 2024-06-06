@@ -1,6 +1,5 @@
 extends Node2D
 
-const DummyNetworkAdaptor = preload("res://addons/godot-rollback-netcode/DummyNetworkAdaptor.gd")
 @export var systemMessageLabel : Label
 @export var syncingMessageLabel : Label
 @export var ipAddressField : LineEdit
@@ -41,6 +40,7 @@ func _setup_game_scene_online():
 	scene.debugMode = false
 	scene.networkMode = true
 	scene.roundsToWin = NetworkAssistant.numberOfRounds
+	scene.close_network_session.connect(_close_session)
 	scene.additionalSceneStartupParameters = {
 		SceneGame.AdditionalGameSceneStartupParameter.Character1Path : NetworkAssistant.character1Path,
 		SceneGame.AdditionalGameSceneStartupParameter.Character2Path : NetworkAssistant.character2Path,
@@ -121,13 +121,6 @@ func _on_client_button_pressed():
 	systemMessageLabel.visible = true
 	connectionUILayer.visible = false
 	
-func _on_offline_button_pressed():
-	SyncManager.network_adaptor = DummyNetworkAdaptor.new()
-	_setup_game_scene_offline()
-	SyncManager.input_delay = 0
-	SyncManager.start()
-	connectionUILayer.visible = false
-	
 func _on_network_peer_connected(peer_id : int):
 	systemMessageLabel.text = "CONNECTED"
 	_send_player_info.rpc_id(1, multiplayer.get_unique_id(), 1, NetworkAssistant.character2Path)
@@ -167,13 +160,9 @@ func _on_SyncManager_sync_regained():
 
 func _on_SyncManager_sync_error(msg : String):
 	systemMessageLabel.text = "Sync Error: " + msg
-	var peer = multiplayer.multiplayer_peer
-	if peer:
-		peer.close()
-	SyncManager.clear_peers()
+	NetworkAssistant.close_session()
 	await(get_tree().create_timer(1.0).timeout)
-	get_tree().reload_current_scene()
-	connectionUILayer.visible = true
+	_reset_scene()
 
 func _on_SyncManager_sync_stopped() -> void:
 	if logging_enabled:
@@ -189,13 +178,21 @@ func _on_hide_ip_toggle_toggled(toggled_on):
 func _unhandled_input(event):
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_F10:
-			var peer = multiplayer.multiplayer_peer
-			if peer:
-				peer.close()
-			if SyncManager.started:
-				SyncManager.stop()
-				SyncManager.clear_peers()
-				get_tree().reload_current_scene()
+			_close_session()
+
+func _close_session():
+	NetworkAssistant.close_session()
+	_reset_scene()
+
+func _reset_scene():
+	for child in sceneParentNode.get_children():
+		if child is SceneGame:
+			child.close_network_session.disconnect(_close_session)
+		sceneParentNode.remove_child(child)
+		child.queue_free()
+	connectionUILayer.visible = true
+	syncingMessageLabel.visible = false
+	systemMessageLabel.visible = false
 
 func _on_log_toggle_toggled(toggled_on):
 	if toggled_on == true:
@@ -206,3 +203,6 @@ func _on_log_toggle_toggled(toggled_on):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	characterNameSprite.texture = charaSelectMenu._get_selected_texture()
+
+func _on_back_to_menu_button_button_up():
+	SceneManager.goto_scene_type(SceneManager.SceneType.ModeSelection)

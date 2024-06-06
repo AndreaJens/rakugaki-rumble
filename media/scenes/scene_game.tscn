@@ -44,7 +44,7 @@ script = ExtResource("1_xmmq4")
 hasWallDamage = false
 phaseTransitionMaxCounter = 100
 hitFreezeWallFrames = 10
-debugMode = true
+hitFreezeDownSpikeFrames = 20
 preventDeath = true
 
 [node name="Camera" type="Camera2D" parent="."]
