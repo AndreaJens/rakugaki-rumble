@@ -235,11 +235,12 @@ pause_p2={
 
 [network]
 
-rollback/max_buffer_size=10
+rollback/max_buffer_size=60
+rollback/input_delay=1
+rollback/limits/max_ticks_to_regain_sync=600
 rollback/classes/network_adaptor="res://addons/godot-rollback-netcode/RPCNetworkAdaptor.gd"
 rollback/classes/message_serializer="res://addons/godot-rollback-netcode/MessageSerializer.gd"
 rollback/classes/hash_serializer="res://addons/godot-rollback-netcode/HashSerializer.gd"
-rollback/debug/check_local_state_consistency=true
 
 [rendering]
 

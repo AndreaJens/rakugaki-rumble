@@ -86,6 +86,8 @@ enum GameStateVars {
 	HitFreezeBool = 4,
 	CameraLogicalPositionX = 5,
 	CameraLogicalPositionY = 6,
+	CameraScreenPositionX = 105,
+	CameraScreenPositionY = 106,
 	RoundPhaseState = 7,
 	RoundPhaseFrameCounter = 8,
 	TimerTicks = 9,
@@ -115,7 +117,9 @@ func _save_state() -> Dictionary:
 	stateDict[GameStateVars.HitFreezeWallBool] = _wallHitFreeze
 	stateDict[GameStateVars.HitFreezeSpikeBool] = _spikeHitFreeze
 	stateDict[GameStateVars.CameraLogicalPositionX] = _cameraLogicalPosition.x
+	stateDict[GameStateVars.CameraScreenPositionX] = camera.position.x
 	stateDict[GameStateVars.CameraLogicalPositionY] = _cameraLogicalPosition.y
+	stateDict[GameStateVars.CameraScreenPositionY] = camera.position.y
 	stateDict[GameStateVars.RoundPhaseState] = _roundPhaseState
 	stateDict[GameStateVars.RoundPhaseFrameCounter] = _roundPhaseCounter
 	stateDict[GameStateVars.RoundWonCharacter1] = _roundWonCharacter1
@@ -142,6 +146,8 @@ func _load_state(state : Dictionary) -> void:
 	_lastFrameComboHitFreeze = state[GameStateVars.HitFreezeLastFrame]
 	_cameraLogicalPosition.x = state[GameStateVars.CameraLogicalPositionX]
 	_cameraLogicalPosition.y = state[GameStateVars.CameraLogicalPositionY]
+	camera.position.x = state[GameStateVars.CameraScreenPositionX]
+	camera.position.y = state[GameStateVars.CameraScreenPositionY]
 	_roundPhaseState = state[GameStateVars.RoundPhaseState]
 	_roundPhaseCounter = state[GameStateVars.RoundPhaseFrameCounter]
 	_roundWonCharacter1 = state[GameStateVars.RoundWonCharacter1]
@@ -176,6 +182,8 @@ func _ready():
 		player2DeviceId = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player2DeviceId]
 	inputManagerP1.deviceId = player1DeviceId
 	inputManagerP2.deviceId = player2DeviceId
+	if networkMode:
+		camera.position_smoothing_enabled = false
 	_reset_round()
 	_init_hud()
 	_lastStateSaved = _save_state()
@@ -421,12 +429,6 @@ func _update_game_phase_transition():
 							_closeSignalSent = true
 					else:
 						SceneManager.goto_scene_type(SceneManager.SceneType.ModeSelection)
-			else:
-				rematchMenuP1.reset_and_hide()
-				rematchMenuP2.reset_and_hide()
-				hudMain.hide_message()
-				_roundPhaseState = RoundPhaseState.PreRestartMatch
-				_roundPhaseCounter = phaseTransitionMessageThreshold
 	elif _roundPhaseState == RoundPhaseState.PreRestartMatch:
 		if _roundPhaseCounter > 0:
 			_roundPhaseCounter -= 1
@@ -621,7 +623,7 @@ func _constrain_character_position_to_camera_viewport(character : Character):
 func _update_camera(immediate : bool = false):
 	if immediate:
 		camera.reset_smoothing()
-	else:
+	elif !networkMode:
 		camera.position_smoothing_enabled = true
 	if !camera.is_inside_tree():
 		return
