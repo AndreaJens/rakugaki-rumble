@@ -12,7 +12,7 @@ extends Node2D
 @export var sceneToInstantiate : PackedScene
 
 const LOG_FILE_DIRECTORY := "user://rollback_logs"
-var logging_enabled : bool = true
+var logging_enabled : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

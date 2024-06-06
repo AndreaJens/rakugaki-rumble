@@ -405,7 +405,22 @@ func _update_game_phase_transition():
 							_closeSignalSent = true
 					else:
 						SceneManager.goto_scene_type(SceneManager.SceneType.ModeSelection)
-					pass
+			else:
+				rematchMenuP1.reset_and_hide()
+				rematchMenuP2.reset_and_hide()
+				hudMain.hide_message()
+				_roundPhaseState = RoundPhaseState.PreRestartMatch
+				_roundPhaseCounter = phaseTransitionMessageThreshold
+		elif rematchMenuP1.selection_performed() or rematchMenuP2.selection_performed():
+			if (rematchMenuP1.get_highlighted_option() == RematchMenu.Option.No or
+				rematchMenuP2.get_highlighted_option() == RematchMenu.Option.No):
+					#change scene on NO
+					if networkMode:		
+						if !_closeSignalSent:					
+							emit_signal("close_network_session")
+							_closeSignalSent = true
+					else:
+						SceneManager.goto_scene_type(SceneManager.SceneType.ModeSelection)
 			else:
 				rematchMenuP1.reset_and_hide()
 				rematchMenuP2.reset_and_hide()

@@ -436,6 +436,7 @@ libraries = {
 "": SubResource("AnimationLibrary_v28wi"),
 "rhozetta": SubResource("AnimationLibrary_6hfc3")
 }
+speed_scale = 0.0
 script = ExtResource("3_o8kwn")
 
 [node name="HitBoxes" type="Node2D" parent="."]

@@ -135,6 +135,7 @@ libraries = {
 "": SubResource("AnimationLibrary_ogpfj"),
 "naomi": SubResource("AnimationLibrary_x75eu")
 }
+speed_scale = 0.0
 script = ExtResource("18_1xnwy")
 
 [node name="HitBoxes" type="Node2D" parent="."]

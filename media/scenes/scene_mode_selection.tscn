@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dp367r3taipby"]
+[gd_scene load_steps=8 format=3 uid="uid://dp367r3taipby"]
 
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="1_wfwob"]
 [ext_resource type="Script" path="res://scripts/scene_mode_selection.gd" id="1_y3ctb"]
 [ext_resource type="Texture2D" uid="uid://dpbb30jc0c643" path="res://media/hud/systemMessages/VS.png" id="2_3rork"]
 [ext_resource type="Script" path="res://scripts/generic_menu.gd" id="2_gwhym"]
-[ext_resource type="Texture2D" uid="uid://bli3wuidvroat" path="res://media/hud/systemMessages/train.png" id="3_xp24e"]
+[ext_resource type="Texture2D" uid="uid://dk3eqei0kdrkh" path="res://media/hud/systemMessages/training.png" id="5_wu30r"]
+[ext_resource type="Texture2D" uid="uid://bi5i6rq117spp" path="res://media/hud/systemMessages/online.png" id="6_j11hg"]
 [ext_resource type="Texture2D" uid="uid://cks540ri7mypt" path="res://media/hud/logo.png" id="6_undsi"]
 
 [node name="SceneModeSelection" type="Node2D"]
@@ -28,12 +29,11 @@ texture = ExtResource("2_3rork")
 
 [node name="Training" type="Sprite2D" parent="Menu"]
 position = Vector2(0, 144)
-texture = ExtResource("3_xp24e")
+texture = ExtResource("5_wu30r")
 
 [node name="Online" type="Sprite2D" parent="Menu"]
 position = Vector2(0, 288)
-scale = Vector2(-1, 1)
-texture = ExtResource("2_3rork")
+texture = ExtResource("6_j11hg")
 
 [node name="Logo" type="Sprite2D" parent="."]
 position = Vector2(567, 200)

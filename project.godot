@@ -239,9 +239,7 @@ rollback/max_buffer_size=10
 rollback/classes/network_adaptor="res://addons/godot-rollback-netcode/RPCNetworkAdaptor.gd"
 rollback/classes/message_serializer="res://addons/godot-rollback-netcode/MessageSerializer.gd"
 rollback/classes/hash_serializer="res://addons/godot-rollback-netcode/HashSerializer.gd"
-rollback/debug/rollback_ticks=2
-rollback/debug/random_rollback_ticks=3
-rollback/debug/skip_nth_message=7
+rollback/debug/check_local_state_consistency=true
 
 [rendering]
 
