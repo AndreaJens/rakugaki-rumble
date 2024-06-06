@@ -39,6 +39,9 @@ func _setup_game_scene_online():
 	scene.preventDeath = false
 	scene.debugMode = false
 	scene.networkMode = true
+	scene.hitFreezeComboFrames = 10
+	scene.hitFreezeWallFrames = 10
+	scene.hitFreezeDownSpikeFrames = 20
 	scene.roundsToWin = NetworkAssistant.numberOfRounds
 	scene.close_network_session.connect(_close_session)
 	scene.additionalSceneStartupParameters = {

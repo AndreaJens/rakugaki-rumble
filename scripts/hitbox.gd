@@ -1,8 +1,16 @@
 class_name HitBox extends MoveBox
 
+var HitReactionDict : Dictionary = {
+	0 : GameDatabaseAccessor.defaultGroundHitReaction,
+	1 : GameDatabaseAccessor.defaultAirHitReaction,
+	2 : GameDatabaseAccessor.defaultDownSpikeReaction,
+}
+
 @export var attackType : GameDatabaseAccessor.AttackType = GameDatabaseAccessor.AttackType.None
 @export var moveReactionOnHitGround : String = GameDatabaseAccessor.defaultGroundHitReaction
 @export var moveReactionOnHitAir : String = GameDatabaseAccessor.defaultAirHitReaction
+@export var hitReactionGroundCode : int = 0
+@export var hitReactionAirCode : int = 1
 @export var damage : int = 0
 @export var meterGain : int = 3000
 @export var canBeBlocked : bool = true

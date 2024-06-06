@@ -146,6 +146,8 @@ func deactivate_boxes():
 		hitBox.active = false
 		hitBox.moveReactionOnHitGround = GameDatabaseAccessor.defaultGroundHitReaction
 		hitBox.moveReactionOnHitAir = GameDatabaseAccessor.defaultAirHitReaction
+		hitBox.hitReactionGroundCode = 0
+		hitBox.hitReactionAirCode = 1
 		if hitBox.is_mirrored():
 			hitBox.mirror()
 	for hurtBox in hurtBoxes:
@@ -463,6 +465,8 @@ func _update_character_stance():
 
 func update_hit_boxes_logic():
 	for hitBox in hitBoxes:
+		hitBox.moveReactionOnHitGround = hitBox.HitReactionDict[hitBox.hitReactionGroundCode]
+		hitBox.moveReactionOnHitAir = hitBox.HitReactionDict[hitBox.hitReactionAirCode]
 		if characterState.currentMoveHasHit and hitBox.deactivateOnHit:
 			hitBox.active = false
 

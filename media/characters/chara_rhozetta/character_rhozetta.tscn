@@ -121,26 +121,26 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("HitBoxes/HitBox:moveReactionOnHitGround")
+tracks/7/path = NodePath("HitBoxes/HitBox:hitReactionAirCode")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": ["hurtG"]
+"values": [1]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("HitBoxes/HitBox:moveReactionOnHitAir")
+tracks/8/path = NodePath("HitBoxes/HitBox:hitReactionGroundCode")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": ["hurtA"]
+"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v28wi"]
@@ -442,7 +442,7 @@ script = ExtResource("3_o8kwn")
 
 [node name="HitBox" parent="HitBoxes" instance=ExtResource("4_aq1u3")]
 moveReactionOnHitGround = "hurtG"
-moveReactionOnHitAir = "hurtA"
+moveReactionOnHitAir = "hurtSpike"
 damage = 12000
 boxSize = Rect2i(150000, -200000, 300000, 300000)
 

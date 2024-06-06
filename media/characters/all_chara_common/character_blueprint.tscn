@@ -1,18 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bvrseqwr8eytr"]
+[gd_scene load_steps=7 format=3 uid="uid://bvrseqwr8eytr"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_1q0h5"]
 [ext_resource type="Script" path="res://scripts/characterState.gd" id="3_jdgsp"]
+[ext_resource type="Script" path="res://addons/godot-rollback-netcode/NetworkAnimationPlayer.gd" id="3_uk5sh"]
 [ext_resource type="PackedScene" uid="uid://cy2ewlewinwbv" path="res://media/logic/HitBox.tscn" id="27_tfmq8"]
 [ext_resource type="PackedScene" uid="uid://cbaqvnlrwjidk" path="res://media/logic/HurtBox.tscn" id="28_hw38u"]
 [ext_resource type="PackedScene" uid="uid://c5k34hfd8kc10" path="res://media/logic/PushBox.tscn" id="29_6i8xr"]
-
-[sub_resource type="Animation" id="Animation_shwgu"]
-resource_name = "RESET"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_gq6wu"]
-_data = {
-"RESET": SubResource("Animation_shwgu")
-}
 
 [node name="Character" type="Node2D"]
 script = ExtResource("1_1q0h5")
@@ -33,9 +26,8 @@ frame = 13
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 deterministic = true
-libraries = {
-"": SubResource("AnimationLibrary_gq6wu")
-}
+script = ExtResource("3_uk5sh")
+auto_reset = false
 
 [node name="HitBoxes" type="Node2D" parent="."]
 
