@@ -1,7 +1,8 @@
-[gd_scene load_steps=39 format=3 uid="uid://c07vx7o11k05c"]
+[gd_scene load_steps=40 format=3 uid="uid://c07vx7o11k05c"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_xmmq4"]
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="2_8rf0r"]
+[ext_resource type="Material" uid="uid://xpbvfj8yi367" path="res://media/p2Shader.tres" id="2_cc3a5"]
 [ext_resource type="Script" path="res://scripts/InputBufferManager.gd" id="2_o2pvg"]
 [ext_resource type="Script" path="res://scripts/stage.gd" id="3_bjea5"]
 [ext_resource type="Script" path="res://scripts/CollisionManager.gd" id="5_avhut"]
@@ -45,6 +46,7 @@ hasWallDamage = false
 phaseTransitionMaxCounter = 100
 hitFreezeWallFrames = 10
 hitFreezeDownSpikeFrames = 20
+altColor1Shader = ExtResource("2_cc3a5")
 preventDeath = true
 
 [node name="Camera" type="Camera2D" parent="."]

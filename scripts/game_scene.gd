@@ -62,6 +62,8 @@ var _internalUpdateTick : int = 0
 @export var hitFreezeComboFrames = 10
 @export var hitFreezeWallFrames = 8
 @export var hitFreezeDownSpikeFrames = 25
+@export_category("Alt. Colors")
+@export var altColor1Shader : ShaderMaterial
 @export_category("Debug")
 @export var debugMode : bool = false
 @export var hitFreezeOnWallCollisionBothPlayers : bool = false
@@ -117,9 +119,7 @@ func _save_state() -> Dictionary:
 	stateDict[GameStateVars.HitFreezeWallBool] = _wallHitFreeze
 	stateDict[GameStateVars.HitFreezeSpikeBool] = _spikeHitFreeze
 	stateDict[GameStateVars.CameraLogicalPositionX] = _cameraLogicalPosition.x
-	stateDict[GameStateVars.CameraScreenPositionX] = camera.position.x
 	stateDict[GameStateVars.CameraLogicalPositionY] = _cameraLogicalPosition.y
-	stateDict[GameStateVars.CameraScreenPositionY] = camera.position.y
 	stateDict[GameStateVars.RoundPhaseState] = _roundPhaseState
 	stateDict[GameStateVars.RoundPhaseFrameCounter] = _roundPhaseCounter
 	stateDict[GameStateVars.RoundWonCharacter1] = _roundWonCharacter1
@@ -146,8 +146,6 @@ func _load_state(state : Dictionary) -> void:
 	_lastFrameComboHitFreeze = state[GameStateVars.HitFreezeLastFrame]
 	_cameraLogicalPosition.x = state[GameStateVars.CameraLogicalPositionX]
 	_cameraLogicalPosition.y = state[GameStateVars.CameraLogicalPositionY]
-	camera.position.x = state[GameStateVars.CameraScreenPositionX]
-	camera.position.y = state[GameStateVars.CameraScreenPositionY]
 	_roundPhaseState = state[GameStateVars.RoundPhaseState]
 	_roundPhaseCounter = state[GameStateVars.RoundPhaseFrameCounter]
 	_roundWonCharacter1 = state[GameStateVars.RoundWonCharacter1]
@@ -156,6 +154,8 @@ func _load_state(state : Dictionary) -> void:
 	preventDeath = state[GameStateVars.PreventDeathFlag]
 	_closeSignalSent = state[GameStateVars.CloseSignalSent]
 	_internalUpdateTick = state[GameStateVars.InternalUpdateTick]
+	camera.position = _cameraLogicalPosition / GameDatabaseAccessor.screenCoordMultiplier
+	camera.reset_smoothing()
 	if !networkMode:
 		hudMain.systemMessageManager._load_state(state[GameStateVars.SystemMessageManagerState])
 		inputManagerP1._load_state(state[GameStateVars.InputManagerCharacter1])
@@ -176,6 +176,8 @@ func _ready():
 		character2Path = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Character2Path]
 		var success = character2.initialize_from_directory(character2Path)
 		print("character %s loaded with status %s" % [character2Path, success])
+		if altColor1Shader:
+			character2.get_sprite().material = altColor1Shader
 	if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player1DeviceId):
 		player1DeviceId = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player1DeviceId]
 	if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player2DeviceId):
@@ -604,7 +606,7 @@ func _constrain_character_position_to_camera_viewport(character : Character):
 	var boxHalfSize : int = collBox.size.x / 2
 	var leftBoundary = collBox.position.x - boxHalfSize
 	var rightBoundary = collBox.position.x + boxHalfSize
-	var cameraViewport = get_viewport_rect().size * GameDatabaseAccessor.screenCoordMultiplierInt
+	var cameraViewport = GameDatabaseAccessor.cameraViewportSize.size * GameDatabaseAccessor.screenCoordMultiplierInt
 	var leftCameraBoundary = _cameraLogicalPosition.x - cameraViewport.x / 2
 	var rightCameraBoundary = _cameraLogicalPosition.x + cameraViewport.x / 2
 	var currentCharacterLogicalPosition = character.get_logical_position()
@@ -627,26 +629,28 @@ func _update_camera(immediate : bool = false):
 		camera.position_smoothing_enabled = true
 	if !camera.is_inside_tree():
 		return
-	var cameraTargetPosition = (character1.position + character2.position) / 2
-	var cameraViewportSize = get_viewport_rect().size
+	# check code here
+	@warning_ignore("integer_division")
+	var cameraTargetPosition = (character1.get_logical_position() + character2.get_logical_position()) / 2
+	var cameraViewportSize = GameDatabaseAccessor.cameraViewportSize.size * GameDatabaseAccessor.screenCoordMultiplierInt #get_viewport_rect().size
 	var cameraX = cameraTargetPosition.x
 	var cameraY = cameraTargetPosition.y
 	var cameraYBottom = cameraTargetPosition.y + cameraViewportSize.y / 2
 	var cameraYTop = cameraTargetPosition.y - cameraViewportSize.y / 2
 	var cameraXLeft = cameraTargetPosition.x - cameraViewportSize.x / 2
 	var cameraXRight = cameraTargetPosition.x + cameraViewportSize.x / 2
-	if cameraXLeft < stage.position.x - stage.stageSize.x / 2.:
-		cameraX += abs(cameraXLeft - (stage.position.x - stage.stageSize.x / 2.))
-	elif cameraXRight > stage.position.x + stage.stageSize.x / 2.:
-		cameraX -= abs(cameraXRight - (stage.position.x + stage.stageSize.x / 2.))
-	if cameraYTop < stage.position.y - stage.stageSize.y / 2.:
-		cameraY += abs(cameraYTop - (stage.position.y - stage.stageSize.y / 2.))
-	elif cameraYBottom > stage.position.y + stage.stageSize.y / 2.:
-		cameraY -= abs(cameraYBottom - (stage.position.y + stage.stageSize.y / 2.))
+	if cameraXLeft < stage.logicalPosition.x - stage.logicalSize.x / 2.:
+		cameraX += abs(cameraXLeft - (stage.logicalPosition.x - stage.logicalSize.x / 2.))
+	elif cameraXRight > stage.logicalPosition.x + stage.logicalSize.x / 2.:
+		cameraX -= abs(cameraXRight - (stage.logicalPosition.x + stage.logicalSize.x / 2.))
+	if cameraYTop < stage.logicalPosition.y - stage.logicalSize.y / 2.:
+		cameraY += abs(cameraYTop - (stage.logicalPosition.y - stage.logicalSize.y / 2.))
+	elif cameraYBottom > stage.logicalPosition.y + stage.logicalSize.y / 2.:
+		cameraY -= abs(cameraYBottom - (stage.logicalPosition.y + stage.logicalSize.y / 2.))
 	cameraTargetPosition.y = cameraY
 	cameraTargetPosition.x = cameraX
-	camera.position = cameraTargetPosition
-	_cameraLogicalPosition = Vector2i(cameraTargetPosition.x * 1000, cameraTargetPosition.y * 1000)
+	camera.position = cameraTargetPosition / GameDatabaseAccessor.screenCoordMultiplier
+	_cameraLogicalPosition = cameraTargetPosition
 
 func _process_damage_collisions(attacker : Character, defender : Character) -> Dictionary:
 	var result : Dictionary = {}

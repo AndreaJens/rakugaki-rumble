@@ -53,10 +53,10 @@ func _save_state() -> Dictionary:
 
 func _load_state(state : Dictionary) -> void:
 	characterState._load_state(state)
-	var installFrames = characterState.installDurationFrameCounter
-	infinityInstallActive = characterState.hasInfinityInstallActive
-	zeroInstallActive = characterState.hasZeroInstallActive
-	characterState.installDurationFrameCounter = installFrames
+	#var installFrames = characterState.installDurationFrameCounter
+	#infinityInstallActive = characterState.hasInfinityInstallActive
+	#zeroInstallActive = characterState.hasZeroInstallActive
+	#characterState.installDurationFrameCounter = installFrames
 	_apply_move_load_state()
 	update_screen_position()
 	_update_boxes()

@@ -119,14 +119,13 @@ characterData = ExtResource("2_tinh8")
 script = ExtResource("2_ssm87")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = 10
+z_index = 100
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("4_67wg4")
-offset = Vector2(0, -340)
+offset = Vector2(0, -385)
 hframes = 4
 vframes = 4
-frame = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -158,7 +157,7 @@ boxSize = Rect2i(75000, -200000, 180000, 330000)
 
 [node name="HurtBox" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
 active = true
-boxSize = Rect2i(-75000, -165000, 200000, 320000)
+boxSize = Rect2i(-100000, -200000, 200000, 300000)
 
 [node name="HurtBox2" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
 boxSize = Rect2i(270000, -200000, 200000, 200000)
@@ -170,5 +169,4 @@ boxSize = Rect2i(270000, -200000, 200000, 200000)
 [node name="HurtBox5" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
 
 [node name="PushBox" parent="." instance=ExtResource("5_phuw5")]
-active = true
-boxSize = Rect2i(-50000, -100000, 200000, 200000)
+boxSize = Rect2i(0, -100000, 200000, 200000)

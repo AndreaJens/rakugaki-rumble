@@ -15,6 +15,9 @@ var _buffer : Array[int]
 var _rawBuffer : Array[int]
 var _pressedButtons : int
 
+#only used for test, not for real gameplay
+var rng = RandomNumberGenerator.new()
+
 var _baseActionDict : Dictionary = {
 	"move_u" : GameDatabaseAccessor.GameInputButton.Up,
 	"move_d" : GameDatabaseAccessor.GameInputButton.Down,
@@ -55,6 +58,7 @@ func _network_preprocess(input: Dictionary) -> void:
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	rng.seed = hash("RandomMashingMonkey" + playerIdentifier)
 	for key in _baseActionDict:
 		_actionDict[key + "_" + playerIdentifier] = _baseActionDict[key]
 	add_to_group('network_sync')
@@ -62,7 +66,30 @@ func _ready():
 func _process(_delta):
 	pass
 
+func _drunken_monkey_mashing_buttons() -> Dictionary:
+	var currentInput : int = 0
+	var allPressedButtons : int = 0
+	var allPossibleInputs = [
+		GameDatabaseAccessor.GameInputButton.Up,
+		GameDatabaseAccessor.GameInputButton.Down,
+		GameDatabaseAccessor.GameInputButton.Left,
+		GameDatabaseAccessor.GameInputButton.Right,
+		GameDatabaseAccessor.GameInputButton.Action1,
+		GameDatabaseAccessor.GameInputButton.Action2,
+	]
+	currentInput |= allPossibleInputs[rng.randi_range(0, allPossibleInputs.size() - 1)]
+	currentInput |= allPossibleInputs[rng.randi_range(0, allPossibleInputs.size() - 1)]
+	allPressedButtons |= allPossibleInputs[rng.randi_range(0, allPossibleInputs.size() - 1)]
+	allPressedButtons |= allPossibleInputs[rng.randi_range(0, allPossibleInputs.size() - 1)]
+	var outInput = {}
+	outInput[InputBufferState.AllPressedButtons] = allPressedButtons
+	outInput[InputBufferState.NewlyPressedButtons] = currentInput
+	return outInput
+
 func _readout_buttons() -> Dictionary:
+	if deviceId == NetworkAssistant.DmmbDeviceId:
+		return _drunken_monkey_mashing_buttons()
+		
 	var currentInput : int = 0
 	var allPressedButtons : int = 0
 		

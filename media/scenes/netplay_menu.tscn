@@ -106,7 +106,7 @@ offset_right = 798.0
 offset_bottom = 172.0
 text = "INPUT DEVICE"
 flat = false
-item_count = 6
+item_count = 7
 popup/item_0/text = "None (KB)"
 popup/item_0/id = 0
 popup/item_1/text = "Joypad 1"
@@ -119,16 +119,19 @@ popup/item_4/text = "Joypad 4"
 popup/item_4/id = 4
 popup/item_5/text = "Joypad 5"
 popup/item_5/id = 5
+popup/item_6/text = "Auto Button Mash (debug)"
+popup/item_6/id = 421
 script = ExtResource("7_dgxni")
 
 [node name="Label" type="Label" parent="ConnectionUI/DeviceSelect"]
 layout_mode = 0
 offset_left = 316.0
 offset_top = -2.0
-offset_right = 432.0
-offset_bottom = 32.0
+offset_right = 581.0
+offset_bottom = 111.0
 text = "None (KB)"
 label_settings = SubResource("LabelSettings_l7ho3")
+autowrap_mode = 2
 
 [node name="CharacterName" type="Sprite2D" parent="ConnectionUI"]
 position = Vector2(959, 82)

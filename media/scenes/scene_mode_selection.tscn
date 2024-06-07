@@ -19,7 +19,7 @@ scale = Vector2(0.6, 0.6)
 texture = ExtResource("1_wfwob")
 
 [node name="Menu" type="Node2D" parent="." node_paths=PackedStringArray("_optionSprites")]
-position = Vector2(567, 400)
+position = Vector2(567, 410)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("2_gwhym")
 _optionSprites = [NodePath("VS"), NodePath("Training"), NodePath("Online")]
@@ -36,5 +36,5 @@ position = Vector2(0, 288)
 texture = ExtResource("6_j11hg")
 
 [node name="Logo" type="Sprite2D" parent="."]
-position = Vector2(567, 200)
+position = Vector2(567, 160)
 texture = ExtResource("6_undsi")

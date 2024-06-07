@@ -12,7 +12,7 @@ extends Node2D
 @export var sceneToInstantiate : PackedScene
 
 const LOG_FILE_DIRECTORY := "user://rollback_logs"
-var logging_enabled : bool = true
+var logging_enabled : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -121,6 +121,7 @@ func _on_client_button_pressed():
 	var peer = ENetMultiplayerPeer.new()
 	peer.create_client(ipAddressField.text, portField.text as int)
 	multiplayer.multiplayer_peer = peer
+	systemMessageLabel.text = "LOOKING FOR HOST..."
 	systemMessageLabel.visible = true
 	connectionUILayer.visible = false
 	

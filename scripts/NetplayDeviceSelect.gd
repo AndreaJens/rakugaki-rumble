@@ -6,7 +6,7 @@ func _get_device_id() -> int:
 	return currentItemIndex
 
 func _get_selected_device_text() -> String:
-	return get_popup().get_item_text(currentItemIndex + 1)
+	return get_popup().get_item_text(get_popup().get_item_index(currentItemIndex + 1))
 
 func _on_item_menu_pressed(id: int):
 	print("Device ID: ", id - 1)

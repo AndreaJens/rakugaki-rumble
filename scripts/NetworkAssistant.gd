@@ -15,6 +15,7 @@ var character1Path : String = "chara_naomi"
 var character2Path : String = "chara_naomi"
 var numberOfRounds : int = 3
 var localPlayerDeviceId : int = -1
+const DmmbDeviceId : int = 420
 
 func close_session():
 	var peer = multiplayer.multiplayer_peer
