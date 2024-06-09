@@ -1,12 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://77im48dr5l1j"]
+[gd_scene load_steps=13 format=3 uid="uid://77im48dr5l1j"]
 
 [ext_resource type="Script" path="res://scripts/netplay_menu.gd" id="1_6hgq2"]
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="1_53js3"]
 [ext_resource type="PackedScene" uid="uid://c07vx7o11k05c" path="res://media/scenes/scene_game.tscn" id="2_vvbpg"]
+[ext_resource type="Script" path="res://scripts/MasterScene.gd" id="3_gtqk5"]
 [ext_resource type="Texture2D" uid="uid://cdri01htadvuu" path="res://media/characters/chara_naomi/sprites/name.png" id="4_3bi1f"]
 [ext_resource type="Texture2D" uid="uid://ljub10t2iwni" path="res://media/characters/chara_rhozetta/sprites/name.png" id="5_ssgc0"]
+[ext_resource type="Texture2D" uid="uid://cxqx2oj7ip8u7" path="res://media/characters/chara_gridd/sprites/name.png" id="6_d81gj"]
 [ext_resource type="Script" path="res://media/scenes/CharaSelectButton.gd" id="6_qbc81"]
 [ext_resource type="Script" path="res://scripts/NetplayDeviceSelect.gd" id="7_dgxni"]
+[ext_resource type="Script" path="res://scripts/NetplayInputDelaySelect.gd" id="9_rbr61"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_l7ho3"]
 font_size = 24
@@ -24,12 +27,13 @@ ipAddressField = NodePath("ConnectionUI/IpAddressField")
 portField = NodePath("ConnectionUI/PortField")
 playerNameField = NodePath("ConnectionUI/PlayerNameField")
 connectionUILayer = NodePath("ConnectionUI")
-characterNameSprite = NodePath("ConnectionUI/CharacterName")
+characterNameSprite = NodePath("ConnectionUI/CharaSelectButton/CharacterName")
 sceneParentNode = NodePath("SceneParent")
 charaSelectMenu = NodePath("ConnectionUI/CharaSelectButton")
 sceneToInstantiate = ExtResource("2_vvbpg")
 
 [node name="Stage" type="Node2D" parent="."]
+script = ExtResource("3_gtqk5")
 
 [node name="StageSprite" type="Sprite2D" parent="Stage"]
 position = Vector2(567, 318)
@@ -85,25 +89,31 @@ text = "CONNECT TO GAME
 
 [node name="CharaSelectButton" type="MenuButton" parent="ConnectionUI"]
 offset_left = 551.0
-offset_top = 38.0
+offset_top = 177.0
 offset_right = 798.0
-offset_bottom = 69.0
+offset_bottom = 208.0
 text = "SELECT CHARACTER"
 flat = false
-item_count = 2
-popup/item_0/text = ""
-popup/item_0/icon = ExtResource("4_3bi1f")
+item_count = 3
+popup/item_0/text = "Naomi Rukino"
 popup/item_0/id = 0
-popup/item_1/text = ""
-popup/item_1/icon = ExtResource("5_ssgc0")
+popup/item_1/text = "Rho-Zetta"
 popup/item_1/id = 1
+popup/item_2/text = "Gridd Deadmetal"
+popup/item_2/id = 2
 script = ExtResource("6_qbc81")
+character_name_textures = Array[Texture2D]([ExtResource("4_3bi1f"), ExtResource("5_ssgc0"), ExtResource("6_d81gj")])
+
+[node name="CharacterName" type="Sprite2D" parent="ConnectionUI/CharaSelectButton"]
+position = Vector2(408, 44)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("4_3bi1f")
 
 [node name="DeviceSelect" type="MenuButton" parent="ConnectionUI"]
 offset_left = 551.0
-offset_top = 141.0
+offset_top = 36.0
 offset_right = 798.0
-offset_bottom = 172.0
+offset_bottom = 67.0
 text = "INPUT DEVICE"
 flat = false
 item_count = 7
@@ -133,10 +143,52 @@ text = "None (KB)"
 label_settings = SubResource("LabelSettings_l7ho3")
 autowrap_mode = 2
 
-[node name="CharacterName" type="Sprite2D" parent="ConnectionUI"]
-position = Vector2(959, 82)
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("4_3bi1f")
+[node name="InputDelaySelect" type="MenuButton" parent="ConnectionUI"]
+offset_left = 551.0
+offset_top = 106.0
+offset_right = 798.0
+offset_bottom = 137.0
+text = "INPUT DELAY FRAMES"
+flat = false
+item_count = 5
+popup/item_0/text = "0"
+popup/item_0/id = 0
+popup/item_1/text = "1"
+popup/item_1/id = 1
+popup/item_2/text = "2 (default)"
+popup/item_2/id = 2
+popup/item_3/text = "3"
+popup/item_3/id = 3
+popup/item_4/text = "4"
+popup/item_4/id = 4
+script = ExtResource("9_rbr61")
+
+[node name="Label" type="Label" parent="ConnectionUI/InputDelaySelect"]
+layout_mode = 0
+offset_left = 316.0
+offset_top = -2.0
+offset_right = 581.0
+offset_bottom = 111.0
+text = "2 (default)"
+label_settings = SubResource("LabelSettings_l7ho3")
+autowrap_mode = 2
+
+[node name="LoggingButton" type="CheckButton" parent="ConnectionUI"]
+offset_left = 44.0
+offset_top = 273.0
+offset_right = 88.0
+offset_bottom = 297.0
+scale = Vector2(2, 2)
+
+[node name="Label" type="Label" parent="ConnectionUI/LoggingButton"]
+offset_left = 40.5
+offset_top = 3.0
+offset_right = 305.5
+offset_bottom = 116.0
+scale = Vector2(0.5, 0.5)
+text = "Logs disabled"
+label_settings = SubResource("LabelSettings_l7ho3")
+autowrap_mode = 2
 
 [node name="SystemMessageLayer" type="CanvasLayer" parent="."]
 
@@ -146,8 +198,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -283.5
+offset_top = 550.0
 offset_right = 283.5
-offset_bottom = 51.0
+offset_bottom = 601.0
 grow_horizontal = 2
 text = "STATUS MESSAGE"
 label_settings = SubResource("LabelSettings_2bnrh")
@@ -175,3 +228,4 @@ vertical_alignment = 1
 [connection signal="button_up" from="ConnectionUI/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="button_up" from="ConnectionUI/BackToMenuButton" to="." method="_on_back_to_menu_button_button_up"]
 [connection signal="button_up" from="ConnectionUI/ClientButton" to="." method="_on_client_button_pressed"]
+[connection signal="toggled" from="ConnectionUI/LoggingButton" to="." method="_on_log_toggle_toggled"]

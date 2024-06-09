@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=2 format=3 uid="uid://kx1qs1828ggs"]
+
+[ext_resource type="Script" path="res://scripts/move.gd" id="1_2evup"]
+
+[resource]
+script = ExtResource("1_2evup")
+characterState = 0
+internalName = "hurtG"
+displayName = ""
+animationName = "hurtGround"
+startingFrame = 0
+endingFrame = 18
+isHitStunState = true
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(-7000, -15000)
+logicalAccelerationPerFrame = Vector2i(0, 2000)
+keepMomentumPercent = 0
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = false
+canBeUsedBeforeAfterRoundEnds = false
+bufferStartLeniency = 0
+bufferLengthLeniency = 0
+useRawBuffer = false
+input = Array[int]([])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0

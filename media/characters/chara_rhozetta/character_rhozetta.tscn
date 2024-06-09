@@ -26,13 +26,13 @@
 [ext_resource type="Animation" uid="uid://m16bg1nflp7h" path="res://media/characters/chara_rhozetta/animations/infinity_install.res" id="19_vciwr"]
 [ext_resource type="Animation" uid="uid://cyyg1ex4ss5sa" path="res://media/characters/chara_rhozetta/animations/zero_install.res" id="21_tyvqx"]
 [ext_resource type="Animation" uid="uid://bn3f3i1aqbrjw" path="res://media/characters/chara_rhozetta/animations/victory.res" id="22_r3c2h"]
-[ext_resource type="Animation" uid="uid://ciacwox88pnk8" path="res://media/characters/chara_rhozetta/animations/airBurst.res" id="23_1o7o5"]
+[ext_resource type="Animation" uid="uid://bmdywe2cmd6xf" path="res://media/characters/chara_rhozetta/animations/airBurst.res" id="23_1o7o5"]
 [ext_resource type="Animation" uid="uid://c1fb5u5iuoyii" path="res://media/characters/chara_rhozetta/animations/pendulum.res" id="24_ebl0m"]
 [ext_resource type="Animation" uid="uid://bi86d888i43k" path="res://media/characters/chara_rhozetta/animations/rampage_startup.res" id="25_bd7d3"]
 [ext_resource type="Animation" uid="uid://iddnl81s4dey" path="res://media/characters/chara_rhozetta/animations/hurtSpike.res" id="26_gtcsm"]
 [ext_resource type="Animation" uid="uid://c2mflewkwbig2" path="res://media/characters/chara_rhozetta/animations/downSpike.res" id="27_hihp7"]
 
-[sub_resource type="Animation" id="Animation_6uhfb"]
+[sub_resource type="Animation" id="Animation_ha52s"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -143,12 +143,12 @@ tracks/8/keys = {
 "values": [0]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_v28wi"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mrc6t"]
 _data = {
-"RESET": SubResource("Animation_6uhfb")
+"RESET": SubResource("Animation_ha52s")
 }
 
-[sub_resource type="Animation" id="Animation_350nr"]
+[sub_resource type="Animation" id="Animation_rcg4j"]
 resource_name = "RESET"
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -247,7 +247,7 @@ tracks/7/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_7hhtj"]
+[sub_resource type="Animation" id="Animation_2wo05"]
 resource_name = "pendulum_backup"
 length = 0.433335
 step = 0.0166667
@@ -384,9 +384,9 @@ tracks/10/keys = {
 "values": [Rect2i(0, -250000, 350000, 300000), Rect2i(-50000, -250000, 350000, 300000), Rect2i(50000, -250000, 350000, 300000), Rect2i(-50000, -250000, 350000, 300000), Rect2i(50000, -250000, 350000, 300000)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_6hfc3"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hq0di"]
 _data = {
-"RESET": SubResource("Animation_350nr"),
+"RESET": SubResource("Animation_rcg4j"),
 "airBurst": ExtResource("23_1o7o5"),
 "airspikes": ExtResource("18_sec5t"),
 "downSpike": ExtResource("27_hihp7"),
@@ -402,7 +402,7 @@ _data = {
 "knockdown": ExtResource("13_4lin0"),
 "ko": ExtResource("14_mali6"),
 "pendulum": ExtResource("24_ebl0m"),
-"pendulum_backup": SubResource("Animation_7hhtj"),
+"pendulum_backup": SubResource("Animation_2wo05"),
 "rampage": ExtResource("19_5nqbn"),
 "rampage_startup": ExtResource("25_bd7d3"),
 "victory": ExtResource("22_r3c2h"),
@@ -415,26 +415,27 @@ _data = {
 [node name="Character" type="Node2D"]
 script = ExtResource("1_wago2")
 characterData = ExtResource("2_3jd0h")
+zeroInstallActive = true
 
 [node name="CharacterState" type="Node" parent="."]
 script = ExtResource("2_kfbbf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = 10
+z_index = 100
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("4_fduox")
-offset = Vector2(40, -350)
+offset = Vector2(0, -355)
 hframes = 4
 vframes = 4
-frame = 10
+frame = 11
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_v28wi"),
-"rhozetta": SubResource("AnimationLibrary_6hfc3")
+"": SubResource("AnimationLibrary_mrc6t"),
+"rhozetta": SubResource("AnimationLibrary_hq0di")
 }
 speed_scale = 0.0
 script = ExtResource("3_o8kwn")
@@ -471,4 +472,4 @@ boxSize = Rect2i(270000, -200000, 200000, 200000)
 
 [node name="PushBox" parent="." instance=ExtResource("6_50ynk")]
 active = true
-boxSize = Rect2i(-20000, -200000, 200000, 150000)
+boxSize = Rect2i(0, -100000, 180000, 200000)

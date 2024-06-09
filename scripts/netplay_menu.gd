@@ -61,22 +61,23 @@ func _setup_game_scene_online():
 			scene.inputManagerP1.set_multiplayer_authority(i)
 			print("Authorithy for Player 1 is Peer %s" % i)
 	syncingMessageLabel.visible = false
+	systemMessageLabel.visible = false
 	#SyncManager.start()
 	
-func _setup_game_scene_offline():
-	var scene = sceneToInstantiate.instantiate()
-	scene.preventDeath = false
-	scene.debugMode = false
-	scene.networkMode = true
-	scene.roundsToWin = NetworkAssistant.numberOfRounds
-	scene.additionalSceneStartupParameters = {
-		SceneGame.AdditionalGameSceneStartupParameter.Character1Path : NetworkAssistant.character1Path,
-		SceneGame.AdditionalGameSceneStartupParameter.Character2Path : NetworkAssistant.character2Path,
-		SceneGame.AdditionalGameSceneStartupParameter.Player1DeviceId : 0,
-		SceneGame.AdditionalGameSceneStartupParameter.Player2DeviceId : 1,
-	}
-	sceneParentNode.add_child(scene)
-	SyncManager.input_delay = 0
+#func _setup_game_scene_offline():
+	#var scene = sceneToInstantiate.instantiate()
+	#scene.preventDeath = false
+	#scene.debugMode = false
+	#scene.networkMode = true
+	#scene.roundsToWin = NetworkAssistant.numberOfRounds
+	#scene.additionalSceneStartupParameters = {
+		#SceneGame.AdditionalGameSceneStartupParameter.Character1Path : NetworkAssistant.character1Path,
+		#SceneGame.AdditionalGameSceneStartupParameter.Character2Path : NetworkAssistant.character2Path,
+		#SceneGame.AdditionalGameSceneStartupParameter.Player1DeviceId : 0,
+		#SceneGame.AdditionalGameSceneStartupParameter.Player2DeviceId : 1,
+	#}
+	#sceneParentNode.add_child(scene)
+	#SyncManager.input_delay = 0
 
 @rpc("any_peer")
 func _send_player_info(peer_id : int, playerSide : int, characterPath : String):
@@ -134,7 +135,7 @@ func _on_network_peer_connected(peer_id : int):
 		systemMessageLabel.text = "STARTING SERVER..."
 		_start_online_match.rpc(peer_id)
 		await(get_tree().create_timer(2.0).timeout)
-		SyncManager.input_delay = 1
+		SyncManager.input_delay = NetworkAssistant.localPlayerInputDelay
 		SyncManager.start()
 	
 func _on_connected_to_server():
@@ -145,7 +146,7 @@ func _on_network_peer_disconnected(_peer_id : int):
 	
 func _on_SyncManager_sync_started():
 	_setup_game_scene_online()
-	systemMessageLabel.text = "SYNC STARTED"
+	syncingMessageLabel.text = "SYNC STARTED"
 	if logging_enabled and not SyncReplay.active:
 		if DirAccess.dir_exists_absolute(LOG_FILE_DIRECTORY) == false:
 			DirAccess.make_dir_absolute(LOG_FILE_DIRECTORY)
@@ -155,8 +156,8 @@ func _on_SyncManager_sync_started():
 		print(LOG_FILE_DIRECTORY + "/" + log_file_name)
 		SyncManager.start_logging(LOG_FILE_DIRECTORY + "/" + log_file_name)
 		
-	
 func _on_SyncManager_sync_lost():
+	syncingMessageLabel.text = "SYNCING..."
 	syncingMessageLabel.visible = true
 	
 func _on_SyncManager_sync_regained():
@@ -199,10 +200,12 @@ func _reset_scene():
 	systemMessageLabel.visible = false
 
 func _on_log_toggle_toggled(toggled_on):
-	if toggled_on == true:
+	if toggled_on:
 		logging_enabled = true
+		$ConnectionUI/LoggingButton/Label.text = "Logs enabled"
 	else:
 		logging_enabled = false
+		$ConnectionUI/LoggingButton/Label.text = "Logs disabled"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

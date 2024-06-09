@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=27 format=3 uid="uid://dplht2b3monrh"]
+
+[ext_resource type="Resource" uid="uid://py80nsxhjttg" path="res://media/characters/chara_gridd/moves/idle_grd.tres" id="1_7pl88"]
+[ext_resource type="Texture2D" uid="uid://cxqx2oj7ip8u7" path="res://media/characters/chara_gridd/sprites/name.png" id="1_qgdw4"]
+[ext_resource type="Script" path="res://scripts/characterData.gd" id="2_4b87q"]
+[ext_resource type="Resource" uid="uid://dw56kqn4cad62" path="res://media/characters/all_chara_common/moves/falling.tres" id="2_u50ck"]
+[ext_resource type="Resource" uid="uid://kx1qs1828ggs" path="res://media/characters/all_chara_common/moves/hurtG.tres" id="3_3188p"]
+[ext_resource type="Resource" uid="uid://bft8ly50mxsqt" path="res://media/characters/all_chara_common/moves/hurtA.tres" id="4_0q44x"]
+[ext_resource type="Resource" uid="uid://b6y0f7353f7dx" path="res://media/characters/all_chara_common/moves/ko.tres" id="5_5ssaw"]
+[ext_resource type="Resource" uid="uid://iftbfj5mag5o" path="res://media/characters/all_chara_common/moves/victory.tres" id="6_ogdy1"]
+[ext_resource type="Resource" uid="uid://c7gxqg35o8mtw" path="res://media/characters/chara_gridd/moves/landing_grd.tres" id="7_7y2o1"]
+[ext_resource type="Resource" uid="uid://dkrrggg7im3mw" path="res://media/characters/all_chara_common/moves/knockdown.tres" id="8_vpgps"]
+[ext_resource type="Resource" uid="uid://c7w154egxscjy" path="res://media/characters/all_chara_common/moves/airBurst.tres" id="9_384ed"]
+[ext_resource type="Resource" uid="uid://b4iddv07638e1" path="res://media/characters/all_chara_common/moves/hurtSpike.tres" id="10_luubb"]
+[ext_resource type="Resource" uid="uid://ddq3qvlahs01k" path="res://media/characters/all_chara_common/moves/wallsplat.tres" id="11_mf1m5"]
+[ext_resource type="Resource" uid="uid://co38myrch0k7m" path="res://media/characters/all_chara_common/moves/wallsplat_ko.tres" id="12_rqwkr"]
+[ext_resource type="Resource" uid="uid://dreocw0ub6uvv" path="res://media/characters/all_chara_common/moves/forward_to_idle.tres" id="13_mct2d"]
+[ext_resource type="Resource" uid="uid://j3mbwgsubeft" path="res://media/characters/all_chara_common/moves/backwards_to_idle.tres" id="14_kq1pe"]
+[ext_resource type="Resource" uid="uid://bjx3jfj4xhq54" path="res://media/characters/chara_gridd/moves/walkBOnce_grd.tres" id="15_g1kcb"]
+[ext_resource type="Resource" uid="uid://drc1i3dtxgula" path="res://media/characters/chara_gridd/moves/walkB_grd.tres" id="16_ydvgk"]
+[ext_resource type="Resource" uid="uid://6ergge0ypu7" path="res://media/characters/chara_gridd/moves/walkF_grd.tres" id="17_cooww"]
+[ext_resource type="Resource" uid="uid://du21h5ofsbte" path="res://media/characters/chara_gridd/moves/zero_install.tres" id="18_037le"]
+[ext_resource type="Resource" uid="uid://g2n2ig77srek" path="res://media/characters/chara_gridd/moves/infinity_install.tres" id="19_qjxka"]
+[ext_resource type="Resource" uid="uid://mhe8h2cod7tf" path="res://media/characters/chara_gridd/moves/forwardJump_grd.tres" id="20_elvia"]
+[ext_resource type="Resource" uid="uid://2suvdoa3w4jp" path="res://media/characters/chara_gridd/moves/backJump_grd.tres" id="21_3qj4o"]
+[ext_resource type="Resource" uid="uid://c2o7anl7lyafy" path="res://media/characters/chara_gridd/moves/neutralJump_grd.tres" id="22_ce0wo"]
+[ext_resource type="Resource" uid="uid://brjgkjsac2h2r" path="res://media/characters/chara_gridd/moves/twin_drills.tres" id="23_g83v4"]
+[ext_resource type="Resource" uid="uid://b3akjn23jxxig" path="res://media/characters/chara_gridd/moves/twin_drills_fwp.tres" id="24_f784r"]
+
+[resource]
+script = ExtResource("2_4b87q")
+characterFullName = "Gridd Deadmetal"
+characterDisplayName = "Gridd"
+characterAnimationLibraryPrefix = "gridd"
+characterMaxHealth = 95000
+characterMaxMeter = 30000
+characterNameTexture = ExtResource("1_qgdw4")
+characterMoves = Array[Resource("res://scripts/move.gd")]([ExtResource("1_7pl88"), ExtResource("2_u50ck"), ExtResource("3_3188p"), ExtResource("4_0q44x"), ExtResource("5_5ssaw"), ExtResource("6_ogdy1"), ExtResource("7_7y2o1"), ExtResource("8_vpgps"), ExtResource("9_384ed"), ExtResource("10_luubb"), ExtResource("11_mf1m5"), ExtResource("12_rqwkr"), ExtResource("13_mct2d"), ExtResource("14_kq1pe"), ExtResource("15_g1kcb"), ExtResource("16_ydvgk"), ExtResource("17_cooww"), ExtResource("18_037le"), ExtResource("19_qjxka"), ExtResource("20_elvia"), ExtResource("21_3qj4o"), ExtResource("22_ce0wo"), ExtResource("23_g83v4"), ExtResource("24_f784r")])

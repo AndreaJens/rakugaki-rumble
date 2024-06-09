@@ -22,11 +22,12 @@ var additionalSceneStartupParameters : Dictionary = {}
 var mapOptions = {
 	0 : "chara_naomi",
 	1 : "chara_rhozetta",
+	2 : "chara_gridd",
 }
 
 func _ready():
-	_menu_p1.options = [0, 1]
-	_menu_p2.options = [0, 1]
+	_menu_p1.options = [0, 1, 2]
+	_menu_p2.options = [0, 1, 2]
 	if additionalSceneStartupParameters.has(AdditionalSceneCharacterSelectStartupParameter.Player1DeviceId):
 		player1DeviceId = additionalSceneStartupParameters[AdditionalSceneCharacterSelectStartupParameter.Player1DeviceId]
 	if additionalSceneStartupParameters.has(AdditionalSceneCharacterSelectStartupParameter.Player2DeviceId):

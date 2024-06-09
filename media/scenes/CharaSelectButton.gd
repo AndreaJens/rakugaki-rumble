@@ -3,14 +3,17 @@ extends MenuButton
 var currentItemIndex = 0
 var characterPaths = [
 	"chara_naomi",
-	"chara_rhozetta"
+	"chara_rhozetta",
+	"chara_gridd"
 ]
+
+@export var character_name_textures : Array[Texture2D] = []
 
 func _get_selected_character() -> String:
 	return characterPaths[currentItemIndex]
 
 func _get_selected_texture() -> Texture2D:
-	return get_popup().get_item_icon(currentItemIndex)
+	return character_name_textures[currentItemIndex]
 
 func _on_item_menu_pressed(id: int):
 	print("Item ID: ", id)

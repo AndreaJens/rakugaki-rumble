@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_qst3w"]
 [ext_resource type="Script" path="res://scripts/characterState.gd" id="2_ssm87"]
 [ext_resource type="Resource" uid="uid://qiywbrf1e5yu" path="res://media/characters/chara_naomi/characterData.tres" id="2_tinh8"]
-[ext_resource type="Texture2D" uid="uid://doqv7ldx2lsqk" path="res://media/characters/chara_naomi/sprites/naomi1.png" id="4_67wg4"]
+[ext_resource type="Texture2D" uid="uid://7adt8b0o686h" path="res://media/characters/chara_naomi/sprites/naomi2.png" id="4_vycnm"]
 [ext_resource type="PackedScene" uid="uid://cy2ewlewinwbv" path="res://media/logic/HitBox.tscn" id="5_35kqm"]
 [ext_resource type="Animation" uid="uid://cr6li0yaypxxv" path="res://media/characters/chara_naomi/animations/attack1.res" id="5_656ri"]
 [ext_resource type="PackedScene" uid="uid://c5k34hfd8kc10" path="res://media/logic/PushBox.tscn" id="5_phuw5"]
@@ -119,13 +119,13 @@ characterData = ExtResource("2_tinh8")
 script = ExtResource("2_ssm87")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = 100
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("4_67wg4")
-offset = Vector2(0, -385)
+texture = ExtResource("4_vycnm")
+offset = Vector2(0, -360)
 hframes = 4
 vframes = 4
+frame = 4
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -156,8 +156,7 @@ boxSize = Rect2i(75000, -200000, 180000, 330000)
 [node name="HurtBoxes" type="Node2D" parent="."]
 
 [node name="HurtBox" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
-active = true
-boxSize = Rect2i(-100000, -200000, 200000, 300000)
+boxSize = Rect2i(0, -50000, 250000, 150000)
 
 [node name="HurtBox2" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
 boxSize = Rect2i(270000, -200000, 200000, 200000)
@@ -169,4 +168,5 @@ boxSize = Rect2i(270000, -200000, 200000, 200000)
 [node name="HurtBox5" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
 
 [node name="PushBox" parent="." instance=ExtResource("5_phuw5")]
-boxSize = Rect2i(0, -100000, 200000, 200000)
+active = true
+boxSize = Rect2i(-100000, -150000, 120000, 300000)

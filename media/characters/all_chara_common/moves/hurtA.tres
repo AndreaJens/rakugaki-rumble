@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=4 format=3 uid="uid://bft8ly50mxsqt"]
+
+[ext_resource type="Resource" uid="uid://b6rqdban3hwqq" path="res://media/characters/all_chara_common/moves/cancels/to_air_burst.tres" id="1_c75do"]
+[ext_resource type="Resource" uid="uid://b2oxxj8ohxgew" path="res://media/characters/all_chara_common/moves/cancels/to_kd.tres" id="2_d608t"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="3_ncnem"]
+
+[resource]
+script = ExtResource("3_ncnem")
+characterState = 1
+internalName = "hurtA"
+displayName = ""
+animationName = "hurtGround_2"
+startingFrame = 0
+endingFrame = 1200
+isHitStunState = true
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(-7000, -25000)
+logicalAccelerationPerFrame = Vector2i(0, 2000)
+keepMomentumPercent = 100
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = false
+canBeUsedBeforeAfterRoundEnds = false
+bufferStartLeniency = 0
+bufferLengthLeniency = 0
+useRawBuffer = false
+input = Array[int]([])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_c75do"), ExtResource("2_d608t")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0

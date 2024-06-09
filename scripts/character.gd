@@ -272,6 +272,11 @@ func _apply_move_load_state():
 	animationPlayer.set_current_animation(characterData.characterAnimationLibraryPrefix + "/" + currentMove.animationName)
 	set_animation_frame(characterState.currentFrame)
 
+func tick_animation_forward():
+	characterState.currentFrame += 1
+	set_animation_frame(characterState.currentFrame)
+	_update_boxes()
+
 func apply_move_by_name(moveName : String) -> bool:
 	if moveNameToIndex.has(moveName):
 		apply_new_move(characterData.characterMoves[moveNameToIndex[moveName]])

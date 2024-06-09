@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=10 format=3 uid="uid://6ergge0ypu7"]
+
+[ext_resource type="Resource" uid="uid://b01kpt7gljnc6" path="res://media/characters/chara_gridd/moves/cancels/to_drills_all.tres" id="3_oqv1d"]
+[ext_resource type="Resource" uid="uid://c6bibtakoncnd" path="res://media/characters/all_chara_common/moves/cancels/zero_install_all.tres" id="4_fovjp"]
+[ext_resource type="Resource" uid="uid://bcmdanssjtek8" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_all.tres" id="5_eb14f"]
+[ext_resource type="Resource" uid="uid://xuie720qplxx" path="res://media/characters/all_chara_common/moves/cancels/to_forward_jump.tres" id="6_ufdks"]
+[ext_resource type="Resource" uid="uid://cg45jqlfenv7t" path="res://media/characters/all_chara_common/moves/cancels/to_backward_jump.tres" id="7_qn228"]
+[ext_resource type="Resource" uid="uid://c160x7jyc01hb" path="res://media/characters/all_chara_common/moves/cancels/to_neutral_jump.tres" id="8_bt056"]
+[ext_resource type="Resource" uid="uid://cb245tum6ybk6" path="res://media/characters/all_chara_common/moves/cancels/to_backwards_once.tres" id="9_l24wc"]
+[ext_resource type="Resource" uid="uid://bbu004wfrvxr8" path="res://media/characters/all_chara_common/moves/cancels/f_to_idle.tres" id="10_yejtu"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="11_vn1xd"]
+
+[resource]
+script = ExtResource("11_vn1xd")
+characterState = 0
+internalName = "walkF"
+displayName = ""
+animationName = "walkF"
+startingFrame = 0
+endingFrame = 10
+isHitStunState = false
+loop = true
+canTurnMidMove = true
+logicalVelocityPerFrame = Vector2i(12000, 0)
+logicalAccelerationPerFrame = Vector2i(0, 0)
+keepMomentumPercent = 0
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = true
+canBeUsedBeforeAfterRoundEnds = false
+forbiddenButtons = Array[int]([])
+bufferStartLeniency = 0
+bufferLengthLeniency = 2
+useRawBuffer = true
+input = Array[int]([4])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("4_fovjp"), ExtResource("5_eb14f"), ExtResource("3_oqv1d"), ExtResource("6_ufdks"), ExtResource("7_qn228"), ExtResource("8_bt056"), ExtResource("9_l24wc"), ExtResource("10_yejtu")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0

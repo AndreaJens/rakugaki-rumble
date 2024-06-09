@@ -22,6 +22,7 @@ canMeterBreak = false
 forcedMeterBreak = false
 canBeUsedBeforeRoundBegins = false
 canBeUsedBeforeAfterRoundEnds = false
+forbiddenButtons = Array[int]([1])
 bufferStartLeniency = 5
 bufferLengthLeniency = 10
 useRawBuffer = false

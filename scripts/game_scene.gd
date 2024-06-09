@@ -35,8 +35,10 @@ var additionalSceneStartupParameters : Dictionary = {}
 @onready var stage : Stage = $Stage
 @onready var camera : Camera2D = $Camera
 var _cameraLogicalPosition : Vector2i
-@onready var character1 : Character = $Characters/Character1
-@onready var character2 : Character = $Characters/Character2
+@onready var character1 : Character = $Characters/CharacterParent/Character1
+@onready var character2 : Character = $Characters/CharacterParent/Character2
+@onready var hitspark1 : HitSpark = $Characters/HitSparksParent/HitSpark1
+@onready var hitspark2 : HitSpark = $Characters/HitSparksParent/HitSpark2
 @onready var hudMain : HudManager = $Canvas/Hud
 var _hitFreezeFrames : int = -1
 var _lastFrameComboHitFreeze : bool = false
@@ -77,7 +79,8 @@ enum HitDetectionFlags {
 	HasHit = 0,
 	TargetReaction = 1,
 	DamageToApply = 2,
-	MeterGain = 3
+	MeterGain = 3,
+	IntersectionBox = 4
 }
 
 enum GameStateVars {
@@ -184,8 +187,10 @@ func _ready():
 		player2DeviceId = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player2DeviceId]
 	inputManagerP1.deviceId = player1DeviceId
 	inputManagerP2.deviceId = player2DeviceId
-	if networkMode:
-		camera.position_smoothing_enabled = false
+	#if networkMode:
+		#camera.position_smoothing_enabled = false
+	hitspark1.networkMode = networkMode
+	hitspark2.networkMode = networkMode
 	_reset_round()
 	_init_hud()
 	_lastStateSaved = _save_state()
@@ -576,15 +581,27 @@ func _adjust_character_momentum(character : Character, opponent : Character):
 							stage.logicalPosition.x + stageHalfSize -
 							boxHalfSize)
 					character.update_screen_position()
-					_apply_wallsplat_damage(character, opponent)
+					if (character.currentMove.internalName != GameDatabaseAccessor.defaultWallsplatReaction and
+						!character.is_ko()):
+						_apply_wallsplat_damage(character, opponent)
+						_hitFreezeFrames = hitFreezeWallFrames
+						character.characterState.affectedByHitFreeze = true
 					if character.is_ko():
-						character.apply_move_by_name(
-							GameDatabaseAccessor.defaultWallsplatReaction + "_ko"
-						)
+						if (character.currentMove.internalName != GameDatabaseAccessor.defaultWallsplatReaction  + "_ko"):
+							_hitFreezeFrames = hitFreezeWallFrames
+							character.characterState.affectedByHitFreeze = true
+							character.apply_move_by_name(
+								GameDatabaseAccessor.defaultWallsplatReaction + "_ko"
+							)
+							#character.tick_animation_forward()
+							#_constrain_character_position_to_camera_viewport(character)
 					else:
-						character.apply_move_by_name(
-							GameDatabaseAccessor.defaultWallsplatReaction
-						)
+						if (character.currentMove.internalName != GameDatabaseAccessor.defaultWallsplatReaction):
+							character.apply_move_by_name(
+								GameDatabaseAccessor.defaultWallsplatReaction
+							)
+							#character.tick_animation_forward()
+							#_constrain_character_position_to_camera_viewport(character)
 					_wallHitFreeze = true
 					_comboHitFreeze = false
 				else:
@@ -658,6 +675,7 @@ func _process_damage_collisions(attacker : Character, defender : Character) -> D
 	result[HitDetectionFlags.TargetReaction] = GameDatabaseAccessor.defaultGroundHitReaction
 	result[HitDetectionFlags.DamageToApply] = 0
 	result[HitDetectionFlags.MeterGain] = 0
+	result[HitDetectionFlags.IntersectionBox] = Rect2i(0,0,0,0)
 	for hitBox in attacker.hitBoxes:
 		if hitBox.active:
 			for hurtBox in defender.hurtBoxes:
@@ -665,9 +683,14 @@ func _process_damage_collisions(attacker : Character, defender : Character) -> D
 					if (attacker.get_box_top_left(hitBox).
 							intersects(defender.get_box_top_left(hurtBox))):
 						result[HitDetectionFlags.HasHit] = true
+						result[HitDetectionFlags.IntersectionBox] = (
+							attacker.get_box_top_left(hitBox).
+							intersection(defender.get_box_top_left(hurtBox)))
 						var rawDamage = hitBox.damage
 						result[HitDetectionFlags.DamageToApply] = attacker.adjust_move_damage(rawDamage)
-						if defender.is_airborne():
+						if defender.is_airborne() or (
+							defender.characterState.currentHealth < rawDamage and 
+							!defender.immortal):
 							result[HitDetectionFlags.TargetReaction] = hitBox.moveReactionOnHitAir
 						else:
 							result[HitDetectionFlags.TargetReaction] = hitBox.moveReactionOnHitGround
@@ -698,6 +721,8 @@ func _update_hit_detection():
 		character2.characterState.affectedByHitFreeze = true
 		_comboHitFreeze = true
 		_wallHitFreeze = false
+		var boxCenter = (p1AttackResult[HitDetectionFlags.IntersectionBox] as Rect2i).get_center()
+		hitspark1.activate_hitspark(boxCenter)
 		if character2.currentMove and character2.currentMove.isHitStunState:
 			character1.characterState.comboCounter += 1
 			character1.characterState.comboDamage += p1AttackResult[HitDetectionFlags.DamageToApply]
@@ -715,6 +740,8 @@ func _update_hit_detection():
 		character2.characterState.affectedByHitFreeze = true
 		_comboHitFreeze = true
 		_wallHitFreeze = false
+		var boxCenter = (p2AttackResult[HitDetectionFlags.IntersectionBox] as Rect2i).get_center()
+		hitspark2.activate_hitspark(boxCenter)
 		if character1.currentMove and character1.currentMove.isHitStunState:
 			character2.characterState.comboCounter += 1
 			character2.characterState.comboDamage += p2AttackResult[HitDetectionFlags.DamageToApply]
@@ -773,6 +800,10 @@ func _update_hud():
 func _update_timer():
 	if timerSeconds > 0 and !preventDeath:
 		_timerTicks -= 1
+		
+func _update_hitsparks():
+	hitspark1.update()
+	hitspark2.update()
 	
 func _common_update_process():
 	_internalUpdateTick += 1
@@ -808,6 +839,7 @@ func _common_update_process():
 		_adjust_character_sfx()
 		collisionManager.update_character_position_on_collision(character1, character2, stage)
 		_update_hit_detection()
+	_update_hitsparks()
 	_lastFrameComboHitFreeze = _comboHitFreeze
 	_update_hud()
 	_update_post_match_menu()

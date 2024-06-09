@@ -22,6 +22,7 @@ class_name CharacterMove extends Resource
 @export var canBeUsedBeforeRoundBegins := false
 @export var canBeUsedBeforeAfterRoundEnds : bool = false
 @export_category("Move Input")
+@export var forbiddenButtons : Array[GameDatabaseAccessor.GameInputButton] = []
 @export var bufferStartLeniency := 3
 @export var bufferLengthLeniency := 10
 @export var useRawBuffer := false
@@ -50,6 +51,34 @@ func check_input_against_buffer(
 	var startupLeniencyCounter = 0
 	var numberOfMatches = 0
 	var currentBufferIndex = bufferLength - 1
+	var forbiddenInputRightSide : Array[GameDatabaseAccessor.GameInputButton] = []
+	# check for forbidden buttons
+	if !forbiddenButtons.is_empty():
+		for forbiddenButton in forbiddenButtons:
+			var inputToForbid = forbiddenButton
+			# apply side correction
+			if inputToForbid & GameDatabaseAccessor.GameInputButton.Right:
+				@warning_ignore("int_as_enum_without_cast")
+				inputToForbid |= GameDatabaseAccessor.GameInputButton.Left
+				@warning_ignore("int_as_enum_without_cast")
+				inputToForbid &= ~GameDatabaseAccessor.GameInputButton.Right
+			elif inputToForbid & GameDatabaseAccessor.GameInputButton.Left:
+				@warning_ignore("int_as_enum_without_cast")
+				inputToForbid |= GameDatabaseAccessor.GameInputButton.Right
+				@warning_ignore("int_as_enum_without_cast")
+				inputToForbid &= ~GameDatabaseAccessor.GameInputButton.Left
+			# also for button releases
+			if inputToForbid & GameDatabaseAccessor.GameInputButton.ReleaseRight:
+				@warning_ignore("int_as_enum_without_cast")
+				inputToForbid |= GameDatabaseAccessor.GameInputButton.ReleaseLeft
+				@warning_ignore("int_as_enum_without_cast")
+				inputToForbid &= ~GameDatabaseAccessor.GameInputButton.ReleaseRight
+			elif inputToForbid & GameDatabaseAccessor.GameInputButton.ReleaseLeft:
+				@warning_ignore("int_as_enum_without_cast")
+				inputToForbid |= GameDatabaseAccessor.GameInputButton.ReleaseRight
+				@warning_ignore("int_as_enum_without_cast")
+				inputToForbid &= ~GameDatabaseAccessor.GameInputButton.ReleaseLeft
+			forbiddenInputRightSide.push_back(inputToForbid)
 	for i in range(inputLength - 1, -1, -1):
 		var inputToCheck = moveInput[i]
 		if !onLeftSide:
@@ -75,7 +104,6 @@ func check_input_against_buffer(
 				inputToCheck |= GameDatabaseAccessor.GameInputButton.ReleaseRight
 				@warning_ignore("int_as_enum_without_cast")
 				inputToCheck &= ~GameDatabaseAccessor.GameInputButton.ReleaseLeft
-				
 		var testRangeIndex = currentBufferIndex
 		for k in range(testRangeIndex, lowerBound, -1):
 			currentBufferIndex = k
@@ -87,6 +115,15 @@ func check_input_against_buffer(
 				(currentInputIsDirection and !inputToCheckIsDirection) or
 				(!currentInputIsDirection and inputToCheckIsDirection)
 			)
+			if (moveInput.size() == 1 or numberOfMatches > 0) and !forbiddenButtons.is_empty():
+				if onLeftSide:
+					for forbiddenInput in forbiddenButtons:
+						if (currentInput & forbiddenInput) == forbiddenInput:
+							return false
+				else:
+					for forbiddenInput in forbiddenInputRightSide:
+						if (currentInput & forbiddenInput) == forbiddenInput:
+							return false
 			if (numberOfMatches == 0 and skipCondition and inputToCheck != 0):
 				startupLeniencyCounter += 1
 			if startupLeniencyCounter > (bufferStartLeniency + extraLeniency):

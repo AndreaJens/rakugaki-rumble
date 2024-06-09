@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=2 format=3 uid="uid://b6y0f7353f7dx"]
+
+[ext_resource type="Script" path="res://scripts/move.gd" id="1_y8368"]
+
+[resource]
+script = ExtResource("1_y8368")
+characterState = 0
+internalName = "ko"
+displayName = ""
+animationName = "ko"
+startingFrame = 0
+endingFrame = 15
+isHitStunState = false
+loop = true
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(0, 0)
+logicalAccelerationPerFrame = Vector2i(0, 0)
+keepMomentumPercent = 0
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = false
+canBeUsedBeforeAfterRoundEnds = false
+bufferStartLeniency = 3
+bufferLengthLeniency = 10
+useRawBuffer = false
+input = Array[int]([])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0

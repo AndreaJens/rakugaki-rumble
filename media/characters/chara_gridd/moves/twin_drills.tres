@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=5 format=3 uid="uid://brjgkjsac2h2r"]
+
+[ext_resource type="Resource" uid="uid://dodwisyy5me8d" path="res://media/characters/chara_gridd/moves/cancels/to_drills_fwp_hit.tres" id="1_bielj"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="1_ki6tc"]
+[ext_resource type="Resource" uid="uid://k85f7ldgjhu7" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_hit.tres" id="1_knpxw"]
+[ext_resource type="Resource" uid="uid://b3dvs8txb8pji" path="res://media/characters/all_chara_common/moves/cancels/zero_install_hit.tres" id="2_cmqfr"]
+
+[resource]
+script = ExtResource("1_ki6tc")
+characterState = 0
+internalName = "twinDrills"
+displayName = "Twin Drills"
+animationName = "twin_drills"
+startingFrame = 0
+endingFrame = 28
+isHitStunState = false
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(0, 0)
+logicalAccelerationPerFrame = Vector2i(0, 0)
+keepMomentumPercent = 0
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = false
+canBeUsedBeforeAfterRoundEnds = false
+forbiddenButtons = Array[int]([])
+bufferStartLeniency = 5
+bufferLengthLeniency = 20
+useRawBuffer = false
+input = Array[int]([16, 16, 16])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("2_cmqfr"), ExtResource("1_knpxw"), ExtResource("1_bielj")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0
