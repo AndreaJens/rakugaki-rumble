@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MoveCancelRoute" load_steps=2 format=3 uid="uid://dp4obuprrc87p"]
+
+[ext_resource type="Script" path="res://scripts/cancelRoute.gd" id="1_jp0w7"]
+
+[resource]
+script = ExtResource("1_jp0w7")
+targetMoveName = "airdashFInstall"
+startFrame = 5
+endFrame = -1
+onHit = true
+onBlock = true
+onWhiff = true
+automaticCancelOnLanding = false
+activeIfNothingPressed = false
+autoCancelWhenValid = false
+autoPerformAtMoveEnd = false

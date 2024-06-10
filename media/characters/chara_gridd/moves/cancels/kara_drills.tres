@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MoveCancelRoute" load_steps=2 format=3 uid="uid://cbsm5q8tjpvy6"]
+
+[ext_resource type="Script" path="res://scripts/cancelRoute.gd" id="1_bxjt1"]
+
+[resource]
+script = ExtResource("1_bxjt1")
+targetMoveName = "twinDrills"
+startFrame = 0
+endFrame = 5
+onHit = true
+onBlock = true
+onWhiff = true
+automaticCancelOnLanding = false
+activeIfNothingPressed = false
+autoCancelWhenValid = false
+autoPerformAtMoveEnd = false

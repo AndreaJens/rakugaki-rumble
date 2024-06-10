@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=11 format=3 uid="uid://bgredc8dsa36a"]
+
+[ext_resource type="Resource" uid="uid://csyfkukhxifa0" path="res://media/characters/all_chara_common/moves/cancels/jc_on_hit.tres" id="1_oy2j6"]
+[ext_resource type="Resource" uid="uid://d2quvuuy1qvv0" path="res://media/characters/all_chara_common/moves/cancels/jc_b_on_hit.tres" id="2_mtgox"]
+[ext_resource type="Resource" uid="uid://d2nccsnvqunof" path="res://media/characters/all_chara_common/moves/cancels/jc_n_on_hit.tres" id="3_7p8xu"]
+[ext_resource type="Resource" uid="uid://b3dvs8txb8pji" path="res://media/characters/all_chara_common/moves/cancels/zero_install_hit.tres" id="4_y5d7p"]
+[ext_resource type="Resource" uid="uid://k85f7ldgjhu7" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_hit.tres" id="5_830rm"]
+[ext_resource type="Resource" uid="uid://bky4t7uyp20tb" path="res://media/characters/chara_gridd/moves/cancels/to_airdash_install_on_hit.tres" id="6_nth4u"]
+[ext_resource type="Resource" uid="uid://cbsm5q8tjpvy6" path="res://media/characters/chara_gridd/moves/cancels/kara_drills.tres" id="7_5u0h4"]
+[ext_resource type="Resource" uid="uid://dodwisyy5me8d" path="res://media/characters/chara_gridd/moves/cancels/to_drills_fwp_hit.tres" id="7_m3frl"]
+[ext_resource type="Resource" uid="uid://bkwmwr1pbe6at" path="res://media/characters/chara_gridd/moves/cancels/to_head_bash_hit.tres" id="8_ebual"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="8_om7jq"]
+
+[resource]
+script = ExtResource("8_om7jq")
+characterState = 0
+internalName = "drillSlash"
+displayName = "Drill Slash"
+animationName = "slash"
+startingFrame = 0
+endingFrame = 24
+isHitStunState = false
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(6000, 0)
+logicalAccelerationPerFrame = Vector2i(-300, 0)
+keepMomentumPercent = 0
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = false
+canBeUsedAfterRoundEnds = false
+requiresInfinityInstall = false
+requiresZeroInstall = false
+requiresAnyInstall = false
+forbiddenButtons = Array[int]([])
+bufferStartLeniency = 5
+bufferLengthLeniency = 10
+useRawBuffer = false
+input = Array[int]([16])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_oy2j6"), ExtResource("2_mtgox"), ExtResource("3_7p8xu"), ExtResource("4_y5d7p"), ExtResource("5_830rm"), ExtResource("6_nth4u"), ExtResource("7_5u0h4"), ExtResource("7_m3frl"), ExtResource("8_ebual")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0

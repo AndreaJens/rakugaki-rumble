@@ -1,8 +1,11 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=10 format=3 uid="uid://py80nsxhjttg"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=13 format=3 uid="uid://py80nsxhjttg"]
 
+[ext_resource type="Resource" uid="uid://dp4obuprrc87p" path="res://media/characters/chara_gridd/moves/cancels/to_airdash_install.tres" id="3_1iw7n"]
 [ext_resource type="Resource" uid="uid://b01kpt7gljnc6" path="res://media/characters/chara_gridd/moves/cancels/to_drills_all.tres" id="3_nwv57"]
 [ext_resource type="Resource" uid="uid://c6bibtakoncnd" path="res://media/characters/all_chara_common/moves/cancels/zero_install_all.tres" id="4_3s43u"]
+[ext_resource type="Resource" uid="uid://ckjpth0hncs0o" path="res://media/characters/chara_gridd/moves/cancels/to_head_bash.tres" id="4_jexdd"]
 [ext_resource type="Resource" uid="uid://bcmdanssjtek8" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_all.tres" id="5_e4rfw"]
+[ext_resource type="Resource" uid="uid://bga07rp4bxsi8" path="res://media/characters/chara_gridd/moves/cancels/to_slash.tres" id="6_78qsu"]
 [ext_resource type="Resource" uid="uid://cg45jqlfenv7t" path="res://media/characters/all_chara_common/moves/cancels/to_backward_jump.tres" id="6_s8r25"]
 [ext_resource type="Resource" uid="uid://xuie720qplxx" path="res://media/characters/all_chara_common/moves/cancels/to_forward_jump.tres" id="7_m7wjf"]
 [ext_resource type="Resource" uid="uid://c160x7jyc01hb" path="res://media/characters/all_chara_common/moves/cancels/to_neutral_jump.tres" id="8_x1t52"]
@@ -28,7 +31,10 @@ meterCost = 0
 canMeterBreak = false
 forcedMeterBreak = false
 canBeUsedBeforeRoundBegins = true
-canBeUsedBeforeAfterRoundEnds = false
+canBeUsedAfterRoundEnds = false
+requiresInfinityInstall = false
+requiresZeroInstall = false
+requiresAnyInstall = false
 forbiddenButtons = Array[int]([])
 bufferStartLeniency = 3
 bufferLengthLeniency = 10
@@ -37,6 +43,6 @@ input = Array[int]([])
 inputVariant1 = Array[int]([])
 inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
-cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("4_3s43u"), ExtResource("5_e4rfw"), ExtResource("3_nwv57"), ExtResource("6_s8r25"), ExtResource("7_m7wjf"), ExtResource("8_x1t52"), ExtResource("9_pw4gr"), ExtResource("10_fbqo4")])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("4_3s43u"), ExtResource("5_e4rfw"), ExtResource("3_1iw7n"), ExtResource("3_nwv57"), ExtResource("4_jexdd"), ExtResource("6_78qsu"), ExtResource("6_s8r25"), ExtResource("7_m7wjf"), ExtResource("8_x1t52"), ExtResource("9_pw4gr"), ExtResource("10_fbqo4")])
 guardFrames = Vector2i(-1, -1)
 timestopFrames = 0

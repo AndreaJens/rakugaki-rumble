@@ -165,6 +165,8 @@ func _load_state(state : Dictionary) -> void:
 		inputManagerP2._load_state(state[GameStateVars.InputManagerCharacter2])
 		rematchMenuP1._load_state(state[GameStateVars.PostMatchMenu1State])
 		rematchMenuP2._load_state(state[GameStateVars.PostMatchMenu2State])
+		hitspark1.deactivate_hitspark()
+		hitspark2.deactivate_hitspark()
 	hudMain.update(character1, character2, _internalUpdateTick, false)
 	hudMain.update_round_won(_roundWonCharacter1, _roundWonCharacter2)
 

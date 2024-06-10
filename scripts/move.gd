@@ -20,7 +20,10 @@ class_name CharacterMove extends Resource
 @export var canMeterBreak : bool = false
 @export var forcedMeterBreak : bool = false
 @export var canBeUsedBeforeRoundBegins := false
-@export var canBeUsedBeforeAfterRoundEnds : bool = false
+@export var canBeUsedAfterRoundEnds : bool = false
+@export var requiresInfinityInstall : bool = false
+@export var requiresZeroInstall : bool = false
+@export var requiresAnyInstall : bool = false
 @export_category("Move Input")
 @export var forbiddenButtons : Array[GameDatabaseAccessor.GameInputButton] = []
 @export var bufferStartLeniency := 3

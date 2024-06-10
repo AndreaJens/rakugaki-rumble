@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=4 format=3 uid="uid://c57sqr8jg8xse"]
+
+[ext_resource type="Resource" uid="uid://bssagas2s6vpy" path="res://media/characters/chara_gridd/moves/cancels/to_air_drill_dash.tres" id="1_r0hl7"]
+[ext_resource type="Resource" uid="uid://dkvcd6s744tx2" path="res://media/characters/all_chara_common/moves/cancels/to_idle_landing.tres" id="1_yhldv"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="2_yyoa3"]
+
+[resource]
+script = ExtResource("2_yyoa3")
+characterState = 1
+internalName = "airdashFInstall"
+displayName = "Air Dash"
+animationName = "walkF"
+startingFrame = 0
+endingFrame = 15
+isHitStunState = false
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(45000, 0)
+logicalAccelerationPerFrame = Vector2i(0, 0)
+keepMomentumPercent = 0
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = false
+canBeUsedAfterRoundEnds = false
+requiresInfinityInstall = false
+requiresZeroInstall = false
+requiresAnyInstall = true
+forbiddenButtons = Array[int]([])
+bufferStartLeniency = 5
+bufferLengthLeniency = 10
+useRawBuffer = true
+input = Array[int]([32])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_r0hl7"), ExtResource("1_yhldv")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0

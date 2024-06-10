@@ -181,6 +181,7 @@ offset_bottom = 297.0
 scale = Vector2(2, 2)
 
 [node name="Label" type="Label" parent="ConnectionUI/LoggingButton"]
+layout_mode = 0
 offset_left = 40.5
 offset_top = 3.0
 offset_right = 305.5

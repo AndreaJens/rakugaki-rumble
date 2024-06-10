@@ -1,6 +1,9 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=5 format=3 uid="uid://c7gxqg35o8mtw"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=8 format=3 uid="uid://c7gxqg35o8mtw"]
 
 [ext_resource type="Resource" uid="uid://b01kpt7gljnc6" path="res://media/characters/chara_gridd/moves/cancels/to_drills_all.tres" id="1_hvbr0"]
+[ext_resource type="Resource" uid="uid://ckjpth0hncs0o" path="res://media/characters/chara_gridd/moves/cancels/to_head_bash.tres" id="2_em0kr"]
+[ext_resource type="Resource" uid="uid://dp4obuprrc87p" path="res://media/characters/chara_gridd/moves/cancels/to_airdash_install.tres" id="2_mklb0"]
+[ext_resource type="Resource" uid="uid://bga07rp4bxsi8" path="res://media/characters/chara_gridd/moves/cancels/to_slash.tres" id="3_mw1td"]
 [ext_resource type="Resource" uid="uid://c6bibtakoncnd" path="res://media/characters/all_chara_common/moves/cancels/zero_install_all.tres" id="5_04c8j"]
 [ext_resource type="Resource" uid="uid://bcmdanssjtek8" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_all.tres" id="6_loijb"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="7_y44f2"]
@@ -23,7 +26,10 @@ meterCost = 0
 canMeterBreak = false
 forcedMeterBreak = false
 canBeUsedBeforeRoundBegins = true
-canBeUsedBeforeAfterRoundEnds = false
+canBeUsedAfterRoundEnds = false
+requiresInfinityInstall = false
+requiresZeroInstall = false
+requiresAnyInstall = false
 forbiddenButtons = Array[int]([])
 bufferStartLeniency = 3
 bufferLengthLeniency = 10
@@ -32,6 +38,6 @@ input = Array[int]([])
 inputVariant1 = Array[int]([])
 inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
-cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_hvbr0"), ExtResource("5_04c8j"), ExtResource("6_loijb")])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_hvbr0"), ExtResource("2_em0kr"), ExtResource("3_mw1td"), ExtResource("2_mklb0"), ExtResource("5_04c8j"), ExtResource("6_loijb")])
 guardFrames = Vector2i(-1, -1)
 timestopFrames = 0

@@ -480,7 +480,7 @@ func can_perform_move(moveToTest : CharacterMove) -> bool:
 		return false
 	if ((characterState.roundState == SceneGame.RoundPhaseState.Ko or 
 		characterState.roundState == SceneGame.RoundPhaseState.PreKo) and 
-		!moveToTest.canBeUsedBeforeAfterRoundEnds):
+		!moveToTest.canBeUsedAfterRoundEnds):
 		return false
 	if (characterState.roundState == SceneGame.RoundPhaseState.Ready or
 		characterState.roundState == SceneGame.RoundPhaseState.Engage):
@@ -488,6 +488,12 @@ func can_perform_move(moveToTest : CharacterMove) -> bool:
 				return false
 	if moveToTest.meterCost > characterState.currentMeter and (
 		characterState.meterBroken or !moveToTest.canMeterBreak):
+		return false
+	if moveToTest.requiresInfinityInstall and !infinityInstallActive:
+		return false
+	if moveToTest.requiresZeroInstall and !zeroInstallActive:
+		return false
+	if moveToTest.requiresAnyInstall and !has_active_install():
 		return false
 	return true
 

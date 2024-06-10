@@ -47,6 +47,11 @@ func activate_hitspark(newLogicalPosition : Vector2i):
 	visible = true
 	_animPlayer.play("hitspark")
 
+func deactivate_hitspark():
+	_animPlayer.stop()
+	visible = false
+	_durationTicks = 0
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if !networkMode and _animPlayer.is_playing():
