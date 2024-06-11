@@ -62,10 +62,11 @@ A small Godot 4.2 fighting game project, with a sketchbook aesthetic
 * A: Drill Swipe (cancels into all Command Normals and Specials including Fast Boost, jump cancel on hit)
 * 2A: Head Ram (cancels into all Specials including Fast Boost, jump cancel on hit, auto-corrects side)
 * j.A: Air Swipe (cancels into Terrordriller and Fast Boost on hit)
+* j.2A: The Mechon's Elbow (universal air spike)
 * AAA: Terrordriller (can be mashed on on hit)
 * j.B: Air Boost (only on forward jump, costs meter, can't be performed without meter)
 * B (only during any install): Fast Boost (doesn't cost any meter, cancels any ground attack on hit, can be performed on any jump or on the ground)
-* A (during Air Boost or Fast Boost): Drill Smash (cancels into Terrordriller on hit)
+* A (during Air Boost or Fast Boost): Drill Smash (cancels into Terrordriller on hit, no meter gain on hit)
 
 ### Basic combo structure:
 * hitting the opponent during the start of their hitstun frames floats them. A sample starter can be either A > 2A, 2A > 236A or e.g. A > 236A

@@ -15,6 +15,8 @@ class_name CharacterMove extends Resource
 @export var logicalVelocityPerFrame : Vector2i
 @export var logicalAccelerationPerFrame : Vector2i
 @export var keepMomentumPercent : int = 0
+@export_category("Extra")
+@export var canGainMeter : bool = true
 @export_category("Conditions")
 @export var meterCost : int
 @export var canMeterBreak : bool = false

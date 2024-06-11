@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=4 format=3 uid="uid://b5kch8x6xmlqx"]
+
+[ext_resource type="Resource" uid="uid://bky4t7uyp20tb" path="res://media/characters/chara_gridd/moves/cancels/to_airdash_install_on_hit.tres" id="2_rg3vo"]
+[ext_resource type="Resource" uid="uid://dkvcd6s744tx2" path="res://media/characters/all_chara_common/moves/cancels/to_idle_landing.tres" id="3_itjx0"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="4_tkxvh"]
+
+[resource]
+script = ExtResource("4_tkxvh")
+characterState = 1
+internalName = "downSpike"
+displayName = "Elbow Drop"
+animationName = "downSpike"
+startingFrame = 0
+endingFrame = 24
+isHitStunState = false
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(4000, -3000)
+logicalAccelerationPerFrame = Vector2i(0, 2500)
+keepMomentumPercent = 100
+canGainMeter = true
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = false
+canBeUsedAfterRoundEnds = false
+requiresInfinityInstall = false
+requiresZeroInstall = false
+requiresAnyInstall = false
+forbiddenButtons = Array[int]([])
+bufferStartLeniency = 3
+bufferLengthLeniency = 6
+useRawBuffer = false
+input = Array[int]([1, 16])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("2_rg3vo"), ExtResource("3_itjx0")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0

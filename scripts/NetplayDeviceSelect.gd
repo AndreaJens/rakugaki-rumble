@@ -1,6 +1,6 @@
 extends MenuButton
 
-var currentItemIndex = -1
+var currentItemIndex = NetworkAssistant.localPlayerDeviceId
 
 func _get_device_id() -> int:
 	return currentItemIndex

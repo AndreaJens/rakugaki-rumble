@@ -14,7 +14,7 @@ var localPlayerId : NetworkPlayer = NetworkPlayer.Spectator
 var character1Path : String = "chara_naomi"
 var character2Path : String = "chara_naomi"
 var numberOfRounds : int = 3
-var localPlayerDeviceId : int = -1
+var localPlayerDeviceId : int = 0
 var localPlayerInputDelay : int = 2
 const DmmbDeviceId : int = 420
 

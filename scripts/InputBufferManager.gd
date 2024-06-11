@@ -7,7 +7,12 @@ enum InputBufferState {
 	RefinedBuffer = 2,
 }
 
-@export var playerIdentifier : String = "p1"
+@export var playerIdentifier : String = "p1": 
+	set(newTag):
+		playerIdentifier = newTag
+		_actionDict.clear()
+		for key in _baseActionDict:
+			_actionDict[key + "_" + playerIdentifier] = _baseActionDict[key]
 @export var maxBufferSize : int = 50
 @export var deviceId : int = -1
 @export var checkAllDevices : bool = false
@@ -59,6 +64,7 @@ func _network_preprocess(input: Dictionary) -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng.seed = hash("RandomMashingMonkey" + playerIdentifier)
+	_actionDict.clear()
 	for key in _baseActionDict:
 		_actionDict[key + "_" + playerIdentifier] = _baseActionDict[key]
 	add_to_group('network_sync')
@@ -70,6 +76,7 @@ func _drunken_monkey_mashing_buttons() -> Dictionary:
 	var currentInput : int = 0
 	var allPressedButtons : int = 0
 	var allPossibleInputs = [
+		GameDatabaseAccessor.GameInputButton.None,
 		GameDatabaseAccessor.GameInputButton.Up,
 		GameDatabaseAccessor.GameInputButton.Down,
 		GameDatabaseAccessor.GameInputButton.Left,

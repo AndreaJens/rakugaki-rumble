@@ -53,6 +53,8 @@ func _setup_game_scene_online():
 	elif NetworkAssistant.localPlayerId == NetworkAssistant.NetworkPlayer.Player2:
 		scene.additionalSceneStartupParameters[SceneGame.AdditionalGameSceneStartupParameter.Player2DeviceId] = NetworkAssistant.localPlayerDeviceId
 	sceneParentNode.add_child(scene)
+	scene.inputManagerP1.playerIdentifier = "p1"
+	scene.inputManagerP2.playerIdentifier = "p1"
 	for i in NetworkAssistant.connectedPlayers:
 		if NetworkAssistant.connectedPlayers[i]["player_side"] == 1:
 			scene.inputManagerP2.set_multiplayer_authority(i)
@@ -165,6 +167,7 @@ func _on_SyncManager_sync_regained():
 
 func _on_SyncManager_sync_error(msg : String):
 	systemMessageLabel.text = "Sync Error: " + msg
+	syncingMessageLabel.visible = true
 	NetworkAssistant.close_session()
 	await(get_tree().create_timer(1.0).timeout)
 	_reset_scene()

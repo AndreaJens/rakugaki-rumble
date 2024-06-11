@@ -24,7 +24,7 @@ enum AdditionalGameSceneStartupParameter{
 	Character2Path = 1,
 	StagePath = 2,
 	Player1DeviceId = 3,
-	Player2DeviceId = 4
+	Player2DeviceId = 4,
 }
 var additionalSceneStartupParameters : Dictionary = {}
 
@@ -711,6 +711,12 @@ func _update_hit_detection():
 		character1.characterState.comboDamage = 0
 	var p1AttackResult = _process_damage_collisions(character1, character2)
 	var p2AttackResult = _process_damage_collisions(character2, character1)
+	var canGainMeterFromMoveP1 : bool = true 
+	var canGainMeterFromMoveP2 : bool = true 
+	if (character1.currentMove and !character1.currentMove.canGainMeter):
+		canGainMeterFromMoveP1 = false
+	if (character2.currentMove and !character2.currentMove.canGainMeter):
+		canGainMeterFromMoveP2 = false
 	# manage damage and hit reactions
 	if p1AttackResult[HitDetectionFlags.HasHit]:
 		character1.mark_successful_hit()
@@ -755,7 +761,8 @@ func _update_hit_detection():
 		var meterGainHitCharacter = (
 			p1AttackResult[HitDetectionFlags.MeterGain] / 
 			GameDatabaseAccessor.hitCharacterMeterGainFraction)
-		character1.gain_meter(p1AttackResult[HitDetectionFlags.MeterGain])
+		if canGainMeterFromMoveP1:
+			character1.gain_meter(p1AttackResult[HitDetectionFlags.MeterGain])
 		character2.gain_meter(meterGainHitCharacter)
 		character2.deal_damage(p1AttackResult[HitDetectionFlags.DamageToApply])
 		character2.characterState.comboCounter = 0
@@ -766,7 +773,8 @@ func _update_hit_detection():
 		var meterGainHitCharacter = (
 			p2AttackResult[HitDetectionFlags.MeterGain] / 
 			GameDatabaseAccessor.hitCharacterMeterGainFraction)
-		character2.gain_meter(p2AttackResult[HitDetectionFlags.MeterGain])
+		if canGainMeterFromMoveP2:
+			character2.gain_meter(p2AttackResult[HitDetectionFlags.MeterGain])
 		character1.gain_meter(meterGainHitCharacter)
 		character1.deal_damage(p2AttackResult[HitDetectionFlags.DamageToApply])
 		character1.characterState.comboCounter = 0
