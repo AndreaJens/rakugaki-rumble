@@ -24,6 +24,7 @@ func _setup_network_connection_callbacks():
 	multiplayer.peer_connected.connect(_on_network_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_network_peer_disconnected)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
+	#multiplayer.connection_failed.connect(_on_connection_failed)
 	SyncManager.sync_started.connect(_on_SyncManager_sync_started)
 	SyncManager.sync_lost.connect(_on_SyncManager_sync_lost)
 	SyncManager.sync_regained.connect(_on_SyncManager_sync_regained)
@@ -82,23 +83,29 @@ func _setup_game_scene_online():
 	#SyncManager.input_delay = 0
 
 @rpc("any_peer")
-func _send_player_info(peer_id : int, playerSide : int, characterPath : String):
+func _send_player_info(peer_id : int, playerSide : int, characterPath : String, playerName : String):
 	if !NetworkAssistant.connectedPlayers.has(peer_id):
 		NetworkAssistant.connectedPlayers[peer_id] = {
 			"peer_id" : peer_id,
 			"player_side" : playerSide,
 			"character_path" : characterPath,
+			"player_name" : playerName,
 		}
 		if playerSide == 1:
 			NetworkAssistant.character2Path = characterPath
+			NetworkAssistant.player2Name = playerName
 			print("New character 2 path received: %s" % characterPath)
 		elif playerSide == -1:
 			NetworkAssistant.character1Path = characterPath
+			NetworkAssistant.player1Name = playerName
 			print("New character 1 path received: %s" % characterPath)
 	if multiplayer.is_server():
 		for i in NetworkAssistant.connectedPlayers:
 			print("Sending info to peer %s" % i)
-			_send_player_info.rpc(i, NetworkAssistant.connectedPlayers[i]["player_side"], NetworkAssistant.connectedPlayers[i]["character_path"])
+			_send_player_info.rpc(i, 
+				NetworkAssistant.connectedPlayers[i]["player_side"], 
+				NetworkAssistant.connectedPlayers[i]["character_path"],
+				NetworkAssistant.connectedPlayers[i]["player_name"])
 
 @rpc("any_peer", "call_local", "reliable")
 func _start_online_match(_peer_id : int):
@@ -107,19 +114,23 @@ func _start_online_match(_peer_id : int):
 func _on_host_button_pressed():
 	NetworkAssistant.localPlayerId = NetworkAssistant.NetworkPlayer.Player1
 	NetworkAssistant.character1Path = charaSelectMenu._get_selected_character()
+	NetworkAssistant.nameToDisplay = playerNameField.text
 	SyncManager.reset_network_adaptor()
 	var peer = ENetMultiplayerPeer.new()
 	peer.create_server(portField.text as int, 1)
 	multiplayer.multiplayer_peer = peer
 	syncingMessageLabel.visible = true
 	connectionUILayer.visible = false
-	_send_player_info(multiplayer.get_unique_id(), -1, NetworkAssistant.character1Path)
+	_send_player_info(multiplayer.get_unique_id(),
+	 -1, 
+	NetworkAssistant.character1Path,
+	NetworkAssistant.nameToDisplay)
 	NetworkAssistant.ipAddress = ipAddressField.text
-	NetworkAssistant.nameToDisplay = playerNameField.text
 
 func _on_client_button_pressed():
 	NetworkAssistant.localPlayerId = NetworkAssistant.NetworkPlayer.Player2
 	NetworkAssistant.character2Path = charaSelectMenu._get_selected_character()
+	NetworkAssistant.nameToDisplay = playerNameField.text
 	SyncManager.reset_network_adaptor()
 	var peer = ENetMultiplayerPeer.new()
 	peer.create_client(ipAddressField.text, portField.text as int)
@@ -130,7 +141,10 @@ func _on_client_button_pressed():
 	
 func _on_network_peer_connected(peer_id : int):
 	systemMessageLabel.text = "CONNECTED"
-	_send_player_info.rpc_id(1, multiplayer.get_unique_id(), 1, NetworkAssistant.character2Path)
+	_send_player_info.rpc_id(1,
+	 multiplayer.get_unique_id(), 1, 
+	NetworkAssistant.character2Path,
+	NetworkAssistant.nameToDisplay)
 	print(multiplayer.get_unique_id())
 	SyncManager.add_peer(peer_id)
 	if multiplayer.is_server():
@@ -138,11 +152,19 @@ func _on_network_peer_connected(peer_id : int):
 		_start_online_match.rpc(peer_id)
 		await(get_tree().create_timer(2.0).timeout)
 		SyncManager.input_delay = NetworkAssistant.localPlayerInputDelay
-		SyncManager.start()
-	
+		SyncManager.start()	
 func _on_connected_to_server():
 	_send_player_info.rpc_id(1, multiplayer.get_unique_id(), 1, NetworkAssistant.character2Path)
-	
+
+func _on_connection_failed():
+	if multiplayer.is_server():
+		_close_session()
+	else:
+		systemMessageLabel.text = "CONNECTION ATTEMPT FAILED - RETRYING..."
+		systemMessageLabel.visible = true
+		await(get_tree().create_timer(1.0).timeout)
+		_on_client_button_pressed()
+
 func _on_network_peer_disconnected(_peer_id : int):
 	pass
 	

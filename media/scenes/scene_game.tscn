@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://c07vx7o11k05c"]
+[gd_scene load_steps=42 format=3 uid="uid://c07vx7o11k05c"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_xmmq4"]
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="2_8rf0r"]
@@ -40,6 +40,11 @@
 [ext_resource type="Texture2D" uid="uid://dunanraublt1s" path="res://media/hud/systemMessages/QUIT.png" id="36_ofd7y"]
 [ext_resource type="Texture2D" uid="uid://bemadbec0by4p" path="res://media/hud/systemMessages/NO.png" id="37_nhrr2"]
 [ext_resource type="Texture2D" uid="uid://c1owh2oukugr2" path="res://media/hud/systemMessages/YES.png" id="38_dl2q0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6jq71"]
+font_size = 22
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 0.576471)
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource("1_xmmq4")
@@ -312,6 +317,31 @@ visible = false
 position = Vector2(1076, 53)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("21_nlghf")
+
+[node name="Player1Name" type="Label" parent="Canvas"]
+visible = false
+custom_minimum_size = Vector2(320, 0)
+offset_left = 118.0
+offset_top = 36.0
+offset_right = 438.0
+offset_bottom = 68.0
+text = "PLAYER1"
+label_settings = SubResource("LabelSettings_6jq71")
+
+[node name="Player2Name" type="Label" parent="Canvas"]
+visible = false
+custom_minimum_size = Vector2(320, 0)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -436.0
+offset_top = 36.0
+offset_right = -116.0
+offset_bottom = 68.0
+grow_horizontal = 0
+text = "PLAYER2"
+label_settings = SubResource("LabelSettings_6jq71")
+horizontal_alignment = 2
 
 [node name="Characters" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true

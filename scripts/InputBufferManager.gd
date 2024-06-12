@@ -63,7 +63,7 @@ func _network_preprocess(input: Dictionary) -> void:
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	rng.seed = hash("RandomMashingMonkey" + playerIdentifier)
+	rng.seed = hash(("RandomMashingMonkey" + playerIdentifier + "%s") % Time.get_ticks_msec() )
 	_actionDict.clear()
 	for key in _baseActionDict:
 		_actionDict[key + "_" + playerIdentifier] = _baseActionDict[key]

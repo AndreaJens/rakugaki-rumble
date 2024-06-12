@@ -16,6 +16,7 @@ canTurnMidMove = false
 logicalVelocityPerFrame = Vector2i(-7000, -15000)
 logicalAccelerationPerFrame = Vector2i(0, 2000)
 keepMomentumPercent = 0
+canGainMeter = true
 meterCost = 0
 canMeterBreak = false
 forcedMeterBreak = false

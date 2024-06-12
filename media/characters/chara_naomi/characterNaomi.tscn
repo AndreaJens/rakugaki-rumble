@@ -60,6 +60,30 @@ tracks/1/keys = {
 "update": 1,
 "values": [1]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HurtBoxes/HurtBox2:active")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HurtBoxes/HurtBox2:boxSize")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2i(270000, -200000, 200000, 200000)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ogpfj"]
 _data = {
@@ -119,13 +143,14 @@ characterData = ExtResource("2_tinh8")
 script = ExtResource("2_ssm87")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 10
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("4_vycnm")
 offset = Vector2(0, -360)
 hframes = 4
 vframes = 4
-frame = 4
+frame = 13
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -142,8 +167,8 @@ script = ExtResource("18_1xnwy")
 [node name="HitBox" parent="HitBoxes" instance=ExtResource("5_35kqm")]
 moveReactionOnHitGround = "hurtG"
 moveReactionOnHitAir = "hurtSpike"
-damage = 6000
-boxSize = Rect2i(75000, -200000, 180000, 330000)
+damage = 13000
+boxSize = Rect2i(150000, -200000, 180000, 220000)
 
 [node name="HitBox2" parent="HitBoxes" instance=ExtResource("5_35kqm")]
 
@@ -156,7 +181,7 @@ boxSize = Rect2i(75000, -200000, 180000, 330000)
 [node name="HurtBoxes" type="Node2D" parent="."]
 
 [node name="HurtBox" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
-boxSize = Rect2i(0, -50000, 250000, 150000)
+boxSize = Rect2i(75000, -165000, 200000, 320000)
 
 [node name="HurtBox2" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
 boxSize = Rect2i(270000, -200000, 200000, 200000)
@@ -169,4 +194,4 @@ boxSize = Rect2i(270000, -200000, 200000, 200000)
 
 [node name="PushBox" parent="." instance=ExtResource("5_phuw5")]
 active = true
-boxSize = Rect2i(-100000, -150000, 120000, 300000)
+boxSize = Rect2i(-50000, -100000, 200000, 200000)

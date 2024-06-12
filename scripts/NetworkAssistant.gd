@@ -9,7 +9,9 @@ enum NetworkPlayer {
 var connectedPlayers = {}
 var ipAddress : String ="127.0.0.1"
 var port : String = "8081"
-var nameToDisplay : String = "Currently_Unused"
+var nameToDisplay : String = ""
+var player1Name : String = ""
+var player2Name : String = ""
 var localPlayerId : NetworkPlayer = NetworkPlayer.Spectator
 var character1Path : String = "chara_naomi"
 var character2Path : String = "chara_naomi"

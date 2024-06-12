@@ -193,6 +193,11 @@ func _ready():
 		#camera.position_smoothing_enabled = false
 	hitspark1.networkMode = networkMode
 	hitspark2.networkMode = networkMode
+	if networkMode:
+		$Canvas/Player1Name.text = NetworkAssistant.player1Name
+		$Canvas/Player2Name.text = NetworkAssistant.player2Name
+		$Canvas/Player1Name.visible = true
+		$Canvas/Player2Name.visible = true
 	_reset_round()
 	_init_hud()
 	_lastStateSaved = _save_state()
