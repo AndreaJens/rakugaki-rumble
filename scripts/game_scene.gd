@@ -434,8 +434,8 @@ func _update_game_phase_transition():
 				_roundPhaseState = RoundPhaseState.PreRestartMatch
 				_roundPhaseCounter = phaseTransitionMessageThreshold
 		elif rematchMenuP1.selection_performed() or rematchMenuP2.selection_performed():
-			if (rematchMenuP1.get_highlighted_option() == RematchMenu.Option.No or
-				rematchMenuP2.get_highlighted_option() == RematchMenu.Option.No):
+			if ((rematchMenuP1.selection_performed() and rematchMenuP1.get_highlighted_option() == RematchMenu.Option.No) or
+				(rematchMenuP2.selection_performed() and rematchMenuP2.get_highlighted_option() == RematchMenu.Option.No)):
 					#change scene on NO
 					if networkMode:		
 						if !_closeSignalSent:					

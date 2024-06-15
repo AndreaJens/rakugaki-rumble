@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://fnvspxaugubd"]
+[gd_scene load_steps=38 format=3 uid="uid://fnvspxaugubd"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_wago2"]
 [ext_resource type="Resource" uid="uid://8twlm04m24uq" path="res://media/characters/chara_rhozetta/characterData.tres" id="2_3jd0h"]
@@ -31,6 +31,7 @@
 [ext_resource type="Animation" uid="uid://bi86d888i43k" path="res://media/characters/chara_rhozetta/animations/rampage_startup.res" id="25_bd7d3"]
 [ext_resource type="Animation" uid="uid://iddnl81s4dey" path="res://media/characters/chara_rhozetta/animations/hurtSpike.res" id="26_gtcsm"]
 [ext_resource type="Animation" uid="uid://c2mflewkwbig2" path="res://media/characters/chara_rhozetta/animations/downSpike.res" id="27_hihp7"]
+[ext_resource type="Animation" uid="uid://2gtwrl4xk64f" path="res://media/characters/chara_rhozetta/animations/headbash_back.res" id="28_j11fi"]
 
 [sub_resource type="Animation" id="Animation_ha52s"]
 length = 0.001
@@ -392,6 +393,7 @@ _data = {
 "downSpike": ExtResource("27_hihp7"),
 "falling": ExtResource("8_io2t7"),
 "headbash": ExtResource("16_by3qg"),
+"headbash_back": ExtResource("28_j11fi"),
 "hurtGround": ExtResource("11_ijcff"),
 "hurtGround_2": ExtResource("12_fetpv"),
 "hurtSpike": ExtResource("26_gtcsm"),
@@ -421,14 +423,14 @@ zeroInstallActive = true
 script = ExtResource("2_kfbbf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = 100
+z_index = 10
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("4_fduox")
-offset = Vector2(0, -355)
+texture = ExtResource("4_ottud")
+offset = Vector2(60, -350)
 hframes = 4
 vframes = 4
-frame = 11
+frame = 9
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -472,4 +474,4 @@ boxSize = Rect2i(270000, -200000, 200000, 200000)
 
 [node name="PushBox" parent="." instance=ExtResource("6_50ynk")]
 active = true
-boxSize = Rect2i(0, -100000, 180000, 200000)
+boxSize = Rect2i(-20000, -100000, 200000, 200000)

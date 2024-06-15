@@ -282,14 +282,20 @@ func apply_move_by_name(moveName : String) -> bool:
 		apply_new_move(characterData.characterMoves[moveNameToIndex[moveName]])
 		return true
 	return false
+
+func activate_meter_break():
+	characterState.meterBroken = true
+	characterState.currentMeter = 0
+	characterState.hasInfinityInstallActive = false
+	characterState.hasZeroInstallActive = false
+	characterState.installDurationFrameCounter = -1
 	
 func apply_new_move(move : CharacterMove):
 	deactivate_boxes()
 	if move.meterCost > characterState.currentMeter:
-		characterState.meterBroken = true
+		activate_meter_break()
 	if move.forcedMeterBreak:
-		characterState.meterBroken = true
-		characterState.currentMeter = 0
+		activate_meter_break()
 	add_meter(-move.meterCost)
 	characterState.currentMoveHasHit = false
 	characterState.moveId = moveNameToIndex[move.internalName]

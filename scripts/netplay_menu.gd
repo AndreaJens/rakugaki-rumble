@@ -153,6 +153,7 @@ func _on_network_peer_connected(peer_id : int):
 		await(get_tree().create_timer(2.0).timeout)
 		SyncManager.input_delay = NetworkAssistant.localPlayerInputDelay
 		SyncManager.start()	
+		
 func _on_connected_to_server():
 	_send_player_info.rpc_id(1, multiplayer.get_unique_id(), 1, NetworkAssistant.character2Path)
 
@@ -174,9 +175,10 @@ func _on_SyncManager_sync_started():
 	if logging_enabled and not SyncReplay.active:
 		if DirAccess.dir_exists_absolute(LOG_FILE_DIRECTORY) == false:
 			DirAccess.make_dir_absolute(LOG_FILE_DIRECTORY)
-			
-		#var datetime = Time.get_datetime_string_from_system()
-		var log_file_name = "debuglog" + str(multiplayer.get_unique_id()) + ".log"
+		var datetime : String = Time.get_datetime_string_from_system(true)
+		datetime = datetime.replace(":", "")
+		datetime = datetime.replace("-", "")
+		var log_file_name = "log_p%s_%s.log" % [multiplayer.get_unique_id(), datetime ]
 		print(LOG_FILE_DIRECTORY + "/" + log_file_name)
 		SyncManager.start_logging(LOG_FILE_DIRECTORY + "/" + log_file_name)
 		

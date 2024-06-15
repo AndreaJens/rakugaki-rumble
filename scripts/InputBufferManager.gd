@@ -15,7 +15,6 @@ enum InputBufferState {
 			_actionDict[key + "_" + playerIdentifier] = _baseActionDict[key]
 @export var maxBufferSize : int = 50
 @export var deviceId : int = -1
-@export var checkAllDevices : bool = false
 var _buffer : Array[int]
 var _rawBuffer : Array[int]
 var _pressedButtons : int
@@ -63,7 +62,7 @@ func _network_preprocess(input: Dictionary) -> void:
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	rng.seed = hash(("RandomMashingMonkey" + playerIdentifier + "%s") % Time.get_ticks_msec() )
+	rng.seed = hash(("RandomMashingMonkey" + playerIdentifier + "%s%s") % [Time.get_ticks_usec(), deviceId] )
 	_actionDict.clear()
 	for key in _baseActionDict:
 		_actionDict[key + "_" + playerIdentifier] = _baseActionDict[key]

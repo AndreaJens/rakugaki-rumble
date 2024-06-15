@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_68ei7"]
 [ext_resource type="Resource" uid="uid://dplht2b3monrh" path="res://media/characters/chara_gridd/characterData.tres" id="2_nsllh"]
 [ext_resource type="Script" path="res://scripts/characterState.gd" id="3_7bgnf"]
-[ext_resource type="Texture2D" uid="uid://qmyjyb3fu5yi" path="res://media/characters/chara_gridd/sprites/gridd2.png" id="4_k0c3g"]
+[ext_resource type="Texture2D" uid="uid://chpu18115h04u" path="res://media/characters/chara_gridd/sprites/gridd1.png" id="4_uj772"]
 [ext_resource type="Texture2D" uid="uid://t1ms8cgwq76o" path="res://media/characters/chara_rhozetta/sprites/rhozetta1.png" id="5_jl0fw"]
 [ext_resource type="Animation" uid="uid://cxrf8xh0cjclo" path="res://media/characters/chara_gridd/animations/airBurst.res" id="7_0x4lf"]
 [ext_resource type="Animation" uid="uid://b12hkagpbc088" path="res://media/characters/chara_gridd/animations/idle.res" id="7_7nsd0"]
@@ -380,14 +380,14 @@ characterData = ExtResource("2_nsllh")
 script = ExtResource("3_7bgnf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = 10
+z_index = 15
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("4_k0c3g")
-offset = Vector2(40, -350)
+texture = ExtResource("4_uj772")
+offset = Vector2(-100, -390)
 hframes = 4
 vframes = 4
-frame = 4
+frame = 10
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -430,4 +430,4 @@ boxSize = Rect2i(270000, -200000, 200000, 200000)
 
 [node name="PushBox" parent="." instance=ExtResource("31_bm38g")]
 active = true
-boxSize = Rect2i(-20000, -200000, 200000, 150000)
+boxSize = Rect2i(-50000, -100000, 180000, 200000)
