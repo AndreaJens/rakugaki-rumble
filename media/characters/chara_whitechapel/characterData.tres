@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=3 format=3 uid="uid://rteooln5bhws"]
+
+[ext_resource type="Texture2D" uid="uid://c8k5hy3ln56n0" path="res://media/characters/chara_whitechapel/sprites/name.png" id="1_xfeud"]
+[ext_resource type="Script" path="res://scripts/characterData.gd" id="33_46w2h"]
+
+[resource]
+script = ExtResource("33_46w2h")
+characterFullName = "Whitechapel Esmeralda"
+characterDisplayName = "Whitechapel"
+characterAnimationLibraryPrefix = "wchap"
+characterMaxHealth = 9000
+characterMaxMeter = 30000
+characterNameTexture = ExtResource("1_xfeud")
+characterMoves = Array[Resource("res://scripts/move.gd")]([])
