@@ -1,8 +1,9 @@
-[gd_scene load_steps=45 format=3 uid="uid://xa67fv0awtmh"]
+[gd_scene load_steps=46 format=3 uid="uid://xa67fv0awtmh"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_ml175"]
 [ext_resource type="Resource" uid="uid://qiywbrf1e5yu" path="res://media/characters/chara_naomi/characterData.tres" id="2_bsqq3"]
 [ext_resource type="Script" path="res://scripts/characterState.gd" id="3_qgy7h"]
+[ext_resource type="Texture2D" uid="uid://bfo2nmbyekart" path="res://media/characters/chara_whitechapel/sprites/wchap1.png" id="4_j0okt"]
 [ext_resource type="Texture2D" uid="uid://f5blcam4e21i" path="res://media/characters/chara_whitechapel/sprites/wchap2.png" id="4_stos7"]
 [ext_resource type="Texture2D" uid="uid://doqv7ldx2lsqk" path="res://media/characters/chara_naomi/sprites/naomi1.png" id="4_v1yvi"]
 [ext_resource type="Animation" uid="uid://dwe8ircaky2kr" path="res://media/characters/chara_whitechapel/animations/airBurst.res" id="5_1jdct"]
@@ -1475,6 +1476,8 @@ _data = {
 [node name="Character" type="Node2D"]
 script = ExtResource("1_ml175")
 characterData = ExtResource("2_bsqq3")
+initialLogicalPosition = null
+immortal = null
 
 [node name="CharacterState" type="Node" parent="."]
 script = ExtResource("3_qgy7h")
@@ -1483,10 +1486,11 @@ script = ExtResource("3_qgy7h")
 z_index = 10
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("4_stos7")
-offset = Vector2(0, -590)
+texture = ExtResource("4_j0okt")
+offset = Vector2(0, -400)
 hframes = 4
 vframes = 4
+frame = 10
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -1519,7 +1523,7 @@ visible = false
 
 [node name="HurtBox" parent="HurtBoxes" instance=ExtResource("32_5cq7l")]
 active = true
-boxSize = Rect2i(0, -165000, 250000, 320000)
+boxSize = Rect2i(75000, -165000, 200000, 320000)
 
 [node name="HurtBox2" parent="HurtBoxes" instance=ExtResource("32_5cq7l")]
 boxSize = Rect2i(270000, -200000, 200000, 200000)
@@ -1533,4 +1537,4 @@ boxSize = Rect2i(270000, -200000, 200000, 200000)
 [node name="PushBox" parent="." instance=ExtResource("33_13qcx")]
 visible = false
 active = true
-boxSize = Rect2i(0, -120000, 200000, 250000)
+boxSize = Rect2i(-50000, -100000, 200000, 200000)

@@ -358,9 +358,15 @@ texture = ExtResource("6_7wx2e")
 
 [node name="Character1" parent="Characters/CharacterParent" instance=ExtResource("25_rv40u")]
 initialLogicalPosition = Vector2i(250000, 540000)
+immortal = null
+infinityInstallActive = null
+zeroInstallActive = null
 
 [node name="Character2" parent="Characters/CharacterParent" instance=ExtResource("25_rv40u")]
 initialLogicalPosition = Vector2i(109000, 540000)
+immortal = null
+infinityInstallActive = null
+zeroInstallActive = null
 
 [node name="HitSparksParent" type="Node" parent="Characters"]
 

@@ -52,7 +52,8 @@ A small Godot 4.2 fighting game project, with a sketchbook aesthetic
 * 632A (or 22A): Jaguar Knee (cancels into j.236A on hit)
 
 #### Rho-Zetta
-* 4A/5A/6A: Headbash (cancels into all Command Normals and Specials, jump cancel on hit)
+* 5A/6A: Headbash (cancels into all Command Normals and Specials, jump cancel on hit)
+* 4A: Turtling Headbash (same as Headbash, but has invulnerable startup and less damage)
 * 2A: The Pit and the Pendulum (cancels into all Specials, jump cancel on hit, auto-corrects side)
 * j.A: Spikes and Yikes (cancels into Run Amok Rampage on hit)
 * j.2A: Weight of the World (universal air spike)
@@ -67,6 +68,15 @@ A small Godot 4.2 fighting game project, with a sketchbook aesthetic
 * j.B: Air Boost (only on forward jump, costs meter, can't be performed without meter)
 * B (only during any install): Fast Boost (doesn't cost any meter, cancels any ground attack on hit, can be performed on any jump or on the ground)
 * A (during Air Boost or Fast Boost): Drill Smash (cancels into Terrordriller on hit, no meter gain on hit)
+
+### Whitechapel Esmeralda
+* A: Gibbous Moon (cancels into all Command Normals and Specials, jump cancel on hit)
+* 2A: Entropy Burst (cancels into all Specials, jump cancel on hit, auto-corrects side, can be back-dash canceled on startup)
+    * 2A : Entropy Encore (cancels into all Specials and into itself)
+* j.A: Gibbous Moon (halts air momentum, cancels into Air Entropy Burst)
+* j.2A: Ascension Step (universal air spike, cancels into Entropy Encore)
+* j.632A: Entropy Burst (cancels into all Specials and Entropy Encore)
+* 236A: Blame the Night (if Whitechapel has enough meter, this move will throw a projectile. Two projectiles during install, air ok. The palm hitbox can be jump canceled on hit)
 
 ### Basic combo structure:
 * hitting the opponent during the start of their hitstun frames floats them. A sample starter can be either A > 2A, 2A > 236A or e.g. A > 236A

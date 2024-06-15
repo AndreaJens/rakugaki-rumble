@@ -417,6 +417,8 @@ _data = {
 [node name="Character" type="Node2D"]
 script = ExtResource("1_wago2")
 characterData = ExtResource("2_3jd0h")
+initialLogicalPosition = null
+immortal = null
 zeroInstallActive = true
 
 [node name="CharacterState" type="Node" parent="."]

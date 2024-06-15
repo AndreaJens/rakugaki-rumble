@@ -766,15 +766,34 @@ func _process_damage_collisions(attacker : Character, defender : Character) -> D
 func _update_projectile_hit_detection() -> bool:
 	# manage damage and hit reactions
 	var oneProjectileHasHit : bool = false
+	var canGainMeterFromMoveP1 : bool = true 
+	var canGainMeterFromMoveP2 : bool = true 
 	var p1AttackResult = {}
 	var p2AttackResult = {}
 	var projectileP1Hit : CharacterProjectile
 	var projectileP2Hit : CharacterProjectile
+	#check for intra-projectile collisions
+	for projectile in character1.projectiles:
+		if projectile.isActive():
+			for projectileOpp in character2.projectiles:
+				if projectileOpp.isActive():
+					p1AttackResult = _process_damage_collisions(projectile, projectileOpp)
+					if p1AttackResult[HitDetectionFlags.HasHit]:
+						projectileP1Hit = projectile
+						oneProjectileHasHit = true
+						var boxCenter = (p1AttackResult[HitDetectionFlags.IntersectionBox] as Rect2i).get_center()
+						hitspark1.activate_hitspark(boxCenter)
+						if projectile.deactivateOnHit:
+							projectile.deactivate()
+						if projectileOpp.deactivateOnHit:
+							projectileOpp.deactivate()
+	p1AttackResult = {}
 	for projectile in character1.projectiles:
 		if projectile.isActive():
 			p1AttackResult = _process_damage_collisions(projectile, character2)
 			if p1AttackResult[HitDetectionFlags.HasHit]:
 				projectileP1Hit = projectile
+				canGainMeterFromMoveP1 = projectile.meterGainAllowed
 				oneProjectileHasHit = true
 				if projectile.deactivateOnHit:
 					projectile.deactivate()
@@ -785,6 +804,7 @@ func _update_projectile_hit_detection() -> bool:
 			if p2AttackResult[HitDetectionFlags.HasHit]:
 				projectileP2Hit = projectile
 				oneProjectileHasHit = true
+				canGainMeterFromMoveP2 = projectile.meterGainAllowed
 				if projectile.deactivateOnHit:
 					projectile.deactivate()
 				break
@@ -797,7 +817,8 @@ func _update_projectile_hit_detection() -> bool:
 		var meterGainHitCharacter = (
 			p1AttackResult[HitDetectionFlags.MeterGain] / 
 			GameDatabaseAccessor.hitCharacterMeterGainFraction)
-		character1.gain_meter(p1AttackResult[HitDetectionFlags.MeterGain])
+		if canGainMeterFromMoveP1:
+			character1.gain_meter(p1AttackResult[HitDetectionFlags.MeterGain])
 		character2.gain_meter(meterGainHitCharacter)
 		character2.deal_damage(p1AttackResult[HitDetectionFlags.DamageToApply])
 		character2.characterState.comboCounter = 0
@@ -808,7 +829,8 @@ func _update_projectile_hit_detection() -> bool:
 		var meterGainHitCharacter = (
 			p2AttackResult[HitDetectionFlags.MeterGain] / 
 			GameDatabaseAccessor.hitCharacterMeterGainFraction)
-		character2.gain_meter(p2AttackResult[HitDetectionFlags.MeterGain])
+		if canGainMeterFromMoveP2:
+			character2.gain_meter(p2AttackResult[HitDetectionFlags.MeterGain])
 		character1.gain_meter(meterGainHitCharacter)
 		character1.deal_damage(p2AttackResult[HitDetectionFlags.DamageToApply])
 		character1.characterState.comboCounter = 0

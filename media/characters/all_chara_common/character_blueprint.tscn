@@ -10,6 +10,10 @@
 
 [node name="Character" type="Node2D"]
 script = ExtResource("1_1q0h5")
+initialLogicalPosition = null
+immortal = null
+infinityInstallActive = null
+zeroInstallActive = null
 
 [node name="CharacterState" type="Node" parent="."]
 script = ExtResource("3_jdgsp")
@@ -66,6 +70,7 @@ boxSize = Rect2i(0, -120000, 200000, 250000)
 [node name="Projectiles" type="Node" parent="."]
 
 [node name="Projectile1" parent="Projectiles" instance=ExtResource("7_t3qo0")]
+visible = false
 
 [node name="Projectile2" parent="Projectiles" instance=ExtResource("7_t3qo0")]
 visible = false

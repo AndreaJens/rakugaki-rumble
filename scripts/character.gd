@@ -129,7 +129,10 @@ func spawn_projectile(projectileType : String, maxDurationTicks : int, offset : 
 			projPosition.x += offset.x
 		else:
 			projPosition.x -= offset.x
-		projectiles[projIndex].activate(projPosition, is_on_left_side(), maxDurationTicks)
+		var meterGainAllowed = true
+		if currentMove and !currentMove.canGainMeter:
+			meterGainAllowed = false
+		projectiles[projIndex].activate(projPosition, is_on_left_side(), maxDurationTicks, meterGainAllowed)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -586,28 +589,32 @@ func _update_current_move( inputManager : InputBufferManager, extraLeniency : in
 			if !moveNameToIndex.has(followup.targetMoveName):
 				continue
 			if !followup.onWhiff and !characterState.currentMoveHasHit:
-				continue
+				continue				
 			var moveIndex : int = moveNameToIndex[followup.targetMoveName]
 			var moveToTest = characterData.characterMoves[moveIndex]
 			if !can_perform_move(moveToTest):
 				continue
-			var inputBuffer = []
-			if moveToTest.useRawBuffer:
-				inputBuffer = inputManager.get_current_raw_buffer()
+			if followup.autoCancelWhenValid:
+				apply_new_move(moveToTest)
+				newMovePerformed = true
 			else:
-				inputBuffer = inputManager.get_current_buffer()
-			if followup.activeIfNothingPressed and (
-				inputBuffer.is_empty() or
-				inputBuffer.back() == GameDatabaseAccessor.GameInputButton.None
-				):
-				apply_new_move(moveToTest)
-				newMovePerformed = true
-				break
-			elif moveToTest.check_input_match(inputBuffer, is_on_left_side(), extraLeniency):
-				apply_new_move(moveToTest)
-				#print(moveToTest.internalName)
-				newMovePerformed = true
-				break
+				var inputBuffer = []
+				if moveToTest.useRawBuffer:
+					inputBuffer = inputManager.get_current_raw_buffer()
+				else:
+					inputBuffer = inputManager.get_current_buffer()
+				if followup.activeIfNothingPressed and (
+					inputBuffer.is_empty() or
+					inputBuffer.back() == GameDatabaseAccessor.GameInputButton.None
+					):
+					apply_new_move(moveToTest)
+					newMovePerformed = true
+					break
+				elif moveToTest.check_input_match(inputBuffer, is_on_left_side(), extraLeniency):
+					apply_new_move(moveToTest)
+					#print(moveToTest.internalName)
+					newMovePerformed = true
+					break
 		if characterState.currentFrame >= currentMove.endingFrame:
 			if !newMovePerformed:
 				for followup in currentMove.cancelRoutes:
