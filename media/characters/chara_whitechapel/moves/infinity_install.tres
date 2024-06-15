@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=2 format=3 uid="uid://k2xlwm8jmauc"]
+
+[ext_resource type="Script" path="res://scripts/move.gd" id="1_7i418"]
+
+[resource]
+script = ExtResource("1_7i418")
+characterState = 0
+internalName = "infinity_install"
+displayName = ""
+animationName = "infinity_install"
+startingFrame = 0
+endingFrame = 18
+isHitStunState = false
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(0, 9000)
+logicalAccelerationPerFrame = Vector2i(0, 900)
+keepMomentumPercent = 0
+canGainMeter = true
+meterCost = 30000
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = false
+canBeUsedAfterRoundEnds = false
+requiresInfinityInstall = false
+requiresZeroInstall = false
+requiresAnyInstall = false
+forbiddenButtons = Array[int]([])
+bufferStartLeniency = 5
+bufferLengthLeniency = 4
+useRawBuffer = false
+input = Array[int]([32])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 18

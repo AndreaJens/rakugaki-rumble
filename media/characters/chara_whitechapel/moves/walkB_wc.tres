@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=6 format=3 uid="uid://bsv55r8w5kl6w"]
+
+[ext_resource type="Resource" uid="uid://c6bibtakoncnd" path="res://media/characters/all_chara_common/moves/cancels/zero_install_all.tres" id="1_34gek"]
+[ext_resource type="Resource" uid="uid://bcmdanssjtek8" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_all.tres" id="2_rrrtp"]
+[ext_resource type="Resource" uid="uid://bbpnd2ay6mxes" path="res://media/characters/all_chara_common/moves/cancels/kara_backward_jump.tres" id="3_jgorp"]
+[ext_resource type="Resource" uid="uid://dkvcd6s744tx2" path="res://media/characters/all_chara_common/moves/cancels/to_idle_landing.tres" id="4_h2x3j"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="5_vbemt"]
+
+[resource]
+script = ExtResource("5_vbemt")
+characterState = 0
+internalName = "walkBOnce"
+displayName = ""
+animationName = "walkB"
+startingFrame = 0
+endingFrame = 12
+isHitStunState = false
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(-15000, -20000)
+logicalAccelerationPerFrame = Vector2i(0, 2500)
+keepMomentumPercent = 0
+canGainMeter = true
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = true
+canBeUsedAfterRoundEnds = false
+requiresInfinityInstall = false
+requiresZeroInstall = false
+requiresAnyInstall = false
+forbiddenButtons = Array[int]([])
+bufferStartLeniency = 3
+bufferLengthLeniency = 2
+useRawBuffer = true
+input = Array[int]([8])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_34gek"), ExtResource("2_rrrtp"), ExtResource("3_jgorp"), ExtResource("4_h2x3j")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0

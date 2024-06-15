@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=11 format=3 uid="uid://b34rjadnuylyx"]
+
+[ext_resource type="Resource" uid="uid://bc7ehx5j2d1b5" path="res://media/characters/chara_naomi/moves/cancels/to_slash.tres" id="1_cmuuw"]
+[ext_resource type="Resource" uid="uid://burcvodrfayiu" path="res://media/characters/chara_whitechapel/moves/cancels/to_entropy_burst.tres" id="1_qo1jc"]
+[ext_resource type="Resource" uid="uid://c6bibtakoncnd" path="res://media/characters/all_chara_common/moves/cancels/zero_install_all.tres" id="4_dssh4"]
+[ext_resource type="Resource" uid="uid://bcmdanssjtek8" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_all.tres" id="5_uq85t"]
+[ext_resource type="Resource" uid="uid://xuie720qplxx" path="res://media/characters/all_chara_common/moves/cancels/to_forward_jump.tres" id="6_cn55x"]
+[ext_resource type="Resource" uid="uid://cg45jqlfenv7t" path="res://media/characters/all_chara_common/moves/cancels/to_backward_jump.tres" id="7_exost"]
+[ext_resource type="Resource" uid="uid://c160x7jyc01hb" path="res://media/characters/all_chara_common/moves/cancels/to_neutral_jump.tres" id="8_pvqqx"]
+[ext_resource type="Resource" uid="uid://cb245tum6ybk6" path="res://media/characters/all_chara_common/moves/cancels/to_backwards_once.tres" id="9_lh626"]
+[ext_resource type="Resource" uid="uid://bbu004wfrvxr8" path="res://media/characters/all_chara_common/moves/cancels/f_to_idle.tres" id="10_7bygy"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="11_usuju"]
+
+[resource]
+script = ExtResource("11_usuju")
+characterState = 0
+internalName = "walkF"
+displayName = ""
+animationName = "walkF"
+startingFrame = 0
+endingFrame = 10
+isHitStunState = false
+loop = true
+canTurnMidMove = true
+logicalVelocityPerFrame = Vector2i(12000, 0)
+logicalAccelerationPerFrame = Vector2i(0, 0)
+keepMomentumPercent = 0
+canGainMeter = true
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = true
+canBeUsedAfterRoundEnds = false
+requiresInfinityInstall = false
+requiresZeroInstall = false
+requiresAnyInstall = false
+forbiddenButtons = Array[int]([])
+bufferStartLeniency = 0
+bufferLengthLeniency = 2
+useRawBuffer = true
+input = Array[int]([4])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_qo1jc"), ExtResource("1_cmuuw"), ExtResource("4_dssh4"), ExtResource("5_uq85t"), ExtResource("6_cn55x"), ExtResource("7_exost"), ExtResource("8_pvqqx"), ExtResource("9_lh626"), ExtResource("10_7bygy")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0

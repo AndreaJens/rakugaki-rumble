@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=3 format=3 uid="uid://bh4sen2m7tth7"]
+
+[ext_resource type="Resource" uid="uid://dkvcd6s744tx2" path="res://media/characters/all_chara_common/moves/cancels/to_idle_landing.tres" id="1_65ao7"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="2_rco8p"]
+
+[resource]
+script = ExtResource("2_rco8p")
+characterState = 1
+internalName = "downSpike"
+displayName = ""
+animationName = "downSpike"
+startingFrame = 0
+endingFrame = 27
+isHitStunState = false
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(4000, -3000)
+logicalAccelerationPerFrame = Vector2i(0, 2500)
+keepMomentumPercent = 100
+canGainMeter = true
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = false
+canBeUsedAfterRoundEnds = false
+requiresInfinityInstall = false
+requiresZeroInstall = false
+requiresAnyInstall = false
+forbiddenButtons = Array[int]([])
+bufferStartLeniency = 5
+bufferLengthLeniency = 10
+useRawBuffer = false
+input = Array[int]([1, 16])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_65ao7")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0

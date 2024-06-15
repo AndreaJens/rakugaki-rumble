@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MoveCancelRoute" load_steps=2 format=3 uid="uid://g6qr4gtexyxl"]
+
+[ext_resource type="Script" path="res://scripts/cancelRoute.gd" id="1_nadxt"]
+
+[resource]
+script = ExtResource("1_nadxt")
+targetMoveName = "entropyFwp"
+startFrame = 23
+endFrame = -1
+onHit = true
+onBlock = false
+onWhiff = false
+automaticCancelOnLanding = false
+activeIfNothingPressed = false
+autoCancelWhenValid = false
+autoPerformAtMoveEnd = false

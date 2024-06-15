@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dtrh7m0aho8ro"]
+[gd_scene load_steps=10 format=3 uid="uid://dtrh7m0aho8ro"]
 
 [ext_resource type="Script" path="res://scripts/scene_character_selection.gd" id="1_edawh"]
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="2_p7346"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://ljub10t2iwni" path="res://media/characters/chara_rhozetta/sprites/name.png" id="5_gpk7r"]
 [ext_resource type="Texture2D" uid="uid://cxqx2oj7ip8u7" path="res://media/characters/chara_gridd/sprites/name.png" id="6_cx8ss"]
 [ext_resource type="Texture2D" uid="uid://cks540ri7mypt" path="res://media/hud/logo.png" id="7_14fs6"]
+[ext_resource type="Texture2D" uid="uid://c8k5hy3ln56n0" path="res://media/characters/chara_whitechapel/sprites/name.png" id="7_ik5nw"]
 
 [node name="SceneCharacterSelection" type="Node2D" node_paths=PackedStringArray("_menu_p1", "_menu_p2")]
 script = ExtResource("1_edawh")
@@ -25,7 +26,7 @@ texture = ExtResource("2_p7346")
 position = Vector2(283, 318)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("3_6r5vb")
-_optionSprites = [NodePath("Naomi"), NodePath("Rho-Zetta"), NodePath("Gridd")]
+_optionSprites = [NodePath("Naomi"), NodePath("Rho-Zetta"), NodePath("Gridd"), NodePath("Whitechapel")]
 
 [node name="Naomi" type="Sprite2D" parent="MenuP1"]
 texture = ExtResource("4_y8r6v")
@@ -38,11 +39,15 @@ texture = ExtResource("5_gpk7r")
 position = Vector2(0, 240)
 texture = ExtResource("6_cx8ss")
 
+[node name="Whitechapel" type="Sprite2D" parent="MenuP1"]
+position = Vector2(0, 360)
+texture = ExtResource("7_ik5nw")
+
 [node name="MenuP2" type="Node2D" parent="." node_paths=PackedStringArray("_optionSprites")]
 position = Vector2(850, 318)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("3_6r5vb")
-_optionSprites = [NodePath("Naomi"), NodePath("Rho-Zetta"), NodePath("Gridd")]
+_optionSprites = [NodePath("Naomi"), NodePath("Rho-Zetta"), NodePath("Gridd"), NodePath("Whitechapel")]
 
 [node name="Naomi" type="Sprite2D" parent="MenuP2"]
 texture = ExtResource("4_y8r6v")
@@ -54,6 +59,10 @@ texture = ExtResource("5_gpk7r")
 [node name="Gridd" type="Sprite2D" parent="MenuP2"]
 position = Vector2(0, 240)
 texture = ExtResource("6_cx8ss")
+
+[node name="Whitechapel" type="Sprite2D" parent="MenuP2"]
+position = Vector2(0, 360)
+texture = ExtResource("7_ik5nw")
 
 [node name="VS" type="Sprite2D" parent="."]
 position = Vector2(567, 318)

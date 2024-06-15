@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=8 format=3 uid="uid://dw286u1bvgkv5"]
+
+[ext_resource type="Resource" uid="uid://g6qr4gtexyxl" path="res://media/characters/chara_whitechapel/moves/cancels/to_entropy_fwp.tres" id="1_abmd7"]
+[ext_resource type="Resource" uid="uid://b3dvs8txb8pji" path="res://media/characters/all_chara_common/moves/cancels/zero_install_hit.tres" id="2_r4q1g"]
+[ext_resource type="Resource" uid="uid://k85f7ldgjhu7" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_hit.tres" id="3_cjdik"]
+[ext_resource type="Resource" uid="uid://csyfkukhxifa0" path="res://media/characters/all_chara_common/moves/cancels/jc_on_hit.tres" id="4_xf47j"]
+[ext_resource type="Resource" uid="uid://d2quvuuy1qvv0" path="res://media/characters/all_chara_common/moves/cancels/jc_b_on_hit.tres" id="5_mbc0g"]
+[ext_resource type="Resource" uid="uid://d2nccsnvqunof" path="res://media/characters/all_chara_common/moves/cancels/jc_n_on_hit.tres" id="6_ac51t"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="7_ftqbl"]
+
+[resource]
+script = ExtResource("7_ftqbl")
+characterState = 0
+internalName = "entropyBurstAir"
+displayName = ""
+animationName = "entropyBurst_longer"
+startingFrame = 10
+endingFrame = 45
+isHitStunState = false
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(0, 4000)
+logicalAccelerationPerFrame = Vector2i(0, 3000)
+keepMomentumPercent = 0
+canGainMeter = true
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = false
+canBeUsedAfterRoundEnds = false
+requiresInfinityInstall = false
+requiresZeroInstall = false
+requiresAnyInstall = false
+forbiddenButtons = Array[int]([])
+bufferStartLeniency = 5
+bufferLengthLeniency = 15
+useRawBuffer = false
+input = Array[int]([8, 9, 1, 16])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_abmd7"), ExtResource("2_r4q1g"), ExtResource("3_cjdik"), ExtResource("4_xf47j"), ExtResource("5_mbc0g"), ExtResource("6_ac51t")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0

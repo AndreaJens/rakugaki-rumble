@@ -1,6 +1,34 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=3 format=3 uid="uid://rteooln5bhws"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=31 format=3 uid="uid://rteooln5bhws"]
 
+[ext_resource type="Resource" uid="uid://pas1r8leavrj" path="res://media/characters/chara_whitechapel/moves/idle_wc.tres" id="1_6h5ht"]
 [ext_resource type="Texture2D" uid="uid://c8k5hy3ln56n0" path="res://media/characters/chara_whitechapel/sprites/name.png" id="1_xfeud"]
+[ext_resource type="Resource" uid="uid://dw56kqn4cad62" path="res://media/characters/all_chara_common/moves/falling.tres" id="2_u3llf"]
+[ext_resource type="Resource" uid="uid://kx1qs1828ggs" path="res://media/characters/all_chara_common/moves/hurtG.tres" id="3_g6pjv"]
+[ext_resource type="Resource" uid="uid://bft8ly50mxsqt" path="res://media/characters/all_chara_common/moves/hurtA.tres" id="4_bswsp"]
+[ext_resource type="Resource" uid="uid://dvqxwtrvd47r0" path="res://media/characters/chara_whitechapel/moves/ko.tres" id="5_4nmhr"]
+[ext_resource type="Resource" uid="uid://iftbfj5mag5o" path="res://media/characters/all_chara_common/moves/victory.tres" id="6_tqkbg"]
+[ext_resource type="Resource" uid="uid://b4iddv07638e1" path="res://media/characters/all_chara_common/moves/hurtSpike.tres" id="7_16am7"]
+[ext_resource type="Resource" uid="uid://ddq3qvlahs01k" path="res://media/characters/all_chara_common/moves/wallsplat.tres" id="8_368mr"]
+[ext_resource type="Resource" uid="uid://co38myrch0k7m" path="res://media/characters/all_chara_common/moves/wallsplat_ko.tres" id="9_emudn"]
+[ext_resource type="Resource" uid="uid://c7w154egxscjy" path="res://media/characters/all_chara_common/moves/airBurst.tres" id="12_io46o"]
+[ext_resource type="Resource" uid="uid://k2xlwm8jmauc" path="res://media/characters/chara_whitechapel/moves/infinity_install.tres" id="13_37rd3"]
+[ext_resource type="Resource" uid="uid://ceuq2bgj6l7xf" path="res://media/characters/chara_whitechapel/moves/zero_install.tres" id="14_m3drn"]
+[ext_resource type="Resource" uid="uid://bb8wdwcxag0qj" path="res://media/characters/chara_whitechapel/moves/landing_wc.tres" id="15_5hska"]
+[ext_resource type="Resource" uid="uid://mk1k3md6bp1n" path="res://media/characters/chara_whitechapel/moves/neutralJump_wc.tres" id="16_bblvt"]
+[ext_resource type="Resource" uid="uid://dhjee5ktj3gom" path="res://media/characters/chara_whitechapel/moves/forwardJump_wc.tres" id="17_72c53"]
+[ext_resource type="Resource" uid="uid://gck1pqsx7cpa" path="res://media/characters/chara_whitechapel/moves/backJump_wc.tres" id="18_faahj"]
+[ext_resource type="Resource" uid="uid://bsv55r8w5kl6w" path="res://media/characters/chara_whitechapel/moves/walkB_wc.tres" id="19_m7eqt"]
+[ext_resource type="Resource" uid="uid://civ47bn8xjyc7" path="res://media/characters/chara_whitechapel/moves/walkBOnce_wc.tres" id="20_pf6eu"]
+[ext_resource type="Resource" uid="uid://b34rjadnuylyx" path="res://media/characters/chara_whitechapel/moves/walkF_wc.tres" id="21_thqvd"]
+[ext_resource type="Resource" uid="uid://dreocw0ub6uvv" path="res://media/characters/all_chara_common/moves/forward_to_idle.tres" id="21_ynpjd"]
+[ext_resource type="Resource" uid="uid://j3mbwgsubeft" path="res://media/characters/all_chara_common/moves/backwards_to_idle.tres" id="22_c8iim"]
+[ext_resource type="Resource" uid="uid://bvfhrvf48xvmc" path="res://media/characters/chara_whitechapel/moves/knockdown_wc.tres" id="22_wo1y5"]
+[ext_resource type="Resource" uid="uid://c4j15rp4axog2" path="res://media/characters/chara_whitechapel/moves/attack1.tres" id="23_35vmx"]
+[ext_resource type="Resource" uid="uid://dxpcrg4qxbrmu" path="res://media/characters/chara_whitechapel/moves/attack1air.tres" id="24_0fbrk"]
+[ext_resource type="Resource" uid="uid://bh4sen2m7tth7" path="res://media/characters/chara_whitechapel/moves/downSpike.tres" id="25_u8gtp"]
+[ext_resource type="Resource" uid="uid://b11ygfifxi3x1" path="res://media/characters/chara_whitechapel/moves/entropyBurst.tres" id="26_7wdgq"]
+[ext_resource type="Resource" uid="uid://bl40pxmtca4ya" path="res://media/characters/chara_whitechapel/moves/entropyFwp.tres" id="27_4qwwg"]
+[ext_resource type="Resource" uid="uid://dw286u1bvgkv5" path="res://media/characters/chara_whitechapel/moves/entropyBurstAir.tres" id="28_2a06q"]
 [ext_resource type="Script" path="res://scripts/characterData.gd" id="33_46w2h"]
 
 [resource]
@@ -8,7 +36,7 @@ script = ExtResource("33_46w2h")
 characterFullName = "Whitechapel Esmeralda"
 characterDisplayName = "Whitechapel"
 characterAnimationLibraryPrefix = "wchap"
-characterMaxHealth = 9000
+characterMaxHealth = 90000
 characterMaxMeter = 30000
 characterNameTexture = ExtResource("1_xfeud")
-characterMoves = Array[Resource("res://scripts/move.gd")]([])
+characterMoves = Array[Resource("res://scripts/move.gd")]([ExtResource("1_6h5ht"), ExtResource("2_u3llf"), ExtResource("3_g6pjv"), ExtResource("4_bswsp"), ExtResource("5_4nmhr"), ExtResource("6_tqkbg"), ExtResource("7_16am7"), ExtResource("8_368mr"), ExtResource("9_emudn"), ExtResource("21_ynpjd"), ExtResource("22_c8iim"), ExtResource("12_io46o"), ExtResource("13_37rd3"), ExtResource("14_m3drn"), ExtResource("15_5hska"), ExtResource("16_bblvt"), ExtResource("17_72c53"), ExtResource("18_faahj"), ExtResource("19_m7eqt"), ExtResource("20_pf6eu"), ExtResource("21_thqvd"), ExtResource("22_wo1y5"), ExtResource("23_35vmx"), ExtResource("24_0fbrk"), ExtResource("25_u8gtp"), ExtResource("26_7wdgq"), ExtResource("27_4qwwg"), ExtResource("28_2a06q")])

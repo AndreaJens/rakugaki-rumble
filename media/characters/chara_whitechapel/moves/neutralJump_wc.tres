@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=6 format=3 uid="uid://mk1k3md6bp1n"]
+
+[ext_resource type="Resource" uid="uid://btc2teklyajnw" path="res://media/characters/chara_whitechapel/moves/cancels/to_entropy_burst_air.tres" id="1_4kwtj"]
+[ext_resource type="Resource" uid="uid://dxbcshc3cc40c" path="res://media/characters/chara_naomi/moves/cancels/to_down_spike.tres" id="2_d2832"]
+[ext_resource type="Resource" uid="uid://cjr065s1i36mb" path="res://media/characters/chara_naomi/moves/cancels/to_air_slash.tres" id="3_pdqcw"]
+[ext_resource type="Resource" uid="uid://dkvcd6s744tx2" path="res://media/characters/all_chara_common/moves/cancels/to_idle_landing.tres" id="4_y4p2m"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="5_6jsbb"]
+
+[resource]
+script = ExtResource("5_6jsbb")
+characterState = 0
+internalName = "jumpN"
+displayName = ""
+animationName = "jumpN"
+startingFrame = 0
+endingFrame = 20
+isHitStunState = false
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(0, -45000)
+logicalAccelerationPerFrame = Vector2i(0, 4100)
+keepMomentumPercent = 0
+canGainMeter = true
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = true
+canBeUsedAfterRoundEnds = false
+requiresInfinityInstall = false
+requiresZeroInstall = false
+requiresAnyInstall = false
+forbiddenButtons = Array[int]([])
+bufferStartLeniency = 3
+bufferLengthLeniency = 10
+useRawBuffer = true
+input = Array[int]([2])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_4kwtj"), ExtResource("2_d2832"), ExtResource("3_pdqcw"), ExtResource("4_y4p2m")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0
