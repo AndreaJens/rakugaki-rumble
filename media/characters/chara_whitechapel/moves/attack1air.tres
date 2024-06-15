@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=4 format=3 uid="uid://dxpcrg4qxbrmu"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=5 format=3 uid="uid://dxpcrg4qxbrmu"]
 
+[ext_resource type="Resource" uid="uid://c6k3678b3yole" path="res://media/characters/chara_whitechapel/moves/cancels/to_bat_assault_hit.tres" id="1_7irrg"]
 [ext_resource type="Resource" uid="uid://dkvcd6s744tx2" path="res://media/characters/all_chara_common/moves/cancels/to_idle_landing.tres" id="1_eacwy"]
 [ext_resource type="Resource" uid="uid://dbe3fj1voh0w" path="res://media/characters/chara_whitechapel/moves/cancels/to_entropy_burst_air_hit.tres" id="1_uppia"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="9_gcbp7"]
@@ -8,7 +9,7 @@
 script = ExtResource("9_gcbp7")
 characterState = 1
 internalName = "attack1Air"
-displayName = ""
+displayName = "Harvest Moon (air)"
 animationName = "attack1"
 startingFrame = 0
 endingFrame = 22
@@ -18,6 +19,7 @@ canTurnMidMove = false
 logicalVelocityPerFrame = Vector2i(0, 0)
 logicalAccelerationPerFrame = Vector2i(0, 0)
 keepMomentumPercent = 0
+spawnProjectileAtFrame = {}
 canGainMeter = true
 meterCost = 0
 canMeterBreak = false
@@ -35,6 +37,6 @@ input = Array[int]([16])
 inputVariant1 = Array[int]([])
 inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
-cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_uppia"), ExtResource("1_eacwy")])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_7irrg"), ExtResource("1_uppia"), ExtResource("1_eacwy")])
 guardFrames = Vector2i(-1, -1)
 timestopFrames = 0

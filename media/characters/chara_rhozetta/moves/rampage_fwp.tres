@@ -20,6 +20,7 @@ canTurnMidMove = false
 logicalVelocityPerFrame = Vector2i(40000, 0)
 logicalAccelerationPerFrame = Vector2i(0, 4000)
 keepMomentumPercent = 100
+spawnProjectileAtFrame = {}
 canGainMeter = true
 meterCost = 0
 canMeterBreak = false

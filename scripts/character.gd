@@ -24,6 +24,8 @@ var currentMove : CharacterMove = null
 @onready var pushBox : MoveBox = $PushBox
 var hitBoxes : Array[HitBox] = []
 var hurtBoxes : Array[HurtBox] = []
+var projectiles : Array[CharacterProjectile] = []
+var projectileNameDict : Dictionary = {}
 @export var immortal : bool = false
 
 @export var infinityInstallActive : bool = false:
@@ -89,11 +91,45 @@ func initialize_from_directory(characterDataPath : String) -> bool:
 				print("Animation %s could not be loaded?" % move.animationName)
 				print("  Path 1: %s" % resourceName)
 				print("  Path 2: %s" % commonResourceName)
+		# now load projectiles
+		var projectileIndex = 0
+		var tempProjectiles = []
+		for child in $Projectiles.get_children():
+			if child is CharacterProjectile:
+				tempProjectiles.push_back(child)
+		for projectileType in characterData.characterProjectileTypes:
+			var projectilePath = ("res://media/characters/" + characterDataPath + 
+				"/projectiles/" + projectileType + "/characterData.tres")
+			if !ResourceLoader.exists(projectilePath):
+				print("Projectile %s not found at path %s" % [projectileType, projectilePath])
+				continue
+			else:
+				var projectileSetupPath =  characterDataPath + "/projectiles/" + projectileType
+				var result = tempProjectiles[projectileIndex].initialize_from_directory(projectileSetupPath)
+				projectileIndex += 1
+				if result:
+					print("Projectile %s loaded successfully" % projectileType)
+				else:
+					print("Error: projectile %s not found" % projectileType)
+				if projectileIndex >= tempProjectiles.size():
+					break
 		_initialize()
 		return true
 	else:
 		return false
 	
+func spawn_projectile(projectileType : String, maxDurationTicks : int, offset : Vector2i):
+	var projIndex = projectileNameDict[projectileType]
+	if projectiles[projIndex].isActive():
+		return
+	else:
+		var projPosition = get_logical_position()
+		projPosition.y += offset.y
+		if is_on_left_side():
+			projPosition.x += offset.x
+		else:
+			projPosition.x -= offset.x
+		projectiles[projIndex].activate(projPosition, is_on_left_side(), maxDurationTicks)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -108,12 +144,19 @@ func _initialize():
 		moveIndex += 1
 	hitBoxes.clear()
 	hurtBoxes.clear()
+	projectiles.clear()
+	projectileNameDict.clear()
 	for child in $HitBoxes.get_children():
 		if child is HitBox:
 			hitBoxes.push_back(child)	
 	for child in $HurtBoxes.get_children():
 		if child is HurtBox:
 			hurtBoxes.push_back(child)
+	for child in $Projectiles.get_children():
+		if child is CharacterProjectile:
+			if child.isInitialized():
+				projectiles.push_back(child)
+				projectileNameDict[child.characterData.characterFullName] = projectiles.size() -1
 	
 func get_sprite() -> Sprite2D:
 	return $Sprite2D
@@ -524,6 +567,13 @@ func _update_current_move( inputManager : InputBufferManager, extraLeniency : in
 		var newMovePerformed := false
 		characterState.currentFrame += 1
 		set_animation_frame(characterState.currentFrame)
+		# spawn projectiles if needed
+		#print( currentMove.spawnProjectileAtFrame)
+		if currentMove.spawnProjectileAtFrame.has(characterState.currentFrame):
+			var offset : Vector2i = currentMove.spawnProjectileAtFrame[characterState.currentFrame]["offset"]
+			var projType : String = currentMove.spawnProjectileAtFrame[characterState.currentFrame]["projType"]
+			var duration : int = currentMove.spawnProjectileAtFrame[characterState.currentFrame]["duration"]
+			spawn_projectile(projType, duration, offset)
 		# look for followups
 		if is_ko():
 			if characterState.moveId != ReservedMoveIndex.Ko:
@@ -588,4 +638,9 @@ func update( inputManager : InputBufferManager, extraInputLeniency : int = 0 ):
 	update_screen_position()
 	_update_boxes()
 					
+func update_projectiles(  inputManager : InputBufferManager, extraInputLeniency : int = 0):
+	for projectile in projectiles:
+		projectile.initialLogicalPosition = initialLogicalPosition
+		if projectile.can_be_updated():
+			projectile.update(inputManager, extraInputLeniency)
 

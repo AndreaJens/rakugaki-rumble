@@ -43,3 +43,4 @@ characterMaxHealth = 100000
 characterMaxMeter = 30000
 characterNameTexture = ExtResource("21_tvj7t")
 characterMoves = Array[Resource("res://scripts/move.gd")]([ExtResource("1_1hkwy"), ExtResource("2_fd1iy"), ExtResource("3_w8mbb"), ExtResource("4_m4ai3"), ExtResource("5_bk88r"), ExtResource("6_22kyx"), ExtResource("5_dn7hy"), ExtResource("7_d85sl"), ExtResource("7_hxaci"), ExtResource("6_6ss6r"), ExtResource("7_me4oq"), ExtResource("4_wp1ec"), ExtResource("5_vtntq"), ExtResource("8_6w6yr"), ExtResource("1_uvrso"), ExtResource("3_26k0q"), ExtResource("4_gqu7m"), ExtResource("5_1yif7"), ExtResource("3_jx27h"), ExtResource("2_qsvjh"), ExtResource("5_mtauf"), ExtResource("7_safhy"), ExtResource("10_8h2rf"), ExtResource("13_wywu3"), ExtResource("24_f6hx0"), ExtResource("24_axx4q"), ExtResource("26_nvnap"), ExtResource("27_bji48"), ExtResource("29_pocem"), ExtResource("30_dv50i"), ExtResource("31_fqhii")])
+characterProjectileTypes = Array[String]([])

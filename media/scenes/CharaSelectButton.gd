@@ -4,7 +4,8 @@ var currentItemIndex = 0
 var characterPaths = [
 	"chara_naomi",
 	"chara_rhozetta",
-	"chara_gridd"
+	"chara_gridd",
+	"chara_whitechapel",
 ]
 
 @export var character_name_textures : Array[Texture2D] = []

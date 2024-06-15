@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bvrseqwr8eytr"]
+[gd_scene load_steps=8 format=3 uid="uid://bvrseqwr8eytr"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_1q0h5"]
 [ext_resource type="Script" path="res://scripts/characterState.gd" id="3_jdgsp"]
 [ext_resource type="Script" path="res://addons/godot-rollback-netcode/NetworkAnimationPlayer.gd" id="3_v4gda"]
+[ext_resource type="PackedScene" uid="uid://b085eskbejvl0" path="res://media/characters/all_chara_common/projectile_blueprint.tscn" id="7_t3qo0"]
 [ext_resource type="PackedScene" uid="uid://cy2ewlewinwbv" path="res://media/logic/HitBox.tscn" id="27_tfmq8"]
 [ext_resource type="PackedScene" uid="uid://cbaqvnlrwjidk" path="res://media/logic/HurtBox.tscn" id="28_hw38u"]
 [ext_resource type="PackedScene" uid="uid://c5k34hfd8kc10" path="res://media/logic/PushBox.tscn" id="29_6i8xr"]
@@ -61,3 +62,16 @@ boxSize = Rect2i(270000, -200000, 200000, 200000)
 
 [node name="PushBox" parent="." instance=ExtResource("29_6i8xr")]
 boxSize = Rect2i(0, -120000, 200000, 250000)
+
+[node name="Projectiles" type="Node" parent="."]
+
+[node name="Projectile1" parent="Projectiles" instance=ExtResource("7_t3qo0")]
+
+[node name="Projectile2" parent="Projectiles" instance=ExtResource("7_t3qo0")]
+visible = false
+
+[node name="Projectile3" parent="Projectiles" instance=ExtResource("7_t3qo0")]
+visible = false
+
+[node name="Projectile4" parent="Projectiles" instance=ExtResource("7_t3qo0")]
+visible = false

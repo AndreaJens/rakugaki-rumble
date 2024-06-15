@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://77im48dr5l1j"]
+[gd_scene load_steps=14 format=3 uid="uid://77im48dr5l1j"]
 
 [ext_resource type="Script" path="res://scripts/netplay_menu.gd" id="1_6hgq2"]
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="1_53js3"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://media/scenes/CharaSelectButton.gd" id="6_qbc81"]
 [ext_resource type="Script" path="res://scripts/NetplayDeviceSelect.gd" id="7_dgxni"]
 [ext_resource type="Script" path="res://scripts/NetplayInputDelaySelect.gd" id="9_rbr61"]
+[ext_resource type="Texture2D" uid="uid://c8k5hy3ln56n0" path="res://media/characters/chara_whitechapel/sprites/name.png" id="9_re6fm"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_l7ho3"]
 font_size = 24
@@ -94,15 +95,17 @@ offset_right = 798.0
 offset_bottom = 208.0
 text = "SELECT CHARACTER"
 flat = false
-item_count = 3
+item_count = 4
 popup/item_0/text = "Naomi Rukino"
 popup/item_0/id = 0
 popup/item_1/text = "Rho-Zetta"
 popup/item_1/id = 1
 popup/item_2/text = "Gridd Deadmetal"
 popup/item_2/id = 2
+popup/item_3/text = "Whitechapel Esmeralda"
+popup/item_3/id = 3
 script = ExtResource("6_qbc81")
-character_name_textures = Array[Texture2D]([ExtResource("4_3bi1f"), ExtResource("5_ssgc0"), ExtResource("6_d81gj")])
+character_name_textures = Array[Texture2D]([ExtResource("4_3bi1f"), ExtResource("5_ssgc0"), ExtResource("6_d81gj"), ExtResource("9_re6fm")])
 
 [node name="CharacterName" type="Sprite2D" parent="ConnectionUI/CharaSelectButton"]
 position = Vector2(408, 44)

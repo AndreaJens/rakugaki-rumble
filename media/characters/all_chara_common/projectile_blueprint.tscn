@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://b085eskbejvl0"]
+
+[ext_resource type="Script" path="res://scripts/projectile.gd" id="1_bvb1d"]
+[ext_resource type="Script" path="res://scripts/characterState.gd" id="2_wc0xp"]
+[ext_resource type="Script" path="res://addons/godot-rollback-netcode/NetworkAnimationPlayer.gd" id="3_lyrj3"]
+[ext_resource type="PackedScene" uid="uid://cy2ewlewinwbv" path="res://media/logic/HitBox.tscn" id="4_xjogk"]
+[ext_resource type="PackedScene" uid="uid://cbaqvnlrwjidk" path="res://media/logic/HurtBox.tscn" id="5_8yjp8"]
+[ext_resource type="PackedScene" uid="uid://c5k34hfd8kc10" path="res://media/logic/PushBox.tscn" id="6_m5toj"]
+
+[node name="Projectile" type="Node2D"]
+script = ExtResource("1_bvb1d")
+
+[node name="CharacterState" type="Node" parent="."]
+script = ExtResource("2_wc0xp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 100
+texture_filter = 6
+scale = Vector2(0.6, 0.6)
+offset = Vector2(0, -370)
+hframes = 4
+vframes = 4
+frame = 13
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+deterministic = true
+speed_scale = 0.0
+script = ExtResource("3_lyrj3")
+auto_reset = false
+
+[node name="HitBoxes" type="Node2D" parent="."]
+
+[node name="HitBox" parent="HitBoxes" instance=ExtResource("4_xjogk")]
+moveReactionOnHitGround = "hurtG"
+damage = 12000
+boxSize = Rect2i(150000, -200000, 300000, 300000)
+
+[node name="HurtBoxes" type="Node2D" parent="."]
+
+[node name="HurtBox" parent="HurtBoxes" instance=ExtResource("5_8yjp8")]
+boxSize = Rect2i(-50000, -165000, 250000, 320000)
+
+[node name="PushBox" parent="." instance=ExtResource("6_m5toj")]
+boxSize = Rect2i(0, -120000, 200000, 250000)
+
+[node name="Projectiles" type="Node" parent="."]

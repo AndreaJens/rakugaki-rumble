@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=11 format=3 uid="uid://pas1r8leavrj"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=12 format=3 uid="uid://pas1r8leavrj"]
 
+[ext_resource type="Resource" uid="uid://cjvlnu5otb2j4" path="res://media/characters/chara_whitechapel/moves/cancels/to_bat_assault.tres" id="1_0pix2"]
 [ext_resource type="Resource" uid="uid://burcvodrfayiu" path="res://media/characters/chara_whitechapel/moves/cancels/to_entropy_burst.tres" id="1_cmrla"]
 [ext_resource type="Resource" uid="uid://bc7ehx5j2d1b5" path="res://media/characters/chara_naomi/moves/cancels/to_slash.tres" id="4_qh7mv"]
 [ext_resource type="Resource" uid="uid://c6bibtakoncnd" path="res://media/characters/all_chara_common/moves/cancels/zero_install_all.tres" id="5_8is5j"]
@@ -42,6 +43,6 @@ input = Array[int]([])
 inputVariant1 = Array[int]([])
 inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
-cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_cmrla"), ExtResource("4_qh7mv"), ExtResource("5_8is5j"), ExtResource("6_ci2d8"), ExtResource("7_fskxg"), ExtResource("8_de7ds"), ExtResource("9_3dgky"), ExtResource("10_em35t"), ExtResource("11_nxv6w")])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_0pix2"), ExtResource("1_cmrla"), ExtResource("4_qh7mv"), ExtResource("5_8is5j"), ExtResource("6_ci2d8"), ExtResource("7_fskxg"), ExtResource("8_de7ds"), ExtResource("9_3dgky"), ExtResource("10_em35t"), ExtResource("11_nxv6w")])
 guardFrames = Vector2i(-1, -1)
 timestopFrames = 0

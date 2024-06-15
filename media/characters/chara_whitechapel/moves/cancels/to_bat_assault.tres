@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MoveCancelRoute" load_steps=2 format=3 uid="uid://cjvlnu5otb2j4"]
+
+[ext_resource type="Script" path="res://scripts/cancelRoute.gd" id="1_od02a"]
+
+[resource]
+script = ExtResource("1_od02a")
+targetMoveName = "batAssault"
+startFrame = -1
+endFrame = -1
+onHit = true
+onBlock = true
+onWhiff = true
+automaticCancelOnLanding = false
+activeIfNothingPressed = false
+autoCancelWhenValid = false
+autoPerformAtMoveEnd = false

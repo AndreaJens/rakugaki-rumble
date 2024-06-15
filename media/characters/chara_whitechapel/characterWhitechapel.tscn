@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://xa67fv0awtmh"]
+[gd_scene load_steps=45 format=3 uid="uid://xa67fv0awtmh"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_ml175"]
 [ext_resource type="Resource" uid="uid://qiywbrf1e5yu" path="res://media/characters/chara_naomi/characterData.tres" id="2_bsqq3"]
@@ -27,7 +27,9 @@
 [ext_resource type="Animation" uid="uid://bm6lccfucdthm" path="res://media/characters/chara_whitechapel/animations/jumpN.res" id="23_k1u3v"]
 [ext_resource type="Animation" uid="uid://batse1grcb5ut" path="res://media/characters/chara_whitechapel/animations/entropyBurst.res" id="26_3xr6g"]
 [ext_resource type="Animation" uid="uid://cxeqqq2rkumh2" path="res://media/characters/chara_whitechapel/animations/entropyBurst_longer.res" id="27_w3tya"]
+[ext_resource type="Animation" uid="uid://wo2xdpwmilh0" path="res://media/characters/chara_whitechapel/animations/batAssault1.res" id="29_bq018"]
 [ext_resource type="Script" path="res://addons/godot-rollback-netcode/NetworkAnimationPlayer.gd" id="30_cjx64"]
+[ext_resource type="Animation" uid="uid://b6qpjjd4pql5h" path="res://media/characters/chara_whitechapel/projectiles/batProjectile1/animations/batProj.res" id="30_ihprw"]
 [ext_resource type="PackedScene" uid="uid://cy2ewlewinwbv" path="res://media/logic/HitBox.tscn" id="31_s7u1m"]
 [ext_resource type="PackedScene" uid="uid://cbaqvnlrwjidk" path="res://media/logic/HurtBox.tscn" id="32_5cq7l"]
 [ext_resource type="PackedScene" uid="uid://c5k34hfd8kc10" path="res://media/logic/PushBox.tscn" id="33_13qcx"]
@@ -129,6 +131,54 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [Rect2i(0, 0, 100000, 100000)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("HitBoxes/HitBox:damage")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3500]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("HitBoxes/HitBox:active")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("HitBoxes/HitBox:boxSize")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2i(150000, -200000, 200000, 200000)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("HitBoxes/HitBox:meterGain")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3000]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ogpfj"]
@@ -1397,6 +1447,8 @@ _data = {
 "attack_jumpKick": SubResource("Animation_4fff1"),
 "attack_jumpKick_air": SubResource("Animation_kpm10"),
 "attack_jumpKnee": SubResource("Animation_yxd5c"),
+"batAssault1": ExtResource("29_bq018"),
+"batProj": ExtResource("30_ihprw"),
 "downSpike": ExtResource("9_q04no"),
 "downSpike_fwp": SubResource("Animation_xtrv7"),
 "entropyBurst": ExtResource("26_3xr6g"),
@@ -1432,10 +1484,9 @@ z_index = 10
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("4_stos7")
-offset = Vector2(-100, -520)
+offset = Vector2(0, -590)
 hframes = 4
 vframes = 4
-frame = 5
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -1447,13 +1498,13 @@ libraries = {
 script = ExtResource("30_cjx64")
 
 [node name="HitBoxes" type="Node2D" parent="."]
+visible = false
 
 [node name="HitBox" parent="HitBoxes" instance=ExtResource("31_s7u1m")]
 moveReactionOnHitGround = "hurtG"
 moveReactionOnHitAir = "hurtSpike"
-damage = 15000
-active = true
-boxSize = Rect2i(75000, -200000, 165000, 300000)
+damage = 3500
+boxSize = Rect2i(150000, -200000, 200000, 200000)
 
 [node name="HitBox2" parent="HitBoxes" instance=ExtResource("31_s7u1m")]
 
@@ -1464,10 +1515,11 @@ boxSize = Rect2i(75000, -200000, 165000, 300000)
 [node name="HitBox5" parent="HitBoxes" instance=ExtResource("31_s7u1m")]
 
 [node name="HurtBoxes" type="Node2D" parent="."]
+visible = false
 
 [node name="HurtBox" parent="HurtBoxes" instance=ExtResource("32_5cq7l")]
 active = true
-boxSize = Rect2i(-75000, -165000, 200000, 320000)
+boxSize = Rect2i(0, -165000, 250000, 320000)
 
 [node name="HurtBox2" parent="HurtBoxes" instance=ExtResource("32_5cq7l")]
 boxSize = Rect2i(270000, -200000, 200000, 200000)
@@ -1479,5 +1531,6 @@ boxSize = Rect2i(270000, -200000, 200000, 200000)
 [node name="HurtBox5" parent="HurtBoxes" instance=ExtResource("32_5cq7l")]
 
 [node name="PushBox" parent="." instance=ExtResource("33_13qcx")]
+visible = false
 active = true
-boxSize = Rect2i(-50000, -100000, 200000, 200000)
+boxSize = Rect2i(0, -120000, 200000, 250000)

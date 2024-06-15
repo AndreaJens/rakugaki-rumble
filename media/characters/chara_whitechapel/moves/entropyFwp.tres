@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=5 format=3 uid="uid://bl40pxmtca4ya"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=6 format=3 uid="uid://bl40pxmtca4ya"]
 
 [ext_resource type="Resource" uid="uid://g6qr4gtexyxl" path="res://media/characters/chara_whitechapel/moves/cancels/to_entropy_fwp.tres" id="1_5y5p7"]
+[ext_resource type="Resource" uid="uid://c6k3678b3yole" path="res://media/characters/chara_whitechapel/moves/cancels/to_bat_assault_hit.tres" id="1_y584b"]
 [ext_resource type="Resource" uid="uid://b3dvs8txb8pji" path="res://media/characters/all_chara_common/moves/cancels/zero_install_hit.tres" id="2_jk5kh"]
 [ext_resource type="Resource" uid="uid://k85f7ldgjhu7" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_hit.tres" id="3_mbs18"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="7_yhq2l"]
@@ -12,13 +13,14 @@ internalName = "entropyFwp"
 displayName = ""
 animationName = "entropyBurst_longer"
 startingFrame = 17
-endingFrame = 38
+endingFrame = 35
 isHitStunState = false
 loop = false
 canTurnMidMove = true
-logicalVelocityPerFrame = Vector2i(0, 3000)
+logicalVelocityPerFrame = Vector2i(0, 13000)
 logicalAccelerationPerFrame = Vector2i(0, 3000)
 keepMomentumPercent = 0
+spawnProjectileAtFrame = {}
 canGainMeter = true
 meterCost = 0
 canMeterBreak = false
@@ -36,6 +38,6 @@ input = Array[int]([1, 16])
 inputVariant1 = Array[int]([])
 inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
-cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_5y5p7"), ExtResource("2_jk5kh"), ExtResource("3_mbs18")])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_y584b"), ExtResource("1_5y5p7"), ExtResource("2_jk5kh"), ExtResource("3_mbs18")])
 guardFrames = Vector2i(-1, -1)
 timestopFrames = 0

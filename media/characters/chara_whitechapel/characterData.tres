@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=31 format=3 uid="uid://rteooln5bhws"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=32 format=3 uid="uid://rteooln5bhws"]
 
 [ext_resource type="Resource" uid="uid://pas1r8leavrj" path="res://media/characters/chara_whitechapel/moves/idle_wc.tres" id="1_6h5ht"]
 [ext_resource type="Texture2D" uid="uid://c8k5hy3ln56n0" path="res://media/characters/chara_whitechapel/sprites/name.png" id="1_xfeud"]
@@ -29,6 +29,7 @@
 [ext_resource type="Resource" uid="uid://b11ygfifxi3x1" path="res://media/characters/chara_whitechapel/moves/entropyBurst.tres" id="26_7wdgq"]
 [ext_resource type="Resource" uid="uid://bl40pxmtca4ya" path="res://media/characters/chara_whitechapel/moves/entropyFwp.tres" id="27_4qwwg"]
 [ext_resource type="Resource" uid="uid://dw286u1bvgkv5" path="res://media/characters/chara_whitechapel/moves/entropyBurstAir.tres" id="28_2a06q"]
+[ext_resource type="Resource" uid="uid://v7sjg7an1isr" path="res://media/characters/chara_whitechapel/moves/batAssault.tres" id="29_hdg6r"]
 [ext_resource type="Script" path="res://scripts/characterData.gd" id="33_46w2h"]
 
 [resource]
@@ -39,4 +40,5 @@ characterAnimationLibraryPrefix = "wchap"
 characterMaxHealth = 90000
 characterMaxMeter = 30000
 characterNameTexture = ExtResource("1_xfeud")
-characterMoves = Array[Resource("res://scripts/move.gd")]([ExtResource("1_6h5ht"), ExtResource("2_u3llf"), ExtResource("3_g6pjv"), ExtResource("4_bswsp"), ExtResource("5_4nmhr"), ExtResource("6_tqkbg"), ExtResource("7_16am7"), ExtResource("8_368mr"), ExtResource("9_emudn"), ExtResource("21_ynpjd"), ExtResource("22_c8iim"), ExtResource("12_io46o"), ExtResource("13_37rd3"), ExtResource("14_m3drn"), ExtResource("15_5hska"), ExtResource("16_bblvt"), ExtResource("17_72c53"), ExtResource("18_faahj"), ExtResource("19_m7eqt"), ExtResource("20_pf6eu"), ExtResource("21_thqvd"), ExtResource("22_wo1y5"), ExtResource("23_35vmx"), ExtResource("24_0fbrk"), ExtResource("25_u8gtp"), ExtResource("26_7wdgq"), ExtResource("27_4qwwg"), ExtResource("28_2a06q")])
+characterMoves = Array[Resource("res://scripts/move.gd")]([ExtResource("1_6h5ht"), ExtResource("2_u3llf"), ExtResource("3_g6pjv"), ExtResource("4_bswsp"), ExtResource("5_4nmhr"), ExtResource("6_tqkbg"), ExtResource("7_16am7"), ExtResource("8_368mr"), ExtResource("9_emudn"), ExtResource("21_ynpjd"), ExtResource("22_c8iim"), ExtResource("12_io46o"), ExtResource("13_37rd3"), ExtResource("14_m3drn"), ExtResource("15_5hska"), ExtResource("16_bblvt"), ExtResource("17_72c53"), ExtResource("18_faahj"), ExtResource("19_m7eqt"), ExtResource("20_pf6eu"), ExtResource("21_thqvd"), ExtResource("22_wo1y5"), ExtResource("23_35vmx"), ExtResource("24_0fbrk"), ExtResource("25_u8gtp"), ExtResource("26_7wdgq"), ExtResource("27_4qwwg"), ExtResource("28_2a06q"), ExtResource("29_hdg6r")])
+characterProjectileTypes = Array[String](["batProjectile1"])

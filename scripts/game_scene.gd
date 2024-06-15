@@ -110,12 +110,20 @@ enum GameStateVars {
 	PostMatchMenu1State = 9001,
 	PostMatchMenu2State = 9001,
 	CloseSignalSent = 10000,
+	Char1Projectile1 = 20000,
+	Char1Projectile2 = 20001,
+	Char1Projectile3 = 20002,
+	Char1Projectile4 = 20003,
+	Char2Projectile1 = 30000,
+	Char2Projectile2 = 30001,
+	Char2Projectile3 = 30002,
+	Char2Projectile4 = 30003,
 }
 
 func _save_state() -> Dictionary:
 	var stateDict = {}
-	stateDict[GameStateVars.Character1State] = character1._save_state().duplicate()
-	stateDict[GameStateVars.Character2State] = character2._save_state().duplicate()
+	stateDict[GameStateVars.Character1State] = character1._save_state()#.duplicate()
+	stateDict[GameStateVars.Character2State] = character2._save_state()#.duplicate()
 	stateDict[GameStateVars.HitFreezeLastFrame] = _lastFrameComboHitFreeze
 	stateDict[GameStateVars.HitFreezeCounter] = _hitFreezeFrames
 	stateDict[GameStateVars.HitFreezeBool] = _comboHitFreeze
@@ -137,6 +145,22 @@ func _save_state() -> Dictionary:
 		stateDict[GameStateVars.InputManagerCharacter2] = inputManagerP2._save_state().duplicate()
 		stateDict[GameStateVars.PostMatchMenu1State] = rematchMenuP1._save_state()
 		stateDict[GameStateVars.PostMatchMenu2State] = rematchMenuP2._save_state()
+		if character1.projectiles.size() > 3:
+			stateDict[GameStateVars.Char1Projectile4] = character1.projectiles[3]._save_state()
+		if character1.projectiles.size() > 2:
+			stateDict[GameStateVars.Char1Projectile3] = character1.projectiles[2]._save_state()
+		if character1.projectiles.size() > 1:
+			stateDict[GameStateVars.Char1Projectile2] = character1.projectiles[1]._save_state()
+		if character1.projectiles.size() > 0:
+			stateDict[GameStateVars.Char1Projectile1] = character1.projectiles[0]._save_state()
+		if character2.projectiles.size() > 3:
+			stateDict[GameStateVars.Char2Projectile4] = character2.projectiles[3]._save_state()
+		if character2.projectiles.size() > 2:
+			stateDict[GameStateVars.Char2Projectile3] = character2.projectiles[2]._save_state()
+		if character2.projectiles.size() > 1:
+			stateDict[GameStateVars.Char2Projectile2] = character2.projectiles[1]._save_state()
+		if character2.projectiles.size() > 0:
+			stateDict[GameStateVars.Char2Projectile1] = character2.projectiles[0]._save_state()
 	return stateDict
 	
 func _load_state(state : Dictionary) -> void:
@@ -165,6 +189,22 @@ func _load_state(state : Dictionary) -> void:
 		inputManagerP2._load_state(state[GameStateVars.InputManagerCharacter2])
 		rematchMenuP1._load_state(state[GameStateVars.PostMatchMenu1State])
 		rematchMenuP2._load_state(state[GameStateVars.PostMatchMenu2State])
+		if character1.projectiles.size() > 3:
+			character1.projectiles[3]._load_state(state[GameStateVars.Char1Projectile4])
+		if character1.projectiles.size() > 2:
+			character1.projectiles[2]._load_state(state[GameStateVars.Char1Projectile3])
+		if character1.projectiles.size() > 1:
+			character1.projectiles[1]._load_state(state[GameStateVars.Char1Projectile2])
+		if character1.projectiles.size() > 0:
+			character1.projectiles[0]._load_state(state[GameStateVars.Char1Projectile1])
+		if character2.projectiles.size() > 3:
+			character2.projectiles[3]._load_state(state[GameStateVars.Char2Projectile4])
+		if character2.projectiles.size() > 2:
+			character2.projectiles[2]._load_state(state[GameStateVars.Char2Projectile3])
+		if character2.projectiles.size() > 1:
+			character2.projectiles[1]._load_state(state[GameStateVars.Char2Projectile2])
+		if character2.projectiles.size() > 0:
+			character2.projectiles[0]._load_state(state[GameStateVars.Char2Projectile1])
 		hitspark1.deactivate_hitspark()
 		hitspark2.deactivate_hitspark()
 	hudMain.update(character1, character2, _internalUpdateTick, false)
@@ -471,6 +511,10 @@ func _adjust_character_sfx():
 	$Characters/InstallBackground.visible = visibleInstallBg
 	$Characters/InstallBackground.position = camera.position
 
+func _update_projectiles():
+	character1.update_projectiles(inputManagerP1)
+	character2.update_projectiles(inputManagerP2)
+
 func _update_character_state():
 	# this is a measure to improve move detection during hit freeze
 	var extraInputLeniency = 0
@@ -524,6 +568,18 @@ func _update_character_state():
 					#character2.characterState.logicalVelocity.x = -character2.characterState.logicalVelocity.x
 				character2.set_on_left_side(false) 
 				character2.scale = Vector2(-1, 1)
+	for projectile in character1.projectiles:
+		if projectile.can_be_updated():
+			if projectile.is_on_left_side():
+				projectile.scale = Vector2(1, 1)
+			else:
+				projectile.scale = Vector2(-1, 1)
+	for projectile in character2.projectiles:
+		if projectile.can_be_updated():
+			if projectile.is_on_left_side():
+				projectile.scale = Vector2(1, 1)
+			else:
+				projectile.scale = Vector2(-1, 1)
 
 func _apply_wall_damage(character : Character, opponent : Character):
 	if !hasWallDamage:
@@ -707,6 +763,84 @@ func _process_damage_collisions(attacker : Character, defender : Character) -> D
 						break
 	return result
 
+func _update_projectile_hit_detection() -> bool:
+	# manage damage and hit reactions
+	var oneProjectileHasHit : bool = false
+	var p1AttackResult = {}
+	var p2AttackResult = {}
+	var projectileP1Hit : CharacterProjectile
+	var projectileP2Hit : CharacterProjectile
+	for projectile in character1.projectiles:
+		if projectile.isActive():
+			p1AttackResult = _process_damage_collisions(projectile, character2)
+			if p1AttackResult[HitDetectionFlags.HasHit]:
+				projectileP1Hit = projectile
+				oneProjectileHasHit = true
+				if projectile.deactivateOnHit:
+					projectile.deactivate()
+				break
+	for projectile in character2.projectiles:
+		if projectile.isActive():
+			p2AttackResult = _process_damage_collisions(projectile, character1)
+			if p2AttackResult[HitDetectionFlags.HasHit]:
+				projectileP2Hit = projectile
+				oneProjectileHasHit = true
+				if projectile.deactivateOnHit:
+					projectile.deactivate()
+				break
+	if !p1AttackResult.is_empty():
+		_apply_hit_detection_reaction(p1AttackResult, projectileP1Hit, character1, character2)
+	if !p2AttackResult.is_empty():
+		_apply_hit_detection_reaction(p2AttackResult, projectileP2Hit, character2, character1)
+	if !p1AttackResult.is_empty() and p1AttackResult[HitDetectionFlags.HasHit]:
+		@warning_ignore("integer_division")
+		var meterGainHitCharacter = (
+			p1AttackResult[HitDetectionFlags.MeterGain] / 
+			GameDatabaseAccessor.hitCharacterMeterGainFraction)
+		character1.gain_meter(p1AttackResult[HitDetectionFlags.MeterGain])
+		character2.gain_meter(meterGainHitCharacter)
+		character2.deal_damage(p1AttackResult[HitDetectionFlags.DamageToApply])
+		character2.characterState.comboCounter = 0
+		character2.characterState.comboDamage = 0
+		var _success = character2.apply_move_by_name(p1AttackResult[HitDetectionFlags.TargetReaction])
+	if !p2AttackResult.is_empty() and p2AttackResult[HitDetectionFlags.HasHit]:
+		@warning_ignore("integer_division")
+		var meterGainHitCharacter = (
+			p2AttackResult[HitDetectionFlags.MeterGain] / 
+			GameDatabaseAccessor.hitCharacterMeterGainFraction)
+		character2.gain_meter(p2AttackResult[HitDetectionFlags.MeterGain])
+		character1.gain_meter(meterGainHitCharacter)
+		character1.deal_damage(p2AttackResult[HitDetectionFlags.DamageToApply])
+		character1.characterState.comboCounter = 0
+		character1.characterState.comboDamage = 0
+		var _success = character1.apply_move_by_name(p2AttackResult[HitDetectionFlags.TargetReaction])
+	return oneProjectileHasHit
+
+func _apply_hit_detection_reaction(
+	attackResult : Dictionary, 
+	attacker : Character,
+	attackOwner : Character,
+	defender : Character):
+	if attackResult[HitDetectionFlags.HasHit]:
+		attacker.mark_successful_hit()
+		if attackResult[HitDetectionFlags.TargetReaction] == GameDatabaseAccessor.defaultDownSpikeReaction:
+			_hitFreezeFrames = hitFreezeDownSpikeFrames
+			_spikeHitFreeze = true
+		else:
+			_hitFreezeFrames = hitFreezeComboFrames
+		attacker.characterState.affectedByHitFreeze = true
+		defender.characterState.affectedByHitFreeze = true
+		_comboHitFreeze = true
+		_wallHitFreeze = false
+		var boxCenter = (attackResult[HitDetectionFlags.IntersectionBox] as Rect2i).get_center()
+		hitspark1.activate_hitspark(boxCenter)
+		if defender.currentMove and defender.currentMove.isHitStunState:
+			attackOwner.characterState.comboCounter += 1
+			attackOwner.characterState.comboDamage += attackResult[HitDetectionFlags.DamageToApply]
+		else:
+			attackOwner.characterState.comboCounter = 0
+			attackOwner.characterState.comboDamage = 0
+
 func _update_hit_detection():
 	if !character1.currentMove or !character1.currentMove.isHitStunState:
 		character2.characterState.comboCounter = 0
@@ -723,44 +857,46 @@ func _update_hit_detection():
 	if (character2.currentMove and !character2.currentMove.canGainMeter):
 		canGainMeterFromMoveP2 = false
 	# manage damage and hit reactions
-	if p1AttackResult[HitDetectionFlags.HasHit]:
-		character1.mark_successful_hit()
-		if p1AttackResult[HitDetectionFlags.TargetReaction] == GameDatabaseAccessor.defaultDownSpikeReaction:
-			_hitFreezeFrames = hitFreezeDownSpikeFrames
-			_spikeHitFreeze = true
-		else:
-			_hitFreezeFrames = hitFreezeComboFrames
-		character1.characterState.affectedByHitFreeze = true
-		character2.characterState.affectedByHitFreeze = true
-		_comboHitFreeze = true
-		_wallHitFreeze = false
-		var boxCenter = (p1AttackResult[HitDetectionFlags.IntersectionBox] as Rect2i).get_center()
-		hitspark1.activate_hitspark(boxCenter)
-		if character2.currentMove and character2.currentMove.isHitStunState:
-			character1.characterState.comboCounter += 1
-			character1.characterState.comboDamage += p1AttackResult[HitDetectionFlags.DamageToApply]
-		else:
-			character1.characterState.comboCounter = 0
-			character1.characterState.comboDamage = 0
-	if p2AttackResult[HitDetectionFlags.HasHit]:
-		character2.mark_successful_hit()
-		if p2AttackResult[HitDetectionFlags.TargetReaction] == GameDatabaseAccessor.defaultDownSpikeReaction:
-			_hitFreezeFrames = hitFreezeDownSpikeFrames
-			_spikeHitFreeze = true
-		else:
-			_hitFreezeFrames = hitFreezeComboFrames
-		character1.characterState.affectedByHitFreeze = true
-		character2.characterState.affectedByHitFreeze = true
-		_comboHitFreeze = true
-		_wallHitFreeze = false
-		var boxCenter = (p2AttackResult[HitDetectionFlags.IntersectionBox] as Rect2i).get_center()
-		hitspark2.activate_hitspark(boxCenter)
-		if character1.currentMove and character1.currentMove.isHitStunState:
-			character2.characterState.comboCounter += 1
-			character2.characterState.comboDamage += p2AttackResult[HitDetectionFlags.DamageToApply]
-		else:
-			character2.characterState.comboCounter = 0
-			character2.characterState.comboDamage = 0
+	_apply_hit_detection_reaction(p1AttackResult, character1, character1, character2)
+	_apply_hit_detection_reaction(p2AttackResult, character2, character2, character1)
+	#if p1AttackResult[HitDetectionFlags.HasHit]:
+		#character1.mark_successful_hit()
+		#if p1AttackResult[HitDetectionFlags.TargetReaction] == GameDatabaseAccessor.defaultDownSpikeReaction:
+			#_hitFreezeFrames = hitFreezeDownSpikeFrames
+			#_spikeHitFreeze = true
+		#else:
+			#_hitFreezeFrames = hitFreezeComboFrames
+		#character1.characterState.affectedByHitFreeze = true
+		#character2.characterState.affectedByHitFreeze = true
+		#_comboHitFreeze = true
+		#_wallHitFreeze = false
+		#var boxCenter = (p1AttackResult[HitDetectionFlags.IntersectionBox] as Rect2i).get_center()
+		#hitspark1.activate_hitspark(boxCenter)
+		#if character2.currentMove and character2.currentMove.isHitStunState:
+			#character1.characterState.comboCounter += 1
+			#character1.characterState.comboDamage += p1AttackResult[HitDetectionFlags.DamageToApply]
+		#else:
+			#character1.characterState.comboCounter = 0
+			#character1.characterState.comboDamage = 0
+	#if p2AttackResult[HitDetectionFlags.HasHit]:
+		#character2.mark_successful_hit()
+		#if p2AttackResult[HitDetectionFlags.TargetReaction] == GameDatabaseAccessor.defaultDownSpikeReaction:
+			#_hitFreezeFrames = hitFreezeDownSpikeFrames
+			#_spikeHitFreeze = true
+		#else:
+			#_hitFreezeFrames = hitFreezeComboFrames
+		#character1.characterState.affectedByHitFreeze = true
+		#character2.characterState.affectedByHitFreeze = true
+		#_comboHitFreeze = true
+		#_wallHitFreeze = false
+		#var boxCenter = (p2AttackResult[HitDetectionFlags.IntersectionBox] as Rect2i).get_center()
+		#hitspark2.activate_hitspark(boxCenter)
+		#if character1.currentMove and character1.currentMove.isHitStunState:
+			#character2.characterState.comboCounter += 1
+			#character2.characterState.comboDamage += p2AttackResult[HitDetectionFlags.DamageToApply]
+		#else:
+			#character2.characterState.comboCounter = 0
+			#character2.characterState.comboDamage = 0
 	if p1AttackResult[HitDetectionFlags.HasHit]:
 		@warning_ignore("integer_division")
 		var meterGainHitCharacter = (
@@ -841,6 +977,7 @@ func _common_update_process():
 	if character1.can_be_updated() or character2.can_be_updated():
 		_update_game_phase_transition()
 		_update_character_state()	
+		_update_projectiles()
 		_adjust_character_momentum(character1, character2)
 		_adjust_character_momentum(character2, character1)
 		if _wallHitFreeze and hitFreezeOnWallCollisionBothPlayers:
@@ -853,7 +990,9 @@ func _common_update_process():
 		_constrain_character_position_to_camera_viewport(character2)
 		_adjust_character_sfx()
 		collisionManager.update_character_position_on_collision(character1, character2, stage)
-		_update_hit_detection()
+		var projectileHasHit = _update_projectile_hit_detection()
+		if !projectileHasHit:
+			_update_hit_detection()
 	_update_hitsparks()
 	_lastFrameComboHitFreeze = _comboHitFreeze
 	_update_hud()

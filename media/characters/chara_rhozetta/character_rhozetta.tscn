@@ -423,14 +423,13 @@ zeroInstallActive = true
 script = ExtResource("2_kfbbf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = 10
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("4_ottud")
-offset = Vector2(60, -350)
+texture = ExtResource("4_fduox")
+offset = Vector2(0, -380)
 hframes = 4
 vframes = 4
-frame = 9
+frame = 4
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -474,4 +473,4 @@ boxSize = Rect2i(270000, -200000, 200000, 200000)
 
 [node name="PushBox" parent="." instance=ExtResource("6_50ynk")]
 active = true
-boxSize = Rect2i(-20000, -100000, 200000, 200000)
+boxSize = Rect2i(-100000, -150000, 120000, 300000)

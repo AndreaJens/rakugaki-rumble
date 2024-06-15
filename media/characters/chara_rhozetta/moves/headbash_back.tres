@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=9 format=3 uid="uid://dy6ynkvf8oxx6"]
+
+[ext_resource type="Resource" uid="uid://b3dvs8txb8pji" path="res://media/characters/all_chara_common/moves/cancels/zero_install_hit.tres" id="1_ucemj"]
+[ext_resource type="Resource" uid="uid://k85f7ldgjhu7" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_hit.tres" id="2_xwxhb"]
+[ext_resource type="Resource" uid="uid://0dci8befj4tm" path="res://media/characters/chara_rhozetta/moves/cancels/to_rampage_hit.tres" id="3_nrfrw"]
+[ext_resource type="Resource" uid="uid://5jjxyg83dao" path="res://media/characters/chara_rhozetta/moves/cancels/to_pendulum_hit.tres" id="4_lvyjq"]
+[ext_resource type="Resource" uid="uid://csyfkukhxifa0" path="res://media/characters/all_chara_common/moves/cancels/jc_on_hit.tres" id="5_5cm6g"]
+[ext_resource type="Resource" uid="uid://d2quvuuy1qvv0" path="res://media/characters/all_chara_common/moves/cancels/jc_b_on_hit.tres" id="6_0md11"]
+[ext_resource type="Resource" uid="uid://d2nccsnvqunof" path="res://media/characters/all_chara_common/moves/cancels/jc_n_on_hit.tres" id="7_4ur0u"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="8_5o54p"]
+
+[resource]
+script = ExtResource("8_5o54p")
+characterState = 0
+internalName = "headbash_back"
+displayName = "Headbash Rerun"
+animationName = "headbash_back"
+startingFrame = 3
+endingFrame = 22
+isHitStunState = false
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(40000, 2000)
+logicalAccelerationPerFrame = Vector2i(-400, 2000)
+keepMomentumPercent = 20
+spawnProjectileAtFrame = {}
+canGainMeter = true
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = false
+canBeUsedAfterRoundEnds = false
+requiresInfinityInstall = false
+requiresZeroInstall = false
+requiresAnyInstall = false
+forbiddenButtons = Array[int]([])
+bufferStartLeniency = 3
+bufferLengthLeniency = 5
+useRawBuffer = false
+input = Array[int]([16])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_ucemj"), ExtResource("2_xwxhb"), ExtResource("3_nrfrw"), ExtResource("4_lvyjq"), ExtResource("5_5cm6g"), ExtResource("6_0md11"), ExtResource("7_4ur0u")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0
