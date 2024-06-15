@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=7 format=3 uid="uid://dlxrdixdkx4eh"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=8 format=3 uid="uid://dlxrdixdkx4eh"]
 
+[ext_resource type="Resource" uid="uid://c6k3678b3yole" path="res://media/characters/chara_whitechapel/moves/cancels/to_bat_assault_hit.tres" id="1_6md5x"]
 [ext_resource type="Resource" uid="uid://b3dvs8txb8pji" path="res://media/characters/all_chara_common/moves/cancels/zero_install_hit.tres" id="1_dety1"]
 [ext_resource type="Resource" uid="uid://k85f7ldgjhu7" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_hit.tres" id="2_cbu36"]
 [ext_resource type="Resource" uid="uid://csyfkukhxifa0" path="res://media/characters/all_chara_common/moves/cancels/jc_on_hit.tres" id="3_tq3qs"]
@@ -13,7 +14,7 @@ characterState = 0
 internalName = "batAssaultMeter"
 displayName = "Blame the Night"
 animationName = "batAssault1"
-startingFrame = 0
+startingFrame = 3
 endingFrame = 32
 isHitStunState = false
 loop = false
@@ -45,6 +46,6 @@ input = Array[int]([])
 inputVariant1 = Array[int]([])
 inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
-cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_dety1"), ExtResource("2_cbu36"), ExtResource("3_tq3qs"), ExtResource("4_2v515"), ExtResource("5_u7kuk")])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_6md5x"), ExtResource("1_dety1"), ExtResource("2_cbu36"), ExtResource("3_tq3qs"), ExtResource("4_2v515"), ExtResource("5_u7kuk")])
 guardFrames = Vector2i(-1, -1)
 timestopFrames = 0

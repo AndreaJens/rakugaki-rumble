@@ -40,6 +40,7 @@ var _cameraLogicalPosition : Vector2i
 @onready var hitspark1 : HitSpark = $Characters/HitSparksParent/HitSpark1
 @onready var hitspark2 : HitSpark = $Characters/HitSparksParent/HitSpark2
 @onready var hudMain : HudManager = $Canvas/Hud
+@onready var trainingModeData : TrainingModeStatsContainer = $Canvas/Hud/TrainingData
 var _hitFreezeFrames : int = -1
 var _lastFrameComboHitFreeze : bool = false
 var _comboHitFreeze : bool = false
@@ -241,7 +242,8 @@ func _ready():
 	_reset_round()
 	_init_hud()
 	_lastStateSaved = _save_state()
-	hudMain.trainingMessage.visible = preventDeath
+	hudMain.trainingMessage.visible = _training_mode_active()
+	trainingModeData.visible = _training_mode_active()
 	hudMain.hide_unused_round_counters(roundsToWin)
 	add_to_group('network_sync')
 
@@ -349,7 +351,8 @@ func _update_system_input():
 		elif InputOverseer.input_is_action_just_pressed_kb("load_state_debug"):
 			if !_lastStateSaved.is_empty():
 				_load_state(_lastStateSaved)
-		#elif InputOverseer.input_is_action_just_pressed_kb("toggle_training_mode"):
+		elif InputOverseer.input_is_action_just_pressed_kb("toggle_training_mode"):
+			trainingModeData.visible = !trainingModeData.visible
 			#if preventDeath:
 				#preventDeath = false
 				#hudMain.trainingMessage.visible = false
@@ -701,6 +704,9 @@ func _constrain_character_position_to_camera_viewport(character : Character):
 	currentCharacterLogicalPosition.x = max(minX,
 		min(currentCharacterLogicalPosition.x, maxX))
 	character.set_new_logical_position(currentCharacterLogicalPosition)
+		
+func _training_mode_active() -> bool:
+	return preventDeath
 			
 func _update_camera(immediate : bool = false):
 	if immediate:
@@ -860,8 +866,8 @@ func _apply_hit_detection_reaction(
 			attackOwner.characterState.comboCounter += 1
 			attackOwner.characterState.comboDamage += attackResult[HitDetectionFlags.DamageToApply]
 		else:
-			attackOwner.characterState.comboCounter = 0
-			attackOwner.characterState.comboDamage = 0
+			attackOwner.characterState.comboCounter = 1
+			attackOwner.characterState.comboDamage = attackResult[HitDetectionFlags.DamageToApply]
 
 func _update_hit_detection():
 	if !character1.currentMove or !character1.currentMove.isHitStunState:
@@ -969,9 +975,11 @@ func _update_hud():
 		hudMain.update_combo_counter_zoom(1.3)
 	else:
 		hudMain.update_combo_counter_zoom(0.7)
+	if _training_mode_active():
+		trainingModeData._update_values(character1)
 
 func _update_timer():
-	if timerSeconds > 0 and !preventDeath:
+	if timerSeconds > 0 and !_training_mode_active():
 		_timerTicks -= 1
 		
 func _update_hitsparks():

@@ -1,0 +1,92 @@
+[gd_scene load_steps=3 format=3 uid="uid://dn21r3h6xh115"]
+
+[ext_resource type="Script" path="res://scripts/TrainingData.gd" id="1_wbbxw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_m6cw5"]
+font_size = 24
+font_color = Color(0, 0, 0, 1)
+outline_size = 5
+shadow_color = Color(0.0588235, 0.027451, 0.00392157, 0)
+
+[node name="TrainingData" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -120.0
+offset_right = 180.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wbbxw")
+
+[node name="BKG" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 324.0
+offset_bottom = 149.0
+color = Color(0.34902, 0.34902, 0.34902, 0.313726)
+
+[node name="Grid" type="GridContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+columns = 2
+
+[node name="CurrentComboLabel" type="Label" parent="Grid"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+text = "Hits"
+label_settings = SubResource("LabelSettings_m6cw5")
+
+[node name="CurrentComboCountLabel" type="Label" parent="Grid"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+text = "0
+"
+label_settings = SubResource("LabelSettings_m6cw5")
+horizontal_alignment = 2
+
+[node name="MaxComboLabel" type="Label" parent="Grid"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+text = "Max Hits"
+label_settings = SubResource("LabelSettings_m6cw5")
+
+[node name="MaxComboCountLabel" type="Label" parent="Grid"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+text = "0
+"
+label_settings = SubResource("LabelSettings_m6cw5")
+horizontal_alignment = 2
+
+[node name="ComboDamageLabel" type="Label" parent="Grid"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+text = "Combo Dmg"
+label_settings = SubResource("LabelSettings_m6cw5")
+
+[node name="ComboDamageValueLabel" type="Label" parent="Grid"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+text = "0
+"
+label_settings = SubResource("LabelSettings_m6cw5")
+horizontal_alignment = 2
+
+[node name="MaxComboDamageLabel" type="Label" parent="Grid"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+text = "Max Dmg"
+label_settings = SubResource("LabelSettings_m6cw5")
+
+[node name="MaxComboDamageValueLabel" type="Label" parent="Grid"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+text = "0
+"
+label_settings = SubResource("LabelSettings_m6cw5")
+horizontal_alignment = 2

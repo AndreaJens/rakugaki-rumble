@@ -1,9 +1,12 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=6 format=3 uid="uid://bl40pxmtca4ya"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=9 format=3 uid="uid://bl40pxmtca4ya"]
 
 [ext_resource type="Resource" uid="uid://g6qr4gtexyxl" path="res://media/characters/chara_whitechapel/moves/cancels/to_entropy_fwp.tres" id="1_5y5p7"]
 [ext_resource type="Resource" uid="uid://c6k3678b3yole" path="res://media/characters/chara_whitechapel/moves/cancels/to_bat_assault_hit.tres" id="1_y584b"]
 [ext_resource type="Resource" uid="uid://b3dvs8txb8pji" path="res://media/characters/all_chara_common/moves/cancels/zero_install_hit.tres" id="2_jk5kh"]
 [ext_resource type="Resource" uid="uid://k85f7ldgjhu7" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_hit.tres" id="3_mbs18"]
+[ext_resource type="Resource" uid="uid://csyfkukhxifa0" path="res://media/characters/all_chara_common/moves/cancels/jc_on_hit.tres" id="5_o8ton"]
+[ext_resource type="Resource" uid="uid://d2quvuuy1qvv0" path="res://media/characters/all_chara_common/moves/cancels/jc_b_on_hit.tres" id="6_hvo6s"]
+[ext_resource type="Resource" uid="uid://d2nccsnvqunof" path="res://media/characters/all_chara_common/moves/cancels/jc_n_on_hit.tres" id="7_sfxqe"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="7_yhq2l"]
 
 [resource]
@@ -38,6 +41,6 @@ input = Array[int]([1, 16])
 inputVariant1 = Array[int]([])
 inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
-cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_y584b"), ExtResource("1_5y5p7"), ExtResource("2_jk5kh"), ExtResource("3_mbs18")])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_y584b"), ExtResource("1_5y5p7"), ExtResource("2_jk5kh"), ExtResource("3_mbs18"), ExtResource("5_o8ton"), ExtResource("6_hvo6s"), ExtResource("7_sfxqe")])
 guardFrames = Vector2i(-1, -1)
 timestopFrames = 0

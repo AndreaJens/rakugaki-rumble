@@ -27,6 +27,7 @@ A small Godot 4.2 fighting game project, with a sketchbook aesthetic
 * F2/RT: load state
 * F3/RB: show hitboxes
 * F4/LB: reset health, refill meter
+* F5/R3: hide/show trainign data
 
 ### other controls
 * ALT+ENTER: full screen
@@ -72,10 +73,10 @@ A small Godot 4.2 fighting game project, with a sketchbook aesthetic
 ### Whitechapel Esmeralda
 * A: Gibbous Moon (cancels into all Command Normals and Specials, jump cancel on hit)
 * 2A: Entropy Burst (cancels into all Specials, jump cancel on hit, auto-corrects side, can be back-dash canceled on startup)
-    * 2A : Entropy Encore (cancels into all Specials and into itself)
+    * 2A : Entropy Encore (jump cancel on hit, cancels into all Specials and into itself)
 * j.A: Gibbous Moon (halts air momentum, cancels into Air Entropy Burst)
 * j.2A: Ascension Step (universal air spike, cancels into Entropy Encore)
-* j.632A: Entropy Burst (cancels into all Specials and Entropy Encore)
+* j.412A: Entropy Burst (jump cancel on hit, cancels into all Specials and Entropy Encore)
 * 236A: Blame the Night (if Whitechapel has enough meter, this move will throw a projectile. Two projectiles during install, air ok. The palm hitbox can be jump canceled on hit)
 
 ### Basic combo structure:

@@ -41,11 +41,11 @@ func update(character1 : Character, character2 : Character, sceneUpdateTick : in
 	$HpBarChar1.value = character1.characterState.currentHealth
 	$HpBarChar2.max_value = character2.characterData.characterMaxHealth
 	$HpBarChar2.value = character2.characterState.currentHealth
-	if character1.characterState.comboCounter > 0:
+	if character1.characterState.comboCounter > 1:
 		$ComboCounter1.visible = true
 	else:
 		$ComboCounter1.visible = false
-	if character2.characterState.comboCounter > 0:
+	if character2.characterState.comboCounter > 1:
 		$ComboCounter2.visible = true
 	else:
 		$ComboCounter2.visible = false
