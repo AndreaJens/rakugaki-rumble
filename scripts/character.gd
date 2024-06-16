@@ -30,15 +30,21 @@ var projectileNameDict : Dictionary = {}
 
 @export var infinityInstallActive : bool = false:
 	set (value):
+		if !characterState:
+			return
 		if !characterState.hasInfinityInstallActive and value:
 			characterState.installDurationFrameCounter = GameDatabaseAccessor.defaultInfinityInstallDurationTicks
 		if value:
 			characterState.hasInfinityInstallActive = value
 	get:
+		if !characterState:
+			return false
 		return characterState.hasInfinityInstallActive
 		
 @export var zeroInstallActive : bool = false:
 	set (value):
+		if !characterState:
+			return
 		if !characterState.hasZeroInstallActive and value:
 			characterState.installDurationFrameCounter = GameDatabaseAccessor.defaultZeroInstallDurationTicks
 		#if !value:
@@ -46,6 +52,8 @@ var projectileNameDict : Dictionary = {}
 		if value:
 			characterState.hasZeroInstallActive = value
 	get:
+		if !characterState:
+			return false
 		return characterState.hasZeroInstallActive
 
 # FUNCTIONS FOR SNOPEK ROLLBACK ADDON
@@ -562,6 +570,9 @@ func can_gain_meter() -> bool:
 		return false
 	return characterState.roundState == SceneGame.RoundPhaseState.ActiveMatch
 
+func in_hit_stun() -> bool:
+	return currentMove	and currentMove.isHitStunState
+	
 func _update_current_move( inputManager : InputBufferManager, extraLeniency : int = 0 ):
 	if !currentMove	or !currentMove.isHitStunState:
 		characterState.bounceCounter = 0

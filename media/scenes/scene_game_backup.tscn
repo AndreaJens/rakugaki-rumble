@@ -316,8 +316,12 @@ follow_viewport_enabled = true
 
 [node name="Character1" parent="Characters" instance=ExtResource("25_fu4x4")]
 position = Vector2(213, 610)
+initialLogicalPosition = Vector2i(0, 0)
+immortal = false
 
 [node name="Character2" parent="Characters" instance=ExtResource("26_pd8vh")]
+initialLogicalPosition = Vector2i(0, 0)
+immortal = false
 
 [node name="InstallBackground" type="Sprite2D" parent="Characters"]
 visible = false

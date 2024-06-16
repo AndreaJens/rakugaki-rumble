@@ -25,7 +25,10 @@ enum AdditionalGameSceneStartupParameter{
 	StagePath = 2,
 	Player1DeviceId = 3,
 	Player2DeviceId = 4,
+	Player1isCpu = 5,
+	Player2isCpu = 6
 }
+
 var additionalSceneStartupParameters : Dictionary = {}
 
 @onready var inputManagerP1 : InputBufferManager = $InputManagerP1
@@ -55,6 +58,8 @@ var _closeSignalSent : bool = false
 var _internalUpdateTick : int = 0
 @onready var rematchMenuP1 : RematchMenu = $SystemMessages/System/RematchMenuP1
 @onready var rematchMenuP2 : RematchMenu = $SystemMessages/System/RematchMenuP2
+@onready var _cpuControllerCharacter1 : CpuOpponentCore = $CPUControllerPlayer1
+@onready var _cpuControllerCharacter2 : CpuOpponentCore = $CPUControllerPlayer2
 
 @export_category("Match Settings")
 @export_range(0, 5, 1) var roundsToWin : int = 3
@@ -242,6 +247,14 @@ func _ready():
 		player2DeviceId = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player2DeviceId]
 	inputManagerP1.deviceId = player1DeviceId
 	inputManagerP2.deviceId = player2DeviceId
+	if !networkMode:
+		_cpuControllerCharacter1.logic = character1.characterData.characterCpuCore
+		_cpuControllerCharacter2.logic = character2.characterData.characterCpuCore
+		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player1isCpu):
+			_cpuControllerCharacter1.active = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player1isCpu]
+		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player2isCpu):
+			_cpuControllerCharacter2.active = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player2isCpu]
+		
 	#if networkMode:
 		#camera.position_smoothing_enabled = false
 	hitspark1.networkMode = networkMode
@@ -288,9 +301,13 @@ func _check_for_game_pause():
 		InputOverseer.input_is_action_just_pressed_kb("pause_p2")):
 			if _is_paused():
 				pauseMenu.reset_and_hide()
+				hitspark1.unpause_hitspark()
+				hitspark2.unpause_hitspark()
 			else:
 				pauseMenu.reset_and_hide()
 				pauseMenu.visible = true
+				hitspark1.pause_hitspark()
+				hitspark2.pause_hitspark()
 
 func _update_input_for_pause_menu() -> int:
 	var allButtonsPressed = 0
@@ -314,6 +331,8 @@ func _update_pause_menu():
 	if pauseMenu.selection_performed():
 		if pauseMenu.get_highlighted_option() == 0:
 			pauseMenu.reset_and_hide()
+			hitspark1.unpause_hitspark()
+			hitspark2.unpause_hitspark()
 		else:
 			SceneManager.goto_scene_type(SceneManager.SceneType.ModeSelection)
 	
@@ -485,7 +504,8 @@ func _update_game_phase_transition():
 			_roundPhaseCounter -= 1
 			if _roundPhaseCounter == 0:
 				rematchMenuP1.visible = true
-				rematchMenuP2.visible = true
+				if !_vs_cpu_match():
+					rematchMenuP2.visible = true
 				# update victory values
 				if networkMode:
 					if NetworkAssistant.onlineScores.has(_scoresKey1):
@@ -495,32 +515,43 @@ func _update_game_phase_transition():
 						elif (_roundWonCharacter2 > _roundWonCharacter1):
 							NetworkAssistant.onlineScores[_scoresKey1][1] += 1
 							NetworkAssistant.onlineScores[_scoresKey2][0] += 1
-		if rematchMenuP1.selection_performed() and rematchMenuP2.selection_performed():
-			if (rematchMenuP1.get_highlighted_option() == RematchMenu.Option.No or
-				rematchMenuP2.get_highlighted_option() == RematchMenu.Option.No):
-					#change scene
-					if networkMode:		
-						if !_closeSignalSent:					
-							emit_signal("close_network_session")
-							_closeSignalSent = true
-					else:
-						SceneManager.goto_scene_type(SceneManager.SceneType.ModeSelection)
-			else:
-				rematchMenuP1.reset_and_hide()
-				rematchMenuP2.reset_and_hide()
-				hudMain.hide_message()
-				_roundPhaseState = RoundPhaseState.PreRestartMatch
-				_roundPhaseCounter = phaseTransitionMessageThreshold
-		elif rematchMenuP1.selection_performed() or rematchMenuP2.selection_performed():
-			if ((rematchMenuP1.selection_performed() and rematchMenuP1.get_highlighted_option() == RematchMenu.Option.No) or
-				(rematchMenuP2.selection_performed() and rematchMenuP2.get_highlighted_option() == RematchMenu.Option.No)):
-					#change scene on NO
-					if networkMode:		
-						if !_closeSignalSent:					
-							emit_signal("close_network_session")
-							_closeSignalSent = true
-					else:
-						SceneManager.goto_scene_type(SceneManager.SceneType.ModeSelection)
+		if _vs_cpu_match():
+			if rematchMenuP1.selection_performed():
+				if rematchMenuP1.get_highlighted_option() == RematchMenu.Option.No:
+					SceneManager.goto_scene_type(SceneManager.SceneType.CharacterSelectionVsCpu)
+				elif rematchMenuP1.get_highlighted_option() == RematchMenu.Option.Yes:
+					rematchMenuP1.reset_and_hide()
+					rematchMenuP2.reset_and_hide()
+					hudMain.hide_message()
+					_roundPhaseState = RoundPhaseState.PreRestartMatch
+					_roundPhaseCounter = phaseTransitionMessageThreshold
+		else:
+			if rematchMenuP1.selection_performed() and rematchMenuP2.selection_performed():
+				if (rematchMenuP1.get_highlighted_option() == RematchMenu.Option.No or
+					rematchMenuP2.get_highlighted_option() == RematchMenu.Option.No):
+						#change scene
+						if networkMode:		
+							if !_closeSignalSent:					
+								emit_signal("close_network_session")
+								_closeSignalSent = true
+						else:
+							SceneManager.goto_scene_type(SceneManager.SceneType.CharacterSelectionMultiplayer)
+				else:
+					rematchMenuP1.reset_and_hide()
+					rematchMenuP2.reset_and_hide()
+					hudMain.hide_message()
+					_roundPhaseState = RoundPhaseState.PreRestartMatch
+					_roundPhaseCounter = phaseTransitionMessageThreshold
+			elif rematchMenuP1.selection_performed() or rematchMenuP2.selection_performed():
+				if ((rematchMenuP1.selection_performed() and rematchMenuP1.get_highlighted_option() == RematchMenu.Option.No) or
+					(rematchMenuP2.selection_performed() and rematchMenuP2.get_highlighted_option() == RematchMenu.Option.No)):
+						#change scene on NO
+						if networkMode:		
+							if !_closeSignalSent:					
+								emit_signal("close_network_session")
+								_closeSignalSent = true
+						else:
+							SceneManager.goto_scene_type(SceneManager.SceneType.ModeSelection)
 	elif _roundPhaseState == RoundPhaseState.PreRestartMatch:
 		if _roundPhaseCounter > 0:
 			_roundPhaseCounter -= 1
@@ -537,8 +568,20 @@ func _update_game_phase_transition():
 func _update_character_input():
 	#if (_roundPhaseState == RoundPhaseState.ActiveMatch or 
 		#_roundPhaseState == RoundPhaseState.Ko):
-	inputManagerP1.update_buffer()
-	inputManagerP2.update_buffer()
+	if _cpuControllerCharacter1.active:
+		var inputDict = _cpuControllerCharacter1.fetch_input_for_next_frame()
+		var newInputs = inputDict[InputBufferManager.InputBufferState.NewlyPressedButtons]
+		var allInputs = inputDict[InputBufferManager.InputBufferState.AllPressedButtons]
+		inputManagerP1._process_new_input(newInputs, allInputs)
+	else:
+		inputManagerP1.update_buffer()
+	if _cpuControllerCharacter2.active:
+		var inputDict = _cpuControllerCharacter2.fetch_input_for_next_frame()
+		var newInputs = inputDict[InputBufferManager.InputBufferState.NewlyPressedButtons]
+		var allInputs = inputDict[InputBufferManager.InputBufferState.AllPressedButtons]
+		inputManagerP2._process_new_input(newInputs, allInputs)
+	else:
+		inputManagerP2.update_buffer()
 
 func _adjust_character_sfx():
 	var visibleInstallBg : bool = false
@@ -742,7 +785,11 @@ func _constrain_character_position_to_camera_viewport(character : Character):
 		
 func _training_mode_active() -> bool:
 	return preventDeath
-			
+
+func _vs_cpu_match() -> bool:
+	return !networkMode and !_training_mode_active() and (
+		_cpuControllerCharacter1.active or _cpuControllerCharacter2.active)
+
 func _update_camera(immediate : bool = false):
 	if immediate:
 		camera.reset_smoothing()
@@ -792,10 +839,11 @@ func _process_damage_collisions(attacker : Character, defender : Character) -> D
 							intersection(defender.get_box_top_left(hurtBox)))
 						var rawDamage = hitBox.damage
 						result[HitDetectionFlags.DamageToApply] = attacker.adjust_move_damage(rawDamage)
-						if defender.is_airborne() or (
-							defender.characterState.currentHealth <= rawDamage and 
+						if (defender.characterState.currentHealth <= rawDamage and 
 							!defender.immortal):
 							result[HitDetectionFlags.TargetReaction] = GameDatabaseAccessor.defaultAirHitReaction
+						elif defender.is_airborne():
+							result[HitDetectionFlags.TargetReaction] = hitBox.moveReactionOnHitAir
 						else:
 							result[HitDetectionFlags.TargetReaction] = hitBox.moveReactionOnHitGround
 						result[HitDetectionFlags.MeterGain] = hitBox.meterGain

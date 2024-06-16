@@ -1,10 +1,11 @@
-[gd_scene load_steps=45 format=3 uid="uid://c07vx7o11k05c"]
+[gd_scene load_steps=46 format=3 uid="uid://c07vx7o11k05c"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_xmmq4"]
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="2_8rf0r"]
 [ext_resource type="Material" uid="uid://xpbvfj8yi367" path="res://media/characters/all_chara_common/p2Shader.tres" id="2_cc3a5"]
 [ext_resource type="Script" path="res://scripts/InputBufferManager.gd" id="2_o2pvg"]
 [ext_resource type="Script" path="res://scripts/stage.gd" id="3_bjea5"]
+[ext_resource type="Script" path="res://scripts/CPUOpponentCore.gd" id="4_0mt63"]
 [ext_resource type="Script" path="res://scripts/CollisionManager.gd" id="5_avhut"]
 [ext_resource type="Texture2D" uid="uid://bi2nxs31s558p" path="res://media/hud/blackPaper.png" id="6_7wx2e"]
 [ext_resource type="Script" path="res://scripts/Hud.gd" id="6_8oj7r"]
@@ -70,6 +71,16 @@ rotation_smoothing_enabled = true
 
 [node name="CollisionManager" type="Node" parent="."]
 script = ExtResource("5_avhut")
+
+[node name="CPUControllerPlayer1" type="Node" parent="." node_paths=PackedStringArray("actor", "opponent")]
+script = ExtResource("4_0mt63")
+actor = NodePath("../Characters/CharacterParent/Character1")
+opponent = NodePath("../Characters/CharacterParent/Character2")
+
+[node name="CPUControllerPlayer2" type="Node" parent="." node_paths=PackedStringArray("actor", "opponent")]
+script = ExtResource("4_0mt63")
+actor = NodePath("../Characters/CharacterParent/Character2")
+opponent = NodePath("../Characters/CharacterParent/Character1")
 
 [node name="InputManagerP1" type="Node" parent="."]
 script = ExtResource("2_o2pvg")
@@ -342,6 +353,7 @@ offset_bottom = 40.0
 
 [node name="Player1Name" type="Label" parent="Canvas/NetworkStats"]
 custom_minimum_size = Vector2(320, 0)
+layout_mode = 0
 offset_left = 118.0
 offset_top = 36.0
 offset_right = 438.0
@@ -372,6 +384,7 @@ script = ExtResource("27_fovlu")
 
 [node name="Player1Score" type="Label" parent="Canvas/NetworkStats/ScoreController"]
 custom_minimum_size = Vector2(96, 0)
+layout_mode = 0
 offset_left = 460.0
 offset_top = 21.0
 offset_right = 556.0
@@ -382,6 +395,7 @@ horizontal_alignment = 2
 
 [node name="MiddleScoreLevel" type="Label" parent="Canvas/NetworkStats/ScoreController"]
 custom_minimum_size = Vector2(96, 0)
+layout_mode = 0
 offset_left = 520.0
 offset_top = 17.0
 offset_right = 616.0
@@ -392,6 +406,7 @@ horizontal_alignment = 1
 
 [node name="Player2Score" type="Label" parent="Canvas/NetworkStats/ScoreController"]
 custom_minimum_size = Vector2(96, 0)
+layout_mode = 0
 offset_left = 580.0
 offset_top = 21.0
 offset_right = 676.0
@@ -414,9 +429,15 @@ texture = ExtResource("6_7wx2e")
 
 [node name="Character1" parent="Characters/CharacterParent" instance=ExtResource("25_rv40u")]
 initialLogicalPosition = Vector2i(250000, 540000)
+immortal = false
+infinityInstallActive = false
+zeroInstallActive = false
 
 [node name="Character2" parent="Characters/CharacterParent" instance=ExtResource("25_rv40u")]
 initialLogicalPosition = Vector2i(109000, 540000)
+immortal = false
+infinityInstallActive = false
+zeroInstallActive = false
 
 [node name="HitSparksParent" type="Node" parent="Characters"]
 

@@ -45,6 +45,14 @@ func _add_extra_scene_parameters(scene, type : SceneManager.SceneType):
 				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.Player2DeviceId : player2DeviceId,
 				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.NextSceneType : SceneManager.SceneType.Training,
 			}
+		SceneManager.SceneType.CharacterSelectionVsCpu:
+			scene.additionalSceneStartupParameters = {
+				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.Character1Path : character1Path,
+				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.Character2Path : character2Path,
+				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.Player1DeviceId : player1DeviceId,
+				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.Player2DeviceId : player2DeviceId,
+				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.NextSceneType : SceneManager.SceneType.SingleMatchVsCpu,
+			}
 		SceneManager.SceneType.CharacterSelectionMultiplayer:
 			scene.additionalSceneStartupParameters = {
 				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.Character1Path : character1Path,
@@ -74,5 +82,17 @@ func _add_extra_scene_parameters(scene, type : SceneManager.SceneType):
 				SceneGame.AdditionalGameSceneStartupParameter.Character2Path : character2Path,
 				SceneGame.AdditionalGameSceneStartupParameter.Player1DeviceId : player1DeviceId,
 				SceneGame.AdditionalGameSceneStartupParameter.Player2DeviceId : player2DeviceId,
+			}
+		SceneManager.SceneType.SingleMatchVsCpu:
+			scene.preventDeath = false
+			scene.debugMode = false
+			scene.networkMode = false
+			scene.roundsToWin = 3
+			scene.additionalSceneStartupParameters = {
+				SceneGame.AdditionalGameSceneStartupParameter.Character1Path : character1Path,
+				SceneGame.AdditionalGameSceneStartupParameter.Character2Path : character2Path,
+				SceneGame.AdditionalGameSceneStartupParameter.Player1DeviceId : player1DeviceId,
+				SceneGame.AdditionalGameSceneStartupParameter.Player2DeviceId : -1,
+				SceneGame.AdditionalGameSceneStartupParameter.Player2isCpu : true,
 			}
 	

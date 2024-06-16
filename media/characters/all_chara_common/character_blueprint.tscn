@@ -10,10 +10,6 @@
 
 [node name="Character" type="Node2D"]
 script = ExtResource("1_1q0h5")
-initialLogicalPosition = null
-immortal = null
-infinityInstallActive = null
-zeroInstallActive = null
 
 [node name="CharacterState" type="Node" parent="."]
 script = ExtResource("3_jdgsp")

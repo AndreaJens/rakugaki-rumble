@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_ovsyd")
-characterState = 0
+characterState = 1
 internalName = "attackJumpKickAir"
 displayName = ""
 animationName = "attack_jumpKick_air"

@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=34 format=3 uid="uid://qiywbrf1e5yu"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=35 format=3 uid="uid://qiywbrf1e5yu"]
 
 [ext_resource type="Resource" uid="uid://p47xfht07jma" path="res://media/characters/chara_naomi/moves/idle.tres" id="1_1hkwy"]
 [ext_resource type="Script" path="res://scripts/characterData.gd" id="1_u7ctv"]
+[ext_resource type="Resource" uid="uid://b3tg814hs63y5" path="res://media/characters/chara_naomi/cpu/naomi_base_cpu.tres" id="1_usr73"]
 [ext_resource type="Resource" uid="uid://uy1sow0amqcq" path="res://media/characters/chara_naomi/moves/attack1.tres" id="1_uvrso"]
 [ext_resource type="Resource" uid="uid://gbfl51brk8fc" path="res://media/characters/chara_naomi/moves/falling.tres" id="2_fd1iy"]
 [ext_resource type="Resource" uid="uid://6epfw5kjo1vx" path="res://media/characters/chara_naomi/moves/walkF.tres" id="2_qsvjh"]
@@ -44,3 +45,4 @@ characterMaxMeter = 30000
 characterNameTexture = ExtResource("21_tvj7t")
 characterMoves = Array[Resource("res://scripts/move.gd")]([ExtResource("1_1hkwy"), ExtResource("2_fd1iy"), ExtResource("3_w8mbb"), ExtResource("4_m4ai3"), ExtResource("5_bk88r"), ExtResource("6_22kyx"), ExtResource("5_dn7hy"), ExtResource("7_d85sl"), ExtResource("7_hxaci"), ExtResource("6_6ss6r"), ExtResource("7_me4oq"), ExtResource("4_wp1ec"), ExtResource("5_vtntq"), ExtResource("8_6w6yr"), ExtResource("1_uvrso"), ExtResource("3_26k0q"), ExtResource("4_gqu7m"), ExtResource("5_1yif7"), ExtResource("3_jx27h"), ExtResource("2_qsvjh"), ExtResource("5_mtauf"), ExtResource("7_safhy"), ExtResource("10_8h2rf"), ExtResource("13_wywu3"), ExtResource("24_f6hx0"), ExtResource("24_axx4q"), ExtResource("26_nvnap"), ExtResource("27_bji48"), ExtResource("29_pocem"), ExtResource("30_dv50i"), ExtResource("31_fqhii")])
 characterProjectileTypes = Array[String]([])
+characterCpuCore = ExtResource("1_usr73")

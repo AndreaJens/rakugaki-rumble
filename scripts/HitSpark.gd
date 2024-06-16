@@ -4,6 +4,7 @@ class_name HitSpark extends Node2D
 @export var networkMode : bool = false
 var _durationTicks = 0
 var _logicalPosition = Vector2i(0, 0)
+var _localPause = false
 @onready var _animPlayer : AnimationPlayer = $AnimationPlayer
 
 
@@ -51,10 +52,15 @@ func deactivate_hitspark():
 	_animPlayer.stop()
 	visible = false
 	_durationTicks = 0
+	
+func pause_hitspark():
+	_localPause = true
 
+func unpause_hitspark():
+	_localPause = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if !networkMode and _animPlayer.is_playing():
+	if !networkMode and _animPlayer.is_playing() and !_localPause:
 		_animPlayer.advance(1. / GameDatabaseAccessor.frameRateFps)
 	
 func _network_process(_delta):

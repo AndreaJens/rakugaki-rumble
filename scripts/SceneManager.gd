@@ -6,9 +6,11 @@ enum SceneType {
 	MainMenu, 
 	CharacterSelectionTraining, 
 	CharacterSelectionMultiplayer, 
+	CharacterSelectionVsCpu, 
 	ModeSelection, 
 	SingleMatchMultiplayer, 
 	Training, 
+	SingleMatchVsCpu,
 	NetplayMenu,
 	Quit}
 
@@ -18,8 +20,10 @@ signal scene_switched
 var sceneTypeToPath = {
 	SceneType.ModeSelection : "res://media/scenes/scene_mode_selection.tscn",
 	SceneType.CharacterSelectionTraining : "res://media/scenes/scene_character_selection.tscn",
+	SceneType.CharacterSelectionVsCpu : "res://media/scenes/scene_character_selection.tscn",
 	SceneType.CharacterSelectionMultiplayer : "res://media/scenes/scene_character_selection.tscn",
 	SceneType.SingleMatchMultiplayer : "res://media/scenes/scene_game.tscn",
+	SceneType.SingleMatchVsCpu : "res://media/scenes/scene_game.tscn",
 	SceneType.NetplayMenu : "res://media/scenes/netplay_menu.tscn",
 	SceneType.Training : "res://media/scenes/scene_game.tscn",
 }

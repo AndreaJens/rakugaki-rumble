@@ -9,3 +9,4 @@ class_name CharacterData extends Resource
 @export var characterNameTexture : Texture2D
 @export var characterMoves : Array[CharacterMove] = [] 
 @export var characterProjectileTypes : Array[String] = [] 
+@export var characterCpuCore : CpuOpponentRuleset = null

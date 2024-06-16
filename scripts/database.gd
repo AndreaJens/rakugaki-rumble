@@ -110,5 +110,3 @@ enum AttackType {
 @export var characterAbsVelocityCapX : int = 2000000
 @export var hitCharacterMeterGainFraction : int = 3
 @export var cameraViewportSize : Rect2i = Rect2i(0,0,1134,636)
-
-

@@ -43,6 +43,10 @@ class_name CharacterMove extends Resource
 @export_category("Extra Effects")
 @export var timestopFrames := 0
 
+#func _conditional_print(value):
+	#if internalName == "attackJumpKnee":
+		#print(value)
+
 func check_input_against_buffer(
 	moveInput : Array[GameDatabaseAccessor.GameInputButton],
 	inputBuffer : Array[int], 
@@ -137,14 +141,12 @@ func check_input_against_buffer(
 				return false
 			if (currentInput & inputToCheck) == inputToCheck:
 				numberOfMatches += 1
-				for j in range(k, lowerBound, -1):
+				for j in range(k - 1, lowerBound, -1):
 					currentBufferIndex -= 1
 					var testInput = inputBuffer[j]
 					if (!(testInput & GameDatabaseAccessor.GameInputButton.AnyDirection) or
 						testInput != inputBuffer[k]):
 							break
-				#_conditional_print("match %d %d %d" % [k, currentInput, inputToCheck])
-				#_conditional_print(inputBuffer)
 				break
 		if numberOfMatches >= inputLength:
 			return true

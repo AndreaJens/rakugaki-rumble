@@ -80,8 +80,11 @@ func _update_input_p2() -> int:
 			allButtonsPressed = allButtonsPressed | GameDatabaseAccessor.GameInputButton.Cancel
 	return allButtonsPressed
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+func _player1_only() -> bool:
+	return nextSceneType == SceneManager.SceneType.Training or nextSceneType == SceneManager.SceneType.SingleMatchVsCpu
+
 func _process(_delta):
-	if nextSceneType == SceneManager.SceneType.Training:
+	if _player1_only():
 		var buttonsPressedP1 = _update_input_p1()
 		if _check_if_cancel_p1_selection_needed():
 			_menu_p1.active = true
