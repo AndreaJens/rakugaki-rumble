@@ -143,12 +143,14 @@ characterData = ExtResource("2_tinh8")
 script = ExtResource("2_ssm87")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 10
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("4_xt733")
-offset = Vector2(0, -385)
+offset = Vector2(0, -360)
 hframes = 4
 vframes = 4
+frame = 13
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -165,8 +167,8 @@ script = ExtResource("18_1xnwy")
 [node name="HitBox" parent="HitBoxes" instance=ExtResource("5_35kqm")]
 moveReactionOnHitGround = "hurtG"
 moveReactionOnHitAir = "hurtSpike"
-damage = 7500
-boxSize = Rect2i(150000, -250000, 180000, 180000)
+damage = 8000
+boxSize = Rect2i(180000, -120000, 160000, 120000)
 
 [node name="HitBox2" parent="HitBoxes" instance=ExtResource("5_35kqm")]
 
@@ -180,7 +182,7 @@ boxSize = Rect2i(150000, -250000, 180000, 180000)
 
 [node name="HurtBox" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
 active = true
-boxSize = Rect2i(-100000, -200000, 200000, 300000)
+boxSize = Rect2i(-75000, -165000, 200000, 320000)
 
 [node name="HurtBox2" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
 boxSize = Rect2i(270000, -200000, 200000, 200000)
@@ -192,4 +194,5 @@ boxSize = Rect2i(270000, -200000, 200000, 200000)
 [node name="HurtBox5" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
 
 [node name="PushBox" parent="." instance=ExtResource("5_phuw5")]
-boxSize = Rect2i(0, -100000, 200000, 200000)
+active = true
+boxSize = Rect2i(-50000, -100000, 200000, 200000)

@@ -74,11 +74,13 @@ script = ExtResource("5_avhut")
 
 [node name="CPUControllerPlayer1" type="Node" parent="." node_paths=PackedStringArray("actor", "opponent")]
 script = ExtResource("4_0mt63")
+ticksBetweenDecisions = 15
 actor = NodePath("../Characters/CharacterParent/Character1")
 opponent = NodePath("../Characters/CharacterParent/Character2")
 
 [node name="CPUControllerPlayer2" type="Node" parent="." node_paths=PackedStringArray("actor", "opponent")]
 script = ExtResource("4_0mt63")
+ticksBetweenDecisions = 15
 actor = NodePath("../Characters/CharacterParent/Character2")
 opponent = NodePath("../Characters/CharacterParent/Character1")
 
@@ -429,15 +431,9 @@ texture = ExtResource("6_7wx2e")
 
 [node name="Character1" parent="Characters/CharacterParent" instance=ExtResource("25_rv40u")]
 initialLogicalPosition = Vector2i(250000, 540000)
-immortal = false
-infinityInstallActive = false
-zeroInstallActive = false
 
 [node name="Character2" parent="Characters/CharacterParent" instance=ExtResource("25_rv40u")]
 initialLogicalPosition = Vector2i(109000, 540000)
-immortal = false
-infinityInstallActive = false
-zeroInstallActive = false
 
 [node name="HitSparksParent" type="Node" parent="Characters"]
 

@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=8 format=3 uid="uid://b8pj1tv11tj5h"]
+
+[ext_resource type="Resource" uid="uid://c6k3678b3yole" path="res://media/characters/chara_whitechapel/moves/cancels/to_bat_assault_hit.tres" id="1_ddasa"]
+[ext_resource type="Resource" uid="uid://b3dvs8txb8pji" path="res://media/characters/all_chara_common/moves/cancels/zero_install_hit.tres" id="2_axg38"]
+[ext_resource type="Resource" uid="uid://k85f7ldgjhu7" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_hit.tres" id="3_6d811"]
+[ext_resource type="Resource" uid="uid://csyfkukhxifa0" path="res://media/characters/all_chara_common/moves/cancels/jc_on_hit.tres" id="4_8hmv7"]
+[ext_resource type="Resource" uid="uid://d2quvuuy1qvv0" path="res://media/characters/all_chara_common/moves/cancels/jc_b_on_hit.tres" id="5_0uyyo"]
+[ext_resource type="Resource" uid="uid://d2nccsnvqunof" path="res://media/characters/all_chara_common/moves/cancels/jc_n_on_hit.tres" id="6_gxiv2"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="7_eairv"]
+
+[resource]
+script = ExtResource("7_eairv")
+characterState = 0
+internalName = "batAssaultDownMeter"
+displayName = "Twilight Snack"
+animationName = "batAssaultDown"
+startingFrame = 3
+endingFrame = 32
+isHitStunState = false
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(0, 0)
+logicalAccelerationPerFrame = Vector2i(0, 0)
+keepMomentumPercent = 0
+spawnProjectileAtFrame = {
+13: {
+"duration": 40,
+"offset": Vector2i(120000, -160000),
+"projType": "batProjectile3"
+}
+}
+canGainMeter = false
+meterCost = 6000
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = false
+canBeUsedAfterRoundEnds = false
+requiresInfinityInstall = false
+requiresZeroInstall = false
+requiresAnyInstall = false
+forbiddenButtons = Array[int]([])
+bufferStartLeniency = 5
+bufferLengthLeniency = 5
+useRawBuffer = false
+input = Array[int]([])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_ddasa"), ExtResource("2_axg38"), ExtResource("3_6d811"), ExtResource("4_8hmv7"), ExtResource("5_0uyyo"), ExtResource("6_gxiv2")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0

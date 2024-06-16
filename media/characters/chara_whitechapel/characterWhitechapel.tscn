@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://xa67fv0awtmh"]
+[gd_scene load_steps=47 format=3 uid="uid://xa67fv0awtmh"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_ml175"]
 [ext_resource type="Resource" uid="uid://qiywbrf1e5yu" path="res://media/characters/chara_naomi/characterData.tres" id="2_bsqq3"]
@@ -30,8 +30,10 @@
 [ext_resource type="Animation" uid="uid://wo2xdpwmilh0" path="res://media/characters/chara_whitechapel/animations/batAssault1.res" id="29_bq018"]
 [ext_resource type="Script" path="res://addons/godot-rollback-netcode/NetworkAnimationPlayer.gd" id="30_cjx64"]
 [ext_resource type="Animation" uid="uid://b6qpjjd4pql5h" path="res://media/characters/chara_whitechapel/projectiles/batProjectile1/animations/batProj.res" id="30_ihprw"]
+[ext_resource type="Animation" uid="uid://qlrlwbmtbtvj" path="res://media/characters/chara_whitechapel/animations/batAssaultDown.res" id="31_4hl1g"]
 [ext_resource type="PackedScene" uid="uid://cy2ewlewinwbv" path="res://media/logic/HitBox.tscn" id="31_s7u1m"]
 [ext_resource type="PackedScene" uid="uid://cbaqvnlrwjidk" path="res://media/logic/HurtBox.tscn" id="32_5cq7l"]
+[ext_resource type="Animation" uid="uid://bw8p55rs5r2fm" path="res://media/characters/chara_whitechapel/projectiles/batProjectile3/animations/batProj45.res" id="32_33vj1"]
 [ext_resource type="PackedScene" uid="uid://c5k34hfd8kc10" path="res://media/logic/PushBox.tscn" id="33_13qcx"]
 
 [sub_resource type="Animation" id="Animation_w5h5g"]
@@ -1448,7 +1450,9 @@ _data = {
 "attack_jumpKick_air": SubResource("Animation_kpm10"),
 "attack_jumpKnee": SubResource("Animation_yxd5c"),
 "batAssault1": ExtResource("29_bq018"),
+"batAssaultDown": ExtResource("31_4hl1g"),
 "batProj": ExtResource("30_ihprw"),
+"batProj45": ExtResource("32_33vj1"),
 "downSpike": ExtResource("9_q04no"),
 "downSpike_fwp": SubResource("Animation_xtrv7"),
 "entropyBurst": ExtResource("26_3xr6g"),
@@ -1480,13 +1484,13 @@ characterData = ExtResource("2_bsqq3")
 script = ExtResource("3_qgy7h")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = 10
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("4_stos7")
-offset = Vector2(0, -590)
+offset = Vector2(-50, -400)
 hframes = 4
 vframes = 4
+frame = 7
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -1518,8 +1522,7 @@ boxSize = Rect2i(150000, -200000, 200000, 200000)
 visible = false
 
 [node name="HurtBox" parent="HurtBoxes" instance=ExtResource("32_5cq7l")]
-active = true
-boxSize = Rect2i(0, -165000, 250000, 320000)
+boxSize = Rect2i(0, -50000, 250000, 150000)
 
 [node name="HurtBox2" parent="HurtBoxes" instance=ExtResource("32_5cq7l")]
 boxSize = Rect2i(270000, -200000, 200000, 200000)
@@ -1533,4 +1536,4 @@ boxSize = Rect2i(270000, -200000, 200000, 200000)
 [node name="PushBox" parent="." instance=ExtResource("33_13qcx")]
 visible = false
 active = true
-boxSize = Rect2i(0, -120000, 200000, 250000)
+boxSize = Rect2i(-100000, -150000, 120000, 300000)

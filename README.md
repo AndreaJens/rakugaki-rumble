@@ -71,13 +71,14 @@ A small Godot 4.2 fighting game project, with a sketchbook aesthetic
 * A (during Air Boost or Fast Boost): Drill Smash (cancels into Terrordriller on hit, no meter gain on hit)
 
 ### Whitechapel Esmeralda
-* A: Gibbous Moon (cancels into all Command Normals and Specials, jump cancel on hit)
+* A: Gibbous Moon (cancels into all Command Normals and Specials, jump cancel on hit, halts momentum)
 * 2A: Entropy Burst (cancels into all Specials, jump cancel on hit, auto-corrects side, can be back-dash canceled on startup)
     * 2A : Entropy Encore (jump cancel on hit, cancels into all Specials and into itself)
-* j.A: Gibbous Moon (halts air momentum, cancels into Air Entropy Burst)
+* j.A: Gibbous Moon (halts air momentum, cancels into Air Entropy Burst, Blame the Night and Twilight Snack)
 * j.2A: Ascension Step (universal air spike, cancels into Entropy Encore)
 * j.412A: Entropy Burst (jump cancel on hit, cancels into all Specials and Entropy Encore)
 * 236A: Blame the Night (if Whitechapel has enough meter, this move will throw a projectile. Two projectiles during install, air ok. The palm hitbox can be jump canceled on hit)
+* j.214A: Twilight Snack (if Whitechapel has enough meter, this move will throw a projectile. Two projectiles during install, air ok. The palm hitbox can be jump canceled on hit)
 
 ### Basic combo structure:
 * hitting the opponent during the start of their hitstun frames floats them. A sample starter can be either A > 2A, 2A > 236A or e.g. A > 236A
@@ -90,4 +91,5 @@ A small Godot 4.2 fighting game project, with a sketchbook aesthetic
 * ONLINE MULTIPLAYER IS STILL EXPERIMENTAL! Watch out, there might be one-sided rollbacks! 
 * it works via direct IP connection -> use Radmin VPN or Hamachi for the best results
 * Auto Button Masher is a DEBUG setting that will replace a player with a randomly mashing CPU opponent - DON'T use it online unless you are heavy on trolling
+* VS CPU works ONLY against Naomi, currently, and the CPU is relatively DUMB
 

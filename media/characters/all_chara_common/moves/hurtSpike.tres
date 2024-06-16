@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CharacterMove" load_steps=3 format=3 uid="uid://b4iddv07638e1"]
 
-[ext_resource type="Resource" uid="uid://b2oxxj8ohxgew" path="res://media/characters/all_chara_common/moves/cancels/to_kd.tres" id="1_xln31"]
+[ext_resource type="Resource" uid="uid://c5bousk26xbs8" path="res://media/characters/all_chara_common/moves/cancels/to_hkd.tres" id="1_la5dd"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="2_otgah"]
 
 [resource]
@@ -10,7 +10,7 @@ internalName = "hurtSpike"
 displayName = ""
 animationName = "hurtSpike"
 startingFrame = 0
-endingFrame = 10
+endingFrame = 40
 isHitStunState = true
 loop = true
 canTurnMidMove = false
@@ -35,6 +35,6 @@ input = Array[int]([])
 inputVariant1 = Array[int]([])
 inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
-cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_xln31")])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_la5dd")])
 guardFrames = Vector2i(-1, -1)
 timestopFrames = 0

@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=2 format=3 uid="uid://b3er75m85u0aa"]
+
+[ext_resource type="Script" path="res://scripts/move.gd" id="1_mjg6r"]
+
+[resource]
+script = ExtResource("1_mjg6r")
+characterState = 0
+internalName = "batProj45"
+displayName = ""
+animationName = "batProj45"
+startingFrame = 0
+endingFrame = 20
+isHitStunState = false
+loop = true
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(25000, 25000)
+logicalAccelerationPerFrame = Vector2i(0, 0)
+keepMomentumPercent = 0
+spawnProjectileAtFrame = {}
+canGainMeter = true
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = true
+canBeUsedAfterRoundEnds = false
+requiresInfinityInstall = false
+requiresZeroInstall = false
+requiresAnyInstall = false
+forbiddenButtons = Array[int]([])
+bufferStartLeniency = 3
+bufferLengthLeniency = 10
+useRawBuffer = false
+input = Array[int]([])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0

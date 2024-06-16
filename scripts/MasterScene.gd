@@ -65,6 +65,7 @@ func _add_extra_scene_parameters(scene, type : SceneManager.SceneType):
 			scene.preventDeath = true
 			scene.debugMode = true
 			scene.networkMode = false
+			scene.startActivePhaseImmediately = true
 			scene.roundsToWin = 0
 			scene.additionalSceneStartupParameters = {
 				SceneGame.AdditionalGameSceneStartupParameter.Character1Path : character1Path,

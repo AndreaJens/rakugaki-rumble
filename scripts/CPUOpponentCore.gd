@@ -34,19 +34,22 @@ func fetch_input_for_next_frame() -> Dictionary:
 		_ticksSinceLastDecision -= 1
 	else:
 		if shuffleNewMove:
-			var newMoveFound = _shuffle_new_move()
+			var newMoveFound : CpuOpponentMove = _shuffle_new_move()
 			if newMoveFound and !_currentInputSequence.is_empty():
 				currentInput = _currentInputSequence[_currentInputIndex]
 				allPressedButtons = _currentInputSequence[_currentInputIndex]
-				_ticksSinceLastDecision = _ticks_between_decisions()
+				if newMoveFound.tickToNextMove >= 0:
+					_ticksSinceLastDecision = newMoveFound.tickToNextMove
+				else:
+					_ticksSinceLastDecision = _ticks_between_decisions()
 	var outInput : Dictionary = {}
 	outInput[InputBufferManager.InputBufferState.AllPressedButtons] = allPressedButtons
 	outInput[InputBufferManager.InputBufferState.NewlyPressedButtons] = currentInput
 	return outInput
 
-func _shuffle_new_move() -> bool:
+func _shuffle_new_move() -> CpuOpponentMove:
 	if !logic:
-		return false
+		return null
 	if actor and opponent:
 		_distanceBetweenCharacters = opponent.get_logical_position() - actor.get_logical_position()
 	var validMoves : Dictionary = {}
@@ -59,7 +62,7 @@ func _shuffle_new_move() -> bool:
 				break
 		if allRulesValid:
 			currentWeight += cpuMove.weight
-			validMoves[currentWeight] = cpuMove.targetMoveName
+			validMoves[currentWeight] = cpuMove
 	# draw random
 	if currentWeight > 0:
 		var value = _rng.randi_range(0, currentWeight) 
@@ -67,11 +70,11 @@ func _shuffle_new_move() -> bool:
 		keyArray.sort()
 		for key in keyArray:
 			if value < key:
-				if _move_is_valid(validMoves[key]):
-					_set_input_from_move(validMoves[key])
-					return true
+				if _move_is_valid(validMoves[key].targetMoveName):
+					_set_input_from_move(validMoves[key].targetMoveName)
+					return validMoves[key]
 				break
-	return false
+	return null
 		
 
 func _move_is_valid(moveName : String) -> bool:

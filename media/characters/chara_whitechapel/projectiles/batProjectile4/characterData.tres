@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=3 format=3 uid="uid://syh8k6o4rxgp"]
+
+[ext_resource type="Resource" uid="uid://bvtjxqlkdhfte" path="res://media/characters/chara_whitechapel/projectiles/batProjectile3/batProj45.tres" id="1_oh4km"]
+[ext_resource type="Script" path="res://scripts/characterData.gd" id="2_fwbbk"]
+
+[resource]
+script = ExtResource("2_fwbbk")
+characterFullName = "batProjectile4"
+characterDisplayName = ""
+characterAnimationLibraryPrefix = "bat"
+characterMaxHealth = 1
+characterMaxMeter = 0
+characterMoves = Array[Resource("res://scripts/move.gd")]([ExtResource("1_oh4km"), ExtResource("1_oh4km"), ExtResource("1_oh4km"), ExtResource("1_oh4km"), ExtResource("1_oh4km")])
+characterProjectileTypes = Array[String]([])

@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=10 format=3 uid="uid://uryero3mwwse"]
+
+[ext_resource type="Resource" uid="uid://d25bxqnfy430v" path="res://media/characters/chara_whitechapel/moves/cancels/to_bat_assault_down_auto_install.tres" id="1_0hfu7"]
+[ext_resource type="Resource" uid="uid://dgxptm6fdn44e" path="res://media/characters/chara_whitechapel/moves/cancels/to_bat_assault_down_auto_meter.tres" id="1_fqqs4"]
+[ext_resource type="Resource" uid="uid://c6k3678b3yole" path="res://media/characters/chara_whitechapel/moves/cancels/to_bat_assault_hit.tres" id="3_tjday"]
+[ext_resource type="Resource" uid="uid://b3dvs8txb8pji" path="res://media/characters/all_chara_common/moves/cancels/zero_install_hit.tres" id="4_3wkhi"]
+[ext_resource type="Resource" uid="uid://k85f7ldgjhu7" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_hit.tres" id="5_gr7h1"]
+[ext_resource type="Resource" uid="uid://csyfkukhxifa0" path="res://media/characters/all_chara_common/moves/cancels/jc_on_hit.tres" id="6_fp124"]
+[ext_resource type="Resource" uid="uid://d2quvuuy1qvv0" path="res://media/characters/all_chara_common/moves/cancels/jc_b_on_hit.tres" id="7_6mikq"]
+[ext_resource type="Resource" uid="uid://d2nccsnvqunof" path="res://media/characters/all_chara_common/moves/cancels/jc_n_on_hit.tres" id="8_mj657"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="9_obptw"]
+
+[resource]
+script = ExtResource("9_obptw")
+characterState = 1
+internalName = "batAssaultDown"
+displayName = "Twilight Snack"
+animationName = "batAssaultDown"
+startingFrame = 0
+endingFrame = 32
+isHitStunState = false
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(0, 0)
+logicalAccelerationPerFrame = Vector2i(0, 0)
+keepMomentumPercent = 0
+spawnProjectileAtFrame = {}
+canGainMeter = true
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = false
+canBeUsedAfterRoundEnds = false
+requiresInfinityInstall = false
+requiresZeroInstall = false
+requiresAnyInstall = false
+forbiddenButtons = Array[int]([])
+bufferStartLeniency = 5
+bufferLengthLeniency = 13
+useRawBuffer = false
+input = Array[int]([1, 9, 8, 16])
+inputVariant1 = Array[int]([1, 9, 8, 16384])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_0hfu7"), ExtResource("1_fqqs4"), ExtResource("3_tjday"), ExtResource("4_3wkhi"), ExtResource("5_gr7h1"), ExtResource("6_fp124"), ExtResource("7_6mikq"), ExtResource("8_mj657")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0
