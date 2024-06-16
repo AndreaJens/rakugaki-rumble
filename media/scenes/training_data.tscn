@@ -1,12 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dn21r3h6xh115"]
 
 [ext_resource type="Script" path="res://scripts/TrainingData.gd" id="1_wbbxw"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_m6cw5"]
-font_size = 24
-font_color = Color(0, 0, 0, 1)
-outline_size = 5
-shadow_color = Color(0.0588235, 0.027451, 0.00392157, 0)
+[ext_resource type="LabelSettings" uid="uid://6wfgdmwf7gy5" path="res://media/hud/training_data_label_settings.tres" id="2_yqmqq"]
 
 [node name="TrainingData" type="Control"]
 layout_mode = 3
@@ -39,54 +34,54 @@ columns = 2
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 text = "Hits"
-label_settings = SubResource("LabelSettings_m6cw5")
+label_settings = ExtResource("2_yqmqq")
 
 [node name="CurrentComboCountLabel" type="Label" parent="Grid"]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 text = "0
 "
-label_settings = SubResource("LabelSettings_m6cw5")
+label_settings = ExtResource("2_yqmqq")
 horizontal_alignment = 2
 
 [node name="MaxComboLabel" type="Label" parent="Grid"]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 text = "Max Hits"
-label_settings = SubResource("LabelSettings_m6cw5")
+label_settings = ExtResource("2_yqmqq")
 
 [node name="MaxComboCountLabel" type="Label" parent="Grid"]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 text = "0
 "
-label_settings = SubResource("LabelSettings_m6cw5")
+label_settings = ExtResource("2_yqmqq")
 horizontal_alignment = 2
 
 [node name="ComboDamageLabel" type="Label" parent="Grid"]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 text = "Combo Dmg"
-label_settings = SubResource("LabelSettings_m6cw5")
+label_settings = ExtResource("2_yqmqq")
 
 [node name="ComboDamageValueLabel" type="Label" parent="Grid"]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 text = "0
 "
-label_settings = SubResource("LabelSettings_m6cw5")
+label_settings = ExtResource("2_yqmqq")
 horizontal_alignment = 2
 
 [node name="MaxComboDamageLabel" type="Label" parent="Grid"]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 text = "Max Dmg"
-label_settings = SubResource("LabelSettings_m6cw5")
+label_settings = ExtResource("2_yqmqq")
 
 [node name="MaxComboDamageValueLabel" type="Label" parent="Grid"]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 text = "0
 "
-label_settings = SubResource("LabelSettings_m6cw5")
+label_settings = ExtResource("2_yqmqq")
 horizontal_alignment = 2

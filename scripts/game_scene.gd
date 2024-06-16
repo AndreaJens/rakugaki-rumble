@@ -74,6 +74,10 @@ var _internalUpdateTick : int = 0
 @export var preventDeath : bool = false
 @export var startActivePhaseImmediately : bool = false
 
+#network vars
+var _scoresKey1 : String
+var _scoresKey2 : String
+
 var _lastStateSaved = {}
 
 enum HitDetectionFlags {
@@ -109,7 +113,7 @@ enum GameStateVars {
 	PreventDeathFlag = 999,
 	InternalUpdateTick = 9000,
 	PostMatchMenu1State = 9001,
-	PostMatchMenu2State = 9001,
+	PostMatchMenu2State = 9002,
 	CloseSignalSent = 10000,
 	Char1Projectile1 = 20000,
 	Char1Projectile2 = 20001,
@@ -119,6 +123,8 @@ enum GameStateVars {
 	Char2Projectile2 = 30001,
 	Char2Projectile3 = 30002,
 	Char2Projectile4 = 30003,
+	OnlineScoresG = 9004,
+	OnlineScoresH = 9005,
 }
 
 func _save_state() -> Dictionary:
@@ -162,6 +168,9 @@ func _save_state() -> Dictionary:
 			stateDict[GameStateVars.Char2Projectile2] = character2.projectiles[1]._save_state()
 		if character2.projectiles.size() > 0:
 			stateDict[GameStateVars.Char2Projectile1] = character2.projectiles[0]._save_state()
+	else:
+		stateDict[GameStateVars.OnlineScoresG] = NetworkAssistant.onlineScores[_scoresKey2].duplicate()
+		stateDict[GameStateVars.OnlineScoresH] = NetworkAssistant.onlineScores[_scoresKey1].duplicate()
 	return stateDict
 	
 func _load_state(state : Dictionary) -> void:
@@ -208,6 +217,9 @@ func _load_state(state : Dictionary) -> void:
 			character2.projectiles[0]._load_state(state[GameStateVars.Char2Projectile1])
 		hitspark1.deactivate_hitspark()
 		hitspark2.deactivate_hitspark()
+	else:
+		NetworkAssistant.onlineScores[_scoresKey1] = state[GameStateVars.OnlineScoresH].duplicate()
+		NetworkAssistant.onlineScores[_scoresKey2] = state[GameStateVars.OnlineScoresG].duplicate()
 	hudMain.update(character1, character2, _internalUpdateTick, false)
 	hudMain.update_round_won(_roundWonCharacter1, _roundWonCharacter2)
 
@@ -235,10 +247,21 @@ func _ready():
 	hitspark1.networkMode = networkMode
 	hitspark2.networkMode = networkMode
 	if networkMode:
-		$Canvas/Player1Name.text = NetworkAssistant.player1Name
-		$Canvas/Player2Name.text = NetworkAssistant.player2Name
-		$Canvas/Player1Name.visible = true
-		$Canvas/Player2Name.visible = true
+		$Canvas/NetworkStats.visible = true
+		$Canvas/NetworkStats/Player1Name.text = NetworkAssistant.player1Name
+		$Canvas/NetworkStats/Player2Name.text = NetworkAssistant.player2Name
+		if NetworkAssistant.player1Name.is_empty():
+			NetworkAssistant.player1Name = "host"
+		if NetworkAssistant.player2Name.is_empty():
+			NetworkAssistant.player2Name = "guest"
+		_scoresKey1 = NetworkAssistant.player1Name + "_" + NetworkAssistant.player2Name
+		_scoresKey2 = NetworkAssistant.player2Name + "_" + NetworkAssistant.player1Name
+		if !NetworkAssistant.onlineScores.has(_scoresKey1):
+			NetworkAssistant.onlineScores[_scoresKey1] = [0,0]
+			NetworkAssistant.onlineScores[_scoresKey2] = [0,0]
+		$Canvas/NetworkStats/ScoreController.set_dictionary_key(_scoresKey1)
+		if !NetworkAssistant.showScores:
+			$Canvas/NetworkStats/ScoreController.visible = false
 	_reset_round()
 	_init_hud()
 	_lastStateSaved = _save_state()
@@ -382,6 +405,9 @@ func _restart_match():
 	_roundWonCharacter2 = 0
 	hudMain.update_round_won(_roundWonCharacter1, _roundWonCharacter2)
 	_reset_round(true)
+	if networkMode:
+		NetworkAssistant.close_log()
+		NetworkAssistant.start_new_log()
 
 func _update_post_match_menu():
 	if _roundPhaseState != RoundPhaseState.PostMatchMenu:
@@ -460,6 +486,15 @@ func _update_game_phase_transition():
 			if _roundPhaseCounter == 0:
 				rematchMenuP1.visible = true
 				rematchMenuP2.visible = true
+				# update victory values
+				if networkMode:
+					if NetworkAssistant.onlineScores.has(_scoresKey1):
+						if (_roundWonCharacter1 > _roundWonCharacter2):
+							NetworkAssistant.onlineScores[_scoresKey1][0] += 1
+							NetworkAssistant.onlineScores[_scoresKey2][1] += 1
+						elif (_roundWonCharacter2 > _roundWonCharacter1):
+							NetworkAssistant.onlineScores[_scoresKey1][1] += 1
+							NetworkAssistant.onlineScores[_scoresKey2][0] += 1
 		if rematchMenuP1.selection_performed() and rematchMenuP2.selection_performed():
 			if (rematchMenuP1.get_highlighted_option() == RematchMenu.Option.No or
 				rematchMenuP2.get_highlighted_option() == RematchMenu.Option.No):
@@ -758,9 +793,9 @@ func _process_damage_collisions(attacker : Character, defender : Character) -> D
 						var rawDamage = hitBox.damage
 						result[HitDetectionFlags.DamageToApply] = attacker.adjust_move_damage(rawDamage)
 						if defender.is_airborne() or (
-							defender.characterState.currentHealth < rawDamage and 
+							defender.characterState.currentHealth <= rawDamage and 
 							!defender.immortal):
-							result[HitDetectionFlags.TargetReaction] = hitBox.moveReactionOnHitAir
+							result[HitDetectionFlags.TargetReaction] = GameDatabaseAccessor.defaultAirHitReaction
 						else:
 							result[HitDetectionFlags.TargetReaction] = hitBox.moveReactionOnHitGround
 						result[HitDetectionFlags.MeterGain] = hitBox.meterGain
@@ -829,6 +864,9 @@ func _update_projectile_hit_detection() -> bool:
 		character2.deal_damage(p1AttackResult[HitDetectionFlags.DamageToApply])
 		character2.characterState.comboCounter = 0
 		character2.characterState.comboDamage = 0
+		if character2.is_ko():
+			character2.characterState.logicalPosition.y -= 100
+			character2.characterState.characterStanceType = Character.State.Air 
 		var _success = character2.apply_move_by_name(p1AttackResult[HitDetectionFlags.TargetReaction])
 	if !p2AttackResult.is_empty() and p2AttackResult[HitDetectionFlags.HasHit]:
 		@warning_ignore("integer_division")
@@ -841,6 +879,9 @@ func _update_projectile_hit_detection() -> bool:
 		character1.deal_damage(p2AttackResult[HitDetectionFlags.DamageToApply])
 		character1.characterState.comboCounter = 0
 		character1.characterState.comboDamage = 0
+		if character1.is_ko():
+			character1.characterState.logicalPosition.y -= 100
+			character1.characterState.characterStanceType = Character.State.Air 
 		var _success = character1.apply_move_by_name(p2AttackResult[HitDetectionFlags.TargetReaction])
 	return oneProjectileHasHit
 
@@ -936,6 +977,9 @@ func _update_hit_detection():
 		character2.deal_damage(p1AttackResult[HitDetectionFlags.DamageToApply])
 		character2.characterState.comboCounter = 0
 		character2.characterState.comboDamage = 0
+		if character2.is_ko():
+			character2.characterState.logicalPosition.y -= 100
+			character2.characterState.characterStanceType = Character.State.Air 
 		var _success = character2.apply_move_by_name(p1AttackResult[HitDetectionFlags.TargetReaction])
 	if p2AttackResult[HitDetectionFlags.HasHit]:
 		@warning_ignore("integer_division")
@@ -948,6 +992,9 @@ func _update_hit_detection():
 		character1.deal_damage(p2AttackResult[HitDetectionFlags.DamageToApply])
 		character1.characterState.comboCounter = 0
 		character1.characterState.comboDamage = 0
+		if character1.is_ko():
+			character1.characterState.logicalPosition.y -= 100
+			character1.characterState.characterStanceType = Character.State.Air 
 		var _success = character1.apply_move_by_name(p2AttackResult[HitDetectionFlags.TargetReaction])
 
 func _init_hud():

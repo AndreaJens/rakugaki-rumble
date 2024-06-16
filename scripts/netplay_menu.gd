@@ -11,9 +11,6 @@ extends Node2D
 @export var charaSelectMenu : MenuButton
 @export var sceneToInstantiate : PackedScene
 
-const LOG_FILE_DIRECTORY := "user://rollback_logs"
-var logging_enabled : bool = false
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	NetworkAssistant.connectedPlayers.clear()
@@ -106,6 +103,12 @@ func _send_player_info(peer_id : int, playerSide : int, characterPath : String, 
 				NetworkAssistant.connectedPlayers[i]["player_side"], 
 				NetworkAssistant.connectedPlayers[i]["character_path"],
 				NetworkAssistant.connectedPlayers[i]["player_name"])
+				
+@rpc("any_peer", "reliable")
+func _sync_player_scores(key1 : String, key2 : String, scoreP1 : int, scoreP2 : int):
+	NetworkAssistant.onlineScores[key1] = [scoreP1, scoreP2]
+	NetworkAssistant.onlineScores[key2] = [scoreP2, scoreP1]
+	print("Player %s - scores synced: %s %s [%s - %s]" % [multiplayer.get_unique_id(), key1, key2, scoreP1, scoreP2])
 
 @rpc("any_peer", "call_local", "reliable")
 func _start_online_match(_peer_id : int):
@@ -138,24 +141,50 @@ func _on_client_button_pressed():
 	systemMessageLabel.text = "LOOKING FOR HOST..."
 	systemMessageLabel.visible = true
 	connectionUILayer.visible = false
-	
+
+func _initialize_score() -> Array[String]:
+	var keyPart1 := NetworkAssistant.player1Name
+	var keyPart2 := NetworkAssistant.player2Name
+	if NetworkAssistant.player1Name.is_empty():
+		keyPart1 = "host"
+	if NetworkAssistant.player2Name.is_empty():
+		keyPart2 = "guest"
+	var _scoresKey1 := keyPart1 + "_" + keyPart2
+	var _scoresKey2 := keyPart2 + "_" + keyPart1
+	if !NetworkAssistant.onlineScores.has(_scoresKey1):
+		NetworkAssistant.onlineScores[_scoresKey1] = [0,0]
+		NetworkAssistant.onlineScores[_scoresKey2] = [0,0]
+	return [_scoresKey1, _scoresKey2]
+
 func _on_network_peer_connected(peer_id : int):
 	systemMessageLabel.text = "CONNECTED"
-	_send_player_info.rpc_id(1,
-	 multiplayer.get_unique_id(), 1, 
-	NetworkAssistant.character2Path,
-	NetworkAssistant.nameToDisplay)
-	print(multiplayer.get_unique_id())
+	if !multiplayer.is_server():
+		_send_player_info.rpc_id(1,
+		 multiplayer.get_unique_id(), 1, 
+		NetworkAssistant.character2Path,
+		NetworkAssistant.nameToDisplay)
+		print(multiplayer.get_unique_id())
 	SyncManager.add_peer(peer_id)
 	if multiplayer.is_server():
 		systemMessageLabel.text = "STARTING SERVER..."
+		var scoreKeys : Array[String] = _initialize_score()
+		_sync_player_scores.rpc_id(
+			peer_id,
+			scoreKeys[0],
+			scoreKeys[1],
+			NetworkAssistant.onlineScores[scoreKeys[0]][0],
+			NetworkAssistant.onlineScores[scoreKeys[0]][1])
 		_start_online_match.rpc(peer_id)
 		await(get_tree().create_timer(2.0).timeout)
 		SyncManager.input_delay = NetworkAssistant.localPlayerInputDelay
 		SyncManager.start()	
 		
 func _on_connected_to_server():
-	_send_player_info.rpc_id(1, multiplayer.get_unique_id(), 1, NetworkAssistant.character2Path)
+	_send_player_info.rpc_id(1, 
+	multiplayer.get_unique_id(), 
+	1, 
+	NetworkAssistant.character2Path,
+	NetworkAssistant.nameToDisplay)
 
 func _on_connection_failed():
 	if multiplayer.is_server():
@@ -172,15 +201,7 @@ func _on_network_peer_disconnected(_peer_id : int):
 func _on_SyncManager_sync_started():
 	_setup_game_scene_online()
 	syncingMessageLabel.text = "SYNC STARTED"
-	if logging_enabled and not SyncReplay.active:
-		if DirAccess.dir_exists_absolute(LOG_FILE_DIRECTORY) == false:
-			DirAccess.make_dir_absolute(LOG_FILE_DIRECTORY)
-		var datetime : String = Time.get_datetime_string_from_system(true)
-		datetime = datetime.replace(":", "")
-		datetime = datetime.replace("-", "")
-		var log_file_name = "log_p%s_%s.log" % [multiplayer.get_unique_id(), datetime ]
-		print(LOG_FILE_DIRECTORY + "/" + log_file_name)
-		SyncManager.start_logging(LOG_FILE_DIRECTORY + "/" + log_file_name)
+	NetworkAssistant.start_new_log()
 		
 func _on_SyncManager_sync_lost():
 	syncingMessageLabel.text = "SYNCING..."
@@ -197,9 +218,7 @@ func _on_SyncManager_sync_error(msg : String):
 	_reset_scene()
 
 func _on_SyncManager_sync_stopped() -> void:
-	if logging_enabled:
-		SyncManager.stop_logging()
-		print("stopped logging")
+	NetworkAssistant.close_log()
 
 func _on_hide_ip_toggle_toggled(toggled_on):
 	if toggled_on == true:
@@ -228,10 +247,10 @@ func _reset_scene():
 
 func _on_log_toggle_toggled(toggled_on):
 	if toggled_on:
-		logging_enabled = true
+		NetworkAssistant.loggingEnabled = true
 		$ConnectionUI/LoggingButton/Label.text = "Logs enabled"
 	else:
-		logging_enabled = false
+		NetworkAssistant.loggingEnabled = false
 		$ConnectionUI/LoggingButton/Label.text = "Logs disabled"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -240,3 +259,11 @@ func _process(_delta):
 
 func _on_back_to_menu_button_button_up():
 	SceneManager.goto_scene_type(SceneManager.SceneType.ModeSelection)
+
+func _on_score_button_toggled(toggled_on):
+	if toggled_on:
+		NetworkAssistant.showScores = true
+		$ConnectionUI/ScoreButton/Label.text = "VS score displayed"
+	else:
+		NetworkAssistant.showScores = false
+		$ConnectionUI/ScoreButton/Label.text = "VS score hidden"

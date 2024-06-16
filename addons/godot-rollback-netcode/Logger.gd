@@ -224,7 +224,7 @@ func start_timing(timer: String) -> void:
 	_start_times[timer] = Time.get_ticks_usec()
 
 func stop_timing(timer: String, accumulate: bool = false) -> void:
-	assert(_start_times.has(timer), "No such timer: %s" % timer)
+	#assert(_start_times.has(timer), "No such timer: %s" % timer)
 	if _start_times.has(timer):
 		add_timing(timer, float(Time.get_ticks_usec() - _start_times[timer]) / 1000.0, accumulate)
 		_start_times.erase(timer)

@@ -19,8 +19,31 @@ var numberOfRounds : int = 3
 var localPlayerDeviceId : int = 0
 var localPlayerInputDelay : int = 2
 const DmmbDeviceId : int = 420
+const LOG_FILE_DIRECTORY := "user://rollback_logs"
+var loggingEnabled : bool = false
+var showScores : bool = true
+var onlineScores : Dictionary = {}
+
+func start_new_log():
+	if loggingEnabled and not SyncReplay.active:
+		if DirAccess.dir_exists_absolute(LOG_FILE_DIRECTORY) == false:
+			DirAccess.make_dir_absolute(LOG_FILE_DIRECTORY)
+		var datetime : String = Time.get_datetime_string_from_system(true)
+		datetime = datetime.replace(":", "")
+		datetime = datetime.replace("-", "")
+		var log_file_name = "log_p%s_%s.log" % [multiplayer.get_unique_id(), datetime ]
+		print(LOG_FILE_DIRECTORY + "/" + log_file_name)
+		SyncManager.start_logging(LOG_FILE_DIRECTORY + "/" + log_file_name)
+
+func close_log():
+	if loggingEnabled:
+		SyncManager.stop_logging()
+		print("stopped logging")
 
 func close_session():
+	if onlineScores.has("host_guest"):
+		onlineScores.erase("host_guest")
+		onlineScores.erase("guest_host")
 	var peer = multiplayer.multiplayer_peer
 	if peer:
 		peer.close()

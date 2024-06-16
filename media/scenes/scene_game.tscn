@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://c07vx7o11k05c"]
+[gd_scene load_steps=45 format=3 uid="uid://c07vx7o11k05c"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_xmmq4"]
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="2_8rf0r"]
@@ -33,6 +33,7 @@
 [ext_resource type="PackedScene" uid="uid://bvrseqwr8eytr" path="res://media/characters/all_chara_common/character_blueprint.tscn" id="25_rv40u"]
 [ext_resource type="PackedScene" uid="uid://dn21r3h6xh115" path="res://media/scenes/training_data.tscn" id="26_1elv8"]
 [ext_resource type="Texture2D" uid="uid://cad7j7aa46sk5" path="res://media/hud/systemMessages/MATCHPOINT.png" id="26_qkodm"]
+[ext_resource type="Script" path="res://scripts/OnlineScoreController.gd" id="27_fovlu"]
 [ext_resource type="PackedScene" uid="uid://cp6hpmw16o684" path="res://media/characters/all_chara_common/hit_spark.tscn" id="27_ubfy6"]
 [ext_resource type="Texture2D" uid="uid://c1x86njda7i0o" path="res://media/hud/systemMessages/P1_WINS.png" id="31_p3bpk"]
 [ext_resource type="Texture2D" uid="uid://dlcxjp7wufdyx" path="res://media/hud/systemMessages/P2_WINS.png" id="32_np2o6"]
@@ -46,6 +47,11 @@
 font_size = 22
 shadow_size = 5
 shadow_color = Color(0, 0, 0, 0.576471)
+
+[sub_resource type="LabelSettings" id="LabelSettings_evme6"]
+font_size = 48
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 0.580392)
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource("1_xmmq4")
@@ -327,8 +333,14 @@ position = Vector2(1076, 53)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("21_nlghf")
 
-[node name="Player1Name" type="Label" parent="Canvas"]
+[node name="NetworkStats" type="Control" parent="Canvas"]
 visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Player1Name" type="Label" parent="Canvas/NetworkStats"]
 custom_minimum_size = Vector2(320, 0)
 offset_left = 118.0
 offset_top = 36.0
@@ -337,20 +349,55 @@ offset_bottom = 68.0
 text = "PLAYER1"
 label_settings = SubResource("LabelSettings_6jq71")
 
-[node name="Player2Name" type="Label" parent="Canvas"]
-visible = false
+[node name="Player2Name" type="Label" parent="Canvas/NetworkStats"]
 custom_minimum_size = Vector2(320, 0)
+layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -436.0
+offset_left = 658.0
 offset_top = 36.0
-offset_right = -116.0
+offset_right = 978.0
 offset_bottom = 68.0
 grow_horizontal = 0
 text = "PLAYER2"
 label_settings = SubResource("LabelSettings_6jq71")
 horizontal_alignment = 2
+
+[node name="ScoreController" type="Control" parent="Canvas/NetworkStats"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("27_fovlu")
+
+[node name="Player1Score" type="Label" parent="Canvas/NetworkStats/ScoreController"]
+custom_minimum_size = Vector2(96, 0)
+offset_left = 460.0
+offset_top = 21.0
+offset_right = 556.0
+offset_bottom = 88.0
+text = "0"
+label_settings = SubResource("LabelSettings_evme6")
+horizontal_alignment = 2
+
+[node name="MiddleScoreLevel" type="Label" parent="Canvas/NetworkStats/ScoreController"]
+custom_minimum_size = Vector2(96, 0)
+offset_left = 520.0
+offset_top = 17.0
+offset_right = 616.0
+offset_bottom = 84.0
+text = "-"
+label_settings = SubResource("LabelSettings_evme6")
+horizontal_alignment = 1
+
+[node name="Player2Score" type="Label" parent="Canvas/NetworkStats/ScoreController"]
+custom_minimum_size = Vector2(96, 0)
+offset_left = 580.0
+offset_top = 21.0
+offset_right = 676.0
+offset_bottom = 88.0
+text = "0"
+label_settings = SubResource("LabelSettings_evme6")
 
 [node name="Characters" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true

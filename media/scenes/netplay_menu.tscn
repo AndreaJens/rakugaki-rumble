@@ -194,6 +194,25 @@ text = "Logs disabled"
 label_settings = SubResource("LabelSettings_l7ho3")
 autowrap_mode = 2
 
+[node name="ScoreButton" type="CheckButton" parent="ConnectionUI"]
+offset_left = 44.0
+offset_top = 308.0
+offset_right = 88.0
+offset_bottom = 332.0
+scale = Vector2(2, 2)
+button_pressed = true
+
+[node name="Label" type="Label" parent="ConnectionUI/ScoreButton"]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 3.0
+offset_right = 394.0
+offset_bottom = 47.0
+scale = Vector2(0.5, 0.5)
+text = "VS score displayed"
+label_settings = SubResource("LabelSettings_l7ho3")
+autowrap_mode = 2
+
 [node name="SystemMessageLayer" type="CanvasLayer" parent="."]
 
 [node name="StatusMessageLabel" type="Label" parent="SystemMessageLayer"]
@@ -233,3 +252,4 @@ vertical_alignment = 1
 [connection signal="button_up" from="ConnectionUI/BackToMenuButton" to="." method="_on_back_to_menu_button_button_up"]
 [connection signal="button_up" from="ConnectionUI/ClientButton" to="." method="_on_client_button_pressed"]
 [connection signal="toggled" from="ConnectionUI/LoggingButton" to="." method="_on_log_toggle_toggled"]
+[connection signal="toggled" from="ConnectionUI/ScoreButton" to="." method="_on_score_button_toggled"]

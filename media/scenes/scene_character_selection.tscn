@@ -65,7 +65,7 @@ position = Vector2(0, 360)
 texture = ExtResource("7_ik5nw")
 
 [node name="VS" type="Sprite2D" parent="."]
-position = Vector2(567, 318)
+position = Vector2(567, 390)
 texture = ExtResource("4_r42vn")
 
 [node name="Logo" type="Sprite2D" parent="."]
