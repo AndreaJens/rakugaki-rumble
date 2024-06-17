@@ -37,7 +37,7 @@ A small Godot 4.2 fighting game project, with a sketchbook aesthetic
 ### Universal Mechanics (notation uses joypad buttons and numpad notation)
 * 4: Backdash (8 frames of full invulnerability)
 * B (ground): Infinity Install (with full meter, cancels every grounded attack, lasts 2.5 seconds - removes the Bounce Limit and increases the momentum transfer from the walls)
-* 2B (on the ground): Zero Install (with full meter, cancels every grounded attack, lasts 2.5 seconds - removes bounces all together but slashes damage to 66%)
+* 2B (on the ground): Zero Install (with full meter, cancels every grounded attack, lasts 2.5 seconds - removes bounces all together but slashes damage down to 66%)
 * B (while in air hit stun): Interrupt Stumble (with full meter. If performed without full meter, it will disable the super meter for the whole round) 
 * j.2A: universal air spike, stops the opponent momentum and slams them to the ground on hit
 
@@ -49,7 +49,9 @@ A small Godot 4.2 fighting game project, with a sketchbook aesthetic
 * 2A: Skyward Scraper (cancels into all Specials, jump cancel on hit, auto-corrects side)
 * j.A: Five Nails Air Slash
 * j.2A: Armor Piercing Panther Kick (universal air spike)
-* 236A: Cheetah Spear (air ok, the air version cancels into j.2A on hit)
+* 236A: Cheetah Assault (startup is backdash-cancelable, cancels into Jaguar Knee on hit)
+* [236A: Cheetah Spear (followup only, after any normal attack. No cancels)]
+* j.236A: Air Cheetah Spear (cancels into j.2A on hit)
 * 632A (or 22A): Jaguar Knee (cancels into j.236A on hit)
 
 #### Rho-Zetta
@@ -71,14 +73,16 @@ A small Godot 4.2 fighting game project, with a sketchbook aesthetic
 * A (during Air Boost or Fast Boost): Drill Smash (cancels into Terrordriller on hit, no meter gain on hit)
 
 ### Whitechapel Esmeralda
-* A: Gibbous Moon (cancels into all Command Normals and Specials, jump cancel on hit, halts momentum)
+* A: Gibbous Moon (cancels into all Command Normals and Specials, jump cancel on hit)
 * 2A: Entropy Burst (cancels into all Specials, jump cancel on hit, auto-corrects side, can be back-dash canceled on startup)
     * 2A : Entropy Encore (jump cancel on hit, cancels into all Specials and into itself)
-* j.A: Gibbous Moon (halts air momentum, cancels into Air Entropy Burst, Blame the Night and Twilight Snack)
+* j.A: Gibbous Moon (halts air momentum, cancels into Air Entropy Burst)
 * j.2A: Ascension Step (universal air spike, cancels into Entropy Encore)
 * j.412A: Entropy Burst (jump cancel on hit, cancels into all Specials and Entropy Encore)
 * 236A: Blame the Night (if Whitechapel has enough meter, this move will throw a projectile. Two projectiles during install, air ok. The palm hitbox can be jump canceled on hit)
+* 236[A]: Blame the Night Minus (forces non-projectile version, air ok, can be jump canceled on hit)
 * j.214A: Twilight Snack (if Whitechapel has enough meter, this move will throw a projectile. Two projectiles during install, air ok. The palm hitbox can be jump canceled on hit)
+* j.214[A]: Twilight Snack Minus (forces non-projectile version, can be jump canceled on hit)
 
 ### Basic combo structure:
 * hitting the opponent during the start of their hitstun frames floats them. A sample starter can be either A > 2A, 2A > 236A or e.g. A > 236A
@@ -91,5 +95,5 @@ A small Godot 4.2 fighting game project, with a sketchbook aesthetic
 * ONLINE MULTIPLAYER IS STILL EXPERIMENTAL! Watch out, there might be one-sided rollbacks! 
 * it works via direct IP connection -> use Radmin VPN or Hamachi for the best results
 * Auto Button Masher is a DEBUG setting that will replace a player with a randomly mashing CPU opponent - DON'T use it online unless you are heavy on trolling
-* VS CPU works ONLY against Naomi, currently, and the CPU is relatively DUMB
+* VS CPU works ONLY against Naomi, currently, and the CPU is relatively dumb
 
