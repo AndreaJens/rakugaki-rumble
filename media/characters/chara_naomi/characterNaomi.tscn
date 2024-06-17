@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_qst3w"]
 [ext_resource type="Script" path="res://scripts/characterState.gd" id="2_ssm87"]
 [ext_resource type="Resource" uid="uid://qiywbrf1e5yu" path="res://media/characters/chara_naomi/characterData.tres" id="2_tinh8"]
-[ext_resource type="Texture2D" uid="uid://doqv7ldx2lsqk" path="res://media/characters/chara_naomi/sprites/naomi1.png" id="4_xt733"]
+[ext_resource type="Texture2D" uid="uid://7adt8b0o686h" path="res://media/characters/chara_naomi/sprites/naomi2.png" id="4_crmew"]
 [ext_resource type="PackedScene" uid="uid://cy2ewlewinwbv" path="res://media/logic/HitBox.tscn" id="5_35kqm"]
 [ext_resource type="Animation" uid="uid://cr6li0yaypxxv" path="res://media/characters/chara_naomi/animations/attack1.res" id="5_656ri"]
 [ext_resource type="PackedScene" uid="uid://c5k34hfd8kc10" path="res://media/logic/PushBox.tscn" id="5_phuw5"]
@@ -150,11 +150,11 @@ script = ExtResource("2_ssm87")
 z_index = 10
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("4_xt733")
-offset = Vector2(125, -360)
+texture = ExtResource("4_crmew")
+offset = Vector2(0, -360)
 hframes = 4
 vframes = 4
-frame = 1
+frame = 13
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -170,8 +170,8 @@ script = ExtResource("18_1xnwy")
 [node name="HitBox" parent="HitBoxes" instance=ExtResource("5_35kqm")]
 moveReactionOnHitGround = "hurtG"
 moveReactionOnHitAir = "hurtSpike"
-damage = 9200
-boxSize = Rect2i(180000, -120000, 160000, 120000)
+damage = 13000
+boxSize = Rect2i(150000, -200000, 180000, 220000)
 
 [node name="HitBox2" parent="HitBoxes" instance=ExtResource("5_35kqm")]
 
@@ -184,7 +184,6 @@ boxSize = Rect2i(180000, -120000, 160000, 120000)
 [node name="HurtBoxes" type="Node2D" parent="."]
 
 [node name="HurtBox" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
-active = true
 boxSize = Rect2i(75000, -165000, 200000, 320000)
 
 [node name="HurtBox2" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
@@ -198,4 +197,4 @@ boxSize = Rect2i(270000, -200000, 200000, 200000)
 
 [node name="PushBox" parent="." instance=ExtResource("5_phuw5")]
 active = true
-boxSize = Rect2i(0, -100000, 200000, 200000)
+boxSize = Rect2i(-50000, -100000, 200000, 200000)

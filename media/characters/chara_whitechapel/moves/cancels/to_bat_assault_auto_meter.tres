@@ -5,12 +5,12 @@
 [resource]
 script = ExtResource("1_ppj1a")
 targetMoveName = "batAssaultMeter"
-startFrame = 1
-endFrame = 1
+startFrame = -1
+endFrame = 9
 onHit = true
 onBlock = true
 onWhiff = true
 automaticCancelOnLanding = false
 activeIfNothingPressed = false
-autoCancelWhenValid = true
+autoCancelWhenValid = false
 autoPerformAtMoveEnd = false
