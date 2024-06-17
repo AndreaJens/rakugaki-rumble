@@ -145,6 +145,9 @@ func _check_rule(rule : CpuOpponentRule) -> bool:
 			return _rule_value_check(rule.operator, opponent.characterState.currentHealth, rule.valueInt)
 		CpuOpponentRule.ConditionTrigger.Airborne:
 			return _rule_value_check_bool(rule.operator, actor.is_airborne())
+		CpuOpponentRule.ConditionTrigger.OpponentIsPerformingAttackMove:
+			return _rule_value_check_bool(rule.operator, 
+				opponent.currentMove and !opponent.currentMove.canBeUsedBeforeRoundBegins)
 		CpuOpponentRule.ConditionTrigger.OpponentAirborne:
 			return _rule_value_check_bool(rule.operator, opponent.is_airborne())
 		CpuOpponentRule.ConditionTrigger.IsInHitstun:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://d1k45q87lrm2u"]
+[gd_scene load_steps=40 format=3 uid="uid://d1k45q87lrm2u"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_qst3w"]
 [ext_resource type="Script" path="res://scripts/characterState.gd" id="2_ssm87"]
@@ -33,6 +33,8 @@
 [ext_resource type="Animation" uid="uid://bof3nd1r643d8" path="res://media/characters/chara_naomi/animations/downSpike.res" id="27_kvbr6"]
 [ext_resource type="Animation" uid="uid://b3q450yokts0y" path="res://media/characters/chara_naomi/animations/downSpike_fwp.res" id="28_hqrj3"]
 [ext_resource type="Animation" uid="uid://d3ahb3upbsxwt" path="res://media/characters/chara_naomi/animations/attack_jumpKick_air.res" id="29_wnyby"]
+[ext_resource type="Animation" uid="uid://w4ivy1jslx1y" path="res://media/characters/chara_naomi/animations/attack_jumpKick_longer.res" id="30_lwoxo"]
+[ext_resource type="Animation" uid="uid://bqkswvjs1mue" path="res://media/characters/chara_naomi/animations/attack1_dash.res" id="31_33ygr"]
 
 [sub_resource type="Animation" id="Animation_w5h5g"]
 length = 0.001
@@ -111,9 +113,11 @@ _data = {
 "airBurst": ExtResource("24_7aeea"),
 "attack1": ExtResource("5_656ri"),
 "attack1_air": ExtResource("6_fhwy0"),
+"attack1_dash": ExtResource("31_33ygr"),
 "attack2": ExtResource("7_0sf12"),
 "attack_jumpKick": ExtResource("8_rrsh8"),
 "attack_jumpKick_air": ExtResource("29_wnyby"),
+"attack_jumpKick_longer": ExtResource("30_lwoxo"),
 "attack_jumpKnee": ExtResource("9_cswrf"),
 "downSpike": ExtResource("27_kvbr6"),
 "downSpike_fwp": ExtResource("28_hqrj3"),
@@ -147,10 +151,10 @@ z_index = 10
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("4_xt733")
-offset = Vector2(0, -360)
+offset = Vector2(125, -360)
 hframes = 4
 vframes = 4
-frame = 13
+frame = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -159,7 +163,6 @@ libraries = {
 "": SubResource("AnimationLibrary_ogpfj"),
 "naomi": SubResource("AnimationLibrary_x75eu")
 }
-speed_scale = 0.0
 script = ExtResource("18_1xnwy")
 
 [node name="HitBoxes" type="Node2D" parent="."]
@@ -167,7 +170,7 @@ script = ExtResource("18_1xnwy")
 [node name="HitBox" parent="HitBoxes" instance=ExtResource("5_35kqm")]
 moveReactionOnHitGround = "hurtG"
 moveReactionOnHitAir = "hurtSpike"
-damage = 8000
+damage = 9200
 boxSize = Rect2i(180000, -120000, 160000, 120000)
 
 [node name="HitBox2" parent="HitBoxes" instance=ExtResource("5_35kqm")]
@@ -182,7 +185,7 @@ boxSize = Rect2i(180000, -120000, 160000, 120000)
 
 [node name="HurtBox" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
 active = true
-boxSize = Rect2i(-75000, -165000, 200000, 320000)
+boxSize = Rect2i(75000, -165000, 200000, 320000)
 
 [node name="HurtBox2" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
 boxSize = Rect2i(270000, -200000, 200000, 200000)
@@ -195,4 +198,4 @@ boxSize = Rect2i(270000, -200000, 200000, 200000)
 
 [node name="PushBox" parent="." instance=ExtResource("5_phuw5")]
 active = true
-boxSize = Rect2i(-50000, -100000, 200000, 200000)
+boxSize = Rect2i(0, -100000, 200000, 200000)

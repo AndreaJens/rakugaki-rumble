@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=5 format=3 uid="uid://cpb05dbpistpj"]
+
+[ext_resource type="Resource" uid="uid://baswyhkygam8p" path="res://media/characters/chara_naomi/moves/cancels/to_jknee_hit.tres" id="1_1yf66"]
+[ext_resource type="Resource" uid="uid://b3dvs8txb8pji" path="res://media/characters/all_chara_common/moves/cancels/zero_install_hit.tres" id="1_ecqp5"]
+[ext_resource type="Resource" uid="uid://k85f7ldgjhu7" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_hit.tres" id="2_jkvle"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="3_pavfy"]
+
+[resource]
+script = ExtResource("3_pavfy")
+characterState = 0
+internalName = "attackJumpKickLong"
+displayName = ""
+animationName = "attack_jumpKick_longer"
+startingFrame = 18
+endingFrame = 48
+isHitStunState = false
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(30000, -20000)
+logicalAccelerationPerFrame = Vector2i(-500, 2000)
+keepMomentumPercent = 0
+spawnProjectileAtFrame = {}
+canGainMeter = true
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = false
+canBeUsedAfterRoundEnds = false
+requiresInfinityInstall = false
+requiresZeroInstall = false
+requiresAnyInstall = false
+forbiddenButtons = Array[int]([])
+bufferStartLeniency = 5
+bufferLengthLeniency = 10
+useRawBuffer = false
+input = Array[int]([])
+inputVariant1 = Array[int]([])
+inputVariant2 = Array[int]([])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_1yf66"), ExtResource("1_ecqp5"), ExtResource("2_jkvle")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0

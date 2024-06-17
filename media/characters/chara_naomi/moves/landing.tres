@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CharacterMove" load_steps=8 format=3 uid="uid://bh7s5rfnvdi7f"]
 
-[ext_resource type="Resource" uid="uid://y3ak51w0bbe4" path="res://media/characters/chara_naomi/moves/cancels/to_adv_kick.tres" id="1_at318"]
+[ext_resource type="Resource" uid="uid://c7dcgp4adrr11" path="res://media/characters/chara_naomi/moves/cancels/to_adv_kick_prep.tres" id="1_o27ws"]
 [ext_resource type="Resource" uid="uid://6g40lpvle3au" path="res://media/characters/chara_naomi/moves/cancels/to_jknee.tres" id="2_7j565"]
 [ext_resource type="Resource" uid="uid://bc7ehx5j2d1b5" path="res://media/characters/chara_naomi/moves/cancels/to_slash.tres" id="3_wlql7"]
 [ext_resource type="Resource" uid="uid://cibai2e77n3kx" path="res://media/characters/chara_naomi/moves/cancels/to_stratokick.tres" id="4_dr8eb"]
@@ -40,6 +40,6 @@ input = Array[int]([])
 inputVariant1 = Array[int]([])
 inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
-cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_at318"), ExtResource("2_7j565"), ExtResource("4_dr8eb"), ExtResource("3_wlql7"), ExtResource("5_2a7r3"), ExtResource("6_ngpba")])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_o27ws"), ExtResource("2_7j565"), ExtResource("4_dr8eb"), ExtResource("3_wlql7"), ExtResource("5_2a7r3"), ExtResource("6_ngpba")])
 guardFrames = Vector2i(-1, -1)
 timestopFrames = 0

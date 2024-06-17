@@ -24,7 +24,8 @@ enum ConditionTrigger {
 	InfinityInstall = 20,
 	OpponentInfinityInstall = 21,
 	ZeroInstall = 22,
-	OpponentZeroInstall = 23
+	OpponentZeroInstall = 23,
+	OpponentIsPerformingAttackMove = 24,
 }
 
 enum ConditionComparison {

@@ -74,12 +74,16 @@ script = ExtResource("5_avhut")
 
 [node name="CPUControllerPlayer1" type="Node" parent="." node_paths=PackedStringArray("actor", "opponent")]
 script = ExtResource("4_0mt63")
+active = null
+difficultyLevel = null
 ticksBetweenDecisions = 15
 actor = NodePath("../Characters/CharacterParent/Character1")
 opponent = NodePath("../Characters/CharacterParent/Character2")
 
 [node name="CPUControllerPlayer2" type="Node" parent="." node_paths=PackedStringArray("actor", "opponent")]
 script = ExtResource("4_0mt63")
+active = null
+difficultyLevel = null
 ticksBetweenDecisions = 15
 actor = NodePath("../Characters/CharacterParent/Character2")
 opponent = NodePath("../Characters/CharacterParent/Character1")

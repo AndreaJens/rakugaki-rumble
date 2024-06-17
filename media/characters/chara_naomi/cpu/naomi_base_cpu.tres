@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CpuOpponentRuleset" load_steps=51 format=3 uid="uid://b3tg814hs63y5"]
+[gd_resource type="Resource" script_class="CpuOpponentRuleset" load_steps=58 format=3 uid="uid://b3tg814hs63y5"]
 
 [ext_resource type="Script" path="res://scripts/CPUOpponentRule.gd" id="1_48oj1"]
 [ext_resource type="Script" path="res://scripts/CPUOpponentRuleset.gd" id="1_ojrog"]
@@ -23,6 +23,7 @@ script = ExtResource("2_8ju61")
 conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_tb4pm"), SubResource("Resource_bpxj2")])
 weight = 10
 targetMoveName = "walkF"
+tickToNextMove = -1
 
 [sub_resource type="Resource" id="Resource_8h2wu"]
 script = ExtResource("1_48oj1")
@@ -43,6 +44,7 @@ script = ExtResource("2_8ju61")
 conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_8h2wu"), SubResource("Resource_ton5d")])
 weight = 30
 targetMoveName = "f2idle"
+tickToNextMove = -1
 
 [sub_resource type="Resource" id="Resource_qqi4s"]
 script = ExtResource("1_48oj1")
@@ -70,12 +72,13 @@ script = ExtResource("2_8ju61")
 conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_qqi4s"), SubResource("Resource_vmf0i"), SubResource("Resource_hndvj")])
 weight = 10
 targetMoveName = "walkB"
+tickToNextMove = -1
 
 [sub_resource type="Resource" id="Resource_1cwgs"]
 script = ExtResource("1_48oj1")
 trigger = 2
 operator = 2
-valueInt = 600000
+valueInt = 500000
 valueString = ""
 
 [sub_resource type="Resource" id="Resource_473t4"]
@@ -90,6 +93,7 @@ script = ExtResource("2_8ju61")
 conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_1cwgs"), SubResource("Resource_473t4")])
 weight = 10
 targetMoveName = "jumpF"
+tickToNextMove = -1
 
 [sub_resource type="Resource" id="Resource_jnc27"]
 script = ExtResource("1_48oj1")
@@ -110,12 +114,13 @@ script = ExtResource("2_8ju61")
 conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_jnc27"), SubResource("Resource_l514k")])
 weight = 15000
 targetMoveName = "jumpF"
+tickToNextMove = -1
 
 [sub_resource type="Resource" id="Resource_qu2qc"]
 script = ExtResource("1_48oj1")
 trigger = 2
 operator = 5
-valueInt = 380000
+valueInt = 360000
 valueString = ""
 
 [sub_resource type="Resource" id="Resource_5dofj"]
@@ -137,6 +142,7 @@ script = ExtResource("2_8ju61")
 conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_qu2qc"), SubResource("Resource_5dofj"), SubResource("Resource_0q75s")])
 weight = 15
 targetMoveName = "attack1"
+tickToNextMove = -1
 
 [sub_resource type="Resource" id="Resource_pyfbb"]
 script = ExtResource("1_48oj1")
@@ -164,6 +170,7 @@ script = ExtResource("2_8ju61")
 conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_pyfbb"), SubResource("Resource_udej6"), SubResource("Resource_dmvab")])
 weight = 30
 targetMoveName = "attack2"
+tickToNextMove = 5
 
 [sub_resource type="Resource" id="Resource_kkl6b"]
 script = ExtResource("1_48oj1")
@@ -191,6 +198,7 @@ script = ExtResource("2_8ju61")
 conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_kkl6b"), SubResource("Resource_a77jg"), SubResource("Resource_51805")])
 weight = 30
 targetMoveName = "attackJumpKnee"
+tickToNextMove = -1
 
 [sub_resource type="Resource" id="Resource_qjti6"]
 script = ExtResource("1_48oj1")
@@ -225,6 +233,7 @@ script = ExtResource("2_8ju61")
 conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_qjti6"), SubResource("Resource_1keus"), SubResource("Resource_cwdbd"), SubResource("Resource_gd2nh")])
 weight = 35
 targetMoveName = "attackJumpKickAir"
+tickToNextMove = -1
 
 [sub_resource type="Resource" id="Resource_8mu3s"]
 script = ExtResource("1_48oj1")
@@ -238,6 +247,7 @@ script = ExtResource("2_8ju61")
 conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_8mu3s")])
 weight = 65
 targetMoveName = "downSpike"
+tickToNextMove = -1
 
 [sub_resource type="Resource" id="Resource_nku81"]
 script = ExtResource("1_48oj1")
@@ -265,6 +275,7 @@ script = ExtResource("2_8ju61")
 conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_nku81"), SubResource("Resource_niveo"), SubResource("Resource_61hfq")])
 weight = 200
 targetMoveName = "downSpike_fwp"
+tickToNextMove = -1
 
 [sub_resource type="Resource" id="Resource_0lvxv"]
 script = ExtResource("1_48oj1")
@@ -284,7 +295,8 @@ valueString = ""
 script = ExtResource("2_8ju61")
 conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_0lvxv"), SubResource("Resource_8oofd")])
 weight = 15
-targetMoveName = "attackJumpKick"
+targetMoveName = "attackJumpKickPrep"
+tickToNextMove = -1
 
 [sub_resource type="Resource" id="Resource_1jrc1"]
 script = ExtResource("1_48oj1")
@@ -319,7 +331,57 @@ script = ExtResource("2_8ju61")
 conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_1jrc1"), SubResource("Resource_k34k1"), SubResource("Resource_7yonh"), SubResource("Resource_wkpxp")])
 weight = 0
 targetMoveName = "airBurst"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_0gsyg"]
+script = ExtResource("1_48oj1")
+trigger = 18
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_gpcdr"]
+script = ExtResource("1_48oj1")
+trigger = 8
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_xwrc6"]
+script = ExtResource("1_48oj1")
+trigger = 7
+operator = 0
+valueInt = 0
+valueString = "attackJumpKickLong"
+
+[sub_resource type="Resource" id="Resource_fxufy"]
+script = ExtResource("2_8ju61")
+conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_0gsyg"), SubResource("Resource_gpcdr"), SubResource("Resource_xwrc6")])
+weight = 1500
+targetMoveName = "attackJumpKnee"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_4rqmb"]
+script = ExtResource("1_48oj1")
+trigger = 24
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_4h3us"]
+script = ExtResource("1_48oj1")
+trigger = 2
+operator = 5
+valueInt = 400000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_47ium"]
+script = ExtResource("2_8ju61")
+conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_4rqmb"), SubResource("Resource_4h3us")])
+weight = 150
+targetMoveName = "attackJumpKnee"
+tickToNextMove = 5
 
 [resource]
 script = ExtResource("1_ojrog")
-moves = Array[ExtResource("2_8ju61")]([SubResource("Resource_twk5w"), SubResource("Resource_ik0oy"), SubResource("Resource_a52bp"), SubResource("Resource_82kdt"), SubResource("Resource_pgg1m"), SubResource("Resource_rt2wj"), SubResource("Resource_wq6h5"), SubResource("Resource_as4kd"), SubResource("Resource_4h4sc"), SubResource("Resource_ktqge"), SubResource("Resource_7gt3e"), SubResource("Resource_3nhee"), SubResource("Resource_mgie7")])
+moves = Array[ExtResource("2_8ju61")]([SubResource("Resource_twk5w"), SubResource("Resource_ik0oy"), SubResource("Resource_a52bp"), SubResource("Resource_82kdt"), SubResource("Resource_pgg1m"), SubResource("Resource_rt2wj"), SubResource("Resource_wq6h5"), SubResource("Resource_as4kd"), SubResource("Resource_4h4sc"), SubResource("Resource_ktqge"), SubResource("Resource_7gt3e"), SubResource("Resource_3nhee"), SubResource("Resource_mgie7"), SubResource("Resource_fxufy"), SubResource("Resource_47ium")])
