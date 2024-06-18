@@ -241,6 +241,8 @@ rollback/limits/max_ticks_to_regain_sync=600
 rollback/classes/network_adaptor="res://addons/godot-rollback-netcode/RPCNetworkAdaptor.gd"
 rollback/classes/message_serializer="res://addons/godot-rollback-netcode/MessageSerializer.gd"
 rollback/classes/hash_serializer="res://addons/godot-rollback-netcode/HashSerializer.gd"
+rollback/debug/physics_process_msecs=16.0
+rollback/debug/process_msecs=16.0
 
 [rendering]
 

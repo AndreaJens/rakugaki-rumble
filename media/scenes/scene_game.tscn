@@ -418,6 +418,15 @@ offset_bottom = 88.0
 text = "0"
 label_settings = SubResource("LabelSettings_evme6")
 
+[node name="FPS" type="Label" parent="Canvas/NetworkStats/ScoreController"]
+layout_mode = 0
+offset_left = 507.0
+offset_top = 96.0
+offset_right = 627.0
+offset_bottom = 119.0
+text = "FPS: 99.99"
+horizontal_alignment = 1
+
 [node name="Characters" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
 
