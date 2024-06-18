@@ -26,7 +26,12 @@ enum AdditionalGameSceneStartupParameter{
 	Player1DeviceId = 3,
 	Player2DeviceId = 4,
 	Player1isCpu = 5,
-	Player2isCpu = 6
+	Player2isCpu = 6,
+	Player1AILevel = 7,
+	Player2AILevel = 8,
+	Player1AITicks = 9,
+	Player2AITicks = 10,
+	StageBackground = 11,
 }
 
 var additionalSceneStartupParameters : Dictionary = {}
@@ -252,9 +257,20 @@ func _ready():
 		_cpuControllerCharacter2.logic = character2.characterData.characterCpuCore
 		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player1isCpu):
 			_cpuControllerCharacter1.active = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player1isCpu]
+		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player1AILevel):
+			_cpuControllerCharacter1.difficultyLevel = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player1AILevel]
+		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player1AITicks):
+			_cpuControllerCharacter1.ticksBetweenDecisions = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player1AITicks]
 		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player2isCpu):
 			_cpuControllerCharacter2.active = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player2isCpu]
-		
+		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player2AILevel):
+			_cpuControllerCharacter2.difficultyLevel = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player2AILevel]
+		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player2AITicks):
+			_cpuControllerCharacter2.ticksBetweenDecisions = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player2AITicks]
+	if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.StageBackground):
+		if additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.StageBackground]:
+			stage.stageTexture = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.StageBackground]
+			stage.background.texture = stage.stageTexture
 	#if networkMode:
 		#camera.position_smoothing_enabled = false
 	hitspark1.networkMode = networkMode
@@ -912,8 +928,8 @@ func _update_projectile_hit_detection() -> bool:
 		character2.deal_damage(p1AttackResult[HitDetectionFlags.DamageToApply])
 		character2.characterState.comboCounter = 0
 		character2.characterState.comboDamage = 0
-		if character2.is_ko():
-			character2.characterState.logicalPosition.y -= 100
+		if character2.is_ko() and !character2.is_airborne():
+			character2.characterState.logicalPosition.y -= 10
 			character2.characterState.characterStanceType = Character.State.Air 
 		var _success = character2.apply_move_by_name(p1AttackResult[HitDetectionFlags.TargetReaction])
 	if !p2AttackResult.is_empty() and p2AttackResult[HitDetectionFlags.HasHit]:
@@ -927,8 +943,8 @@ func _update_projectile_hit_detection() -> bool:
 		character1.deal_damage(p2AttackResult[HitDetectionFlags.DamageToApply])
 		character1.characterState.comboCounter = 0
 		character1.characterState.comboDamage = 0
-		if character1.is_ko():
-			character1.characterState.logicalPosition.y -= 100
+		if character1.is_ko() and !character1.is_airborne():
+			character1.characterState.logicalPosition.y -= 10
 			character1.characterState.characterStanceType = Character.State.Air 
 		var _success = character1.apply_move_by_name(p2AttackResult[HitDetectionFlags.TargetReaction])
 	return oneProjectileHasHit
@@ -1025,8 +1041,8 @@ func _update_hit_detection():
 		character2.deal_damage(p1AttackResult[HitDetectionFlags.DamageToApply])
 		character2.characterState.comboCounter = 0
 		character2.characterState.comboDamage = 0
-		if character2.is_ko():
-			character2.characterState.logicalPosition.y -= 100
+		if character2.is_ko() and !character2.is_airborne():
+			character2.characterState.logicalPosition.y -= 10
 			character2.characterState.characterStanceType = Character.State.Air 
 		var _success = character2.apply_move_by_name(p1AttackResult[HitDetectionFlags.TargetReaction])
 	if p2AttackResult[HitDetectionFlags.HasHit]:
@@ -1040,8 +1056,8 @@ func _update_hit_detection():
 		character1.deal_damage(p2AttackResult[HitDetectionFlags.DamageToApply])
 		character1.characterState.comboCounter = 0
 		character1.characterState.comboDamage = 0
-		if character1.is_ko():
-			character1.characterState.logicalPosition.y -= 100
+		if character1.is_ko() and !character1.is_airborne():
+			character1.characterState.logicalPosition.y -= 10
 			character1.characterState.characterStanceType = Character.State.Air 
 		var _success = character1.apply_move_by_name(p2AttackResult[HitDetectionFlags.TargetReaction])
 

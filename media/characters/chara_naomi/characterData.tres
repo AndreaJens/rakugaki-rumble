@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=38 format=3 uid="uid://qiywbrf1e5yu"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=39 format=3 uid="uid://qiywbrf1e5yu"]
 
 [ext_resource type="Resource" uid="uid://p47xfht07jma" path="res://media/characters/chara_naomi/moves/idle.tres" id="1_1hkwy"]
 [ext_resource type="Script" path="res://scripts/characterData.gd" id="1_u7ctv"]
@@ -30,13 +30,14 @@
 [ext_resource type="Resource" uid="uid://dwcbp04ce0f6h" path="res://media/characters/chara_naomi/moves/infinity_install.tres" id="24_axx4q"]
 [ext_resource type="Resource" uid="uid://dmfkrbe7lnwa6" path="res://media/characters/chara_naomi/moves/zero_install.tres" id="24_f6hx0"]
 [ext_resource type="Resource" uid="uid://ccv4hvujosyyh" path="res://media/characters/chara_naomi/moves/wallsplat_ko.tres" id="26_nvnap"]
-[ext_resource type="Resource" uid="uid://cxhs31va118u0" path="res://media/characters/chara_naomi/moves/airBurst.tres" id="27_bji48"]
+[ext_resource type="Resource" uid="uid://c7w154egxscjy" path="res://media/characters/all_chara_common/moves/airBurst.tres" id="29_ml6v5"]
 [ext_resource type="Resource" uid="uid://bpyw1xqthpvq0" path="res://media/characters/chara_naomi/moves/hurtSpike.tres" id="29_pocem"]
 [ext_resource type="Resource" uid="uid://covfqoltm76aj" path="res://media/characters/chara_naomi/moves/attack2Air.tres" id="30_dv50i"]
 [ext_resource type="Resource" uid="uid://bgfjrtrqnpibh" path="res://media/characters/chara_naomi/moves/attack2Air_fwp.tres" id="31_fqhii"]
 [ext_resource type="Resource" uid="uid://c655qmc7505v3" path="res://media/characters/all_chara_common/moves/knockdown_harder.tres" id="33_g38jn"]
 [ext_resource type="Resource" uid="uid://5hx445nxu3gx" path="res://media/characters/chara_naomi/moves/attackJumpKickPrep.tres" id="34_s4agl"]
 [ext_resource type="Resource" uid="uid://cpb05dbpistpj" path="res://media/characters/chara_naomi/moves/attackJumpKickLong.tres" id="35_yuxxa"]
+[ext_resource type="Resource" uid="uid://b57lk7v6hb4qc" path="res://media/characters/chara_naomi/moves/attackKnee_std.tres" id="36_404vs"]
 
 [resource]
 script = ExtResource("1_u7ctv")
@@ -46,6 +47,6 @@ characterAnimationLibraryPrefix = "naomi"
 characterMaxHealth = 100000
 characterMaxMeter = 30000
 characterNameTexture = ExtResource("21_tvj7t")
-characterMoves = Array[Resource("res://scripts/move.gd")]([ExtResource("1_1hkwy"), ExtResource("2_fd1iy"), ExtResource("3_w8mbb"), ExtResource("4_m4ai3"), ExtResource("5_bk88r"), ExtResource("6_22kyx"), ExtResource("5_dn7hy"), ExtResource("7_d85sl"), ExtResource("7_hxaci"), ExtResource("6_6ss6r"), ExtResource("7_me4oq"), ExtResource("4_wp1ec"), ExtResource("5_vtntq"), ExtResource("8_6w6yr"), ExtResource("1_uvrso"), ExtResource("3_26k0q"), ExtResource("4_gqu7m"), ExtResource("5_1yif7"), ExtResource("3_jx27h"), ExtResource("2_qsvjh"), ExtResource("5_mtauf"), ExtResource("7_safhy"), ExtResource("10_8h2rf"), ExtResource("13_wywu3"), ExtResource("24_f6hx0"), ExtResource("24_axx4q"), ExtResource("26_nvnap"), ExtResource("27_bji48"), ExtResource("29_pocem"), ExtResource("30_dv50i"), ExtResource("31_fqhii"), ExtResource("33_g38jn"), ExtResource("34_s4agl"), ExtResource("35_yuxxa")])
+characterMoves = Array[Resource("res://scripts/move.gd")]([ExtResource("1_1hkwy"), ExtResource("2_fd1iy"), ExtResource("3_w8mbb"), ExtResource("4_m4ai3"), ExtResource("5_bk88r"), ExtResource("6_22kyx"), ExtResource("5_dn7hy"), ExtResource("7_d85sl"), ExtResource("7_hxaci"), ExtResource("6_6ss6r"), ExtResource("7_me4oq"), ExtResource("4_wp1ec"), ExtResource("5_vtntq"), ExtResource("8_6w6yr"), ExtResource("1_uvrso"), ExtResource("3_26k0q"), ExtResource("4_gqu7m"), ExtResource("5_1yif7"), ExtResource("3_jx27h"), ExtResource("2_qsvjh"), ExtResource("5_mtauf"), ExtResource("7_safhy"), ExtResource("10_8h2rf"), ExtResource("13_wywu3"), ExtResource("24_f6hx0"), ExtResource("24_axx4q"), ExtResource("26_nvnap"), ExtResource("29_ml6v5"), ExtResource("29_pocem"), ExtResource("30_dv50i"), ExtResource("31_fqhii"), ExtResource("33_g38jn"), ExtResource("34_s4agl"), ExtResource("35_yuxxa"), ExtResource("36_404vs")])
 characterProjectileTypes = Array[String]([])
 characterCpuCore = ExtResource("1_usr73")

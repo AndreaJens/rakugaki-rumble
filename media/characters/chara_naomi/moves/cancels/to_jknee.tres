@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_ifnlg")
-targetMoveName = "attackJumpKnee"
+targetMoveName = "attackJumpKnee_std"
 startFrame = -1
 endFrame = -1
 onHit = true

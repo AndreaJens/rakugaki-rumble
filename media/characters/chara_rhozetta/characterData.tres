@@ -20,6 +20,7 @@
 [ext_resource type="Resource" uid="uid://dreocw0ub6uvv" path="res://media/characters/all_chara_common/moves/forward_to_idle.tres" id="21_asl4c"]
 [ext_resource type="Resource" uid="uid://cppl6r71admm0" path="res://media/characters/chara_rhozetta/moves/rampage.tres" id="21_kx50d"]
 [ext_resource type="Resource" uid="uid://j3mbwgsubeft" path="res://media/characters/all_chara_common/moves/backwards_to_idle.tres" id="22_oj8yj"]
+[ext_resource type="Resource" uid="uid://c7w154egxscjy" path="res://media/characters/all_chara_common/moves/airBurst.tres" id="24_u54a0"]
 [ext_resource type="Resource" uid="uid://dmfkrbe7lnwa6" path="res://media/characters/chara_naomi/moves/zero_install.tres" id="25_m8edm"]
 [ext_resource type="Resource" uid="uid://dvbrdvc1pgp58" path="res://media/characters/chara_rhozetta/moves/rampage_fwp.tres" id="25_og88f"]
 [ext_resource type="Resource" uid="uid://dwcbp04ce0f6h" path="res://media/characters/chara_naomi/moves/infinity_install.tres" id="26_1lqog"]
@@ -27,7 +28,6 @@
 [ext_resource type="Resource" uid="uid://cigu88182etol" path="res://media/characters/chara_rhozetta/moves/rampage_air.tres" id="27_qtsqo"]
 [ext_resource type="Resource" uid="uid://ccv4hvujosyyh" path="res://media/characters/chara_naomi/moves/wallsplat_ko.tres" id="27_s8kr1"]
 [ext_resource type="Resource" uid="uid://yrs0ppnxm4ws" path="res://media/characters/chara_rhozetta/moves/rampage_auto.tres" id="28_8q7pu"]
-[ext_resource type="Resource" uid="uid://cxhs31va118u0" path="res://media/characters/chara_naomi/moves/airBurst.tres" id="28_jdn2x"]
 [ext_resource type="Texture2D" uid="uid://ljub10t2iwni" path="res://media/characters/chara_rhozetta/sprites/name.png" id="29_00c48"]
 [ext_resource type="Resource" uid="uid://3q35d78xwb0a" path="res://media/characters/chara_rhozetta/moves/hurtSpike.tres" id="29_gy67n"]
 [ext_resource type="Resource" uid="uid://dbr1j2urqh8dd" path="res://media/characters/chara_rhozetta/moves/downSpike.tres" id="30_7blwv"]
@@ -43,5 +43,5 @@ characterAnimationLibraryPrefix = "rhozetta"
 characterMaxHealth = 110000
 characterMaxMeter = 30000
 characterNameTexture = ExtResource("29_00c48")
-characterMoves = Array[Resource("res://scripts/move.gd")]([ExtResource("1_tig24"), ExtResource("2_hly65"), ExtResource("3_hs617"), ExtResource("4_q4e8r"), ExtResource("5_nnocw"), ExtResource("6_lgbi2"), ExtResource("7_lp14g"), ExtResource("8_4whii"), ExtResource("9_bydpd"), ExtResource("10_vtv6i"), ExtResource("11_mqanr"), ExtResource("12_o6obw"), ExtResource("13_tvpep"), ExtResource("21_asl4c"), ExtResource("22_oj8yj"), ExtResource("16_aidkx"), ExtResource("17_hmoa8"), ExtResource("27_s8kr1"), ExtResource("21_kx50d"), ExtResource("19_6lnsm"), ExtResource("20_k7qc1"), ExtResource("25_m8edm"), ExtResource("26_1lqog"), ExtResource("28_jdn2x"), ExtResource("25_og88f"), ExtResource("26_k0u2n"), ExtResource("27_qtsqo"), ExtResource("28_8q7pu"), ExtResource("29_gy67n"), ExtResource("30_7blwv"), ExtResource("31_ktuuk"), ExtResource("32_i6reu")])
+characterMoves = Array[Resource("res://scripts/move.gd")]([ExtResource("1_tig24"), ExtResource("2_hly65"), ExtResource("3_hs617"), ExtResource("4_q4e8r"), ExtResource("5_nnocw"), ExtResource("6_lgbi2"), ExtResource("7_lp14g"), ExtResource("8_4whii"), ExtResource("9_bydpd"), ExtResource("10_vtv6i"), ExtResource("11_mqanr"), ExtResource("12_o6obw"), ExtResource("13_tvpep"), ExtResource("21_asl4c"), ExtResource("22_oj8yj"), ExtResource("16_aidkx"), ExtResource("17_hmoa8"), ExtResource("27_s8kr1"), ExtResource("21_kx50d"), ExtResource("19_6lnsm"), ExtResource("20_k7qc1"), ExtResource("25_m8edm"), ExtResource("26_1lqog"), ExtResource("24_u54a0"), ExtResource("25_og88f"), ExtResource("26_k0u2n"), ExtResource("27_qtsqo"), ExtResource("28_8q7pu"), ExtResource("29_gy67n"), ExtResource("30_7blwv"), ExtResource("31_ktuuk"), ExtResource("32_i6reu")])
 characterProjectileTypes = Array[String]([])

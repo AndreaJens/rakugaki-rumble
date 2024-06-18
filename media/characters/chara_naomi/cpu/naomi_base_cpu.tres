@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CpuOpponentRuleset" load_steps=58 format=3 uid="uid://b3tg814hs63y5"]
+[gd_resource type="Resource" script_class="CpuOpponentRuleset" load_steps=60 format=3 uid="uid://b3tg814hs63y5"]
 
 [ext_resource type="Script" path="res://scripts/CPUOpponentRule.gd" id="1_48oj1"]
 [ext_resource type="Script" path="res://scripts/CPUOpponentRuleset.gd" id="1_ojrog"]
@@ -326,9 +326,16 @@ operator = 0
 valueInt = 0
 valueString = ""
 
+[sub_resource type="Resource" id="Resource_fyowq"]
+script = ExtResource("1_48oj1")
+trigger = 12
+operator = 3
+valueInt = 5
+valueString = ""
+
 [sub_resource type="Resource" id="Resource_mgie7"]
 script = ExtResource("2_8ju61")
-conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_1jrc1"), SubResource("Resource_k34k1"), SubResource("Resource_7yonh"), SubResource("Resource_wkpxp")])
+conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_1jrc1"), SubResource("Resource_k34k1"), SubResource("Resource_7yonh"), SubResource("Resource_wkpxp"), SubResource("Resource_fyowq")])
 weight = 0
 targetMoveName = "airBurst"
 tickToNextMove = -1
@@ -375,9 +382,16 @@ operator = 5
 valueInt = 400000
 valueString = ""
 
+[sub_resource type="Resource" id="Resource_wohs4"]
+script = ExtResource("1_48oj1")
+trigger = 12
+operator = 3
+valueInt = 5
+valueString = ""
+
 [sub_resource type="Resource" id="Resource_47ium"]
 script = ExtResource("2_8ju61")
-conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_4rqmb"), SubResource("Resource_4h3us")])
+conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_4rqmb"), SubResource("Resource_4h3us"), SubResource("Resource_wohs4")])
 weight = 150
 targetMoveName = "attackJumpKnee"
 tickToNextMove = 5

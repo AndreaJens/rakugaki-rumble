@@ -4,6 +4,7 @@ enum StateVars {
 	Index = 0,
 	LastInputPressed = 1,
 	AnimationTicks = 2,
+	ZoomTicks = 5,
 	SelectedOption = 3,
 	Visible = 4
 }
@@ -18,12 +19,14 @@ var _lastInputReceived : int = 0
 @export var _options : Array[Option] = [Option.Yes, Option.No]
 @export var _optionSprites : Array[Sprite2D] = []
 var _animationTicks : int = 0
+var _zoomTicks : int = 0
 var _optionSelected : bool = false
 const animationPeriod : int = 20
 
 func reset_and_hide():
 	_index = 0
 	_lastInputReceived = 0
+	_zoomTicks = 0
 	_optionSelected = false
 	visible = false
 
@@ -50,7 +53,11 @@ func _update_highlighted_option():
 	for sprite in _optionSprites:
 		sprite.offset.x = 0
 		sprite.scale = Vector2(1., 1.)
-	_optionSprites[_index].scale = Vector2(1.1, 1.1)
+	if _zoomTicks > 0:
+		_zoomTicks -= 1
+		_optionSprites[_index].scale = Vector2(1.25, 1.25)
+	else:
+		_optionSprites[_index].scale = Vector2(1.1, 1.1)
 	if !selection_performed():
 		_optionSprites[_index].offset.x = -4
 		@warning_ignore("integer_division")
@@ -69,8 +76,10 @@ func update(allButtonsPressed : int, newAnimationTicks : int):
 		if ((allButtonsPressed & ~_lastInputReceived) & GameDatabaseAccessor.GameInputButton.Down):
 			_index += 1
 			_index %= _options.size()
+			_zoomTicks = 8
 		elif ((allButtonsPressed & ~_lastInputReceived) & GameDatabaseAccessor.GameInputButton.Up):
 			_index -= 1
+			_zoomTicks = 8
 			if _index < 0: _index = _options.size() - 1
 	if ((allButtonsPressed & ~_lastInputReceived) & GameDatabaseAccessor.GameInputButton.Confirm):
 		_optionSelected = true

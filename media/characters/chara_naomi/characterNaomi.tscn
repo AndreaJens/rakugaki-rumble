@@ -1,9 +1,9 @@
-[gd_scene load_steps=40 format=3 uid="uid://d1k45q87lrm2u"]
+[gd_scene load_steps=41 format=3 uid="uid://d1k45q87lrm2u"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_qst3w"]
 [ext_resource type="Script" path="res://scripts/characterState.gd" id="2_ssm87"]
 [ext_resource type="Resource" uid="uid://qiywbrf1e5yu" path="res://media/characters/chara_naomi/characterData.tres" id="2_tinh8"]
-[ext_resource type="Texture2D" uid="uid://7adt8b0o686h" path="res://media/characters/chara_naomi/sprites/naomi2.png" id="4_crmew"]
+[ext_resource type="Texture2D" uid="uid://doqv7ldx2lsqk" path="res://media/characters/chara_naomi/sprites/naomi1.png" id="4_ow5q7"]
 [ext_resource type="PackedScene" uid="uid://cy2ewlewinwbv" path="res://media/logic/HitBox.tscn" id="5_35kqm"]
 [ext_resource type="Animation" uid="uid://cr6li0yaypxxv" path="res://media/characters/chara_naomi/animations/attack1.res" id="5_656ri"]
 [ext_resource type="PackedScene" uid="uid://c5k34hfd8kc10" path="res://media/logic/PushBox.tscn" id="5_phuw5"]
@@ -35,6 +35,7 @@
 [ext_resource type="Animation" uid="uid://d3ahb3upbsxwt" path="res://media/characters/chara_naomi/animations/attack_jumpKick_air.res" id="29_wnyby"]
 [ext_resource type="Animation" uid="uid://w4ivy1jslx1y" path="res://media/characters/chara_naomi/animations/attack_jumpKick_longer.res" id="30_lwoxo"]
 [ext_resource type="Animation" uid="uid://bqkswvjs1mue" path="res://media/characters/chara_naomi/animations/attack1_dash.res" id="31_33ygr"]
+[ext_resource type="Animation" uid="uid://ciqqxmlxtp0er" path="res://media/characters/chara_naomi/animations/attack_jumpKnee_std.res" id="32_4g5b8"]
 
 [sub_resource type="Animation" id="Animation_w5h5g"]
 length = 0.001
@@ -119,6 +120,7 @@ _data = {
 "attack_jumpKick_air": ExtResource("29_wnyby"),
 "attack_jumpKick_longer": ExtResource("30_lwoxo"),
 "attack_jumpKnee": ExtResource("9_cswrf"),
+"attack_jumpKnee_std": ExtResource("32_4g5b8"),
 "downSpike": ExtResource("27_kvbr6"),
 "downSpike_fwp": ExtResource("28_hqrj3"),
 "falling": ExtResource("9_5ldx8"),
@@ -147,14 +149,13 @@ characterData = ExtResource("2_tinh8")
 script = ExtResource("2_ssm87")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = 10
+z_index = 100
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("4_crmew")
-offset = Vector2(0, -360)
+texture = ExtResource("4_ow5q7")
+offset = Vector2(0, -385)
 hframes = 4
 vframes = 4
-frame = 13
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -170,7 +171,7 @@ script = ExtResource("18_1xnwy")
 [node name="HitBox" parent="HitBoxes" instance=ExtResource("5_35kqm")]
 moveReactionOnHitGround = "hurtG"
 moveReactionOnHitAir = "hurtSpike"
-damage = 13000
+damage = 5500
 boxSize = Rect2i(150000, -200000, 180000, 220000)
 
 [node name="HitBox2" parent="HitBoxes" instance=ExtResource("5_35kqm")]
@@ -184,7 +185,8 @@ boxSize = Rect2i(150000, -200000, 180000, 220000)
 [node name="HurtBoxes" type="Node2D" parent="."]
 
 [node name="HurtBox" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
-boxSize = Rect2i(75000, -165000, 200000, 320000)
+active = true
+boxSize = Rect2i(-100000, -200000, 200000, 300000)
 
 [node name="HurtBox2" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
 boxSize = Rect2i(270000, -200000, 200000, 200000)
@@ -196,5 +198,4 @@ boxSize = Rect2i(270000, -200000, 200000, 200000)
 [node name="HurtBox5" parent="HurtBoxes" instance=ExtResource("6_7hpma")]
 
 [node name="PushBox" parent="." instance=ExtResource("5_phuw5")]
-active = true
-boxSize = Rect2i(-50000, -100000, 200000, 200000)
+boxSize = Rect2i(0, -100000, 200000, 200000)

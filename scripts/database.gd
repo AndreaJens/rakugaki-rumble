@@ -82,7 +82,9 @@ enum GameInputButton{
 	Pause = 1 << 32,
 	Confirm = 1 << 33,
 	Cancel =  1 << 34,
-	AllMenuButtons = Confirm | Cancel | Pause
+	ScrollRight =  1 << 35,
+	ScrollLeft =  1 << 36,
+	AllMenuButtons = Confirm | Cancel | Pause | ScrollRight | ScrollLeft
 }
 
 enum AttackType {

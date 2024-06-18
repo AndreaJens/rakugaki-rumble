@@ -1,19 +1,29 @@
-[gd_scene load_steps=10 format=3 uid="uid://dtrh7m0aho8ro"]
+[gd_scene load_steps=18 format=3 uid="uid://dtrh7m0aho8ro"]
 
 [ext_resource type="Script" path="res://scripts/scene_character_selection.gd" id="1_edawh"]
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="2_p7346"]
 [ext_resource type="Script" path="res://scripts/generic_menu.gd" id="3_6r5vb"]
+[ext_resource type="Texture2D" uid="uid://biqsyab6d0hdo" path="res://media/stages/stage_grid/background2Full.jpg" id="3_jjxib"]
 [ext_resource type="Texture2D" uid="uid://dpbb30jc0c643" path="res://media/hud/systemMessages/VS.png" id="4_r42vn"]
 [ext_resource type="Texture2D" uid="uid://cdri01htadvuu" path="res://media/characters/chara_naomi/sprites/name.png" id="4_y8r6v"]
 [ext_resource type="Texture2D" uid="uid://ljub10t2iwni" path="res://media/characters/chara_rhozetta/sprites/name.png" id="5_gpk7r"]
 [ext_resource type="Texture2D" uid="uid://cxqx2oj7ip8u7" path="res://media/characters/chara_gridd/sprites/name.png" id="6_cx8ss"]
 [ext_resource type="Texture2D" uid="uid://cks540ri7mypt" path="res://media/hud/logo.png" id="7_14fs6"]
 [ext_resource type="Texture2D" uid="uid://c8k5hy3ln56n0" path="res://media/characters/chara_whitechapel/sprites/name.png" id="7_ik5nw"]
+[ext_resource type="Texture2D" uid="uid://ccjnvpqysrbmc" path="res://media/hud/systemMessages/VS_CPU.png" id="10_fqwp7"]
+[ext_resource type="Script" path="res://scripts/DifficultySelector.gd" id="11_3bqfq"]
+[ext_resource type="Texture2D" uid="uid://dvwk3e0pxtdrc" path="res://media/hud/systemMessages/ARW_LEFT.png" id="12_31ffs"]
+[ext_resource type="Texture2D" uid="uid://bw2yaye62io5g" path="res://media/hud/systemMessages/MID.png" id="13_d780o"]
+[ext_resource type="Texture2D" uid="uid://badfefo13ku17" path="res://media/hud/systemMessages/ARW_RIGHT.png" id="13_hjom3"]
+[ext_resource type="Texture2D" uid="uid://cswb6yt8b3ubw" path="res://media/hud/systemMessages/EASY.png" id="14_8mmar"]
+[ext_resource type="Texture2D" uid="uid://dr5y4da1dsix" path="res://media/hud/systemMessages/HARD.png" id="14_bncoc"]
 
-[node name="SceneCharacterSelection" type="Node2D" node_paths=PackedStringArray("_menu_p1", "_menu_p2")]
+[node name="SceneCharacterSelection" type="Node2D" node_paths=PackedStringArray("_menu_p1", "_menu_p2", "_difficultySelector")]
 script = ExtResource("1_edawh")
 _menu_p1 = NodePath("MenuP1")
 _menu_p2 = NodePath("MenuP2")
+_difficultySelector = NodePath("VSCPU_Banner/DifficultySelector")
+_stageBackgrounds = Array[Texture2D]([ExtResource("2_p7346"), ExtResource("3_jjxib")])
 
 [node name="Stage" type="Node2D" parent="."]
 
@@ -72,3 +82,25 @@ texture = ExtResource("4_r42vn")
 position = Vector2(567, 128)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("7_14fs6")
+
+[node name="VSCPU_Banner" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(567, 75)
+texture = ExtResource("10_fqwp7")
+
+[node name="DifficultySelector" type="Node2D" parent="VSCPU_Banner"]
+position = Vector2(0, 128)
+scale = Vector2(0.6, 0.6)
+script = ExtResource("11_3bqfq")
+textures = Array[Texture2D]([ExtResource("14_8mmar"), ExtResource("13_d780o"), ExtResource("14_bncoc")])
+
+[node name="ArrowLeft" type="Sprite2D" parent="VSCPU_Banner/DifficultySelector"]
+position = Vector2(-200, 0)
+texture = ExtResource("12_31ffs")
+
+[node name="ArrowRight" type="Sprite2D" parent="VSCPU_Banner/DifficultySelector"]
+position = Vector2(200, 0)
+texture = ExtResource("13_hjom3")
+
+[node name="DifficultyLabel" type="Sprite2D" parent="VSCPU_Banner/DifficultySelector"]
+texture = ExtResource("14_8mmar")

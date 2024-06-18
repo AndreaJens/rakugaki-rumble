@@ -6,11 +6,26 @@ var player1DeviceId : int = 0
 var player2DeviceId : int = 1
 var character1Path : String = "chara_naomi"
 var character2Path : String = "chara_naomi"
+var cpuDifficultyLevel : int = 5
+var cpuActionTicks : int = 15
+var stageBackgroundTexture : Texture2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	SceneManager.switch_scene.connect(goto_scene)
 	scene_successfully_switched.connect(SceneManager._on_scene_switched)
+	
+func _calculate_cpu_params(difficulty : SceneCharacterSelection.DifficultySettings):
+	match difficulty:
+		SceneCharacterSelection.DifficultySettings.Easy:
+			cpuDifficultyLevel = 0
+			cpuActionTicks = 20
+		SceneCharacterSelection.DifficultySettings.Medium:
+			cpuDifficultyLevel = 5
+			cpuActionTicks = 15
+		SceneCharacterSelection.DifficultySettings.Hard:
+			cpuDifficultyLevel = 10
+			cpuActionTicks = 10
 
 func goto_scene(path : String, type : SceneManager.SceneType):
 	for child in get_children():
@@ -19,6 +34,8 @@ func goto_scene(path : String, type : SceneManager.SceneType):
 			player2DeviceId = child.player2DeviceId
 			character1Path = child.character1Path
 			character2Path = child.character2Path
+			_calculate_cpu_params(child.get_selected_cpu_level())
+			stageBackgroundTexture = child.get_stage_background_texture()
 		elif child is SceneGame:
 			player1DeviceId = child.player1DeviceId
 			player2DeviceId = child.player2DeviceId
@@ -72,6 +89,7 @@ func _add_extra_scene_parameters(scene, type : SceneManager.SceneType):
 				SceneGame.AdditionalGameSceneStartupParameter.Character2Path : character2Path,
 				SceneGame.AdditionalGameSceneStartupParameter.Player1DeviceId : player1DeviceId,
 				SceneGame.AdditionalGameSceneStartupParameter.Player2DeviceId : player2DeviceId,
+				SceneGame.AdditionalGameSceneStartupParameter.StageBackground : stageBackgroundTexture,
 			}
 		SceneManager.SceneType.SingleMatchMultiplayer:
 			scene.preventDeath = false
@@ -83,6 +101,7 @@ func _add_extra_scene_parameters(scene, type : SceneManager.SceneType):
 				SceneGame.AdditionalGameSceneStartupParameter.Character2Path : character2Path,
 				SceneGame.AdditionalGameSceneStartupParameter.Player1DeviceId : player1DeviceId,
 				SceneGame.AdditionalGameSceneStartupParameter.Player2DeviceId : player2DeviceId,
+				SceneGame.AdditionalGameSceneStartupParameter.StageBackground : stageBackgroundTexture,
 			}
 		SceneManager.SceneType.SingleMatchVsCpu:
 			scene.preventDeath = false
@@ -95,5 +114,8 @@ func _add_extra_scene_parameters(scene, type : SceneManager.SceneType):
 				SceneGame.AdditionalGameSceneStartupParameter.Player1DeviceId : player1DeviceId,
 				SceneGame.AdditionalGameSceneStartupParameter.Player2DeviceId : -1,
 				SceneGame.AdditionalGameSceneStartupParameter.Player2isCpu : true,
+				SceneGame.AdditionalGameSceneStartupParameter.Player2AILevel : cpuDifficultyLevel,
+				SceneGame.AdditionalGameSceneStartupParameter.Player2AITicks : cpuActionTicks,
+				SceneGame.AdditionalGameSceneStartupParameter.StageBackground : stageBackgroundTexture,
 			}
 	

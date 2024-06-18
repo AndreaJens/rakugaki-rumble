@@ -10,6 +10,8 @@ var _baseActionDict : Dictionary = {
 	"move_r" : GameDatabaseAccessor.GameInputButton.Right,
 	"attack1" : GameDatabaseAccessor.GameInputButton.Action1,
 	"attack2" : GameDatabaseAccessor.GameInputButton.Action2,
+	"scroll_l" : GameDatabaseAccessor.GameInputButton.ScrollLeft,
+	"scroll_r" : GameDatabaseAccessor.GameInputButton.ScrollRight,
 	"confirm" : GameDatabaseAccessor.GameInputButton.Confirm,
 	"cancel" : GameDatabaseAccessor.GameInputButton.Cancel,
 }

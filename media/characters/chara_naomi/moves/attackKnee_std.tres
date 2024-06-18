@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=4 format=3 uid="uid://b57lk7v6hb4qc"]
+
+[ext_resource type="Resource" uid="uid://ceb161n7mprkq" path="res://media/characters/chara_naomi/moves/cancels/to_air_adv_kick_hit.tres" id="1_nf2ab"]
+[ext_resource type="Resource" uid="uid://dkvcd6s744tx2" path="res://media/characters/all_chara_common/moves/cancels/to_idle_landing.tres" id="2_6232x"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="3_6o8ds"]
+
+[resource]
+script = ExtResource("3_6o8ds")
+characterState = 0
+internalName = "attackJumpKnee_std"
+displayName = ""
+animationName = "attack_jumpKnee_std"
+startingFrame = 0
+endingFrame = 45
+isHitStunState = false
+loop = false
+canTurnMidMove = false
+logicalVelocityPerFrame = Vector2i(3000, -40000)
+logicalAccelerationPerFrame = Vector2i(0, 2400)
+keepMomentumPercent = 100
+spawnProjectileAtFrame = {}
+canGainMeter = true
+meterCost = 0
+canMeterBreak = false
+forcedMeterBreak = false
+canBeUsedBeforeRoundBegins = false
+canBeUsedAfterRoundEnds = false
+requiresInfinityInstall = false
+requiresZeroInstall = false
+requiresAnyInstall = false
+forbiddenButtons = Array[int]([])
+bufferStartLeniency = 5
+bufferLengthLeniency = 10
+useRawBuffer = false
+input = Array[int]([4, 5, 1, 16])
+inputVariant1 = Array[int]([4, 5, 1, 16384])
+inputVariant2 = Array[int]([1024, 1, 16])
+inputVariant3 = Array[int]([])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_nf2ab"), ExtResource("2_6232x")])
+guardFrames = Vector2i(-1, -1)
+timestopFrames = 0

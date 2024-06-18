@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CharacterMove" load_steps=3 format=3 uid="uid://c7w154egxscjy"]
 
-[ext_resource type="Resource" uid="uid://b2oxxj8ohxgew" path="res://media/characters/all_chara_common/moves/cancels/to_kd.tres" id="1_hata3"]
+[ext_resource type="Resource" uid="uid://c5bousk26xbs8" path="res://media/characters/all_chara_common/moves/cancels/to_hkd.tres" id="1_l8i75"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="2_0gwsu"]
 
 [resource]
@@ -10,7 +10,7 @@ internalName = "airBurst"
 displayName = ""
 animationName = "airBurst"
 startingFrame = 0
-endingFrame = 25
+endingFrame = 35
 isHitStunState = false
 loop = false
 canTurnMidMove = false
@@ -35,6 +35,6 @@ input = Array[int]([32])
 inputVariant1 = Array[int]([])
 inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
-cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_hata3")])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_l8i75")])
 guardFrames = Vector2i(-1, -1)
 timestopFrames = 15
