@@ -386,10 +386,10 @@ z_index = 15
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("4_uj772")
-offset = Vector2(-100, -390)
+offset = Vector2(120, -390)
 hframes = 4
 vframes = 4
-frame = 10
+frame = 8
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

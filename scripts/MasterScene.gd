@@ -12,6 +12,7 @@ var stageBackgroundTexture : Texture2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	GlobalOptions.load_from_file()
 	SceneManager.switch_scene.connect(goto_scene)
 	scene_successfully_switched.connect(SceneManager._on_scene_switched)
 	

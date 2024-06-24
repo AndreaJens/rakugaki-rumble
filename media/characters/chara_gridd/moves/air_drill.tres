@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=4 format=3 uid="uid://b8e8cc5ntf216"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=5 format=3 uid="uid://b8e8cc5ntf216"]
 
 [ext_resource type="Resource" uid="uid://cjphkw07pxt1p" path="res://media/characters/chara_gridd/moves/cancels/to_air_drill_fwp_auto.tres" id="1_eehit"]
 [ext_resource type="Resource" uid="uid://dkvcd6s744tx2" path="res://media/characters/all_chara_common/moves/cancels/to_idle_landing.tres" id="1_rc6uy"]
+[ext_resource type="Resource" uid="uid://5fow68b50w1v" path="res://media/sounds/drill_sound.tres" id="4_ecsjv"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="5_hs3uh"]
 
 [resource]
@@ -38,4 +39,5 @@ inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
 cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_eehit"), ExtResource("1_rc6uy")])
 guardFrames = Vector2i(-1, -1)
+soundsAtFrame = Array[Resource("res://scripts/soundAtFrame.gd")]([ExtResource("4_ecsjv")])
 timestopFrames = 0

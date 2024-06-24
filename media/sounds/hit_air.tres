@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundAtFrame" load_steps=3 format=3 uid="uid://d1kvdapvopndb"]
+
+[ext_resource type="Script" path="res://scripts/soundAtFrame.gd" id="1_0ubkr"]
+[ext_resource type="AudioStream" uid="uid://ct0ejqj8w8b18" path="res://media/sounds/hit1.wav" id="2_5iqkw"]
+
+[resource]
+script = ExtResource("1_0ubkr")
+soundRes = ExtResource("2_5iqkw")
+frame = 1
+pitch = 1.0
+soundIdString = "hit_air"

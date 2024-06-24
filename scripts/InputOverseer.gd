@@ -3,13 +3,14 @@ extends Node
 var focused := true
 var inputManagers : Array[InputManager] = []
 var rng = RandomNumberGenerator.new()
+const MaxNumberOfDevicesToPoll = 5
 
 @export var player1DeviceId : int = -1
 @export var player2DeviceId : int = -1
 
 func _ready():
 	rng.randomize()
-	for i in range(0,12):
+	for i in range(0, MaxNumberOfDevicesToPoll):
 		inputManagers.push_back(InputManager.new())
 		inputManagers[i].initialize(i)
 

@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=2 format=3 uid="uid://eihlj5s4au5f"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=3 format=3 uid="uid://eihlj5s4au5f"]
 
+[ext_resource type="Resource" uid="uid://dy3fqmo8k2f2y" path="res://media/sounds/knockdown_sound.tres" id="2_dr3kf"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="4_vv4l0"]
 
 [resource]
@@ -36,4 +37,5 @@ inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
 cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([])
 guardFrames = Vector2i(-1, -1)
+soundsAtFrame = Array[Resource("res://scripts/soundAtFrame.gd")]([ExtResource("2_dr3kf")])
 timestopFrames = 0

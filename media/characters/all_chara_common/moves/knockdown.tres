@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=2 format=3 uid="uid://dkrrggg7im3mw"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=3 format=3 uid="uid://dkrrggg7im3mw"]
 
 [ext_resource type="Script" path="res://scripts/move.gd" id="1_v651o"]
+[ext_resource type="Resource" uid="uid://dy3fqmo8k2f2y" path="res://media/sounds/knockdown_sound.tres" id="2_uvcat"]
 
 [resource]
 script = ExtResource("1_v651o")
@@ -16,11 +17,17 @@ canTurnMidMove = false
 logicalVelocityPerFrame = Vector2i(0, 0)
 logicalAccelerationPerFrame = Vector2i(0, 0)
 keepMomentumPercent = 0
+spawnProjectileAtFrame = {}
+canGainMeter = true
 meterCost = 0
 canMeterBreak = false
 forcedMeterBreak = false
 canBeUsedBeforeRoundBegins = true
-canBeUsedBeforeAfterRoundEnds = false
+canBeUsedAfterRoundEnds = false
+requiresInfinityInstall = false
+requiresZeroInstall = false
+requiresAnyInstall = false
+forbiddenButtons = Array[int]([])
 bufferStartLeniency = 3
 bufferLengthLeniency = 10
 useRawBuffer = false
@@ -30,4 +37,5 @@ inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
 cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([])
 guardFrames = Vector2i(-1, -1)
+soundsAtFrame = Array[Resource("res://scripts/soundAtFrame.gd")]([ExtResource("2_uvcat")])
 timestopFrames = 0

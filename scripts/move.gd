@@ -40,6 +40,8 @@ class_name CharacterMove extends Resource
 @export_category("Cancels")
 @export var cancelRoutes : Array[MoveCancelRoute] = []
 @export var guardFrames := Vector2i(-1, -1) 
+@export_category("Sounds")
+@export var soundsAtFrame : Array[SoundAtFrame] = []
 @export_category("Extra Effects")
 @export var timestopFrames := 0
 
@@ -168,3 +170,10 @@ func check_input_match(
 		if (check_input_against_buffer(inputVariant3, inputBuffer, onLeftSide, extraLeniency)):
 			return true
 	return false
+
+func sound_to_play_at_frame(currentFrame : int) -> SoundAtFrame:
+	for sound in soundsAtFrame:
+		if sound.frame == currentFrame:
+			return sound
+	return null
+	

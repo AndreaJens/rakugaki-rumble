@@ -25,6 +25,7 @@ SyncManager="*res://addons/godot-rollback-netcode/SyncManager.gd"
 NetworkAssistant="*res://scripts/NetworkAssistant.gd"
 SyncReplay="*res://addons/godot-rollback-netcode/SyncReplay.gd"
 SyncDebugger="*res://addons/godot-rollback-netcode/SyncDebugger.gd"
+GlobalOptions="*res://scripts/globalOptions.gd"
 
 [display]
 

@@ -250,6 +250,8 @@ func _ready():
 		player1DeviceId = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player1DeviceId]
 	if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player2DeviceId):
 		player2DeviceId = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player2DeviceId]
+	character1.inNetworkMatch = networkMode
+	character2.inNetworkMatch = networkMode
 	inputManagerP1.deviceId = player1DeviceId
 	inputManagerP2.deviceId = player2DeviceId
 	if !networkMode:
@@ -363,6 +365,7 @@ func _reset_round(resetCharacterMeter : bool = false):
 	character2.initialLogicalPosition = Vector2(stagePos.x + charOffset.x, charOffset.y)
 	character1.reset_character(resetCharacterMeter)
 	character2.reset_character(resetCharacterMeter)
+	_update_character_side()
 	if timerSeconds > 0:
 		_timerTicks = timerSeconds * GameDatabaseAccessor.frameRateFps
 	if startActivePhaseImmediately:
@@ -612,6 +615,32 @@ func _update_projectiles():
 	character1.update_projectiles(inputManagerP1)
 	character2.update_projectiles(inputManagerP2)
 
+func _update_character_side():
+	if character1.can_be_updated():
+		if character1.can_turn_around():
+			if character1.characterState.logicalPosition.x <= character2.characterState.logicalPosition.x:
+				#if !character1.characterState.onLeftSide:
+					#character1.characterState.logicalVelocity.x = -character1.characterState.logicalVelocity.x
+				character1.set_on_left_side(true) 
+				character1.scale = Vector2(1, 1)
+			else:
+				#if character1.characterState.onLeftSide:
+					#character1.characterState.logicalVelocity.x = -character1.characterState.logicalVelocity.x
+				character1.set_on_left_side(false) 
+				character1.scale = Vector2(-1, 1)
+	if character2.can_be_updated():
+		if character2.can_turn_around():
+			if character2.characterState.logicalPosition.x < character1.characterState.logicalPosition.x:
+				#if !character2.characterState.onLeftSide:
+					#character2.characterState.logicalVelocity.x = -character2.characterState.logicalVelocity.x
+				character2.set_on_left_side(true) 
+				character2.scale = Vector2(1, 1)
+			else:
+				#if character2.characterState.onLeftSide:
+					#character2.characterState.logicalVelocity.x = -character2.characterState.logicalVelocity.x
+				character2.set_on_left_side(false) 
+				character2.scale = Vector2(-1, 1)
+
 func _update_character_state():
 	# this is a measure to improve move detection during hit freeze
 	var extraInputLeniency = 0
@@ -641,30 +670,7 @@ func _update_character_state():
 	
 	character1.immortal = preventDeath
 	character2.immortal = preventDeath
-	if character1.can_be_updated():
-		if character1.can_turn_around():
-			if character1.characterState.logicalPosition.x <= character2.characterState.logicalPosition.x:
-				#if !character1.characterState.onLeftSide:
-					#character1.characterState.logicalVelocity.x = -character1.characterState.logicalVelocity.x
-				character1.set_on_left_side(true) 
-				character1.scale = Vector2(1, 1)
-			else:
-				#if character1.characterState.onLeftSide:
-					#character1.characterState.logicalVelocity.x = -character1.characterState.logicalVelocity.x
-				character1.set_on_left_side(false) 
-				character1.scale = Vector2(-1, 1)
-	if character2.can_be_updated():
-		if character2.can_turn_around():
-			if character2.characterState.logicalPosition.x < character1.characterState.logicalPosition.x:
-				#if !character2.characterState.onLeftSide:
-					#character2.characterState.logicalVelocity.x = -character2.characterState.logicalVelocity.x
-				character2.set_on_left_side(true) 
-				character2.scale = Vector2(1, 1)
-			else:
-				#if character2.characterState.onLeftSide:
-					#character2.characterState.logicalVelocity.x = -character2.characterState.logicalVelocity.x
-				character2.set_on_left_side(false) 
-				character2.scale = Vector2(-1, 1)
+	_update_character_side()
 	for projectile in character1.projectiles:
 		if projectile.can_be_updated():
 			if projectile.is_on_left_side():

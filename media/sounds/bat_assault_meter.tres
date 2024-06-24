@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundAtFrame" load_steps=3 format=3 uid="uid://ikdilqtrg8g7"]
+
+[ext_resource type="Script" path="res://scripts/soundAtFrame.gd" id="1_sm027"]
+[ext_resource type="AudioStream" uid="uid://b12rqd5tws82u" path="res://media/sounds/batFlyShort.wav" id="2_fnubd"]
+
+[resource]
+script = ExtResource("1_sm027")
+soundRes = ExtResource("2_fnubd")
+frame = 13
+pitch = 1.0
+soundIdString = "bat_whitechapel"

@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=2 format=3 uid="uid://8nngma4n2sh2"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=3 format=3 uid="uid://8nngma4n2sh2"]
 
+[ext_resource type="Resource" uid="uid://cyhkshchsmkmx" path="res://media/sounds/hit_ground.tres" id="2_rbubu"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="7_1tgyp"]
 
 [resource]
@@ -36,4 +37,5 @@ inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
 cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([])
 guardFrames = Vector2i(-1, -1)
+soundsAtFrame = Array[Resource("res://scripts/soundAtFrame.gd")]([ExtResource("2_rbubu")])
 timestopFrames = 0

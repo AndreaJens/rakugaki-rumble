@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundAtFrame" load_steps=3 format=3 uid="uid://dy3fqmo8k2f2y"]
+
+[ext_resource type="Script" path="res://scripts/soundAtFrame.gd" id="1_pbxgw"]
+[ext_resource type="AudioStream" uid="uid://x4c88kymkjg7" path="res://media/sounds/hit3.wav" id="2_fk7ju"]
+
+[resource]
+script = ExtResource("1_pbxgw")
+soundRes = ExtResource("2_fk7ju")
+frame = 0
+pitch = 1.0
+soundIdString = "hit_KD"

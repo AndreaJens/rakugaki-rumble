@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundAtFrame" load_steps=3 format=3 uid="uid://cbdupvfian684"]
+
+[ext_resource type="Script" path="res://scripts/soundAtFrame.gd" id="1_yi5x6"]
+[ext_resource type="AudioStream" uid="uid://x4c88kymkjg7" path="res://media/sounds/hit3.wav" id="2_5cac6"]
+
+[resource]
+script = ExtResource("1_yi5x6")
+soundRes = ExtResource("2_5cac6")
+frame = 0
+pitch = 1.0
+soundIdString = "hit_spike"

@@ -19,6 +19,7 @@ enum ReservedMoveIndex
 @export var initialLogicalPosition : Vector2i = Vector2i(0, 0)
 @onready var characterState : CharacterState = $CharacterState
 @onready var animationPlayer : AnimationPlayer = $AnimationPlayer
+@onready var audioPlayer : AudioStreamPlayer = $AudioStreamPlayer
 var moveNameToIndex : Dictionary = {}
 var currentMove : CharacterMove = null
 @onready var pushBox : MoveBox = $PushBox
@@ -26,6 +27,7 @@ var hitBoxes : Array[HitBox] = []
 var hurtBoxes : Array[HurtBox] = []
 var projectiles : Array[CharacterProjectile] = []
 var projectileNameDict : Dictionary = {}
+@export var inNetworkMatch : bool = false
 @export var immortal : bool = false
 
 @export var infinityInstallActive : bool = false:
@@ -378,6 +380,7 @@ func apply_new_move(move : CharacterMove):
 		characterState.logicalVelocity = logicalVel
 	characterState.logicalAcceleration = logicalAcc
 	currentMove = move
+	_play_sound_if_needed()
 	
 func turn_around():
 	characterState.onLeftSide = !characterState.onLeftSide
@@ -572,15 +575,42 @@ func can_gain_meter() -> bool:
 
 func in_hit_stun() -> bool:
 	return currentMove	and currentMove.isHitStunState
+
+func _play_sound_if_needed():
+	if !currentMove:
+		return
+	var soundToPlay : SoundAtFrame = currentMove.sound_to_play_at_frame(characterState.currentFrame)
+	if soundToPlay:
+		if inNetworkMatch:
+				var soundInfo := {
+					'volume_db' : GlobalOptions.get_sfx_volume(),
+					'pitch_scale' : soundToPlay.pitch
+				}
+				SyncManager.play_sound(soundToPlay.soundIdString, soundToPlay.soundRes, soundInfo)
+		else:
+			#if audioPlayer.playing:
+				#if audioPlayer.stream == soundToPlay.soundRes:
+					#return
+			audioPlayer.stream = soundToPlay.soundRes
+			audioPlayer.pitch_scale = soundToPlay.pitch
+			audioPlayer.volume_db = GlobalOptions.get_sfx_volume()
+			audioPlayer.play()
 	
+
 func _update_current_move( inputManager : InputBufferManager, extraLeniency : int = 0 ):
 	if !currentMove	or !currentMove.isHitStunState:
 		characterState.bounceCounter = 0
 		characterState.affectedByHitFreeze = false
+	if is_ko():
+		if characterState.moveId != ReservedMoveIndex.Ko:
+			if !is_airborne():
+				apply_new_move(characterData.characterMoves[ReservedMoveIndex.Ko])
+		return
 	if currentMove:
 		var newMovePerformed := false
 		characterState.currentFrame += 1
 		set_animation_frame(characterState.currentFrame)
+		_play_sound_if_needed()
 		# spawn projectiles if needed
 		#print( currentMove.spawnProjectileAtFrame)
 		if currentMove.spawnProjectileAtFrame.has(characterState.currentFrame):
@@ -589,11 +619,6 @@ func _update_current_move( inputManager : InputBufferManager, extraLeniency : in
 			var duration : int = currentMove.spawnProjectileAtFrame[characterState.currentFrame]["duration"]
 			spawn_projectile(projType, duration, offset)
 		# look for followups
-		if is_ko():
-			if characterState.moveId != ReservedMoveIndex.Ko:
-				if !is_airborne():
-					apply_new_move(characterData.characterMoves[ReservedMoveIndex.Ko])
-			return
 		for followup in currentMove.cancelRoutes:
 			if !followup.is_valid(characterState.currentFrame):
 				continue
