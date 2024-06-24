@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://c07vx7o11k05c"]
+[gd_scene load_steps=51 format=3 uid="uid://c07vx7o11k05c"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_xmmq4"]
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="2_8rf0r"]
@@ -47,6 +47,7 @@
 [ext_resource type="AudioStream" uid="uid://bhi3kjdd6mscw" path="res://media/sounds/dash2.wav" id="41_t5yqa"]
 [ext_resource type="AudioStream" uid="uid://bunktu7qgd2je" path="res://media/sounds/dash.wav" id="42_gjl1h"]
 [ext_resource type="AudioStream" uid="uid://b3g5tc4s33ao4" path="res://media/sounds/paperCrumple.wav" id="47_mrmm6"]
+[ext_resource type="AudioStream" uid="uid://q12eq50ig22" path="res://media/music/GGTStageMusic2.ogg" id="47_w0k6i"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6jq71"]
 font_size = 22
@@ -537,6 +538,7 @@ texture = ExtResource("38_dl2q0")
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("47_w0k6i")
 
 [node name="SystemPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("47_mrmm6")

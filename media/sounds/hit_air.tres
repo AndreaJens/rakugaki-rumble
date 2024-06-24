@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="SoundAtFrame" load_steps=3 format=3 uid="uid://d1kvdapvopndb"]
 
 [ext_resource type="Script" path="res://scripts/soundAtFrame.gd" id="1_0ubkr"]
-[ext_resource type="AudioStream" uid="uid://ct0ejqj8w8b18" path="res://media/sounds/hit1.wav" id="2_5iqkw"]
+[ext_resource type="AudioStream" uid="uid://cc7g41dvjrp60" path="res://media/sounds/hit4.wav" id="2_ugpjc"]
 
 [resource]
 script = ExtResource("1_0ubkr")
-soundRes = ExtResource("2_5iqkw")
+soundRes = ExtResource("2_ugpjc")
 frame = 1
 pitch = 1.0
 soundIdString = "hit_air"

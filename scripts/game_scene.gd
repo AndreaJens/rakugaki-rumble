@@ -302,6 +302,8 @@ func _ready():
 	hudMain.trainingMessage.visible = _training_mode_active()
 	trainingModeData.visible = _training_mode_active()
 	hudMain.hide_unused_round_counters(roundsToWin)
+	musicPlayer.volume_db = GlobalOptions.get_music_volume()
+	musicPlayer.play()
 	add_to_group('network_sync')
 
 func _is_paused() -> bool:
