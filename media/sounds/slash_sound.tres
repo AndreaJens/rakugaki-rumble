@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundAtFrame" load_steps=3 format=3 uid="uid://b7cvjwoql07ce"]
+
+[ext_resource type="Script" path="res://scripts/soundAtFrame.gd" id="1_7ubsy"]
+[ext_resource type="AudioStream" uid="uid://dm83k7nx3xxt" path="res://media/sounds/slash2.wav" id="2_rtd0f"]
+
+[resource]
+script = ExtResource("1_7ubsy")
+soundRes = ExtResource("2_rtd0f")
+frame = 14
+pitch = 1.0
+soundIdString = "hit_slash"

@@ -1,11 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://dp367r3taipby"]
+[gd_scene load_steps=12 format=3 uid="uid://dp367r3taipby"]
 
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="1_wfwob"]
 [ext_resource type="Script" path="res://scripts/scene_mode_selection.gd" id="1_y3ctb"]
 [ext_resource type="Texture2D" uid="uid://dpbb30jc0c643" path="res://media/hud/systemMessages/VS.png" id="2_3rork"]
 [ext_resource type="Script" path="res://scripts/generic_menu.gd" id="2_gwhym"]
+[ext_resource type="AudioStream" uid="uid://bmxn7ajrnpcr5" path="res://media/sounds/confirm.wav" id="4_n1mfe"]
 [ext_resource type="Texture2D" uid="uid://ccjnvpqysrbmc" path="res://media/hud/systemMessages/VS_CPU.png" id="5_mrpnh"]
+[ext_resource type="AudioStream" uid="uid://bhi3kjdd6mscw" path="res://media/sounds/dash2.wav" id="5_snb4h"]
 [ext_resource type="Texture2D" uid="uid://dk3eqei0kdrkh" path="res://media/hud/systemMessages/training.png" id="5_wu30r"]
+[ext_resource type="AudioStream" uid="uid://bunktu7qgd2je" path="res://media/sounds/dash.wav" id="6_77r4q"]
 [ext_resource type="Texture2D" uid="uid://bi5i6rq117spp" path="res://media/hud/systemMessages/online.png" id="6_j11hg"]
 [ext_resource type="Texture2D" uid="uid://cks540ri7mypt" path="res://media/hud/logo.png" id="6_undsi"]
 
@@ -19,11 +22,15 @@ position = Vector2(567, 318)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("1_wfwob")
 
-[node name="Menu" type="Node2D" parent="." node_paths=PackedStringArray("_optionSprites")]
+[node name="Menu" type="Node2D" parent="." node_paths=PackedStringArray("_optionSprites", "audioPlayer")]
 position = Vector2(567, 376)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("2_gwhym")
 _optionSprites = [NodePath("VS"), NodePath("VS_CPU"), NodePath("Training"), NodePath("Online")]
+confirmSound = ExtResource("4_n1mfe")
+cancelSound = ExtResource("5_snb4h")
+cursorSound = ExtResource("6_77r4q")
+audioPlayer = NodePath("../AudioStreamPlayer")
 
 [node name="VS" type="Sprite2D" parent="Menu"]
 texture = ExtResource("2_3rork")
@@ -44,3 +51,5 @@ texture = ExtResource("6_j11hg")
 position = Vector2(567, 160)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_undsi")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

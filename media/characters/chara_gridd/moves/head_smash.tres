@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=10 format=3 uid="uid://brw3twcsivh43"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=13 format=3 uid="uid://brw3twcsivh43"]
 
 [ext_resource type="Resource" uid="uid://b3dvs8txb8pji" path="res://media/characters/all_chara_common/moves/cancels/zero_install_hit.tres" id="1_yahna"]
 [ext_resource type="Resource" uid="uid://k85f7ldgjhu7" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_hit.tres" id="2_0q462"]
@@ -9,6 +9,15 @@
 [ext_resource type="Resource" uid="uid://csyfkukhxifa0" path="res://media/characters/all_chara_common/moves/cancels/jc_on_hit.tres" id="6_qvvpi"]
 [ext_resource type="Resource" uid="uid://cbsm5q8tjpvy6" path="res://media/characters/chara_gridd/moves/cancels/kara_drills.tres" id="7_0cwkl"]
 [ext_resource type="Resource" uid="uid://d2nccsnvqunof" path="res://media/characters/all_chara_common/moves/cancels/jc_n_on_hit.tres" id="7_2oebo"]
+[ext_resource type="Script" path="res://scripts/soundAtFrame.gd" id="10_80j84"]
+[ext_resource type="AudioStream" uid="uid://c8uhtnvacs5kw" path="res://media/sounds/swing2.wav" id="11_6ucx0"]
+
+[sub_resource type="Resource" id="Resource_5o63r"]
+script = ExtResource("10_80j84")
+soundRes = ExtResource("11_6ucx0")
+frame = 4
+pitch = 1.3
+soundIdString = "gridd_swing_2"
 
 [resource]
 script = ExtResource("5_cf1qh")
@@ -44,5 +53,5 @@ inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
 cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("6_qvvpi"), ExtResource("5_m8a8s"), ExtResource("7_2oebo"), ExtResource("1_yahna"), ExtResource("2_0q462"), ExtResource("3_myhvc"), ExtResource("7_0cwkl"), ExtResource("4_cp5g1")])
 guardFrames = Vector2i(-1, -1)
-soundsAtFrame = Array[Resource("res://scripts/soundAtFrame.gd")]([])
+soundsAtFrame = Array[ExtResource("10_80j84")]([SubResource("Resource_5o63r")])
 timestopFrames = 0

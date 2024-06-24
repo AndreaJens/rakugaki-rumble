@@ -21,6 +21,8 @@ func save_to_file():
 
 func load_from_file():
 	if not FileAccess.file_exists(OptionFileName):
+		print("No option save file found. Creating one...")
+		save_to_file()
 		return # Error! We don't have a save to load.
 	# Load the file line by line and process that dictionary to restore
 	# the object it represents.

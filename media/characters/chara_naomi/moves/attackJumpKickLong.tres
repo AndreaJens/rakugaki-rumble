@@ -1,9 +1,18 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=5 format=3 uid="uid://cpb05dbpistpj"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=8 format=3 uid="uid://cpb05dbpistpj"]
 
 [ext_resource type="Resource" uid="uid://baswyhkygam8p" path="res://media/characters/chara_naomi/moves/cancels/to_jknee_hit.tres" id="1_1yf66"]
 [ext_resource type="Resource" uid="uid://b3dvs8txb8pji" path="res://media/characters/all_chara_common/moves/cancels/zero_install_hit.tres" id="1_ecqp5"]
 [ext_resource type="Resource" uid="uid://k85f7ldgjhu7" path="res://media/characters/all_chara_common/moves/cancels/infinity_install_hit.tres" id="2_jkvle"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="3_pavfy"]
+[ext_resource type="Script" path="res://scripts/soundAtFrame.gd" id="5_8xavl"]
+[ext_resource type="AudioStream" uid="uid://hehwb28m268" path="res://media/sounds/swing1.wav" id="6_d5djy"]
+
+[sub_resource type="Resource" id="Resource_0o8f1"]
+script = ExtResource("5_8xavl")
+soundRes = ExtResource("6_d5djy")
+frame = 18
+pitch = 1.4
+soundIdString = "jumpKick"
 
 [resource]
 script = ExtResource("3_pavfy")
@@ -39,5 +48,5 @@ inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
 cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_1yf66"), ExtResource("1_ecqp5"), ExtResource("2_jkvle")])
 guardFrames = Vector2i(-1, -1)
-soundsAtFrame = Array[Resource("res://scripts/soundAtFrame.gd")]([])
+soundsAtFrame = Array[ExtResource("5_8xavl")]([SubResource("Resource_0o8f1")])
 timestopFrames = 0

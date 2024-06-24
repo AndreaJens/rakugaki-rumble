@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=9 format=3 uid="uid://bgvo52gear6kb"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=12 format=3 uid="uid://bgvo52gear6kb"]
 
 [ext_resource type="Script" path="res://scripts/move.gd" id="1_bkb5p"]
 [ext_resource type="Resource" uid="uid://b3dvs8txb8pji" path="res://media/characters/all_chara_common/moves/cancels/zero_install_hit.tres" id="1_ra1wa"]
@@ -8,6 +8,15 @@
 [ext_resource type="Resource" uid="uid://5jjxyg83dao" path="res://media/characters/chara_rhozetta/moves/cancels/to_pendulum_hit.tres" id="4_1m5cc"]
 [ext_resource type="Resource" uid="uid://d2nccsnvqunof" path="res://media/characters/all_chara_common/moves/cancels/jc_n_on_hit.tres" id="4_ia75b"]
 [ext_resource type="Resource" uid="uid://d2quvuuy1qvv0" path="res://media/characters/all_chara_common/moves/cancels/jc_b_on_hit.tres" id="5_he81a"]
+[ext_resource type="Script" path="res://scripts/soundAtFrame.gd" id="9_152bm"]
+[ext_resource type="AudioStream" uid="uid://bee02rxdhipbi" path="res://media/sounds/swing3.wav" id="10_fywx8"]
+
+[sub_resource type="Resource" id="Resource_xtd63"]
+script = ExtResource("9_152bm")
+soundRes = ExtResource("10_fywx8")
+frame = 3
+pitch = 1.4
+soundIdString = "rz_head"
 
 [resource]
 script = ExtResource("1_bkb5p")
@@ -43,5 +52,5 @@ inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
 cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_ra1wa"), ExtResource("2_l3dyb"), ExtResource("3_vo58y"), ExtResource("4_1m5cc"), ExtResource("3_o7u2d"), ExtResource("5_he81a"), ExtResource("4_ia75b")])
 guardFrames = Vector2i(-1, -1)
-soundsAtFrame = Array[Resource("res://scripts/soundAtFrame.gd")]([])
+soundsAtFrame = Array[ExtResource("9_152bm")]([SubResource("Resource_xtd63")])
 timestopFrames = 0

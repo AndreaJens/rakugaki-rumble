@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundAtFrame" load_steps=3 format=3 uid="uid://bl2gj44ytwlib"]
+
+[ext_resource type="Script" path="res://scripts/soundAtFrame.gd" id="1_p8j4y"]
+[ext_resource type="AudioStream" uid="uid://biqeg2qf0j2ms" path="res://media/sounds/wallbounce2.wav" id="2_i0tei"]
+
+[resource]
+script = ExtResource("1_p8j4y")
+soundRes = ExtResource("2_i0tei")
+frame = 0
+pitch = 1.0
+soundIdString = "wallbounce"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dtrh7m0aho8ro"]
+[gd_scene load_steps=21 format=3 uid="uid://dtrh7m0aho8ro"]
 
 [ext_resource type="Script" path="res://scripts/scene_character_selection.gd" id="1_edawh"]
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="2_p7346"]
@@ -6,9 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://biqsyab6d0hdo" path="res://media/stages/stage_grid/background2Full.jpg" id="3_jjxib"]
 [ext_resource type="Texture2D" uid="uid://dpbb30jc0c643" path="res://media/hud/systemMessages/VS.png" id="4_r42vn"]
 [ext_resource type="Texture2D" uid="uid://cdri01htadvuu" path="res://media/characters/chara_naomi/sprites/name.png" id="4_y8r6v"]
+[ext_resource type="AudioStream" uid="uid://bmxn7ajrnpcr5" path="res://media/sounds/confirm.wav" id="5_5vdqv"]
 [ext_resource type="Texture2D" uid="uid://ljub10t2iwni" path="res://media/characters/chara_rhozetta/sprites/name.png" id="5_gpk7r"]
+[ext_resource type="AudioStream" uid="uid://bhi3kjdd6mscw" path="res://media/sounds/dash2.wav" id="6_46jdh"]
 [ext_resource type="Texture2D" uid="uid://cxqx2oj7ip8u7" path="res://media/characters/chara_gridd/sprites/name.png" id="6_cx8ss"]
 [ext_resource type="Texture2D" uid="uid://cks540ri7mypt" path="res://media/hud/logo.png" id="7_14fs6"]
+[ext_resource type="AudioStream" uid="uid://bunktu7qgd2je" path="res://media/sounds/dash.wav" id="7_i3w16"]
 [ext_resource type="Texture2D" uid="uid://c8k5hy3ln56n0" path="res://media/characters/chara_whitechapel/sprites/name.png" id="7_ik5nw"]
 [ext_resource type="Texture2D" uid="uid://ccjnvpqysrbmc" path="res://media/hud/systemMessages/VS_CPU.png" id="10_fqwp7"]
 [ext_resource type="Script" path="res://scripts/DifficultySelector.gd" id="11_3bqfq"]
@@ -32,11 +35,15 @@ position = Vector2(567, 318)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_p7346")
 
-[node name="MenuP1" type="Node2D" parent="." node_paths=PackedStringArray("_optionSprites")]
+[node name="MenuP1" type="Node2D" parent="." node_paths=PackedStringArray("_optionSprites", "audioPlayer")]
 position = Vector2(283, 318)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("3_6r5vb")
 _optionSprites = [NodePath("Naomi"), NodePath("Rho-Zetta"), NodePath("Gridd"), NodePath("Whitechapel")]
+confirmSound = ExtResource("5_5vdqv")
+cancelSound = ExtResource("6_46jdh")
+cursorSound = ExtResource("7_i3w16")
+audioPlayer = NodePath("../AudioStreamPlayer1")
 
 [node name="Naomi" type="Sprite2D" parent="MenuP1"]
 texture = ExtResource("4_y8r6v")
@@ -53,11 +60,15 @@ texture = ExtResource("6_cx8ss")
 position = Vector2(0, 360)
 texture = ExtResource("7_ik5nw")
 
-[node name="MenuP2" type="Node2D" parent="." node_paths=PackedStringArray("_optionSprites")]
+[node name="MenuP2" type="Node2D" parent="." node_paths=PackedStringArray("_optionSprites", "audioPlayer")]
 position = Vector2(850, 318)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("3_6r5vb")
 _optionSprites = [NodePath("Naomi"), NodePath("Rho-Zetta"), NodePath("Gridd"), NodePath("Whitechapel")]
+confirmSound = ExtResource("5_5vdqv")
+cancelSound = ExtResource("6_46jdh")
+cursorSound = ExtResource("7_i3w16")
+audioPlayer = NodePath("../AudioStreamPlayer2")
 
 [node name="Naomi" type="Sprite2D" parent="MenuP2"]
 texture = ExtResource("4_y8r6v")
@@ -88,11 +99,13 @@ visible = false
 position = Vector2(567, 75)
 texture = ExtResource("10_fqwp7")
 
-[node name="DifficultySelector" type="Node2D" parent="VSCPU_Banner"]
+[node name="DifficultySelector" type="Node2D" parent="VSCPU_Banner" node_paths=PackedStringArray("audioPlayer")]
 position = Vector2(0, 128)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("11_3bqfq")
 textures = Array[Texture2D]([ExtResource("14_8mmar"), ExtResource("13_d780o"), ExtResource("14_bncoc")])
+cursorSound = ExtResource("7_i3w16")
+audioPlayer = NodePath("../../AudioStreamPlayer1")
 
 [node name="ArrowLeft" type="Sprite2D" parent="VSCPU_Banner/DifficultySelector"]
 position = Vector2(-200, 0)
@@ -104,3 +117,7 @@ texture = ExtResource("13_hjom3")
 
 [node name="DifficultyLabel" type="Sprite2D" parent="VSCPU_Banner/DifficultySelector"]
 texture = ExtResource("14_8mmar")
+
+[node name="AudioStreamPlayer1" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]

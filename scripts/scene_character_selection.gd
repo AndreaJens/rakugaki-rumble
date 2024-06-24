@@ -124,6 +124,7 @@ func _player1_only() -> bool:
 	return nextSceneType == SceneManager.SceneType.Training or nextSceneType == SceneManager.SceneType.SingleMatchVsCpu
 
 func get_selected_cpu_level() -> DifficultySettings:
+	@warning_ignore("int_as_enum_without_cast")
 	return _difficultySelector.get_highlighted_option()
 
 func get_stage_background_texture() -> Texture2D:

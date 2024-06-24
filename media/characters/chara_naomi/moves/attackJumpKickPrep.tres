@@ -1,8 +1,17 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=4 format=3 uid="uid://5hx445nxu3gx"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=7 format=3 uid="uid://5hx445nxu3gx"]
 
 [ext_resource type="Resource" uid="uid://bnj601as867sa" path="res://media/characters/all_chara_common/moves/cancels/to_backwards.tres" id="1_4fhik"]
 [ext_resource type="Resource" uid="uid://b4bmmbwqqnikk" path="res://media/characters/chara_naomi/moves/cancels/to_adv_kick_auto.tres" id="1_tudhk"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="3_r8xcl"]
+[ext_resource type="Script" path="res://scripts/soundAtFrame.gd" id="4_wvnnu"]
+[ext_resource type="AudioStream" uid="uid://qwkdhsbmpc0x" path="res://media/sounds/meow.wav" id="5_ghano"]
+
+[sub_resource type="Resource" id="Resource_n0uq7"]
+script = ExtResource("4_wvnnu")
+soundRes = ExtResource("5_ghano")
+frame = 2
+pitch = 1.4
+soundIdString = "meow"
 
 [resource]
 script = ExtResource("3_r8xcl")
@@ -38,5 +47,5 @@ inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
 cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_4fhik"), ExtResource("1_tudhk")])
 guardFrames = Vector2i(-1, -1)
-soundsAtFrame = Array[Resource("res://scripts/soundAtFrame.gd")]([])
+soundsAtFrame = Array[ExtResource("4_wvnnu")]([SubResource("Resource_n0uq7")])
 timestopFrames = 0

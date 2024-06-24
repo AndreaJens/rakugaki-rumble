@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=3 format=3 uid="uid://dg1fd1m6j6qv4"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=4 format=3 uid="uid://dg1fd1m6j6qv4"]
 
 [ext_resource type="Resource" uid="uid://dkvcd6s744tx2" path="res://media/characters/all_chara_common/moves/cancels/to_idle_landing.tres" id="1_ta8gh"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="2_5n07k"]
+[ext_resource type="Resource" uid="uid://b7cvjwoql07ce" path="res://media/sounds/slash_sound.tres" id="3_ut5d4"]
 
 [resource]
 script = ExtResource("2_5n07k")
@@ -37,5 +38,5 @@ inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
 cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_ta8gh")])
 guardFrames = Vector2i(-1, -1)
-soundsAtFrame = Array[Resource("res://scripts/soundAtFrame.gd")]([])
+soundsAtFrame = Array[Resource("res://scripts/soundAtFrame.gd")]([ExtResource("3_ut5d4")])
 timestopFrames = 0

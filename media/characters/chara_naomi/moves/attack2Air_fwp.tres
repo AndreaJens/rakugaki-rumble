@@ -1,7 +1,16 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=3 format=3 uid="uid://bgfjrtrqnpibh"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=6 format=3 uid="uid://bgfjrtrqnpibh"]
 
 [ext_resource type="Resource" uid="uid://dkvcd6s744tx2" path="res://media/characters/all_chara_common/moves/cancels/to_idle_landing.tres" id="1_hyquq"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="2_fia33"]
+[ext_resource type="Script" path="res://scripts/soundAtFrame.gd" id="3_mu3bc"]
+[ext_resource type="AudioStream" uid="uid://c8uhtnvacs5kw" path="res://media/sounds/swing2.wav" id="4_s41lp"]
+
+[sub_resource type="Resource" id="Resource_mupai"]
+script = ExtResource("3_mu3bc")
+soundRes = ExtResource("4_s41lp")
+frame = 2
+pitch = 1.5
+soundIdString = "naomi_spike2"
 
 [resource]
 script = ExtResource("2_fia33")
@@ -37,5 +46,5 @@ inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
 cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_hyquq")])
 guardFrames = Vector2i(-1, -1)
-soundsAtFrame = Array[Resource("res://scripts/soundAtFrame.gd")]([])
+soundsAtFrame = Array[ExtResource("3_mu3bc")]([SubResource("Resource_mupai")])
 timestopFrames = 0

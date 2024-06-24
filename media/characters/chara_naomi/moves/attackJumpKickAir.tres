@@ -1,7 +1,16 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=3 format=3 uid="uid://byjs0ny75vxos"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=6 format=3 uid="uid://byjs0ny75vxos"]
 
 [ext_resource type="Script" path="res://scripts/move.gd" id="1_ovsyd"]
 [ext_resource type="Resource" uid="uid://b20sqchf2s4nv" path="res://media/characters/chara_naomi/moves/cancels/to_down_spike_hit.tres" id="1_vpasl"]
+[ext_resource type="Script" path="res://scripts/soundAtFrame.gd" id="3_2sri6"]
+[ext_resource type="AudioStream" uid="uid://dwaq6pn2he1cx" path="res://media/sounds/swing4.wav" id="4_kov7y"]
+
+[sub_resource type="Resource" id="Resource_wsx70"]
+script = ExtResource("3_2sri6")
+soundRes = ExtResource("4_kov7y")
+frame = 5
+pitch = 1.5
+soundIdString = ""
 
 [resource]
 script = ExtResource("1_ovsyd")
@@ -37,5 +46,5 @@ inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
 cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_vpasl")])
 guardFrames = Vector2i(-1, -1)
-soundsAtFrame = Array[Resource("res://scripts/soundAtFrame.gd")]([])
+soundsAtFrame = Array[ExtResource("3_2sri6")]([SubResource("Resource_wsx70")])
 timestopFrames = 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://c07vx7o11k05c"]
+[gd_scene load_steps=50 format=3 uid="uid://c07vx7o11k05c"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_xmmq4"]
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="2_8rf0r"]
@@ -43,6 +43,10 @@
 [ext_resource type="Texture2D" uid="uid://dunanraublt1s" path="res://media/hud/systemMessages/QUIT.png" id="36_ofd7y"]
 [ext_resource type="Texture2D" uid="uid://bemadbec0by4p" path="res://media/hud/systemMessages/NO.png" id="37_nhrr2"]
 [ext_resource type="Texture2D" uid="uid://c1owh2oukugr2" path="res://media/hud/systemMessages/YES.png" id="38_dl2q0"]
+[ext_resource type="AudioStream" uid="uid://bmxn7ajrnpcr5" path="res://media/sounds/confirm.wav" id="40_x88d2"]
+[ext_resource type="AudioStream" uid="uid://bhi3kjdd6mscw" path="res://media/sounds/dash2.wav" id="41_t5yqa"]
+[ext_resource type="AudioStream" uid="uid://bunktu7qgd2je" path="res://media/sounds/dash.wav" id="42_gjl1h"]
+[ext_resource type="AudioStream" uid="uid://b3g5tc4s33ao4" path="res://media/sounds/paperCrumple.wav" id="47_mrmm6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6jq71"]
 font_size = 22
@@ -483,21 +487,33 @@ centered = false
 position = Vector2(566, 319)
 texture = ExtResource("7_in12c")
 
-[node name="RematchMenuP1" parent="SystemMessages/System" instance=ExtResource("34_ifx8l")]
+[node name="RematchMenuP1" parent="SystemMessages/System" node_paths=PackedStringArray("audioPlayer") instance=ExtResource("34_ifx8l")]
 position = Vector2(160, 360)
 scale = Vector2(0.6, 0.6)
+confirmSound = ExtResource("40_x88d2")
+cancelSound = ExtResource("41_t5yqa")
+cursorSound = ExtResource("42_gjl1h")
+audioPlayer = NodePath("../../../AudioStreamPlayer1")
 
-[node name="RematchMenuP2" parent="SystemMessages/System" instance=ExtResource("34_ifx8l")]
+[node name="RematchMenuP2" parent="SystemMessages/System" node_paths=PackedStringArray("audioPlayer") instance=ExtResource("34_ifx8l")]
 position = Vector2(974, 360)
 scale = Vector2(0.6, 0.6)
+confirmSound = ExtResource("40_x88d2")
+cancelSound = ExtResource("41_t5yqa")
+cursorSound = ExtResource("42_gjl1h")
+audioPlayer = NodePath("../../../AudioStreamPlayer2")
 
-[node name="PauseMenu" type="Node2D" parent="SystemMessages" node_paths=PackedStringArray("_optionSprites")]
+[node name="PauseMenu" type="Node2D" parent="SystemMessages" node_paths=PackedStringArray("_optionSprites", "audioPlayer")]
 visible = false
 position = Vector2(567, 256)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("35_mrita")
 options = Array[int]([0, 1])
 _optionSprites = [NodePath("No"), NodePath("Yes")]
+confirmSound = ExtResource("40_x88d2")
+cancelSound = ExtResource("41_t5yqa")
+cursorSound = ExtResource("42_gjl1h")
+audioPlayer = NodePath("../../AudioStreamPlayer1")
 
 [node name="Foil" type="Sprite2D" parent="SystemMessages/PauseMenu"]
 position = Vector2(-945, -426.667)
@@ -515,3 +531,12 @@ texture = ExtResource("37_nhrr2")
 [node name="Yes" type="Sprite2D" parent="SystemMessages/PauseMenu"]
 position = Vector2(0, 288)
 texture = ExtResource("38_dl2q0")
+
+[node name="AudioStreamPlayer1" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="SystemPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("47_mrmm6")

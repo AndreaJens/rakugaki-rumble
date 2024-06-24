@@ -66,6 +66,9 @@ var _internalUpdateTick : int = 0
 @onready var _cpuControllerCharacter1 : CpuOpponentCore = $CPUControllerPlayer1
 @onready var _cpuControllerCharacter2 : CpuOpponentCore = $CPUControllerPlayer2
 
+@export_category("Sounds and Music")
+@onready var musicPlayer : AudioStreamPlayer = $MusicPlayer
+@onready var systemSfxPlayer : AudioStreamPlayer = $SystemPlayer
 @export_category("Match Settings")
 @export_range(0, 5, 1) var roundsToWin : int = 3
 @export_range(0, 99, 1, "suffix:s") var timerSeconds : int = 45
@@ -353,7 +356,11 @@ func _update_pause_menu():
 			hitspark2.unpause_hitspark()
 		else:
 			SceneManager.goto_scene_type(SceneManager.SceneType.ModeSelection)
-	
+
+func play_phase_transition_sound():
+	systemSfxPlayer.stop()
+	systemSfxPlayer.play()
+
 func _reset_round(resetCharacterMeter : bool = false):
 	hudMain.hide_message()
 	rematchMenuP1.reset_and_hide()
@@ -462,8 +469,10 @@ func _update_game_phase_transition():
 		_roundPhaseCounter = phaseTransitionMaxCounter
 		if (roundsToWin > 0 and (_roundWonCharacter1 >= roundsToWin - 1 or
 		_roundWonCharacter2 >= roundsToWin - 1)):
+			play_phase_transition_sound()
 			hudMain.show_message(HudManager.SystemMessage.Matchpoint)
 		else:
+			play_phase_transition_sound()
 			hudMain.show_message(HudManager.SystemMessage.Ready)
 	elif _roundPhaseState == RoundPhaseState.Ready and _roundPhaseCounter > 0:
 		_roundPhaseCounter -= 1
@@ -474,6 +483,7 @@ func _update_game_phase_transition():
 			_roundPhaseCounter = -1
 	elif _roundPhaseState == RoundPhaseState.Engage and _roundPhaseCounter < 0:
 		_roundPhaseCounter = phaseTransitionMaxCounter
+		play_phase_transition_sound()
 		hudMain.show_message(HudManager.SystemMessage.Engage)
 	elif _roundPhaseState == RoundPhaseState.Engage and _roundPhaseCounter > 0:
 		_roundPhaseCounter -= 1
@@ -489,12 +499,14 @@ func _update_game_phase_transition():
 		elif ((character1.is_ko() and !character1.is_airborne()) or 
 		(character2.is_ko() and !character2.is_airborne())) and _roundPhaseCounter < 0:
 			_roundPhaseCounter = phaseTransitionMaxCounter
+			play_phase_transition_sound()
 			hudMain.show_message(HudManager.SystemMessage.Ko)
 			_roundPhaseState = RoundPhaseState.Ko
 	elif _roundPhaseState == RoundPhaseState.PreKo:
 		if ((character1.is_ko() and !character1.is_airborne()) or 
 		(character2.is_ko() and !character2.is_airborne())) and _roundPhaseCounter < 0:
 			_roundPhaseCounter = phaseTransitionMaxCounter
+			play_phase_transition_sound()
 			hudMain.show_message(HudManager.SystemMessage.Ko)
 			_roundPhaseState = RoundPhaseState.Ko
 	elif _roundPhaseState == RoundPhaseState.Ko:
@@ -511,8 +523,10 @@ func _update_game_phase_transition():
 					_roundWonCharacter2 >= roundsToWin) and (
 						_roundWonCharacter1 != _roundWonCharacter2):
 					if (_roundWonCharacter1 > _roundWonCharacter2):
+						play_phase_transition_sound()
 						hudMain.show_message(HudManager.SystemMessage.P1Win)
 					else:
+						play_phase_transition_sound()
 						hudMain.show_message(HudManager.SystemMessage.P2Win)
 					_roundPhaseState = RoundPhaseState.PostMatchMenu
 					_roundPhaseCounter = phaseTransitionMaxCounter
@@ -774,6 +788,7 @@ func _adjust_character_momentum(character : Character, opponent : Character):
 					character.multiply_horizontal_movement(-horizontalMomentumMultiplier, false)
 					character.multiply_vertical_movement(125)
 					character.characterState.bounceCounter += 1
+					character.play_wall_bounce_sound()
 					#print("BOUNCE %d" % character.characterState.bounceCounter)
 					_apply_wall_damage(character, opponent)
 					_hitFreezeFrames = hitFreezeWallFrames

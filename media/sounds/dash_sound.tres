@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundAtFrame" load_steps=3 format=3 uid="uid://b4c5sa05grkvs"]
+
+[ext_resource type="Script" path="res://scripts/soundAtFrame.gd" id="1_nn74t"]
+[ext_resource type="AudioStream" uid="uid://bhi3kjdd6mscw" path="res://media/sounds/dash2.wav" id="2_grmud"]
+
+[resource]
+script = ExtResource("1_nn74t")
+soundRes = ExtResource("2_grmud")
+frame = 1
+pitch = 1.4
+soundIdString = "dash_snd"

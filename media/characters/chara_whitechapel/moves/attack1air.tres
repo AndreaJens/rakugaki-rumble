@@ -1,10 +1,19 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=6 format=3 uid="uid://dxpcrg4qxbrmu"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=9 format=3 uid="uid://dxpcrg4qxbrmu"]
 
 [ext_resource type="Resource" uid="uid://c6k3678b3yole" path="res://media/characters/chara_whitechapel/moves/cancels/to_bat_assault_hit.tres" id="1_7irrg"]
 [ext_resource type="Resource" uid="uid://dkvcd6s744tx2" path="res://media/characters/all_chara_common/moves/cancels/to_idle_landing.tres" id="1_eacwy"]
 [ext_resource type="Resource" uid="uid://dbe3fj1voh0w" path="res://media/characters/chara_whitechapel/moves/cancels/to_entropy_burst_air_hit.tres" id="1_uppia"]
 [ext_resource type="Resource" uid="uid://b4cjkatgcv8k6" path="res://media/characters/chara_whitechapel/moves/cancels/to_bat_assault_down_hit.tres" id="3_s7sfa"]
+[ext_resource type="Script" path="res://scripts/soundAtFrame.gd" id="6_mf6uv"]
+[ext_resource type="AudioStream" uid="uid://dm83k7nx3xxt" path="res://media/sounds/slash2.wav" id="7_lpqul"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="9_gcbp7"]
+
+[sub_resource type="Resource" id="Resource_m4cl5"]
+script = ExtResource("6_mf6uv")
+soundRes = ExtResource("7_lpqul")
+frame = 7
+pitch = 1.0
+soundIdString = "wc_slash2"
 
 [resource]
 script = ExtResource("9_gcbp7")
@@ -40,4 +49,5 @@ inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
 cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_7irrg"), ExtResource("1_uppia"), ExtResource("3_s7sfa"), ExtResource("1_eacwy")])
 guardFrames = Vector2i(-1, -1)
+soundsAtFrame = Array[ExtResource("6_mf6uv")]([SubResource("Resource_m4cl5")])
 timestopFrames = 0

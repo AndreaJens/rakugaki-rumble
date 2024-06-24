@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=2 format=3 uid="uid://du21h5ofsbte"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=3 format=3 uid="uid://du21h5ofsbte"]
 
 [ext_resource type="Script" path="res://scripts/move.gd" id="1_6gskp"]
+[ext_resource type="Resource" uid="uid://dvc5l05lmwwm8" path="res://media/sounds/install_sound.tres" id="2_jao83"]
 
 [resource]
 script = ExtResource("1_6gskp")
@@ -36,5 +37,5 @@ inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
 cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([])
 guardFrames = Vector2i(-1, -1)
-soundsAtFrame = Array[Resource("res://scripts/soundAtFrame.gd")]([])
+soundsAtFrame = Array[Resource("res://scripts/soundAtFrame.gd")]([ExtResource("2_jao83")])
 timestopFrames = 18

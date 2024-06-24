@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="SoundAtFrame" load_steps=3 format=3 uid="uid://cfpi3got5afg7"]
 
 [ext_resource type="Script" path="res://scripts/soundAtFrame.gd" id="1_85y1p"]
-[ext_resource type="AudioStream" uid="uid://dx88qeoxm1tao" path="res://media/sounds/drillShort.wav" id="2_hgoj4"]
+[ext_resource type="AudioStream" uid="uid://dw5753avvbmlr" path="res://media/sounds/drillMech2.wav" id="2_0q1nx"]
 
 [resource]
 script = ExtResource("1_85y1p")
-soundRes = ExtResource("2_hgoj4")
+soundRes = ExtResource("2_0q1nx")
 frame = 10
 pitch = 1.0
-soundIdString = "hit_air"
+soundIdString = "hit_drill_a"

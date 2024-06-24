@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=12 format=3 uid="uid://6ergge0ypu7"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=15 format=3 uid="uid://6ergge0ypu7"]
 
 [ext_resource type="Resource" uid="uid://b01kpt7gljnc6" path="res://media/characters/chara_gridd/moves/cancels/to_drills_all.tres" id="3_oqv1d"]
 [ext_resource type="Resource" uid="uid://c6bibtakoncnd" path="res://media/characters/all_chara_common/moves/cancels/zero_install_all.tres" id="4_fovjp"]
@@ -11,6 +11,15 @@
 [ext_resource type="Resource" uid="uid://cb245tum6ybk6" path="res://media/characters/all_chara_common/moves/cancels/to_backwards_once.tres" id="9_l24wc"]
 [ext_resource type="Resource" uid="uid://bbu004wfrvxr8" path="res://media/characters/all_chara_common/moves/cancels/f_to_idle.tres" id="10_yejtu"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="11_vn1xd"]
+[ext_resource type="Script" path="res://scripts/soundAtFrame.gd" id="12_05ve5"]
+[ext_resource type="AudioStream" uid="uid://ddl4g10xnki3u" path="res://media/sounds/boostLowPitch.wav" id="13_yj24x"]
+
+[sub_resource type="Resource" id="Resource_dq42f"]
+script = ExtResource("12_05ve5")
+soundRes = ExtResource("13_yj24x")
+frame = 1
+pitch = 1.0
+soundIdString = "gridd_walk"
 
 [resource]
 script = ExtResource("11_vn1xd")
@@ -19,7 +28,7 @@ internalName = "walkF"
 displayName = ""
 animationName = "walkF"
 startingFrame = 0
-endingFrame = 10
+endingFrame = 20
 isHitStunState = false
 loop = true
 canTurnMidMove = true
@@ -46,5 +55,5 @@ inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
 cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("4_fovjp"), ExtResource("5_eb14f"), ExtResource("3_oqv1d"), ExtResource("4_y6fyf"), ExtResource("5_nb4r8"), ExtResource("6_ufdks"), ExtResource("7_qn228"), ExtResource("8_bt056"), ExtResource("9_l24wc"), ExtResource("10_yejtu")])
 guardFrames = Vector2i(-1, -1)
-soundsAtFrame = Array[Resource("res://scripts/soundAtFrame.gd")]([])
+soundsAtFrame = Array[ExtResource("12_05ve5")]([SubResource("Resource_dq42f")])
 timestopFrames = 0

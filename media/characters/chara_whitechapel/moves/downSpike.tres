@@ -1,8 +1,17 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=4 format=3 uid="uid://bh4sen2m7tth7"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=7 format=3 uid="uid://bh4sen2m7tth7"]
 
 [ext_resource type="Resource" uid="uid://dkvcd6s744tx2" path="res://media/characters/all_chara_common/moves/cancels/to_idle_landing.tres" id="1_65ao7"]
 [ext_resource type="Resource" uid="uid://cfil2gn3sw7a" path="res://media/characters/chara_whitechapel/moves/cancels/to_entropy_fwp_all_hit.tres" id="1_han22"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="2_rco8p"]
+[ext_resource type="Script" path="res://scripts/soundAtFrame.gd" id="4_mf3d1"]
+[ext_resource type="AudioStream" uid="uid://hehwb28m268" path="res://media/sounds/swing1.wav" id="5_c38l6"]
+
+[sub_resource type="Resource" id="Resource_qsa6h"]
+script = ExtResource("4_mf3d1")
+soundRes = ExtResource("5_c38l6")
+frame = 2
+pitch = 1.5
+soundIdString = ""
 
 [resource]
 script = ExtResource("2_rco8p")
@@ -38,4 +47,5 @@ inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
 cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_han22"), ExtResource("1_65ao7")])
 guardFrames = Vector2i(-1, -1)
+soundsAtFrame = Array[ExtResource("4_mf3d1")]([SubResource("Resource_qsa6h")])
 timestopFrames = 0

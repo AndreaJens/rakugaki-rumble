@@ -17,6 +17,11 @@ var _zoomTicks : int = 0
 var _optionSelected : bool = false
 var active : bool = true
 const animationPeriod : int = 20
+@export_category("Sounds")
+@export var confirmSound : AudioStream
+@export var cancelSound : AudioStream
+@export var cursorSound : AudioStream
+@export var audioPlayer : AudioStreamPlayer
 
 func reset_and_hide():
 	_index = 0
@@ -67,7 +72,25 @@ func cancel_selection() -> void:
 
 func get_highlighted_option() -> int:
 	return options[_index]
-	
+
+func play_confirm_sound():
+	if audioPlayer and confirmSound:
+		audioPlayer.stream = confirmSound
+		audioPlayer.volume_db = GlobalOptions.get_sfx_volume()
+		audioPlayer.play()
+		
+func play_cursor_sound():
+	if audioPlayer and cursorSound:
+		audioPlayer.stream = cursorSound
+		audioPlayer.volume_db = GlobalOptions.get_sfx_volume()
+		audioPlayer.play()
+
+func play_cancel_sound():
+	if audioPlayer and cancelSound:
+		audioPlayer.stream = cancelSound
+		audioPlayer.volume_db = GlobalOptions.get_sfx_volume()
+		audioPlayer.play()
+
 func update(allButtonsPressed : int):
 	if active:
 		if !_optionSelected:
@@ -75,15 +98,19 @@ func update(allButtonsPressed : int):
 				_index += 1
 				_zoomTicks = 8
 				_index %= options.size()
+				play_cursor_sound()
 			elif ((allButtonsPressed & ~_lastInputReceived) & GameDatabaseAccessor.GameInputButton.Up):
 				_index -= 1
 				_zoomTicks = 8
 				if _index < 0: _index = options.size() - 1
+				play_cursor_sound()
 		if ((allButtonsPressed & ~_lastInputReceived) & GameDatabaseAccessor.GameInputButton.Confirm):
 			_optionSelected = true
+			play_confirm_sound()
 		elif ((allButtonsPressed & ~_lastInputReceived) & GameDatabaseAccessor.GameInputButton.Cancel):
 			if _optionSelected:
 				_optionSelected = false
+				play_cancel_sound()
 	_lastInputReceived = allButtonsPressed
 	_animationTicks += 1
 	_animationTicks %= animationPeriod

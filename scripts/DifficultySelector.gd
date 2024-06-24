@@ -13,9 +13,18 @@ var _zoomTicks : int = 0
 var _lastInputReceived : GameDatabaseAccessor.GameInputButton = GameDatabaseAccessor.GameInputButton.None
 var active : bool = true
 const animationPeriod : int = 20
+@export_category("Sounds")
+@export var cursorSound : AudioStream
+@export var audioPlayer : AudioStreamPlayer
 	
 func get_highlighted_option() -> int:
 	return options[_index]
+		
+func play_cursor_sound():
+	if audioPlayer and cursorSound:
+		audioPlayer.stream = cursorSound
+		audioPlayer.volume_db = GlobalOptions.get_sfx_volume()
+		audioPlayer.play()
 
 func update_arrows():
 	var offsetVal : float = 4.
@@ -40,10 +49,13 @@ func update(allButtonsPressed : int):
 			_index += 1
 			_index %= options.size()
 			_zoomTicks = 8
+			play_cursor_sound()
 		elif ((allButtonsPressed & ~_lastInputReceived) & GameDatabaseAccessor.GameInputButton.Left):
 			_index -= 1
 			if _index < 0: _index = options.size() - 1
 			_zoomTicks = 8
+			play_cursor_sound()
+	@warning_ignore("int_as_enum_without_cast")
 	_lastInputReceived = allButtonsPressed
 	_animationTicks += 1
 	_animationTicks %= animationPeriod

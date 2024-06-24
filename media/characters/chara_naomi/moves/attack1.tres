@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=10 format=3 uid="uid://uy1sow0amqcq"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=11 format=3 uid="uid://uy1sow0amqcq"]
 
 [ext_resource type="Resource" uid="uid://csyfkukhxifa0" path="res://media/characters/all_chara_common/moves/cancels/jc_on_hit.tres" id="1_iq1g5"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="2_0gk37"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://b3dvs8txb8pji" path="res://media/characters/all_chara_common/moves/cancels/zero_install_hit.tres" id="4_pqsfa"]
 [ext_resource type="Resource" uid="uid://d2nccsnvqunof" path="res://media/characters/all_chara_common/moves/cancels/jc_n_on_hit.tres" id="5_tiq40"]
 [ext_resource type="Resource" uid="uid://d2quvuuy1qvv0" path="res://media/characters/all_chara_common/moves/cancels/jc_b_on_hit.tres" id="6_pc8er"]
+[ext_resource type="Resource" uid="uid://b7cvjwoql07ce" path="res://media/sounds/slash_sound.tres" id="10_fyg43"]
 
 [resource]
 script = ExtResource("2_0gk37")
@@ -44,5 +45,5 @@ inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
 cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("2_4tamd"), ExtResource("3_3xuqv"), ExtResource("2_gfimg"), ExtResource("4_pqsfa"), ExtResource("4_nl7bd"), ExtResource("1_iq1g5"), ExtResource("6_pc8er"), ExtResource("5_tiq40")])
 guardFrames = Vector2i(-1, -1)
-soundsAtFrame = Array[Resource("res://scripts/soundAtFrame.gd")]([])
+soundsAtFrame = Array[Resource("res://scripts/soundAtFrame.gd")]([ExtResource("10_fyg43")])
 timestopFrames = 0

@@ -29,6 +29,9 @@ var projectiles : Array[CharacterProjectile] = []
 var projectileNameDict : Dictionary = {}
 @export var inNetworkMatch : bool = false
 @export var immortal : bool = false
+# used only for cosmetic stuff that doesn't influence the game state
+var _rng = RandomNumberGenerator.new()
+var wallbounceSound : SoundAtFrame = preload("res://media/sounds/walllbounce_sound.tres")
 
 @export var infinityInstallActive : bool = false:
 	set (value):
@@ -148,6 +151,7 @@ func spawn_projectile(projectileType : String, maxDurationTicks : int, offset : 
 func _ready():
 	if characterData:
 		_initialize()
+	_rng.set_seed(hash(Time.get_ticks_usec()))
 
 func _initialize():
 	var moveIndex = 0
@@ -576,15 +580,32 @@ func can_gain_meter() -> bool:
 func in_hit_stun() -> bool:
 	return currentMove	and currentMove.isHitStunState
 
+func play_wall_bounce_sound():
+	var pitchModulationCoeff : float = _rng.randf_range(-1,1)
+	var pitch = wallbounceSound.pitch + 0.05 * pitchModulationCoeff
+	if inNetworkMatch:
+			var soundInfo := {
+				'volume_db' : GlobalOptions.get_sfx_volume(),
+				'pitch_scale' : pitch
+			}
+			SyncManager.play_sound(wallbounceSound.soundIdString, wallbounceSound.soundRes, soundInfo)
+	else:
+		audioPlayer.stream = wallbounceSound.soundRes
+		audioPlayer.pitch_scale = pitch
+		audioPlayer.volume_db = GlobalOptions.get_sfx_volume()
+		audioPlayer.play()
+
 func _play_sound_if_needed():
 	if !currentMove:
 		return
 	var soundToPlay : SoundAtFrame = currentMove.sound_to_play_at_frame(characterState.currentFrame)
 	if soundToPlay:
+		var pitchModulationCoeff : float = _rng.randf_range(-1,1)
+		var pitch = soundToPlay.pitch + 0.05 * pitchModulationCoeff
 		if inNetworkMatch:
 				var soundInfo := {
 					'volume_db' : GlobalOptions.get_sfx_volume(),
-					'pitch_scale' : soundToPlay.pitch
+					'pitch_scale' : pitch
 				}
 				SyncManager.play_sound(soundToPlay.soundIdString, soundToPlay.soundRes, soundInfo)
 		else:
@@ -592,7 +613,7 @@ func _play_sound_if_needed():
 				#if audioPlayer.stream == soundToPlay.soundRes:
 					#return
 			audioPlayer.stream = soundToPlay.soundRes
-			audioPlayer.pitch_scale = soundToPlay.pitch
+			audioPlayer.pitch_scale = pitch
 			audioPlayer.volume_db = GlobalOptions.get_sfx_volume()
 			audioPlayer.play()
 	

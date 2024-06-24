@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundAtFrame" load_steps=3 format=3 uid="uid://dvc5l05lmwwm8"]
+
+[ext_resource type="Script" path="res://scripts/soundAtFrame.gd" id="1_rbri4"]
+[ext_resource type="AudioStream" uid="uid://comu8ak40udx1" path="res://media/sounds/install.wav" id="2_2cyf1"]
+
+[resource]
+script = ExtResource("1_rbri4")
+soundRes = ExtResource("2_2cyf1")
+frame = 2
+pitch = 1.0
+soundIdString = "install"

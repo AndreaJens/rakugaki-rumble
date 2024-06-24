@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=3 format=3 uid="uid://cxhs31va118u0"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=4 format=3 uid="uid://cxhs31va118u0"]
 
 [ext_resource type="Resource" uid="uid://b2oxxj8ohxgew" path="res://media/characters/all_chara_common/moves/cancels/to_kd.tres" id="1_hugu3"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="2_0styk"]
+[ext_resource type="Resource" uid="uid://dvc5l05lmwwm8" path="res://media/sounds/install_sound.tres" id="3_n5j8t"]
 
 [resource]
 script = ExtResource("2_0styk")
@@ -37,4 +38,5 @@ inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
 cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_hugu3")])
 guardFrames = Vector2i(-1, -1)
+soundsAtFrame = Array[Resource("res://scripts/soundAtFrame.gd")]([ExtResource("3_n5j8t")])
 timestopFrames = 15
