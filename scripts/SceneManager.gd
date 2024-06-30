@@ -6,13 +6,17 @@ enum SceneType {
 	MainMenu, 
 	CharacterSelectionTraining, 
 	CharacterSelectionMultiplayer, 
-	CharacterSelectionVsCpu, 
+	CharacterSelectionPlayerVsCpu, 
+	CharacterSelectionCpuVsCpu, 
 	ModeSelection, 
 	SingleMatchMultiplayer, 
 	Training, 
-	SingleMatchVsCpu,
+	SingleMatchPlayerVsCpu,
+	SingleMatchCpuVsCpu,
 	NetplayMenu,
-	Quit}
+	Settings,
+	Quit
+	}
 
 signal switch_scene(String, SceneType)
 signal scene_switched
@@ -20,11 +24,14 @@ signal scene_switched
 var sceneTypeToPath = {
 	SceneType.ModeSelection : "res://media/scenes/scene_mode_selection.tscn",
 	SceneType.CharacterSelectionTraining : "res://media/scenes/scene_character_selection.tscn",
-	SceneType.CharacterSelectionVsCpu : "res://media/scenes/scene_character_selection.tscn",
+	SceneType.CharacterSelectionPlayerVsCpu : "res://media/scenes/scene_character_selection.tscn",
+	SceneType.CharacterSelectionCpuVsCpu : "res://media/scenes/scene_character_selection.tscn",
 	SceneType.CharacterSelectionMultiplayer : "res://media/scenes/scene_character_selection.tscn",
 	SceneType.SingleMatchMultiplayer : "res://media/scenes/scene_game.tscn",
-	SceneType.SingleMatchVsCpu : "res://media/scenes/scene_game.tscn",
+	SceneType.SingleMatchPlayerVsCpu : "res://media/scenes/scene_game.tscn",
+	SceneType.SingleMatchCpuVsCpu : "res://media/scenes/scene_game.tscn",
 	SceneType.NetplayMenu : "res://media/scenes/netplay_menu.tscn",
+	SceneType.Settings : "res://media/scenes/scene_settings.tscn",
 	SceneType.Training : "res://media/scenes/scene_game.tscn",
 }
 

@@ -1,16 +1,20 @@
-[gd_scene load_steps=12 format=3 uid="uid://dp367r3taipby"]
+[gd_scene load_steps=16 format=3 uid="uid://dp367r3taipby"]
 
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="1_wfwob"]
 [ext_resource type="Script" path="res://scripts/scene_mode_selection.gd" id="1_y3ctb"]
 [ext_resource type="Texture2D" uid="uid://dpbb30jc0c643" path="res://media/hud/systemMessages/VS.png" id="2_3rork"]
 [ext_resource type="Script" path="res://scripts/generic_menu.gd" id="2_gwhym"]
 [ext_resource type="AudioStream" uid="uid://bmxn7ajrnpcr5" path="res://media/sounds/confirm.wav" id="4_n1mfe"]
-[ext_resource type="Texture2D" uid="uid://ccjnvpqysrbmc" path="res://media/hud/systemMessages/VS_CPU.png" id="5_mrpnh"]
 [ext_resource type="AudioStream" uid="uid://bhi3kjdd6mscw" path="res://media/sounds/dash2.wav" id="5_snb4h"]
 [ext_resource type="Texture2D" uid="uid://dk3eqei0kdrkh" path="res://media/hud/systemMessages/training.png" id="5_wu30r"]
 [ext_resource type="AudioStream" uid="uid://bunktu7qgd2je" path="res://media/sounds/dash.wav" id="6_77r4q"]
 [ext_resource type="Texture2D" uid="uid://bi5i6rq117spp" path="res://media/hud/systemMessages/online.png" id="6_j11hg"]
 [ext_resource type="Texture2D" uid="uid://cks540ri7mypt" path="res://media/hud/logo.png" id="6_undsi"]
+[ext_resource type="Texture2D" uid="uid://qh22r8rwtv35" path="res://media/hud/systemMessages/settings.png" id="10_lo4dy"]
+[ext_resource type="Texture2D" uid="uid://hwaygmm85wyd" path="res://media/hud/systemMessages/VS_pvp.png" id="11_fy0g3"]
+[ext_resource type="Texture2D" uid="uid://bduptran2rjhk" path="res://media/hud/systemMessages/VS_pvc.png" id="12_otm56"]
+[ext_resource type="Texture2D" uid="uid://kihwuwerlk2w" path="res://media/hud/systemMessages/VS_cvc.png" id="13_bx8op"]
+[ext_resource type="Texture2D" uid="uid://61tjtujg34cw" path="res://media/hud/systemMessages/BACK.png" id="14_ta0ax"]
 
 [node name="SceneModeSelection" type="Node2D"]
 script = ExtResource("1_y3ctb")
@@ -26,7 +30,7 @@ texture = ExtResource("1_wfwob")
 position = Vector2(567, 376)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("2_gwhym")
-_optionSprites = [NodePath("VS"), NodePath("VS_CPU"), NodePath("Training"), NodePath("Online")]
+_optionSprites = [NodePath("VS"), NodePath("Training"), NodePath("Online"), NodePath("Settings")]
 confirmSound = ExtResource("4_n1mfe")
 cancelSound = ExtResource("5_snb4h")
 cursorSound = ExtResource("6_77r4q")
@@ -35,17 +39,44 @@ audioPlayer = NodePath("../AudioStreamPlayer")
 [node name="VS" type="Sprite2D" parent="Menu"]
 texture = ExtResource("2_3rork")
 
-[node name="VS_CPU" type="Sprite2D" parent="Menu"]
-position = Vector2(0, 144)
-texture = ExtResource("5_mrpnh")
-
 [node name="Training" type="Sprite2D" parent="Menu"]
-position = Vector2(0, 288)
+position = Vector2(0, 144)
 texture = ExtResource("5_wu30r")
 
 [node name="Online" type="Sprite2D" parent="Menu"]
-position = Vector2(0, 432)
+position = Vector2(0, 288)
 texture = ExtResource("6_j11hg")
+
+[node name="Settings" type="Sprite2D" parent="Menu"]
+position = Vector2(0, 432)
+texture = ExtResource("10_lo4dy")
+
+[node name="VS_Menu" type="Node2D" parent="." node_paths=PackedStringArray("_optionSprites", "audioPlayer")]
+visible = false
+position = Vector2(567, 376)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("2_gwhym")
+_optionSprites = [NodePath("P_VS_P"), NodePath("P_VS_CPU"), NodePath("CPU_VS_CPU"), NodePath("BACK")]
+cancelOptionIndex = 3
+confirmSound = ExtResource("4_n1mfe")
+cancelSound = ExtResource("5_snb4h")
+cursorSound = ExtResource("6_77r4q")
+audioPlayer = NodePath("../AudioStreamPlayer")
+
+[node name="P_VS_P" type="Sprite2D" parent="VS_Menu"]
+texture = ExtResource("11_fy0g3")
+
+[node name="P_VS_CPU" type="Sprite2D" parent="VS_Menu"]
+position = Vector2(0, 144)
+texture = ExtResource("12_otm56")
+
+[node name="CPU_VS_CPU" type="Sprite2D" parent="VS_Menu"]
+position = Vector2(0, 288)
+texture = ExtResource("13_bx8op")
+
+[node name="BACK" type="Sprite2D" parent="VS_Menu"]
+position = Vector2(0, 432)
+texture = ExtResource("14_ta0ax")
 
 [node name="Logo" type="Sprite2D" parent="."]
 position = Vector2(567, 160)

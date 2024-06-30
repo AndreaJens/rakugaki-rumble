@@ -1,11 +1,10 @@
-class_name DifficultySelector extends Node2D
+class_name HorizontalGenericMenu extends Node2D
 
 @export var textures : Array[Texture2D]
-@export var options : Array[SceneCharacterSelection.DifficultySettings] = [
-	SceneCharacterSelection.DifficultySettings.Easy,
-	SceneCharacterSelection.DifficultySettings.Medium,
-	SceneCharacterSelection.DifficultySettings.Hard,
-]
+@export var options : Array[int] = []
+@export var leftArrow : Sprite2D
+@export var rightArrow : Sprite2D
+@export var valueLabel : Sprite2D
 
 var _index : int = 0
 var _animationTicks : int = 0
@@ -17,6 +16,17 @@ const animationPeriod : int = 20
 @export_category("Sounds")
 @export var cursorSound : AudioStream
 @export var audioPlayer : AudioStreamPlayer
+	
+func set_index_by_value(value : int) -> bool:
+	for i in range(0, options.size()):
+		if options[i] == value:
+			_index = i
+			valueLabel.texture = textures[_index]
+			update_arrows()
+			return true
+	valueLabel.texture = textures[_index]
+	update_arrows()
+	return false
 	
 func get_highlighted_option() -> int:
 	return options[_index]
@@ -33,20 +43,20 @@ func update_arrows():
 	var animHalfPeriod = animationPeriod / 2
 	if _animationTicks % animationPeriod < animHalfPeriod:
 		offsetVal = -4.
-	$ArrowLeft.offset.x = offsetVal
-	$ArrowRight.offset.x = -offsetVal
-	$ArrowLeft.visible = loopOptions or _index > 0
-	$ArrowRight.visible = loopOptions or _index < options.size() -1
+	leftArrow.offset.x = offsetVal
+	rightArrow.offset.x = -offsetVal
+	leftArrow.visible = loopOptions or _index > 0
+	rightArrow.visible = loopOptions or _index < options.size() -1
 	return
 	
 func update(allButtonsPressed : int):
 	if _zoomTicks > 0:
-		$DifficultyLabel.scale.x = 1.2
-		$DifficultyLabel.scale.y = 1.2
+		valueLabel.scale.x = 1.2
+		valueLabel.scale.y = 1.2
 		_zoomTicks -= 1
 	else:
-		$DifficultyLabel.scale.x = 1.0
-		$DifficultyLabel.scale.y = 1.0
+		valueLabel.scale.x = 1.0
+		valueLabel.scale.y = 1.0
 	if active and visible:
 		if ((allButtonsPressed & ~_lastInputReceived) & GameDatabaseAccessor.GameInputButton.Right):
 			if loopOptions or _index < options.size() -1:
@@ -64,5 +74,5 @@ func update(allButtonsPressed : int):
 	_lastInputReceived = allButtonsPressed
 	_animationTicks += 1
 	_animationTicks %= animationPeriod
-	$DifficultyLabel.texture = textures[_index]
+	valueLabel.texture = textures[_index]
 	update_arrows()

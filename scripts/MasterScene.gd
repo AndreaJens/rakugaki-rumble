@@ -63,13 +63,21 @@ func _add_extra_scene_parameters(scene, type : SceneManager.SceneType):
 				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.Player2DeviceId : player2DeviceId,
 				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.NextSceneType : SceneManager.SceneType.Training,
 			}
-		SceneManager.SceneType.CharacterSelectionVsCpu:
+		SceneManager.SceneType.CharacterSelectionPlayerVsCpu:
 			scene.additionalSceneStartupParameters = {
 				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.Character1Path : character1Path,
 				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.Character2Path : character2Path,
 				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.Player1DeviceId : player1DeviceId,
 				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.Player2DeviceId : player2DeviceId,
-				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.NextSceneType : SceneManager.SceneType.SingleMatchVsCpu,
+				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.NextSceneType : SceneManager.SceneType.SingleMatchPlayerVsCpu,
+			}
+		SceneManager.SceneType.CharacterSelectionCpuVsCpu:
+			scene.additionalSceneStartupParameters = {
+				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.Character1Path : character1Path,
+				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.Character2Path : character2Path,
+				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.Player1DeviceId : player1DeviceId,
+				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.Player2DeviceId : player2DeviceId,
+				SceneCharacterSelection.AdditionalSceneCharacterSelectStartupParameter.NextSceneType : SceneManager.SceneType.SingleMatchCpuVsCpu,
 			}
 		SceneManager.SceneType.CharacterSelectionMultiplayer:
 			scene.additionalSceneStartupParameters = {
@@ -104,7 +112,7 @@ func _add_extra_scene_parameters(scene, type : SceneManager.SceneType):
 				SceneGame.AdditionalGameSceneStartupParameter.Player2DeviceId : player2DeviceId,
 				SceneGame.AdditionalGameSceneStartupParameter.StageBackground : stageBackgroundTexture,
 			}
-		SceneManager.SceneType.SingleMatchVsCpu:
+		SceneManager.SceneType.SingleMatchPlayerVsCpu:
 			scene.preventDeath = false
 			scene.debugMode = false
 			scene.networkMode = false
@@ -116,6 +124,24 @@ func _add_extra_scene_parameters(scene, type : SceneManager.SceneType):
 				SceneGame.AdditionalGameSceneStartupParameter.Player2DeviceId : -1,
 				SceneGame.AdditionalGameSceneStartupParameter.Player2isCpu : true,
 				SceneGame.AdditionalGameSceneStartupParameter.Player2AILevel : cpuDifficultyLevel,
+				SceneGame.AdditionalGameSceneStartupParameter.Player2AITicks : cpuActionTicks,
+				SceneGame.AdditionalGameSceneStartupParameter.StageBackground : stageBackgroundTexture,
+			}
+		SceneManager.SceneType.SingleMatchCpuVsCpu:
+			scene.preventDeath = false
+			scene.debugMode = false
+			scene.networkMode = false
+			scene.roundsToWin = 3
+			scene.additionalSceneStartupParameters = {
+				SceneGame.AdditionalGameSceneStartupParameter.Character1Path : character1Path,
+				SceneGame.AdditionalGameSceneStartupParameter.Character2Path : character2Path,
+				SceneGame.AdditionalGameSceneStartupParameter.Player1DeviceId : player1DeviceId,
+				SceneGame.AdditionalGameSceneStartupParameter.Player2DeviceId : -1,
+				SceneGame.AdditionalGameSceneStartupParameter.Player1isCpu : true,
+				SceneGame.AdditionalGameSceneStartupParameter.Player2isCpu : true,
+				SceneGame.AdditionalGameSceneStartupParameter.Player1AILevel : cpuDifficultyLevel,
+				SceneGame.AdditionalGameSceneStartupParameter.Player2AILevel : cpuDifficultyLevel,
+				SceneGame.AdditionalGameSceneStartupParameter.Player1AITicks : cpuActionTicks,
 				SceneGame.AdditionalGameSceneStartupParameter.Player2AITicks : cpuActionTicks,
 				SceneGame.AdditionalGameSceneStartupParameter.StageBackground : stageBackgroundTexture,
 			}

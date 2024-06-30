@@ -553,7 +553,7 @@ func _update_game_phase_transition():
 		if _vs_cpu_match():
 			if rematchMenuP1.selection_performed():
 				if rematchMenuP1.get_highlighted_option() == RematchMenu.Option.No:
-					SceneManager.goto_scene_type(SceneManager.SceneType.CharacterSelectionVsCpu)
+					SceneManager.goto_scene_type(SceneManager.SceneType.CharacterSelectionPlayerVsCpu)
 				elif rematchMenuP1.get_highlighted_option() == RematchMenu.Option.Yes:
 					rematchMenuP1.reset_and_hide()
 					rematchMenuP2.reset_and_hide()
@@ -603,7 +603,7 @@ func _update_game_phase_transition():
 func _update_character_input():
 	#if (_roundPhaseState == RoundPhaseState.ActiveMatch or 
 		#_roundPhaseState == RoundPhaseState.Ko):
-	if _cpuControllerCharacter1.active:
+	if _cpuControllerCharacter1.active and !rematchMenuP1.visible:
 		var inputDict = _cpuControllerCharacter1.fetch_input_for_next_frame()
 		var newInputs = inputDict[InputBufferManager.InputBufferState.NewlyPressedButtons]
 		var allInputs = inputDict[InputBufferManager.InputBufferState.AllPressedButtons]
@@ -744,6 +744,8 @@ func _adjust_character_momentum(character : Character, opponent : Character):
 	var horizontalMomentumMultiplier : int = 150
 	if opponent.infinityInstallActive:
 		horizontalMomentumMultiplier = 180
+	var leftWallSplat : bool = false
+	var rightWallSplat : bool = false
 	if !_wallHitFreeze:
 		if ((leftWallDistance <= boxHalfSize and 
 				character.get_logical_velocity().x < 0) or 
@@ -751,17 +753,25 @@ func _adjust_character_momentum(character : Character, opponent : Character):
 				character.get_logical_velocity().x > 0)):
 				if (character.is_ko() or (
 					!opponent.infinityInstallActive and 
-				character.characterState.bounceCounter >= 
-				GameDatabaseAccessor.defaultMaxNumberOfBounces)):
+						character.characterState.bounceCounter >= 
+						GameDatabaseAccessor.defaultMaxNumberOfBounces)):
 					if (leftWallDistance <= boxHalfSize and 
 					character.get_logical_velocity().x < 0):
 						character.characterState.logicalPosition.x = (
 							stage.logicalPosition.x - stageHalfSize +
 							boxHalfSize)
+						leftWallSplat = true
 					else:
 						character.characterState.logicalPosition.x = (
 							stage.logicalPosition.x + stageHalfSize -
 							boxHalfSize)
+						rightWallSplat = true
+					if leftWallSplat:
+						character.set_on_left_side(true)
+						character.scale = Vector2(1, 1)
+					elif rightWallSplat:
+						character.set_on_left_side(false)
+						character.scale = Vector2(-1, 1)
 					character.update_screen_position()
 					if (character.currentMove.internalName != GameDatabaseAccessor.defaultWallsplatReaction and
 						!character.is_ko()):

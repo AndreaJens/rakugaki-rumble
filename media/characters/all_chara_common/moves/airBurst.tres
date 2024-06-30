@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CharacterMove" load_steps=4 format=3 uid="uid://c7w154egxscjy"]
+[gd_resource type="Resource" script_class="CharacterMove" load_steps=5 format=3 uid="uid://c7w154egxscjy"]
 
 [ext_resource type="Resource" uid="uid://c5bousk26xbs8" path="res://media/characters/all_chara_common/moves/cancels/to_hkd.tres" id="1_l8i75"]
+[ext_resource type="Resource" uid="uid://c54qcxfrnrogo" path="res://media/characters/all_chara_common/moves/cancels/to_hurt_state.tres" id="1_ocan4"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="2_0gwsu"]
 [ext_resource type="Resource" uid="uid://dvc5l05lmwwm8" path="res://media/sounds/install_sound.tres" id="3_3vlth"]
 
@@ -36,7 +37,7 @@ input = Array[int]([32])
 inputVariant1 = Array[int]([])
 inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
-cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_l8i75")])
+cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_ocan4"), ExtResource("1_l8i75")])
 guardFrames = Vector2i(-1, -1)
 soundsAtFrame = Array[Resource("res://scripts/soundAtFrame.gd")]([ExtResource("3_3vlth")])
 timestopFrames = 15

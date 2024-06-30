@@ -1,9 +1,10 @@
 extends Node
 
-@export var musicVolume : int = 10
-@export var sfxVolume : int = 10
+@export var musicVolume : int = 9
+@export var sfxVolume : int = 9
 @export var muteMusic : bool = false
 @export var muteSfx : bool = false
+const ValueCap : int = 9
 const OptionFileName : String = "user://options.cfg"
 
 func save_to_file():
@@ -40,14 +41,18 @@ func load_from_file():
 		var data = json.get_data()
 		for key in data.keys():
 			set(key, data[key])
+		musicVolume = min(musicVolume, ValueCap)
+		sfxVolume = min(sfxVolume, ValueCap)
 
 func get_music_volume() -> float:
-	if muteMusic:
+	musicVolume = min(musicVolume, ValueCap)
+	if muteMusic or musicVolume == 0:
 		return -100.
-	return (10 - musicVolume) * -5.
+	return (ValueCap - musicVolume) * -5.
 
 
 func get_sfx_volume() -> float:
-	if muteSfx:
+	sfxVolume = min(sfxVolume, ValueCap)
+	if muteSfx or sfxVolume == 0:
 		return -100.
-	return (10 - sfxVolume) * -5.
+	return (ValueCap - sfxVolume) * -5.

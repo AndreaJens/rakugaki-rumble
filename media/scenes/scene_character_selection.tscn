@@ -1,9 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://dtrh7m0aho8ro"]
+[gd_scene load_steps=22 format=3 uid="uid://dtrh7m0aho8ro"]
 
 [ext_resource type="Script" path="res://scripts/scene_character_selection.gd" id="1_edawh"]
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="2_p7346"]
 [ext_resource type="Script" path="res://scripts/generic_menu.gd" id="3_6r5vb"]
 [ext_resource type="Texture2D" uid="uid://biqsyab6d0hdo" path="res://media/stages/stage_grid/background2Full.jpg" id="3_jjxib"]
+[ext_resource type="Texture2D" uid="uid://hwaygmm85wyd" path="res://media/hud/systemMessages/VS_pvp.png" id="4_356su"]
 [ext_resource type="Texture2D" uid="uid://dpbb30jc0c643" path="res://media/hud/systemMessages/VS.png" id="4_r42vn"]
 [ext_resource type="Texture2D" uid="uid://cdri01htadvuu" path="res://media/characters/chara_naomi/sprites/name.png" id="4_y8r6v"]
 [ext_resource type="AudioStream" uid="uid://bmxn7ajrnpcr5" path="res://media/sounds/confirm.wav" id="5_5vdqv"]
@@ -27,6 +28,7 @@ _menu_p1 = NodePath("MenuP1")
 _menu_p2 = NodePath("MenuP2")
 _difficultySelector = NodePath("VSCPU_Banner/DifficultySelector")
 _stageBackgrounds = Array[Texture2D]([ExtResource("2_p7346"), ExtResource("3_jjxib")])
+pvpTexture = ExtResource("4_356su")
 
 [node name="Stage" type="Node2D" parent="."]
 

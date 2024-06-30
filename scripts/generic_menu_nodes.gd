@@ -1,4 +1,4 @@
-class_name GenericMenu extends Node2D
+class_name GenericMenuNodes extends Node2D
 
 enum StateVars {
 	Index = 0,
@@ -11,7 +11,7 @@ enum StateVars {
 var _index : int = 0
 var _lastInputReceived : int = 0
 @export var options : Array[int] = []
-@export var _optionSprites : Array[Sprite2D] = []
+@export var _optionNodes : Array[Node2D] = []
 @export var cancelOptionIndex : int = -1
 var _animationTicks : int = 0
 var _zoomTicks : int = 0
@@ -58,21 +58,21 @@ func _network_preprocess(_input: Dictionary) -> void:
 	pass
 	
 func _update_highlighted_option():
-	for sprite in _optionSprites:
-		sprite.offset.x = 0
-		sprite.scale = Vector2(1., 1.)
+	for node in _optionNodes:
+		node.offset.x = 0
+		node.scale = Vector2(1., 1.)
 	if active or selection_performed():
 		if _zoomTicks > 0:
 			_zoomTicks -= 1
-			_optionSprites[_index].scale = Vector2(1.25, 1.25)
+			_optionNodes[_index].scale = Vector2(1.25, 1.25)
 		else:
-			_optionSprites[_index].scale = Vector2(1.1, 1.1)
+			_optionNodes[_index].scale = Vector2(1.1, 1.1)
 	if active and !selection_performed():
-		_optionSprites[_index].offset.x = -4
+		_optionNodes[_index].offset.x = -4
 		@warning_ignore("integer_division")
 		var animationPeriodHalf = animationPeriod / 2
 		if _animationTicks > animationPeriodHalf:
-			_optionSprites[_index].offset.x = 4	
+			_optionNodes[_index].offset.x = 4	
 
 func selection_performed() -> bool:
 	return _optionSelected

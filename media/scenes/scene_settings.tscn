@@ -1,0 +1,124 @@
+[gd_scene load_steps=23 format=3 uid="uid://bhrdq3r70wtf1"]
+
+[ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="1_5hvlx"]
+[ext_resource type="Script" path="res://scripts/scene_settings.gd" id="1_r4nl5"]
+[ext_resource type="Texture2D" uid="uid://qh22r8rwtv35" path="res://media/hud/systemMessages/settings.png" id="2_knsv8"]
+[ext_resource type="Script" path="res://scripts/HorizontalMenu.gd" id="3_3dx25"]
+[ext_resource type="Texture2D" uid="uid://dnw178qxq0uks" path="res://media/hud/systemMessages/MUSIC.png" id="3_4ulym"]
+[ext_resource type="Script" path="res://scripts/generic_menu_nodes.gd" id="3_672ic"]
+[ext_resource type="Texture2D" uid="uid://dvwk3e0pxtdrc" path="res://media/hud/systemMessages/ARW_LEFT.png" id="4_ibeip"]
+[ext_resource type="Texture2D" uid="uid://c0gtfu8kspu2" path="res://media/hud/NUM_NINE.png" id="5_7yl73"]
+[ext_resource type="Texture2D" uid="uid://badfefo13ku17" path="res://media/hud/systemMessages/ARW_RIGHT.png" id="5_eqflv"]
+[ext_resource type="Texture2D" uid="uid://b1ukbg1ou7mc" path="res://media/hud/NUM_ZERO.png" id="5_x2giu"]
+[ext_resource type="AudioStream" uid="uid://bhi3kjdd6mscw" path="res://media/sounds/dash2.wav" id="6_6vcdq"]
+[ext_resource type="Texture2D" uid="uid://cfbiifiw2qhiv" path="res://media/hud/NUM_ONE.png" id="6_m8nc8"]
+[ext_resource type="AudioStream" uid="uid://bunktu7qgd2je" path="res://media/sounds/dash.wav" id="7_4qgbm"]
+[ext_resource type="Texture2D" uid="uid://bd1gn1445ddwn" path="res://media/hud/NUM_TWO.png" id="7_r1xkg"]
+[ext_resource type="Texture2D" uid="uid://ihmetv01lcqs" path="res://media/hud/NUM_THREE.png" id="8_kp0ld"]
+[ext_resource type="Texture2D" uid="uid://bbq0dj1nv8lc3" path="res://media/hud/NUM_FOUR.png" id="9_ymtnj"]
+[ext_resource type="Texture2D" uid="uid://t06iss1g8mvr" path="res://media/hud/NUM_FIVE.png" id="10_uau4f"]
+[ext_resource type="Texture2D" uid="uid://djod3rmosttw7" path="res://media/hud/NUM_SIX.png" id="11_1hc77"]
+[ext_resource type="Texture2D" uid="uid://d15k1vqh07i1w" path="res://media/hud/NUM_SEVEN.png" id="12_yxwu1"]
+[ext_resource type="Texture2D" uid="uid://dab6755hifvd" path="res://media/hud/NUM_EIGHT.png" id="13_nke7g"]
+[ext_resource type="Texture2D" uid="uid://c3v008kbltqp6" path="res://media/hud/systemMessages/SFX.png" id="17_nn0ut"]
+[ext_resource type="Texture2D" uid="uid://61tjtujg34cw" path="res://media/hud/systemMessages/BACK.png" id="18_0ttxa"]
+
+[node name="SceneSettings" type="Node2D"]
+script = ExtResource("1_r4nl5")
+
+[node name="Stage" type="Node2D" parent="."]
+
+[node name="StageSprite" type="Sprite2D" parent="Stage"]
+position = Vector2(567, 318)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_5hvlx")
+
+[node name="Logo" type="Sprite2D" parent="."]
+position = Vector2(567, 80)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_knsv8")
+
+[node name="Menu" type="Node2D" parent="." node_paths=PackedStringArray("_optionNodes", "audioPlayer")]
+script = ExtResource("3_672ic")
+options = Array[int]([0, 1, 2])
+_optionNodes = [NodePath("Music/MusicLabel"), NodePath("SFX/SfxLabel"), NodePath("BACK/BackLabel")]
+cancelOptionIndex = 2
+cancelSound = ExtResource("6_6vcdq")
+cursorSound = ExtResource("7_4qgbm")
+audioPlayer = NodePath("../AudioStreamPlayer")
+
+[node name="Music" type="Node2D" parent="Menu"]
+position = Vector2(567, 288)
+scale = Vector2(0.6, 0.6)
+
+[node name="MusicLabel" type="Sprite2D" parent="Menu/Music"]
+position = Vector2(-630, 0)
+texture = ExtResource("3_4ulym")
+centered = false
+offset = Vector2(0, -68)
+
+[node name="HorizontalMenu" type="Node2D" parent="Menu/Music" node_paths=PackedStringArray("leftArrow", "rightArrow", "valueLabel", "audioPlayer")]
+position = Vector2(512, 0)
+script = ExtResource("3_3dx25")
+textures = Array[Texture2D]([ExtResource("5_x2giu"), ExtResource("6_m8nc8"), ExtResource("7_r1xkg"), ExtResource("8_kp0ld"), ExtResource("9_ymtnj"), ExtResource("10_uau4f"), ExtResource("11_1hc77"), ExtResource("12_yxwu1"), ExtResource("13_nke7g"), ExtResource("5_7yl73")])
+options = Array[int]([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+leftArrow = NodePath("LeftArrow")
+rightArrow = NodePath("RightArrow")
+valueLabel = NodePath("ValueLabel")
+cursorSound = ExtResource("7_4qgbm")
+audioPlayer = NodePath("../../../AudioStreamPlayer")
+
+[node name="ValueLabel" type="Sprite2D" parent="Menu/Music/HorizontalMenu"]
+texture = ExtResource("5_7yl73")
+
+[node name="LeftArrow" type="Sprite2D" parent="Menu/Music/HorizontalMenu"]
+position = Vector2(-120, 0)
+texture = ExtResource("4_ibeip")
+
+[node name="RightArrow" type="Sprite2D" parent="Menu/Music/HorizontalMenu"]
+position = Vector2(120, 0)
+texture = ExtResource("5_eqflv")
+
+[node name="SFX" type="Node2D" parent="Menu"]
+position = Vector2(567, 388)
+scale = Vector2(0.6, 0.6)
+
+[node name="SfxLabel" type="Sprite2D" parent="Menu/SFX"]
+position = Vector2(-630, 0)
+texture = ExtResource("17_nn0ut")
+centered = false
+offset = Vector2(0, -68)
+
+[node name="HorizontalMenu" type="Node2D" parent="Menu/SFX" node_paths=PackedStringArray("leftArrow", "rightArrow", "valueLabel", "audioPlayer")]
+position = Vector2(512, 0)
+script = ExtResource("3_3dx25")
+textures = Array[Texture2D]([ExtResource("5_x2giu"), ExtResource("6_m8nc8"), ExtResource("7_r1xkg"), ExtResource("8_kp0ld"), ExtResource("9_ymtnj"), ExtResource("10_uau4f"), ExtResource("11_1hc77"), ExtResource("12_yxwu1"), ExtResource("13_nke7g"), ExtResource("5_7yl73")])
+options = Array[int]([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+leftArrow = NodePath("LeftArrow")
+rightArrow = NodePath("RightArrow")
+valueLabel = NodePath("ValueLabel")
+cursorSound = ExtResource("7_4qgbm")
+audioPlayer = NodePath("../../../AudioStreamPlayer")
+
+[node name="ValueLabel" type="Sprite2D" parent="Menu/SFX/HorizontalMenu"]
+texture = ExtResource("5_7yl73")
+
+[node name="LeftArrow" type="Sprite2D" parent="Menu/SFX/HorizontalMenu"]
+position = Vector2(-120, 0)
+texture = ExtResource("4_ibeip")
+
+[node name="RightArrow" type="Sprite2D" parent="Menu/SFX/HorizontalMenu"]
+position = Vector2(120, 0)
+texture = ExtResource("5_eqflv")
+
+[node name="BACK" type="Node2D" parent="Menu"]
+position = Vector2(567, 488)
+scale = Vector2(0.6, 0.6)
+
+[node name="BackLabel" type="Sprite2D" parent="Menu/BACK"]
+position = Vector2(-630, 0)
+texture = ExtResource("18_0ttxa")
+centered = false
+offset = Vector2(0, -68)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
