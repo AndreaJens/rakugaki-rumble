@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="CpuOpponentRuleset" load_steps=2 format=3 uid="uid://cqqfcpdikt0ss"]
+
+[ext_resource type="Script" path="res://scripts/CPUOpponentRuleset.gd" id="1_u5m7e"]
+
+[resource]
+script = ExtResource("1_u5m7e")
+moves = Array[Resource("res://scripts/CPUOpponentMove.gd")]([])

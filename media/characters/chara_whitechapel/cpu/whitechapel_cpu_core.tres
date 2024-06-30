@@ -1,0 +1,387 @@
+[gd_resource type="Resource" script_class="CpuOpponentRuleset" load_steps=58 format=3 uid="uid://dqen3ev4boxvm"]
+
+[ext_resource type="Script" path="res://scripts/CPUOpponentRuleset.gd" id="1_6c1y2"]
+[ext_resource type="Script" path="res://scripts/CPUOpponentRule.gd" id="1_xulvw"]
+[ext_resource type="Script" path="res://scripts/CPUOpponentMove.gd" id="2_6od4y"]
+
+[sub_resource type="Resource" id="Resource_5cmo7"]
+script = ExtResource("1_xulvw")
+trigger = 1
+operator = 5
+valueInt = 400000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_duiyv"]
+script = ExtResource("2_6od4y")
+conditions = Array[ExtResource("1_xulvw")]([SubResource("Resource_5cmo7")])
+weight = 15
+targetMoveName = "attack1"
+tickToNextMove = 3
+
+[sub_resource type="Resource" id="Resource_cnoxb"]
+script = ExtResource("1_xulvw")
+trigger = 17
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_2mv5v"]
+script = ExtResource("1_xulvw")
+trigger = 18
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_d5n0p"]
+script = ExtResource("1_xulvw")
+trigger = 1
+operator = 5
+valueInt = 450000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_wb4g2"]
+script = ExtResource("1_xulvw")
+trigger = 19
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_70ken"]
+script = ExtResource("2_6od4y")
+conditions = Array[ExtResource("1_xulvw")]([SubResource("Resource_cnoxb"), SubResource("Resource_2mv5v"), SubResource("Resource_d5n0p"), SubResource("Resource_wb4g2")])
+weight = 25
+targetMoveName = "downSpike"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_mo27k"]
+script = ExtResource("1_xulvw")
+trigger = 2
+operator = 3
+valueInt = 350000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_lk1ty"]
+script = ExtResource("2_6od4y")
+conditions = Array[ExtResource("1_xulvw")]([SubResource("Resource_mo27k")])
+weight = 15
+targetMoveName = "walkF"
+tickToNextMove = 5
+
+[sub_resource type="Resource" id="Resource_ss1j8"]
+script = ExtResource("1_xulvw")
+trigger = 0
+operator = -1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_etm6t"]
+script = ExtResource("2_6od4y")
+conditions = Array[ExtResource("1_xulvw")]([SubResource("Resource_ss1j8")])
+weight = 15
+targetMoveName = "jumpF"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_inbnh"]
+script = ExtResource("1_xulvw")
+trigger = 2
+operator = 5
+valueInt = 400000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_r6pjo"]
+script = ExtResource("1_xulvw")
+trigger = 19
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_t2prx"]
+script = ExtResource("2_6od4y")
+conditions = Array[ExtResource("1_xulvw")]([SubResource("Resource_inbnh"), SubResource("Resource_r6pjo")])
+weight = 0
+targetMoveName = "walkB"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_618lb"]
+script = ExtResource("1_xulvw")
+trigger = 2
+operator = 5
+valueInt = 350000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_puawc"]
+script = ExtResource("1_xulvw")
+trigger = 3
+operator = 5
+valueInt = 250000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_2v28j"]
+script = ExtResource("1_xulvw")
+trigger = 7
+operator = 1
+valueInt = 0
+valueString = "batAssaultMeter"
+
+[sub_resource type="Resource" id="Resource_gay4p"]
+script = ExtResource("1_xulvw")
+trigger = 2
+operator = 2
+valueInt = 150000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_odn47"]
+script = ExtResource("2_6od4y")
+conditions = Array[ExtResource("1_xulvw")]([SubResource("Resource_618lb"), SubResource("Resource_puawc"), SubResource("Resource_2v28j"), SubResource("Resource_gay4p")])
+weight = 15
+targetMoveName = "batAssault"
+tickToNextMove = 3
+
+[sub_resource type="Resource" id="Resource_upvc5"]
+script = ExtResource("1_xulvw")
+trigger = 15
+operator = 3
+valueInt = 6000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_axqpw"]
+script = ExtResource("1_xulvw")
+trigger = 7
+operator = 0
+valueInt = 0
+valueString = "batAssault"
+
+[sub_resource type="Resource" id="Resource_y665i"]
+script = ExtResource("2_6od4y")
+conditions = Array[ExtResource("1_xulvw")]([SubResource("Resource_upvc5"), SubResource("Resource_axqpw")])
+weight = 1500
+targetMoveName = "batAssaultMeter"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_wtcx5"]
+script = ExtResource("1_xulvw")
+trigger = 15
+operator = 3
+valueInt = 6000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_sngyw"]
+script = ExtResource("1_xulvw")
+trigger = 3
+operator = 5
+valueInt = 300000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_p3vdw"]
+script = ExtResource("1_xulvw")
+trigger = 7
+operator = 1
+valueInt = 0
+valueString = "batAssaultMeter"
+
+[sub_resource type="Resource" id="Resource_j54ie"]
+script = ExtResource("1_xulvw")
+trigger = 2
+operator = 3
+valueInt = 100000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_xmvl0"]
+script = ExtResource("2_6od4y")
+conditions = Array[ExtResource("1_xulvw")]([SubResource("Resource_wtcx5"), SubResource("Resource_sngyw"), SubResource("Resource_p3vdw"), SubResource("Resource_j54ie")])
+weight = 10
+targetMoveName = "batAssault"
+tickToNextMove = 3
+
+[sub_resource type="Resource" id="Resource_68yvb"]
+script = ExtResource("1_xulvw")
+trigger = 7
+operator = 0
+valueInt = 0
+valueString = "attack1Air"
+
+[sub_resource type="Resource" id="Resource_ch52c"]
+script = ExtResource("1_xulvw")
+trigger = 8
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_a6cwm"]
+script = ExtResource("2_6od4y")
+conditions = Array[ExtResource("1_xulvw")]([SubResource("Resource_68yvb"), SubResource("Resource_ch52c")])
+weight = 80
+targetMoveName = "batAssaultDown"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_52yok"]
+script = ExtResource("1_xulvw")
+trigger = 8
+operator = -1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_mm4sg"]
+script = ExtResource("2_6od4y")
+conditions = Array[ExtResource("1_xulvw")]([SubResource("Resource_52yok")])
+weight = 80
+targetMoveName = "jumpF"
+tickToNextMove = 1
+
+[sub_resource type="Resource" id="Resource_nh4s4"]
+script = ExtResource("1_xulvw")
+trigger = 19
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_oarok"]
+script = ExtResource("1_xulvw")
+trigger = 1
+operator = 5
+valueInt = 420000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_ucs41"]
+script = ExtResource("2_6od4y")
+conditions = Array[ExtResource("1_xulvw")]([SubResource("Resource_nh4s4"), SubResource("Resource_oarok")])
+weight = 90
+targetMoveName = "attack1Air"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_e3h8l"]
+script = ExtResource("1_xulvw")
+trigger = 18
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_i8sax"]
+script = ExtResource("1_xulvw")
+trigger = 2
+operator = 3
+valueInt = 400000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_okiq8"]
+script = ExtResource("2_6od4y")
+conditions = Array[ExtResource("1_xulvw")]([SubResource("Resource_e3h8l"), SubResource("Resource_i8sax")])
+weight = 15
+targetMoveName = "entropyBurst"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_0n18d"]
+script = ExtResource("1_xulvw")
+trigger = 19
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_mdhr2"]
+script = ExtResource("1_xulvw")
+trigger = 18
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_toapc"]
+script = ExtResource("1_xulvw")
+trigger = 2
+operator = 5
+valueInt = 400000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_3j4ps"]
+script = ExtResource("1_xulvw")
+trigger = 7
+operator = -1
+valueInt = 0
+valueString = "entropyBurst"
+
+[sub_resource type="Resource" id="Resource_0vwtw"]
+script = ExtResource("2_6od4y")
+conditions = Array[ExtResource("1_xulvw")]([SubResource("Resource_0n18d"), SubResource("Resource_mdhr2"), SubResource("Resource_toapc"), SubResource("Resource_3j4ps")])
+weight = 65
+targetMoveName = "entropyFwp"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_hj00c"]
+script = ExtResource("1_xulvw")
+trigger = 17
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_a10fh"]
+script = ExtResource("1_xulvw")
+trigger = 2
+operator = 5
+valueInt = 400000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_f3fha"]
+script = ExtResource("2_6od4y")
+conditions = Array[ExtResource("1_xulvw")]([SubResource("Resource_hj00c"), SubResource("Resource_a10fh")])
+weight = 35
+targetMoveName = "entropyBurstAir"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_gd15b"]
+script = ExtResource("1_xulvw")
+trigger = 17
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_uns4c"]
+script = ExtResource("1_xulvw")
+trigger = 2
+operator = 5
+valueInt = 400000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_hk4qk"]
+script = ExtResource("2_6od4y")
+conditions = Array[ExtResource("1_xulvw")]([SubResource("Resource_gd15b"), SubResource("Resource_uns4c")])
+weight = 35
+targetMoveName = "batAssaultDown"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_qjspt"]
+script = ExtResource("1_xulvw")
+trigger = 2
+operator = 5
+valueInt = 400000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_i5ebq"]
+script = ExtResource("1_xulvw")
+trigger = 19
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_mvehq"]
+script = ExtResource("1_xulvw")
+trigger = 24
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_hiovs"]
+script = ExtResource("1_xulvw")
+trigger = 17
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_45nun"]
+script = ExtResource("2_6od4y")
+conditions = Array[ExtResource("1_xulvw")]([SubResource("Resource_qjspt"), SubResource("Resource_i5ebq"), SubResource("Resource_mvehq"), SubResource("Resource_hiovs")])
+weight = 5
+targetMoveName = "jumpF"
+tickToNextMove = 1
+
+[resource]
+script = ExtResource("1_6c1y2")
+moves = Array[ExtResource("2_6od4y")]([SubResource("Resource_duiyv"), SubResource("Resource_70ken"), SubResource("Resource_lk1ty"), SubResource("Resource_etm6t"), SubResource("Resource_t2prx"), SubResource("Resource_odn47"), SubResource("Resource_y665i"), SubResource("Resource_xmvl0"), SubResource("Resource_a6cwm"), SubResource("Resource_mm4sg"), SubResource("Resource_ucs41"), SubResource("Resource_okiq8"), SubResource("Resource_0vwtw"), SubResource("Resource_f3fha"), SubResource("Resource_hk4qk"), SubResource("Resource_45nun")])

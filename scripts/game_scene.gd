@@ -539,7 +539,7 @@ func _update_game_phase_transition():
 			_roundPhaseCounter -= 1
 			if _roundPhaseCounter == 0:
 				rematchMenuP1.visible = true
-				if !_vs_cpu_match():
+				if player_vs_player_match():
 					rematchMenuP2.visible = true
 				# update victory values
 				if networkMode:
@@ -550,10 +550,20 @@ func _update_game_phase_transition():
 						elif (_roundWonCharacter2 > _roundWonCharacter1):
 							NetworkAssistant.onlineScores[_scoresKey1][1] += 1
 							NetworkAssistant.onlineScores[_scoresKey2][0] += 1
-		if _vs_cpu_match():
+		if player_vs_cpu_match():
 			if rematchMenuP1.selection_performed():
 				if rematchMenuP1.get_highlighted_option() == RematchMenu.Option.No:
 					SceneManager.goto_scene_type(SceneManager.SceneType.CharacterSelectionPlayerVsCpu)
+				elif rematchMenuP1.get_highlighted_option() == RematchMenu.Option.Yes:
+					rematchMenuP1.reset_and_hide()
+					rematchMenuP2.reset_and_hide()
+					hudMain.hide_message()
+					_roundPhaseState = RoundPhaseState.PreRestartMatch
+					_roundPhaseCounter = phaseTransitionMessageThreshold
+		elif cpu_vs_cpu_match():
+			if rematchMenuP1.selection_performed():
+				if rematchMenuP1.get_highlighted_option() == RematchMenu.Option.No:
+					SceneManager.goto_scene_type(SceneManager.SceneType.CharacterSelectionCpuVsCpu)
 				elif rematchMenuP1.get_highlighted_option() == RematchMenu.Option.Yes:
 					rematchMenuP1.reset_and_hide()
 					rematchMenuP2.reset_and_hide()
@@ -835,9 +845,16 @@ func _constrain_character_position_to_camera_viewport(character : Character):
 func _training_mode_active() -> bool:
 	return preventDeath
 
-func _vs_cpu_match() -> bool:
-	return !networkMode and !_training_mode_active() and (
+func player_vs_player_match() -> bool:
+	return !player_vs_cpu_match() and !cpu_vs_cpu_match()
+
+func player_vs_cpu_match() -> bool:
+	return !cpu_vs_cpu_match() and !networkMode and !_training_mode_active() and (
 		_cpuControllerCharacter1.active or _cpuControllerCharacter2.active)
+
+func cpu_vs_cpu_match() -> bool:
+	return !networkMode and !_training_mode_active() and (
+		_cpuControllerCharacter1.active and _cpuControllerCharacter2.active)
 
 func _update_camera(immediate : bool = false):
 	if immediate:

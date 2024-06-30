@@ -46,4 +46,5 @@ inputVariant2 = Array[int]([])
 inputVariant3 = Array[int]([])
 cancelRoutes = Array[Resource("res://scripts/cancelRoute.gd")]([ExtResource("1_0pix2"), ExtResource("1_cmrla"), ExtResource("4_qh7mv"), ExtResource("5_8is5j"), ExtResource("6_ci2d8"), ExtResource("7_fskxg"), ExtResource("8_de7ds"), ExtResource("9_3dgky"), ExtResource("10_em35t"), ExtResource("11_nxv6w")])
 guardFrames = Vector2i(-1, -1)
+soundsAtFrame = Array[Resource("res://scripts/soundAtFrame.gd")]([])
 timestopFrames = 0

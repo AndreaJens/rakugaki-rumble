@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=37 format=3 uid="uid://dplht2b3monrh"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=38 format=3 uid="uid://dplht2b3monrh"]
 
 [ext_resource type="Resource" uid="uid://py80nsxhjttg" path="res://media/characters/chara_gridd/moves/idle_grd.tres" id="1_7pl88"]
 [ext_resource type="Texture2D" uid="uid://cxqx2oj7ip8u7" path="res://media/characters/chara_gridd/sprites/name.png" id="1_qgdw4"]
+[ext_resource type="Resource" uid="uid://cqqfcpdikt0ss" path="res://media/characters/chara_gridd/cpu/gridd_cpu_core.tres" id="1_rkkg6"]
 [ext_resource type="Script" path="res://scripts/characterData.gd" id="2_4b87q"]
 [ext_resource type="Resource" uid="uid://dw56kqn4cad62" path="res://media/characters/all_chara_common/moves/falling.tres" id="2_u50ck"]
 [ext_resource type="Resource" uid="uid://kx1qs1828ggs" path="res://media/characters/all_chara_common/moves/hurtG.tres" id="3_3188p"]
@@ -47,3 +48,4 @@ characterMaxMeter = 30000
 characterNameTexture = ExtResource("1_qgdw4")
 characterMoves = Array[Resource("res://scripts/move.gd")]([ExtResource("1_7pl88"), ExtResource("2_u50ck"), ExtResource("3_3188p"), ExtResource("4_0q44x"), ExtResource("5_5ssaw"), ExtResource("6_ogdy1"), ExtResource("7_7y2o1"), ExtResource("8_vpgps"), ExtResource("9_384ed"), ExtResource("10_luubb"), ExtResource("11_mf1m5"), ExtResource("12_rqwkr"), ExtResource("13_mct2d"), ExtResource("14_kq1pe"), ExtResource("15_g1kcb"), ExtResource("16_ydvgk"), ExtResource("17_cooww"), ExtResource("18_037le"), ExtResource("19_qjxka"), ExtResource("20_elvia"), ExtResource("21_3qj4o"), ExtResource("22_ce0wo"), ExtResource("23_g83v4"), ExtResource("24_f784r"), ExtResource("25_csydm"), ExtResource("26_wk6be"), ExtResource("27_x7lng"), ExtResource("28_p11vx"), ExtResource("29_cighj"), ExtResource("30_ijpuf"), ExtResource("31_l00w5"), ExtResource("32_snhce"), ExtResource("33_voldg"), ExtResource("34_lygc3")])
 characterProjectileTypes = Array[String]([])
+characterCpuCore = ExtResource("1_rkkg6")

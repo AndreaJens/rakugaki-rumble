@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=38 format=3 uid="uid://rteooln5bhws"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=39 format=3 uid="uid://rteooln5bhws"]
 
 [ext_resource type="Resource" uid="uid://pas1r8leavrj" path="res://media/characters/chara_whitechapel/moves/idle_wc.tres" id="1_6h5ht"]
+[ext_resource type="Resource" uid="uid://dqen3ev4boxvm" path="res://media/characters/chara_whitechapel/cpu/whitechapel_cpu_core.tres" id="1_ck7ky"]
 [ext_resource type="Texture2D" uid="uid://c8k5hy3ln56n0" path="res://media/characters/chara_whitechapel/sprites/name.png" id="1_xfeud"]
 [ext_resource type="Resource" uid="uid://dw56kqn4cad62" path="res://media/characters/all_chara_common/moves/falling.tres" id="2_u3llf"]
 [ext_resource type="Resource" uid="uid://kx1qs1828ggs" path="res://media/characters/all_chara_common/moves/hurtG.tres" id="3_g6pjv"]
@@ -48,3 +49,4 @@ characterMaxMeter = 30000
 characterNameTexture = ExtResource("1_xfeud")
 characterMoves = Array[Resource("res://scripts/move.gd")]([ExtResource("1_6h5ht"), ExtResource("2_u3llf"), ExtResource("3_g6pjv"), ExtResource("4_bswsp"), ExtResource("5_4nmhr"), ExtResource("6_tqkbg"), ExtResource("7_16am7"), ExtResource("8_368mr"), ExtResource("9_emudn"), ExtResource("21_ynpjd"), ExtResource("22_c8iim"), ExtResource("12_io46o"), ExtResource("13_37rd3"), ExtResource("14_m3drn"), ExtResource("15_5hska"), ExtResource("16_bblvt"), ExtResource("17_72c53"), ExtResource("18_faahj"), ExtResource("19_m7eqt"), ExtResource("20_pf6eu"), ExtResource("21_thqvd"), ExtResource("22_wo1y5"), ExtResource("23_35vmx"), ExtResource("24_0fbrk"), ExtResource("25_u8gtp"), ExtResource("26_7wdgq"), ExtResource("27_4qwwg"), ExtResource("28_2a06q"), ExtResource("29_hdg6r"), ExtResource("30_rd731"), ExtResource("31_76ud3"), ExtResource("32_m8515"), ExtResource("33_3e271"), ExtResource("34_j7b5t"), ExtResource("35_2dh0c")])
 characterProjectileTypes = Array[String](["batProjectile1", "batProjectile2", "batProjectile3", "batProjectile4"])
+characterCpuCore = ExtResource("1_ck7ky")
