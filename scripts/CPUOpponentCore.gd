@@ -158,6 +158,18 @@ func _check_rule(rule : CpuOpponentRule) -> bool:
 			return _rule_value_check_bool(rule.operator, actor.characterState.currentMoveHasHit)
 		CpuOpponentRule.ConditionTrigger.CpuLevel:
 			return _rule_value_check(rule.operator, difficultyLevel, rule.valueInt)
+		CpuOpponentRule.ConditionTrigger.InfinityInstall:
+			return _rule_value_check_bool(rule.operator, actor.infinityInstallActive)
+		CpuOpponentRule.ConditionTrigger.ZeroInstall:
+			return _rule_value_check_bool(rule.operator, actor.zeroInstallActive)
+		CpuOpponentRule.ConditionTrigger.AnyInstall:
+			return _rule_value_check_bool(rule.operator, actor.has_active_install)
+		CpuOpponentRule.ConditionTrigger.OpponentInfinityInstall:
+			return _rule_value_check_bool(rule.operator, opponent.infinityInstallActive)
+		CpuOpponentRule.ConditionTrigger.OpponentZeroInstall:
+			return _rule_value_check_bool(rule.operator, opponent.zeroInstallActive)
+		CpuOpponentRule.ConditionTrigger.OpponentAnyInstall:
+			return _rule_value_check_bool(rule.operator, opponent.has_active_install())
 	return false
 	
 func _rule_value_check(comparison : CpuOpponentRule.ConditionComparison , value1, value2) -> bool:

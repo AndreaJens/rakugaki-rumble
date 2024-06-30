@@ -1,0 +1,408 @@
+[gd_resource type="Resource" script_class="CpuOpponentRuleset" load_steps=61 format=3 uid="uid://bdgvqqp1t4n36"]
+
+[ext_resource type="Script" path="res://scripts/CPUOpponentRule.gd" id="1_3swh1"]
+[ext_resource type="Script" path="res://scripts/CPUOpponentRuleset.gd" id="1_bs2rl"]
+[ext_resource type="Script" path="res://scripts/CPUOpponentMove.gd" id="2_8wydg"]
+
+[sub_resource type="Resource" id="Resource_nmpfp"]
+script = ExtResource("1_3swh1")
+trigger = 2
+operator = 2
+valueInt = 350000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_21gxp"]
+script = ExtResource("1_3swh1")
+trigger = 19
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_a6l05"]
+script = ExtResource("1_3swh1")
+trigger = 17
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_fnoic"]
+script = ExtResource("2_8wydg")
+conditions = Array[ExtResource("1_3swh1")]([SubResource("Resource_nmpfp"), SubResource("Resource_21gxp"), SubResource("Resource_a6l05")])
+weight = 10
+targetMoveName = "walkF"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_te68o"]
+script = ExtResource("1_3swh1")
+trigger = 2
+operator = 4
+valueInt = 370000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_afuii"]
+script = ExtResource("1_3swh1")
+trigger = 19
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_jii6t"]
+script = ExtResource("1_3swh1")
+trigger = 17
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_6ixnw"]
+script = ExtResource("2_8wydg")
+conditions = Array[ExtResource("1_3swh1")]([SubResource("Resource_te68o"), SubResource("Resource_afuii"), SubResource("Resource_jii6t")])
+weight = 10
+targetMoveName = "walkB"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_mi1pb"]
+script = ExtResource("1_3swh1")
+trigger = 2
+operator = 5
+valueInt = 350000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_r4sxc"]
+script = ExtResource("1_3swh1")
+trigger = 24
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_x7kby"]
+script = ExtResource("1_3swh1")
+trigger = 17
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_37mnf"]
+script = ExtResource("2_8wydg")
+conditions = Array[ExtResource("1_3swh1")]([SubResource("Resource_mi1pb"), SubResource("Resource_r4sxc"), SubResource("Resource_x7kby")])
+weight = 100
+targetMoveName = "walkB"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_cunv1"]
+script = ExtResource("1_3swh1")
+trigger = 24
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_pxek1"]
+script = ExtResource("1_3swh1")
+trigger = 2
+operator = 5
+valueInt = 400000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_astly"]
+script = ExtResource("1_3swh1")
+trigger = 7
+operator = 0
+valueInt = 0
+valueString = "walkB"
+
+[sub_resource type="Resource" id="Resource_ygbr3"]
+script = ExtResource("1_3swh1")
+trigger = 12
+operator = 3
+valueInt = 5
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_j3qpe"]
+script = ExtResource("2_8wydg")
+conditions = Array[ExtResource("1_3swh1")]([SubResource("Resource_cunv1"), SubResource("Resource_pxek1"), SubResource("Resource_astly"), SubResource("Resource_ygbr3")])
+weight = 95
+targetMoveName = "headbash_back"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_achra"]
+script = ExtResource("1_3swh1")
+trigger = 2
+operator = 2
+valueInt = 500000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_1lbjs"]
+script = ExtResource("1_3swh1")
+trigger = 17
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_hnl2l"]
+script = ExtResource("2_8wydg")
+conditions = Array[ExtResource("1_3swh1")]([SubResource("Resource_achra"), SubResource("Resource_1lbjs")])
+weight = 40
+targetMoveName = "rampage"
+tickToNextMove = 3
+
+[sub_resource type="Resource" id="Resource_2jpl1"]
+script = ExtResource("1_3swh1")
+trigger = 2
+operator = 3
+valueInt = 500000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_lia35"]
+script = ExtResource("2_8wydg")
+conditions = Array[ExtResource("1_3swh1")]([SubResource("Resource_2jpl1")])
+weight = 25
+targetMoveName = "jumpF"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_pc6mh"]
+script = ExtResource("1_3swh1")
+trigger = 8
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_yh0np"]
+script = ExtResource("2_8wydg")
+conditions = Array[ExtResource("1_3swh1")]([SubResource("Resource_pc6mh")])
+weight = 15
+targetMoveName = "jumpF"
+tickToNextMove = 2
+
+[sub_resource type="Resource" id="Resource_umqe2"]
+script = ExtResource("1_3swh1")
+trigger = 8
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_57t4w"]
+script = ExtResource("1_3swh1")
+trigger = 17
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_frcpw"]
+script = ExtResource("1_3swh1")
+trigger = 2
+operator = 5
+valueInt = 400000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_55v0g"]
+script = ExtResource("2_8wydg")
+conditions = Array[ExtResource("1_3swh1")]([SubResource("Resource_umqe2"), SubResource("Resource_57t4w"), SubResource("Resource_frcpw")])
+weight = 20
+targetMoveName = "pendulum"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_jxy25"]
+script = ExtResource("1_3swh1")
+trigger = 17
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_fbr3j"]
+script = ExtResource("1_3swh1")
+trigger = 2
+operator = 5
+valueInt = 600000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_k73s2"]
+script = ExtResource("2_8wydg")
+conditions = Array[ExtResource("1_3swh1")]([SubResource("Resource_jxy25"), SubResource("Resource_fbr3j")])
+weight = 95
+targetMoveName = "airspikes"
+tickToNextMove = 5
+
+[sub_resource type="Resource" id="Resource_l18wj"]
+script = ExtResource("1_3swh1")
+trigger = 8
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_odntr"]
+script = ExtResource("1_3swh1")
+trigger = 7
+operator = 0
+valueInt = 0
+valueString = "airspikes"
+
+[sub_resource type="Resource" id="Resource_jloud"]
+script = ExtResource("1_3swh1")
+trigger = 12
+operator = 3
+valueInt = 5
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_2mkwa"]
+script = ExtResource("2_8wydg")
+conditions = Array[ExtResource("1_3swh1")]([SubResource("Resource_l18wj"), SubResource("Resource_odntr"), SubResource("Resource_jloud")])
+weight = 500
+targetMoveName = "rampage_air"
+tickToNextMove = 5
+
+[sub_resource type="Resource" id="Resource_dvw4o"]
+script = ExtResource("1_3swh1")
+trigger = 8
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_je5ki"]
+script = ExtResource("1_3swh1")
+trigger = 7
+operator = 0
+valueInt = 0
+valueString = "rampage_air"
+
+[sub_resource type="Resource" id="Resource_cbhb4"]
+script = ExtResource("1_3swh1")
+trigger = 12
+operator = 3
+valueInt = 5
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_3352k"]
+script = ExtResource("2_8wydg")
+conditions = Array[ExtResource("1_3swh1")]([SubResource("Resource_dvw4o"), SubResource("Resource_je5ki"), SubResource("Resource_cbhb4")])
+weight = 100
+targetMoveName = "jumpF"
+tickToNextMove = 2
+
+[sub_resource type="Resource" id="Resource_y48cv"]
+script = ExtResource("1_3swh1")
+trigger = 2
+operator = 5
+valueInt = 300000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_mvisa"]
+script = ExtResource("1_3swh1")
+trigger = 19
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_20yb2"]
+script = ExtResource("2_8wydg")
+conditions = Array[ExtResource("1_3swh1")]([SubResource("Resource_y48cv"), SubResource("Resource_mvisa")])
+weight = 15
+targetMoveName = "pendulum"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_cfmje"]
+script = ExtResource("1_3swh1")
+trigger = 19
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_daqbr"]
+script = ExtResource("1_3swh1")
+trigger = 2
+operator = 5
+valueInt = 350000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_vg7hq"]
+script = ExtResource("2_8wydg")
+conditions = Array[ExtResource("1_3swh1")]([SubResource("Resource_cfmje"), SubResource("Resource_daqbr")])
+weight = 15
+targetMoveName = "headbash"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_xh301"]
+script = ExtResource("1_3swh1")
+trigger = 15
+operator = 3
+valueInt = 30000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_igimj"]
+script = ExtResource("1_3swh1")
+trigger = 8
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_ptp3i"]
+script = ExtResource("1_3swh1")
+trigger = 17
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_8304a"]
+script = ExtResource("1_3swh1")
+trigger = 7
+operator = 0
+valueInt = 0
+valueString = "rampage_auto"
+
+[sub_resource type="Resource" id="Resource_g75hi"]
+script = ExtResource("1_3swh1")
+trigger = 12
+operator = 3
+valueInt = 5
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_w35w8"]
+script = ExtResource("2_8wydg")
+conditions = Array[ExtResource("1_3swh1")]([SubResource("Resource_xh301"), SubResource("Resource_igimj"), SubResource("Resource_ptp3i"), SubResource("Resource_8304a"), SubResource("Resource_g75hi")])
+weight = 300
+targetMoveName = "infinity_install"
+tickToNextMove = 1
+
+[sub_resource type="Resource" id="Resource_dfs0r"]
+script = ExtResource("1_3swh1")
+trigger = 15
+operator = 3
+valueInt = 30000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_5lutk"]
+script = ExtResource("1_3swh1")
+trigger = 11
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_grltu"]
+script = ExtResource("1_3swh1")
+trigger = 17
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_ln7ch"]
+script = ExtResource("1_3swh1")
+trigger = 13
+operator = 5
+valueInt = 25000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_uxu52"]
+script = ExtResource("1_3swh1")
+trigger = 12
+operator = 3
+valueInt = 5
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_plxl6"]
+script = ExtResource("2_8wydg")
+conditions = Array[ExtResource("1_3swh1")]([SubResource("Resource_dfs0r"), SubResource("Resource_5lutk"), SubResource("Resource_grltu"), SubResource("Resource_ln7ch"), SubResource("Resource_uxu52")])
+weight = 15
+targetMoveName = "airBurst"
+tickToNextMove = -1
+
+[resource]
+script = ExtResource("1_bs2rl")
+moves = Array[ExtResource("2_8wydg")]([SubResource("Resource_fnoic"), SubResource("Resource_6ixnw"), SubResource("Resource_37mnf"), SubResource("Resource_j3qpe"), SubResource("Resource_hnl2l"), SubResource("Resource_lia35"), SubResource("Resource_yh0np"), SubResource("Resource_55v0g"), SubResource("Resource_k73s2"), SubResource("Resource_2mkwa"), SubResource("Resource_3352k"), SubResource("Resource_20yb2"), SubResource("Resource_vg7hq"), SubResource("Resource_w35w8"), SubResource("Resource_plxl6")])
