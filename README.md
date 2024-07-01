@@ -36,6 +36,7 @@ A small Godot 4.2 fighting game project, with a sketchbook aesthetic
 
 ### Universal Mechanics (notation uses joypad buttons and numpad notation)
 * 4: Backdash (8 frames of full invulnerability)
+* 9: Forward jump (4 frames of full invulnerability)
 * B (ground): Infinity Install (with full meter, cancels every grounded attack, lasts 2.5 seconds - removes the Bounce Limit and increases the momentum transfer from the walls)
 * 2B (on the ground): Zero Install (with full meter, cancels every grounded attack, lasts 2.5 seconds - removes bounces all together but slashes damage down to 66%)
 * B (while in air hit stun): Interrupt Stumble (with full meter. If performed without full meter, it will disable the super meter for the whole round) 
@@ -69,15 +70,16 @@ A small Godot 4.2 fighting game project, with a sketchbook aesthetic
 * j.2A: The Mechon's Elbow (universal air spike)
 * AAA: Terrordriller (can be mashed on on hit)
 * j.B: Air Boost (only on forward jump, costs meter, can't be performed without meter)
-* B (only during any install): Fast Boost (doesn't cost any meter, cancels any ground attack on hit, can be performed on any jump or on the ground)
+* B (only during any install): Fast Boost (doesn't cost any meter, cancels any ground attack on hit, can be performed during any jump or on the ground)
 * A (during Air Boost or Fast Boost): Drill Smash (cancels into Terrordriller on hit, no meter gain on hit)
 
 ### Whitechapel Esmeralda
+* [her back jump has startup invulnerability]
 * A: Gibbous Moon (cancels into all Command Normals and Specials, jump cancel on hit)
 * 2A: Entropy Burst (cancels into all Specials, jump cancel on hit, auto-corrects side, can be back-dash canceled on startup)
     * 2A : Entropy Encore (jump cancel on hit, cancels into all Specials and into itself)
 * j.A: Gibbous Moon (halts air momentum, cancels into Air Entropy Burst)
-* j.2A: Ascension Step (universal air spike, cancels into Entropy Encore)
+* j.2A: Ascension Step (universal air spike, cancels into Entropy Encore, has startup invul)
 * j.412A: Entropy Burst (jump cancel on hit, cancels into all Specials and Entropy Encore)
 * 236A: Blame the Night (if Whitechapel has enough meter, this move will throw a projectile. Two projectiles during install, air ok. The palm hitbox can be jump canceled on hit)
 * 236[A]: Blame the Night Minus (forces non-projectile version, air ok, can be jump canceled on hit)
@@ -88,12 +90,11 @@ A small Godot 4.2 fighting game project, with a sketchbook aesthetic
 * hitting the opponent during the start of their hitstun frames floats them. A sample starter can be either A > 2A, 2A > 236A or e.g. A > 236A
 * then, hit them before they hit the ground. Every wall hit reverses the momentum of the character that was hit 
 * max 2 bounces per combo before wall splat, unless Infinity Install is active
-* currently there is no block. Backdash (4), Forward Jump (9) and Jaguar Knee (632A) have startup invul
+* currently there is no block. Backdash (4), Forward Jump (9) have startup invulnerability
 
 ### Extra remarks
 * the input buffer accepts negative edge inputs for specials
 * ONLINE MULTIPLAYER IS STILL EXPERIMENTAL! Watch out, there might be one-sided rollbacks! 
 * it works via direct IP connection -> use Radmin VPN or Hamachi for the best results
 * Auto Button Masher is a DEBUG setting that will replace a player with a randomly mashing CPU opponent - DON'T use it online unless you are heavy on trolling
-* VS CPU works ONLY against Naomi, currently, and the CPU is relatively dumb
-
+* All characters have a CPU with 3 levels
