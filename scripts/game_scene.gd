@@ -31,7 +31,9 @@ enum AdditionalGameSceneStartupParameter{
 	Player2AILevel = 8,
 	Player1AITicks = 9,
 	Player2AITicks = 10,
-	StageBackground = 11,
+	Player1AIInputTicks = 11,
+	Player2AIInputTicks = 12,
+	StageBackground = 30,
 }
 
 var additionalSceneStartupParameters : Dictionary = {}
@@ -257,21 +259,7 @@ func _ready():
 	character2.inNetworkMatch = networkMode
 	inputManagerP1.deviceId = player1DeviceId
 	inputManagerP2.deviceId = player2DeviceId
-	if !networkMode:
-		_cpuControllerCharacter1.logic = character1.characterData.characterCpuCore
-		_cpuControllerCharacter2.logic = character2.characterData.characterCpuCore
-		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player1isCpu):
-			_cpuControllerCharacter1.active = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player1isCpu]
-		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player1AILevel):
-			_cpuControllerCharacter1.difficultyLevel = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player1AILevel]
-		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player1AITicks):
-			_cpuControllerCharacter1.ticksBetweenDecisions = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player1AITicks]
-		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player2isCpu):
-			_cpuControllerCharacter2.active = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player2isCpu]
-		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player2AILevel):
-			_cpuControllerCharacter2.difficultyLevel = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player2AILevel]
-		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player2AITicks):
-			_cpuControllerCharacter2.ticksBetweenDecisions = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player2AITicks]
+	_setup_cpu_parameters()
 	if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.StageBackground):
 		if additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.StageBackground]:
 			stage.stageTexture = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.StageBackground]
@@ -305,6 +293,27 @@ func _ready():
 	musicPlayer.volume_db = GlobalOptions.get_music_volume()
 	musicPlayer.play()
 	add_to_group('network_sync')
+
+func _setup_cpu_parameters() -> void:
+	if !networkMode:
+		_cpuControllerCharacter1.logic = character1.characterData.characterCpuCore
+		_cpuControllerCharacter2.logic = character2.characterData.characterCpuCore
+		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player1isCpu):
+			_cpuControllerCharacter1.active = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player1isCpu]
+		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player1AILevel):
+			_cpuControllerCharacter1.difficultyLevel = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player1AILevel]
+		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player1AITicks):
+			_cpuControllerCharacter1.ticksBetweenDecisions = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player1AITicks]
+		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player1AIInputTicks):
+			_cpuControllerCharacter1.ticksBetweenInputs = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player1AIInputTicks]
+		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player2isCpu):
+			_cpuControllerCharacter2.active = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player2isCpu]
+		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player2AILevel):
+			_cpuControllerCharacter2.difficultyLevel = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player2AILevel]
+		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player2AITicks):
+			_cpuControllerCharacter2.ticksBetweenDecisions = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player2AITicks]
+		if additionalSceneStartupParameters.has(AdditionalGameSceneStartupParameter.Player2AIInputTicks):
+			_cpuControllerCharacter2.ticksBetweenInputs = additionalSceneStartupParameters[AdditionalGameSceneStartupParameter.Player2AIInputTicks]
 
 func _is_paused() -> bool:
 	return (pauseMenu and pauseMenu.visible)

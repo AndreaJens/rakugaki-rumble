@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CpuOpponentRuleset" load_steps=61 format=3 uid="uid://bdgvqqp1t4n36"]
+[gd_resource type="Resource" script_class="CpuOpponentRuleset" load_steps=67 format=3 uid="uid://bdgvqqp1t4n36"]
 
 [ext_resource type="Script" path="res://scripts/CPUOpponentRule.gd" id="1_3swh1"]
 [ext_resource type="Script" path="res://scripts/CPUOpponentRuleset.gd" id="1_bs2rl"]
@@ -190,12 +190,26 @@ valueString = ""
 script = ExtResource("1_3swh1")
 trigger = 2
 operator = 5
-valueInt = 400000
+valueInt = 350000
 valueString = ""
+
+[sub_resource type="Resource" id="Resource_ovuob"]
+script = ExtResource("1_3swh1")
+trigger = 7
+operator = 1
+valueInt = 0
+valueString = "rampage_auto"
+
+[sub_resource type="Resource" id="Resource_ew4ld"]
+script = ExtResource("1_3swh1")
+trigger = 7
+operator = 1
+valueInt = 0
+valueString = "rampage_fwp"
 
 [sub_resource type="Resource" id="Resource_55v0g"]
 script = ExtResource("2_8wydg")
-conditions = Array[ExtResource("1_3swh1")]([SubResource("Resource_umqe2"), SubResource("Resource_57t4w"), SubResource("Resource_frcpw")])
+conditions = Array[ExtResource("1_3swh1")]([SubResource("Resource_umqe2"), SubResource("Resource_57t4w"), SubResource("Resource_frcpw"), SubResource("Resource_ovuob"), SubResource("Resource_ew4ld")])
 weight = 20
 targetMoveName = "pendulum"
 tickToNextMove = -1
@@ -403,6 +417,34 @@ weight = 15
 targetMoveName = "airBurst"
 tickToNextMove = -1
 
+[sub_resource type="Resource" id="Resource_f3pr5"]
+script = ExtResource("1_3swh1")
+trigger = 8
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_k1fbm"]
+script = ExtResource("1_3swh1")
+trigger = 2
+operator = 5
+valueInt = 100000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_p0evm"]
+script = ExtResource("1_3swh1")
+trigger = 17
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_kpjps"]
+script = ExtResource("2_8wydg")
+conditions = Array[ExtResource("1_3swh1")]([SubResource("Resource_f3pr5"), SubResource("Resource_k1fbm"), SubResource("Resource_p0evm")])
+weight = 20
+targetMoveName = "pendulum"
+tickToNextMove = -1
+
 [resource]
 script = ExtResource("1_bs2rl")
-moves = Array[ExtResource("2_8wydg")]([SubResource("Resource_fnoic"), SubResource("Resource_6ixnw"), SubResource("Resource_37mnf"), SubResource("Resource_j3qpe"), SubResource("Resource_hnl2l"), SubResource("Resource_lia35"), SubResource("Resource_yh0np"), SubResource("Resource_55v0g"), SubResource("Resource_k73s2"), SubResource("Resource_2mkwa"), SubResource("Resource_3352k"), SubResource("Resource_20yb2"), SubResource("Resource_vg7hq"), SubResource("Resource_w35w8"), SubResource("Resource_plxl6")])
+moves = Array[ExtResource("2_8wydg")]([SubResource("Resource_fnoic"), SubResource("Resource_6ixnw"), SubResource("Resource_37mnf"), SubResource("Resource_j3qpe"), SubResource("Resource_hnl2l"), SubResource("Resource_lia35"), SubResource("Resource_yh0np"), SubResource("Resource_55v0g"), SubResource("Resource_k73s2"), SubResource("Resource_2mkwa"), SubResource("Resource_3352k"), SubResource("Resource_20yb2"), SubResource("Resource_vg7hq"), SubResource("Resource_w35w8"), SubResource("Resource_plxl6"), SubResource("Resource_kpjps")])

@@ -8,6 +8,7 @@ var character1Path : String = "chara_naomi"
 var character2Path : String = "chara_naomi"
 var cpuDifficultyLevel : int = 5
 var cpuActionTicks : int = 15
+var cpuInputTicks : int = 0
 var stageBackgroundTexture : Texture2D
 
 # Called when the node enters the scene tree for the first time.
@@ -21,12 +22,15 @@ func _calculate_cpu_params(difficulty : SceneCharacterSelection.DifficultySettin
 		SceneCharacterSelection.DifficultySettings.Easy:
 			cpuDifficultyLevel = 0
 			cpuActionTicks = 20
+			cpuInputTicks = 0
 		SceneCharacterSelection.DifficultySettings.Medium:
 			cpuDifficultyLevel = 5
 			cpuActionTicks = 15
+			cpuInputTicks = 0
 		SceneCharacterSelection.DifficultySettings.Hard:
 			cpuDifficultyLevel = 10
 			cpuActionTicks = 10
+			cpuInputTicks = 0
 
 func goto_scene(path : String, type : SceneManager.SceneType):
 	for child in get_children():
@@ -125,6 +129,8 @@ func _add_extra_scene_parameters(scene, type : SceneManager.SceneType):
 				SceneGame.AdditionalGameSceneStartupParameter.Player2isCpu : true,
 				SceneGame.AdditionalGameSceneStartupParameter.Player2AILevel : cpuDifficultyLevel,
 				SceneGame.AdditionalGameSceneStartupParameter.Player2AITicks : cpuActionTicks,
+				SceneGame.AdditionalGameSceneStartupParameter.Player1AIInputTicks : cpuInputTicks,
+				SceneGame.AdditionalGameSceneStartupParameter.Player2AIInputTicks : cpuInputTicks,
 				SceneGame.AdditionalGameSceneStartupParameter.StageBackground : stageBackgroundTexture,
 			}
 		SceneManager.SceneType.SingleMatchCpuVsCpu:
@@ -143,6 +149,8 @@ func _add_extra_scene_parameters(scene, type : SceneManager.SceneType):
 				SceneGame.AdditionalGameSceneStartupParameter.Player2AILevel : cpuDifficultyLevel,
 				SceneGame.AdditionalGameSceneStartupParameter.Player1AITicks : cpuActionTicks,
 				SceneGame.AdditionalGameSceneStartupParameter.Player2AITicks : cpuActionTicks,
+				SceneGame.AdditionalGameSceneStartupParameter.Player1AIInputTicks : cpuInputTicks,
+				SceneGame.AdditionalGameSceneStartupParameter.Player2AIInputTicks : cpuInputTicks,
 				SceneGame.AdditionalGameSceneStartupParameter.StageBackground : stageBackgroundTexture,
 			}
 	

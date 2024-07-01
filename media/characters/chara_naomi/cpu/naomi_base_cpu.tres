@@ -1,8 +1,203 @@
-[gd_resource type="Resource" script_class="CpuOpponentRuleset" load_steps=60 format=3 uid="uid://b3tg814hs63y5"]
+[gd_resource type="Resource" script_class="CpuOpponentRuleset" load_steps=94 format=3 uid="uid://b3tg814hs63y5"]
 
 [ext_resource type="Script" path="res://scripts/CPUOpponentRule.gd" id="1_48oj1"]
 [ext_resource type="Script" path="res://scripts/CPUOpponentRuleset.gd" id="1_ojrog"]
 [ext_resource type="Script" path="res://scripts/CPUOpponentMove.gd" id="2_8ju61"]
+[ext_resource type="Script" path="res://scripts/CPUOpponentCombo.gd" id="2_syi1e"]
+
+[sub_resource type="Resource" id="Resource_15tvo"]
+script = ExtResource("1_48oj1")
+trigger = 7
+operator = 0
+valueInt = 0
+valueString = "attack2"
+
+[sub_resource type="Resource" id="Resource_7h724"]
+script = ExtResource("1_48oj1")
+trigger = 2
+operator = 5
+valueInt = 350000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_b1va2"]
+script = ExtResource("1_48oj1")
+trigger = 8
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_w04lx"]
+script = ExtResource("1_48oj1")
+trigger = 8
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_mssr6"]
+script = ExtResource("2_8ju61")
+conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_w04lx")])
+weight = 0
+targetMoveName = "attackJumpKnee"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_op5tv"]
+script = ExtResource("1_48oj1")
+trigger = 8
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_sbwjn"]
+script = ExtResource("2_8ju61")
+conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_op5tv")])
+weight = 0
+targetMoveName = "attackJumpKickAir"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_dmsqx"]
+script = ExtResource("1_48oj1")
+trigger = 8
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_22imy"]
+script = ExtResource("2_8ju61")
+conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_dmsqx")])
+weight = 0
+targetMoveName = "downSpike"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_3yg01"]
+script = ExtResource("2_syi1e")
+conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_15tvo"), SubResource("Resource_7h724"), SubResource("Resource_b1va2")])
+moves = Array[ExtResource("2_8ju61")]([SubResource("Resource_mssr6"), SubResource("Resource_sbwjn"), SubResource("Resource_22imy")])
+weight = 25
+
+[sub_resource type="Resource" id="Resource_107o1"]
+script = ExtResource("1_48oj1")
+trigger = 8
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_7l08h"]
+script = ExtResource("1_48oj1")
+trigger = 18
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_it47n"]
+script = ExtResource("1_48oj1")
+trigger = 7
+operator = 0
+valueInt = 0
+valueString = "attack2"
+
+[sub_resource type="Resource" id="Resource_vo5or"]
+script = ExtResource("1_48oj1")
+trigger = 12
+operator = 3
+valueInt = 5
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_usyxx"]
+script = ExtResource("1_48oj1")
+trigger = 8
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_wb0wc"]
+script = ExtResource("2_8ju61")
+conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_usyxx")])
+weight = 0
+targetMoveName = "attackJumpKick"
+tickToNextMove = 28
+
+[sub_resource type="Resource" id="Resource_vlrj8"]
+script = ExtResource("1_48oj1")
+trigger = 19
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_owr45"]
+script = ExtResource("2_8ju61")
+conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_vlrj8")])
+weight = 0
+targetMoveName = "attack2"
+tickToNextMove = 0
+
+[sub_resource type="Resource" id="Resource_7phad"]
+script = ExtResource("1_48oj1")
+trigger = 8
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_d7ok2"]
+script = ExtResource("1_48oj1")
+trigger = 7
+operator = 0
+valueInt = 0
+valueString = "attack2"
+
+[sub_resource type="Resource" id="Resource_4bnmh"]
+script = ExtResource("2_8ju61")
+conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_7phad"), SubResource("Resource_d7ok2")])
+weight = 0
+targetMoveName = "jumpF"
+tickToNextMove = 5
+
+[sub_resource type="Resource" id="Resource_nw0th"]
+script = ExtResource("1_48oj1")
+trigger = 0
+operator = -1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_yrwqv"]
+script = ExtResource("2_8ju61")
+conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_nw0th")])
+weight = 0
+targetMoveName = "attack1Air"
+tickToNextMove = 45
+
+[sub_resource type="Resource" id="Resource_tdwve"]
+script = ExtResource("1_48oj1")
+trigger = 18
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_blgek"]
+script = ExtResource("1_48oj1")
+trigger = 19
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_drd2k"]
+script = ExtResource("1_48oj1")
+trigger = 2
+operator = 5
+valueInt = 250000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_otp4l"]
+script = ExtResource("2_8ju61")
+conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_tdwve"), SubResource("Resource_blgek"), SubResource("Resource_drd2k")])
+weight = 0
+targetMoveName = "attack1"
+tickToNextMove = 0
+
+[sub_resource type="Resource" id="Resource_uiimn"]
+script = ExtResource("2_syi1e")
+conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_107o1"), SubResource("Resource_7l08h"), SubResource("Resource_it47n"), SubResource("Resource_vo5or")])
+moves = Array[ExtResource("2_8ju61")]([SubResource("Resource_wb0wc"), SubResource("Resource_owr45"), SubResource("Resource_4bnmh"), SubResource("Resource_yrwqv"), SubResource("Resource_otp4l")])
+weight = 70
 
 [sub_resource type="Resource" id="Resource_tb4pm"]
 script = ExtResource("1_48oj1")
@@ -396,6 +591,42 @@ weight = 150
 targetMoveName = "attackJumpKnee"
 tickToNextMove = 5
 
+[sub_resource type="Resource" id="Resource_ro4vj"]
+script = ExtResource("1_48oj1")
+trigger = 18
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_285hv"]
+script = ExtResource("1_48oj1")
+trigger = 17
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_g2d1g"]
+script = ExtResource("1_48oj1")
+trigger = 24
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_blvo3"]
+script = ExtResource("1_48oj1")
+trigger = 2
+operator = 5
+valueInt = 250000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_1ovs0"]
+script = ExtResource("2_8ju61")
+conditions = Array[ExtResource("1_48oj1")]([SubResource("Resource_ro4vj"), SubResource("Resource_285hv"), SubResource("Resource_g2d1g"), SubResource("Resource_blvo3")])
+weight = 5
+targetMoveName = "jumpF"
+tickToNextMove = -1
+
 [resource]
 script = ExtResource("1_ojrog")
-moves = Array[ExtResource("2_8ju61")]([SubResource("Resource_twk5w"), SubResource("Resource_ik0oy"), SubResource("Resource_a52bp"), SubResource("Resource_82kdt"), SubResource("Resource_pgg1m"), SubResource("Resource_rt2wj"), SubResource("Resource_wq6h5"), SubResource("Resource_as4kd"), SubResource("Resource_4h4sc"), SubResource("Resource_ktqge"), SubResource("Resource_7gt3e"), SubResource("Resource_3nhee"), SubResource("Resource_mgie7"), SubResource("Resource_fxufy"), SubResource("Resource_47ium")])
+moves = Array[ExtResource("2_8ju61")]([SubResource("Resource_twk5w"), SubResource("Resource_ik0oy"), SubResource("Resource_a52bp"), SubResource("Resource_82kdt"), SubResource("Resource_pgg1m"), SubResource("Resource_rt2wj"), SubResource("Resource_wq6h5"), SubResource("Resource_as4kd"), SubResource("Resource_4h4sc"), SubResource("Resource_ktqge"), SubResource("Resource_7gt3e"), SubResource("Resource_3nhee"), SubResource("Resource_mgie7"), SubResource("Resource_fxufy"), SubResource("Resource_47ium"), SubResource("Resource_1ovs0")])
+combos = Array[ExtResource("2_syi1e")]([SubResource("Resource_3yg01"), SubResource("Resource_uiimn")])
