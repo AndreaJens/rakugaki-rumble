@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CpuOpponentRuleset" load_steps=67 format=3 uid="uid://bdgvqqp1t4n36"]
+[gd_resource type="Resource" script_class="CpuOpponentRuleset" load_steps=72 format=3 uid="uid://bdgvqqp1t4n36"]
 
 [ext_resource type="Script" path="res://scripts/CPUOpponentRule.gd" id="1_3swh1"]
 [ext_resource type="Script" path="res://scripts/CPUOpponentRuleset.gd" id="1_bs2rl"]
@@ -445,6 +445,42 @@ weight = 20
 targetMoveName = "pendulum"
 tickToNextMove = -1
 
+[sub_resource type="Resource" id="Resource_5qsq8"]
+script = ExtResource("1_3swh1")
+trigger = 24
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_cg85k"]
+script = ExtResource("1_3swh1")
+trigger = 17
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_00jwk"]
+script = ExtResource("1_3swh1")
+trigger = 18
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_a7rqx"]
+script = ExtResource("1_3swh1")
+trigger = 2
+operator = 5
+valueInt = 370000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_e8t7v"]
+script = ExtResource("2_8wydg")
+conditions = Array[ExtResource("1_3swh1")]([SubResource("Resource_5qsq8"), SubResource("Resource_cg85k"), SubResource("Resource_00jwk"), SubResource("Resource_a7rqx")])
+weight = 3
+targetMoveName = "jumpF"
+tickToNextMove = -1
+
 [resource]
 script = ExtResource("1_bs2rl")
-moves = Array[ExtResource("2_8wydg")]([SubResource("Resource_fnoic"), SubResource("Resource_6ixnw"), SubResource("Resource_37mnf"), SubResource("Resource_j3qpe"), SubResource("Resource_hnl2l"), SubResource("Resource_lia35"), SubResource("Resource_yh0np"), SubResource("Resource_55v0g"), SubResource("Resource_k73s2"), SubResource("Resource_2mkwa"), SubResource("Resource_3352k"), SubResource("Resource_20yb2"), SubResource("Resource_vg7hq"), SubResource("Resource_w35w8"), SubResource("Resource_plxl6"), SubResource("Resource_kpjps")])
+moves = Array[ExtResource("2_8wydg")]([SubResource("Resource_fnoic"), SubResource("Resource_6ixnw"), SubResource("Resource_37mnf"), SubResource("Resource_j3qpe"), SubResource("Resource_hnl2l"), SubResource("Resource_lia35"), SubResource("Resource_yh0np"), SubResource("Resource_55v0g"), SubResource("Resource_k73s2"), SubResource("Resource_2mkwa"), SubResource("Resource_3352k"), SubResource("Resource_20yb2"), SubResource("Resource_vg7hq"), SubResource("Resource_w35w8"), SubResource("Resource_plxl6"), SubResource("Resource_kpjps"), SubResource("Resource_e8t7v")])
+combos = Array[Resource("res://scripts/CPUOpponentCombo.gd")]([])

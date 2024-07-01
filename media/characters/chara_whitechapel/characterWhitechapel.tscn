@@ -1488,10 +1488,10 @@ z_index = 10
 texture_filter = 6
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("4_stos7")
-offset = Vector2(-100, -520)
+offset = Vector2(0, -620)
 hframes = 4
 vframes = 4
-frame = 5
+frame = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -1524,7 +1524,7 @@ visible = false
 
 [node name="HurtBox" parent="HurtBoxes" instance=ExtResource("32_5cq7l")]
 active = true
-boxSize = Rect2i(-75000, -165000, 200000, 320000)
+boxSize = Rect2i(0, -50000, 220000, 100000)
 
 [node name="HurtBox2" parent="HurtBoxes" instance=ExtResource("32_5cq7l")]
 boxSize = Rect2i(270000, -200000, 200000, 200000)
@@ -1538,4 +1538,4 @@ boxSize = Rect2i(270000, -200000, 200000, 200000)
 [node name="PushBox" parent="." instance=ExtResource("33_13qcx")]
 visible = false
 active = true
-boxSize = Rect2i(-50000, -100000, 200000, 200000)
+boxSize = Rect2i(0, -120000, 200000, 250000)

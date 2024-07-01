@@ -1,7 +1,290 @@
-[gd_resource type="Resource" script_class="CpuOpponentRuleset" load_steps=2 format=3 uid="uid://cqqfcpdikt0ss"]
+[gd_resource type="Resource" script_class="CpuOpponentRuleset" load_steps=44 format=3 uid="uid://cqqfcpdikt0ss"]
 
+[ext_resource type="Script" path="res://scripts/CPUOpponentRule.gd" id="1_h3dag"]
 [ext_resource type="Script" path="res://scripts/CPUOpponentRuleset.gd" id="1_u5m7e"]
+[ext_resource type="Script" path="res://scripts/CPUOpponentMove.gd" id="2_lsg3l"]
+
+[sub_resource type="Resource" id="Resource_443v8"]
+script = ExtResource("1_h3dag")
+trigger = 2
+operator = 3
+valueInt = 350000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_raf03"]
+script = ExtResource("1_h3dag")
+trigger = 17
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_jdggc"]
+script = ExtResource("2_lsg3l")
+conditions = Array[ExtResource("1_h3dag")]([SubResource("Resource_443v8"), SubResource("Resource_raf03")])
+weight = 10
+targetMoveName = "walkF"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_u4385"]
+script = ExtResource("1_h3dag")
+trigger = 2
+operator = 5
+valueInt = 370000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_tqmwr"]
+script = ExtResource("1_h3dag")
+trigger = 17
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_e200w"]
+script = ExtResource("2_lsg3l")
+conditions = Array[ExtResource("1_h3dag")]([SubResource("Resource_u4385"), SubResource("Resource_tqmwr")])
+weight = 10
+targetMoveName = "walkB"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_fx2ug"]
+script = ExtResource("1_h3dag")
+trigger = 17
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_vy2t0"]
+script = ExtResource("1_h3dag")
+trigger = 2
+operator = 5
+valueInt = 350000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_px231"]
+script = ExtResource("1_h3dag")
+trigger = 24
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_fhlhq"]
+script = ExtResource("2_lsg3l")
+conditions = Array[ExtResource("1_h3dag")]([SubResource("Resource_fx2ug"), SubResource("Resource_vy2t0"), SubResource("Resource_px231")])
+weight = 5
+targetMoveName = "jumpF"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_nh35r"]
+script = ExtResource("1_h3dag")
+trigger = 18
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_t18wr"]
+script = ExtResource("1_h3dag")
+trigger = 17
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_l0vrc"]
+script = ExtResource("1_h3dag")
+trigger = 2
+operator = 5
+valueInt = 400000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_jde1m"]
+script = ExtResource("2_lsg3l")
+conditions = Array[ExtResource("1_h3dag")]([SubResource("Resource_nh35r"), SubResource("Resource_t18wr"), SubResource("Resource_l0vrc")])
+weight = 25
+targetMoveName = "headBlast"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_6lqhp"]
+script = ExtResource("1_h3dag")
+trigger = 2
+operator = 5
+valueInt = 400000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_4csgi"]
+script = ExtResource("1_h3dag")
+trigger = 17
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_3dqkj"]
+script = ExtResource("2_lsg3l")
+conditions = Array[ExtResource("1_h3dag")]([SubResource("Resource_6lqhp"), SubResource("Resource_4csgi")])
+weight = 20
+targetMoveName = "twinDrills"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_brbna"]
+script = ExtResource("1_h3dag")
+trigger = 2
+operator = 5
+valueInt = 400000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_h4ofb"]
+script = ExtResource("2_lsg3l")
+conditions = Array[ExtResource("1_h3dag")]([SubResource("Resource_brbna")])
+weight = 20
+targetMoveName = "drillSlash"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_rjf4b"]
+script = ExtResource("1_h3dag")
+trigger = 15
+operator = 3
+valueInt = 6000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_pdndq"]
+script = ExtResource("1_h3dag")
+trigger = 2
+operator = 3
+valueInt = 500000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_576ji"]
+script = ExtResource("1_h3dag")
+trigger = 7
+operator = 0
+valueInt = 0
+valueString = "jumpF"
+
+[sub_resource type="Resource" id="Resource_qta7x"]
+script = ExtResource("2_lsg3l")
+conditions = Array[ExtResource("1_h3dag")]([SubResource("Resource_rjf4b"), SubResource("Resource_pdndq"), SubResource("Resource_576ji")])
+weight = 10
+targetMoveName = "airdashF"
+tickToNextMove = 3
+
+[sub_resource type="Resource" id="Resource_q1d1x"]
+script = ExtResource("1_h3dag")
+trigger = 7
+operator = 0
+valueInt = 0
+valueString = "airdashF"
+
+[sub_resource type="Resource" id="Resource_5rcdv"]
+script = ExtResource("2_lsg3l")
+conditions = Array[ExtResource("1_h3dag")]([SubResource("Resource_q1d1x")])
+weight = 50
+targetMoveName = "airDrill"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_yhhon"]
+script = ExtResource("1_h3dag")
+trigger = 7
+operator = 0
+valueInt = 0
+valueString = "airdashFInstall"
+
+[sub_resource type="Resource" id="Resource_jler3"]
+script = ExtResource("2_lsg3l")
+conditions = Array[ExtResource("1_h3dag")]([SubResource("Resource_yhhon")])
+weight = 50
+targetMoveName = "airDrill"
+tickToNextMove = 0
+
+[sub_resource type="Resource" id="Resource_fglpd"]
+script = ExtResource("1_h3dag")
+trigger = 17
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_mlskh"]
+script = ExtResource("1_h3dag")
+trigger = 2
+operator = 3
+valueInt = 700000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_y6jyv"]
+script = ExtResource("2_lsg3l")
+conditions = Array[ExtResource("1_h3dag")]([SubResource("Resource_fglpd"), SubResource("Resource_mlskh")])
+weight = 10
+targetMoveName = "jumpF"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_fd8lt"]
+script = ExtResource("1_h3dag")
+trigger = 25
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_f8wrs"]
+script = ExtResource("1_h3dag")
+trigger = 11
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_bw714"]
+script = ExtResource("2_lsg3l")
+conditions = Array[ExtResource("1_h3dag")]([SubResource("Resource_fd8lt"), SubResource("Resource_f8wrs")])
+weight = 10
+targetMoveName = "airdashFInstall"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_4m0pn"]
+script = ExtResource("1_h3dag")
+trigger = 12
+operator = 3
+valueInt = 5
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_72d3r"]
+script = ExtResource("1_h3dag")
+trigger = 15
+operator = 3
+valueInt = 30000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_lc5ee"]
+script = ExtResource("1_h3dag")
+trigger = 8
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_6dndi"]
+script = ExtResource("2_lsg3l")
+conditions = Array[ExtResource("1_h3dag")]([SubResource("Resource_4m0pn"), SubResource("Resource_72d3r"), SubResource("Resource_lc5ee")])
+weight = 50
+targetMoveName = "infinity_install"
+tickToNextMove = -1
+
+[sub_resource type="Resource" id="Resource_5cs1m"]
+script = ExtResource("1_h3dag")
+trigger = 17
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_3cbi2"]
+script = ExtResource("1_h3dag")
+trigger = 8
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_uvwp6"]
+script = ExtResource("2_lsg3l")
+conditions = Array[ExtResource("1_h3dag")]([SubResource("Resource_5cs1m"), SubResource("Resource_3cbi2")])
+weight = 10
+targetMoveName = "jumpF"
+tickToNextMove = -1
 
 [resource]
 script = ExtResource("1_u5m7e")
-moves = Array[Resource("res://scripts/CPUOpponentMove.gd")]([])
+moves = Array[ExtResource("2_lsg3l")]([SubResource("Resource_jdggc"), SubResource("Resource_e200w"), SubResource("Resource_fhlhq"), SubResource("Resource_jde1m"), SubResource("Resource_3dqkj"), SubResource("Resource_h4ofb"), SubResource("Resource_qta7x"), SubResource("Resource_5rcdv"), SubResource("Resource_jler3"), SubResource("Resource_y6jyv"), SubResource("Resource_bw714"), SubResource("Resource_6dndi"), SubResource("Resource_uvwp6")])
+combos = Array[Resource("res://scripts/CPUOpponentCombo.gd")]([])

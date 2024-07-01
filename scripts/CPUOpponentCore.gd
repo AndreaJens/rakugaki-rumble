@@ -275,7 +275,7 @@ func _check_rule(rule : CpuOpponentRule) -> bool:
 		CpuOpponentRule.ConditionTrigger.ZeroInstall:
 			return _rule_value_check_bool(rule.operator, actor.zeroInstallActive)
 		CpuOpponentRule.ConditionTrigger.AnyInstall:
-			return _rule_value_check_bool(rule.operator, actor.has_active_install)
+			return _rule_value_check_bool(rule.operator, actor.has_active_install())
 		CpuOpponentRule.ConditionTrigger.OpponentInfinityInstall:
 			return _rule_value_check_bool(rule.operator, opponent.infinityInstallActive)
 		CpuOpponentRule.ConditionTrigger.OpponentZeroInstall:
