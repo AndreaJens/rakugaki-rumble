@@ -1,13 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://77im48dr5l1j"]
+[gd_scene load_steps=13 format=3 uid="uid://77im48dr5l1j"]
 
 [ext_resource type="Script" path="res://scripts/netplay_menu.gd" id="1_6hgq2"]
 [ext_resource type="Texture2D" uid="uid://22d6uosuodhe" path="res://media/stages/stage_grid/backgroundFull.jpg" id="1_53js3"]
 [ext_resource type="PackedScene" uid="uid://c07vx7o11k05c" path="res://media/scenes/scene_game.tscn" id="2_vvbpg"]
-[ext_resource type="Script" path="res://scripts/MasterScene.gd" id="3_gtqk5"]
 [ext_resource type="Texture2D" uid="uid://cdri01htadvuu" path="res://media/characters/chara_naomi/sprites/name.png" id="4_3bi1f"]
 [ext_resource type="Texture2D" uid="uid://ljub10t2iwni" path="res://media/characters/chara_rhozetta/sprites/name.png" id="5_ssgc0"]
 [ext_resource type="Texture2D" uid="uid://cxqx2oj7ip8u7" path="res://media/characters/chara_gridd/sprites/name.png" id="6_d81gj"]
-[ext_resource type="Script" path="res://media/scenes/CharaSelectButton.gd" id="6_qbc81"]
+[ext_resource type="Script" path="res://scripts/CharaSelectButton.gd" id="6_qbc81"]
 [ext_resource type="Script" path="res://scripts/NetplayDeviceSelect.gd" id="7_dgxni"]
 [ext_resource type="Script" path="res://scripts/NetplayInputDelaySelect.gd" id="9_rbr61"]
 [ext_resource type="Texture2D" uid="uid://c8k5hy3ln56n0" path="res://media/characters/chara_whitechapel/sprites/name.png" id="9_re6fm"]
@@ -34,7 +33,6 @@ charaSelectMenu = NodePath("ConnectionUI/CharaSelectButton")
 sceneToInstantiate = ExtResource("2_vvbpg")
 
 [node name="Stage" type="Node2D" parent="."]
-script = ExtResource("3_gtqk5")
 
 [node name="StageSprite" type="Sprite2D" parent="Stage"]
 position = Vector2(567, 318)

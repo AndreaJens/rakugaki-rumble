@@ -1,4 +1,4 @@
-class_name SceneCharacterSelection extends Node2D
+class_name SceneCharacterSelection extends SceneBase
 
 @export var _menu_p1 : GenericMenu
 @export var _menu_p2 : GenericMenu

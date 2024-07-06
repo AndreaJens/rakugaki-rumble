@@ -1,4 +1,4 @@
-class_name SceneSettings extends Node2D
+class_name SceneSettings extends SceneBase
 
 @onready var menu : GenericMenuNodes = $Menu
 @onready var musicVolume : HorizontalGenericMenu = $Menu/Music/HorizontalMenu

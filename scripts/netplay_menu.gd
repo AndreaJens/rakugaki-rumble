@@ -1,4 +1,4 @@
-extends Node2D
+class_name NetplayMenu extends SceneBase
 
 @export var systemMessageLabel : Label
 @export var syncingMessageLabel : Label

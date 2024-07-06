@@ -1,4 +1,4 @@
-extends Node2D
+class_name SceneModeSelection extends SceneBase
 
 @onready var _menu : GenericMenu = $Menu
 @onready var _vsMenu : GenericMenu = $VS_Menu

@@ -30,9 +30,10 @@ A small Godot 4.2 fighting game project, with a sketchbook aesthetic
 * F5/R3: hide/show trainign data
 
 ### other controls
-* ALT+ENTER: full screen
+* ALT+ENTER: full screen - disabled during online matches!
 * F10: disconnect from online match (experimental feature only)
 * F11: display network diagnostic
+* F12: screenshot (it will be saved in %appdata%\Godot\app_userdata\Rakugaki Rumble\screenshots) - disabled during online matches!
 
 ### Universal Mechanics (notation uses joypad buttons and numpad notation)
 * 4: Backdash (8 frames of full invulnerability)

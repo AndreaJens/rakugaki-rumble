@@ -1,4 +1,4 @@
-class_name SceneGame extends Node2D
+class_name SceneGame extends SceneBase
 
 signal close_network_session
 
@@ -393,13 +393,6 @@ func _reset_round(resetCharacterMeter : bool = false):
 	_update_camera(true)
 
 func _update_system_input():
-	if InputOverseer.input_is_action_just_pressed_kb("fullscreen_toggle"):
-		if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
-			print("windowed")
-			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		else:
-			print("fullscreen")
-			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	if debugMode and !networkMode:
 		if InputOverseer.input_is_action_just_pressed_kb("toggle_boxes_debug"):
 				GameDatabaseAccessor.showBoxes = !GameDatabaseAccessor.showBoxes

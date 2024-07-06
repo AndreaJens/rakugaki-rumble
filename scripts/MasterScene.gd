@@ -1,4 +1,4 @@
-extends Node
+class_name MasterScene extends Node
 
 signal scene_successfully_switched
 
@@ -10,12 +10,26 @@ var cpuDifficultyLevel : int = 5
 var cpuActionTicks : int = 15
 var cpuInputTicks : int = 0
 var stageBackgroundTexture : Texture2D
+@onready var sceneChild : SceneBase = $StartupScene
+@onready var screenshotAssistant : ScreenshotAssistant = $ScreenshotAssistant
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	GlobalOptions.load_from_file()
 	SceneManager.switch_scene.connect(goto_scene)
 	scene_successfully_switched.connect(SceneManager._on_scene_switched)
+
+func _process(_delta):
+	if !(sceneChild is NetplayMenu):
+		if InputOverseer.input_is_action_just_pressed_kb("screenshot"):
+			screenshotAssistant.take_screenshot()
+		if InputOverseer.input_is_action_just_pressed_kb("fullscreen_toggle"):
+			if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
+				print("The game is windowed")
+				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			else:
+				print("The game is fullscreen")
+				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	
 func _calculate_cpu_params(difficulty : SceneCharacterSelection.DifficultySettings):
 	match difficulty:
@@ -34,23 +48,29 @@ func _calculate_cpu_params(difficulty : SceneCharacterSelection.DifficultySettin
 
 func goto_scene(path : String, type : SceneManager.SceneType):
 	for child in get_children():
-		if child is SceneCharacterSelection:
-			player1DeviceId = child.player1DeviceId
-			player2DeviceId = child.player2DeviceId
-			character1Path = child.character1Path
-			character2Path = child.character2Path
-			_calculate_cpu_params(child.get_selected_cpu_level())
-			stageBackgroundTexture = child.get_stage_background_texture()
-		elif child is SceneGame:
-			player1DeviceId = child.player1DeviceId
-			player2DeviceId = child.player2DeviceId
-			character1Path = child.character1Path
-			character2Path = child.character2Path
-		remove_child(child) # Crashes without explicitly removing from the scene.
-		child.queue_free()
-	var new_scene = load(path).instantiate()
-	_add_extra_scene_parameters(new_scene, type)
-	add_child(new_scene)
+		if child is SceneBase:
+			if child is SceneCharacterSelection:
+				player1DeviceId = child.player1DeviceId
+				player2DeviceId = child.player2DeviceId
+				character1Path = child.character1Path
+				character2Path = child.character2Path
+				_calculate_cpu_params(child.get_selected_cpu_level())
+				stageBackgroundTexture = child.get_stage_background_texture()
+			elif child is SceneGame:
+				player1DeviceId = child.player1DeviceId
+				player2DeviceId = child.player2DeviceId
+				character1Path = child.character1Path
+				character2Path = child.character2Path
+			remove_child(child) # Crashes without explicitly removing from the scene.
+			child.queue_free()
+	var newScene = load(path).instantiate()
+	_add_extra_scene_parameters(newScene, type)
+	add_child(newScene)
+	for child in get_children():
+		if child is SceneBase:
+			sceneChild = child
+			print(sceneChild)
+			break
 	emit_signal("scene_successfully_switched")
 #	# Instance the new scene.
 #	current_scene = s.instantiate()
