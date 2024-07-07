@@ -15,7 +15,7 @@ run/main_scene="res://media/scenes/main_scene.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 run/max_fps=60
 boot_splash/image="res://media/logos/godotLogo.png"
-config/icon="res://icon.png"
+config/icon="res://media/icons/icon.png"
 
 [autoload]
 
