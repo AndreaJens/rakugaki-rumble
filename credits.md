@@ -35,4 +35,8 @@ A fighting game made with Godot 4.2
 
 Please, check them out and support them!
 
+## Source code license
+
+Please, consult the LICENSE.txt file. Short version: **the scripts and scenes are released under MIT license, the assets (such as textures, sounds, and animations) are only available for personal use and cannot be redistributed.**
+
 ### Copyright (c) 2024 - der Mondhase - Game Development and Related Media

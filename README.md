@@ -1,3 +1,5 @@
+![Rakugaki Rumble Logo](./media/hud/logo_clean.png "logo")
+
 # Rakugaki Rumble
 A small Godot 4.2 fighting game project, with a sketchbook aesthetic
 
@@ -99,3 +101,60 @@ A small Godot 4.2 fighting game project, with a sketchbook aesthetic
 * it works via direct IP connection -> use Radmin VPN or Hamachi for the best results
 * Auto Button Masher is a DEBUG setting that will replace a player with a randomly mashing CPU opponent - DON'T use it online unless you are heavy on trolling
 * All characters have a CPU with 3 levels
+
+***
+
+# LICENSE
+
+## CODE
+
+### Snopek Rollback Addon for Godot (./addons/godot-rollback-netcode/)
+
+Copyright (c) 2021-2022 David Snopek
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+### Repository content (excluding assets)
+
+All scripts (.gd) and scenes files (.tscn) in the "./scripts/" and "./media/" folders and related sub-folders are released under the following license (MIT):
+
+Copyright (c) 2024 Andrea Demetrio
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+**Notice that the above license does not apply to the assets (textures, sounds, music, animations) used as a resource by the scenes in questions**
+
+## ASSETS
+
+All the resources (.res, .tres), textures and images (.png, .jpg.), sounds (.ogg, .wav), and music (.ogg, .wav, .mp3) in the repository or in any sub-folder except "./addons/" are available for PERSONAL USE only and CANNOT BE REDISTRIBUTED without explicit permission of the author.
+
+## CHARACTERS AND INTELLECTUAL PROPERTY
+
+The game "Rakugaki Rumble", the characters, their appearance, likeness and usage remain an intellectual property of Andrea Demetrio and cannot be reused without permission. Fan art and fan works depicting said characters are hereby **authorized**, as long as they are clearly marked as non-official and that they do not use the original character assets.
+The original character assets (such as sprites, sounds and textures) are available upon direct request for non-profit projects (such as M.U.G.E.N or I.K.E.M.E.N. non-commercial games and compilations). For inquiries, contact me at the following email 
+
+mondhase.projects ==at== outlook (dot) com 
+
+### Copyright (c) 2024 - der Mondhase - Game Development and Related Media
+
+### Copyright (c) 2024 - Andrea Demetrio

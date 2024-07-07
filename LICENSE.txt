@@ -3,7 +3,7 @@
 
 ## CODE
 
-### Snopek Rollback Addon for Godot
+### Snopek Rollback Addon for Godot (./addons/godot-rollback-netcode/)
 
 Copyright (c) 2021-2022 David Snopek
 
@@ -25,7 +25,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-### Repository code except Addons
+### Repository content (excluding assets)
 
 All scripts (.gd) and scenes files (.tscn) in the "./scripts/" and "./media/" folders and related sub-folders are released under the following license (MIT):
 
@@ -37,6 +37,19 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+**Notice that the above license does not apply to the assets (textures, sounds, music, animations) used as a resource by the scenes in questions**
+
 ## ASSETS
 
-All the resources (.res, .tres), images (.png, .jpg.), sounds (.ogg, .wav) and music (.ogg, .wav, .mp3) in the folder or in any sub-folder except "./addons/" can be used for PERSONAL USE only and CANNOT BE REDISTRIBUTED.
+All the resources (.res, .tres), textures and images (.png, .jpg.), sounds (.ogg, .wav), and music (.ogg, .wav, .mp3) in the repository or in any sub-folder except "./addons/" are available for PERSONAL USE only and CANNOT BE REDISTRIBUTED without explicit permission of the author.
+
+## CHARACTERS AND INTELLECTUAL PROPERTY
+
+The game "Rakugaki Rumble", the characters, their appearance, likeness and usage remain an intellectual property of Andrea Demetrio and cannot be reused without permission. Fan art and fan works depicting said characters are hereby **authorized**, as long as they are clearly marked as non-official and that they do not use the original character assets.
+The original character assets (such as sprites and texture) are available upon direct request for non-profit projects (such as M.U.G.E.N or I.K.E.M.E.N. non-commercial games and compilations). For inquiries, contact me at the email 
+
+mondhase.projects ==at== outlook (dot) com 
+
+### Copyright (c) 2024 - der Mondhase - Game Development and Related Media
+
+### Copyright (c) 2024 - Andrea Demetrio
