@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CpuOpponentRuleset" load_steps=70 format=3 uid="uid://dqen3ev4boxvm"]
+[gd_resource type="Resource" script_class="CpuOpponentRuleset" load_steps=81 format=3 uid="uid://dqen3ev4boxvm"]
 
 [ext_resource type="Script" path="res://scripts/CPUOpponentRuleset.gd" id="1_6c1y2"]
 [ext_resource type="Script" path="res://scripts/CPUOpponentRule.gd" id="1_xulvw"]
@@ -466,7 +466,84 @@ weight = 200
 targetMoveName = "downSpike"
 tickToNextMove = 1
 
+[sub_resource type="Resource" id="Resource_kicju"]
+script = ExtResource("1_xulvw")
+trigger = 12
+operator = 3
+valueInt = 5
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_bmw1f"]
+script = ExtResource("1_xulvw")
+trigger = 24
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_rhbp8"]
+script = ExtResource("1_xulvw")
+trigger = 2
+operator = 5
+valueInt = 350000
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_i3fu3"]
+script = ExtResource("1_xulvw")
+trigger = 17
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_dtwvc"]
+script = ExtResource("1_xulvw")
+trigger = 19
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_jf8cf"]
+script = ExtResource("2_6od4y")
+conditions = Array[ExtResource("1_xulvw")]([SubResource("Resource_kicju"), SubResource("Resource_bmw1f"), SubResource("Resource_rhbp8"), SubResource("Resource_i3fu3"), SubResource("Resource_dtwvc")])
+weight = 9000
+targetMoveName = "jumpB"
+tickToNextMove = 4
+
+[sub_resource type="Resource" id="Resource_1y31k"]
+script = ExtResource("1_xulvw")
+trigger = 12
+operator = 3
+valueInt = 5
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_ly2p1"]
+script = ExtResource("1_xulvw")
+trigger = 7
+operator = 0
+valueInt = 0
+valueString = "jumpB"
+
+[sub_resource type="Resource" id="Resource_0rayx"]
+script = ExtResource("1_xulvw")
+trigger = 24
+operator = 0
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_x633y"]
+script = ExtResource("1_xulvw")
+trigger = 19
+operator = 1
+valueInt = 0
+valueString = ""
+
+[sub_resource type="Resource" id="Resource_5312e"]
+script = ExtResource("2_6od4y")
+conditions = Array[ExtResource("1_xulvw")]([SubResource("Resource_1y31k"), SubResource("Resource_ly2p1"), SubResource("Resource_0rayx"), SubResource("Resource_x633y")])
+weight = 9000
+targetMoveName = "downSpike"
+tickToNextMove = 1
+
 [resource]
 script = ExtResource("1_6c1y2")
-moves = Array[ExtResource("2_6od4y")]([SubResource("Resource_duiyv"), SubResource("Resource_70ken"), SubResource("Resource_lk1ty"), SubResource("Resource_etm6t"), SubResource("Resource_t2prx"), SubResource("Resource_odn47"), SubResource("Resource_y665i"), SubResource("Resource_xmvl0"), SubResource("Resource_a6cwm"), SubResource("Resource_mm4sg"), SubResource("Resource_ucs41"), SubResource("Resource_okiq8"), SubResource("Resource_0vwtw"), SubResource("Resource_f3fha"), SubResource("Resource_hk4qk"), SubResource("Resource_45nun"), SubResource("Resource_rl5v1"), SubResource("Resource_p2dd7"), SubResource("Resource_06h0l")])
+moves = Array[ExtResource("2_6od4y")]([SubResource("Resource_duiyv"), SubResource("Resource_70ken"), SubResource("Resource_lk1ty"), SubResource("Resource_etm6t"), SubResource("Resource_t2prx"), SubResource("Resource_odn47"), SubResource("Resource_y665i"), SubResource("Resource_xmvl0"), SubResource("Resource_a6cwm"), SubResource("Resource_mm4sg"), SubResource("Resource_ucs41"), SubResource("Resource_okiq8"), SubResource("Resource_0vwtw"), SubResource("Resource_f3fha"), SubResource("Resource_hk4qk"), SubResource("Resource_45nun"), SubResource("Resource_rl5v1"), SubResource("Resource_p2dd7"), SubResource("Resource_06h0l"), SubResource("Resource_jf8cf"), SubResource("Resource_5312e")])
 combos = Array[Resource("res://scripts/CPUOpponentCombo.gd")]([])
