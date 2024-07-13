@@ -102,6 +102,7 @@ position = Vector2(567, 75)
 texture = ExtResource("10_fqwp7")
 
 [node name="DifficultySelector" type="Node2D" parent="VSCPU_Banner" node_paths=PackedStringArray("audioPlayer")]
+visible = false
 position = Vector2(0, 128)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("11_3bqfq")

@@ -51,6 +51,7 @@ func _ready():
 	if nextSceneType == SceneManager.SceneType.SingleMatchPlayerVsCpu:
 		$Logo.visible = false
 		$VSCPU_Banner.visible = true
+		_difficultySelector.visible = true
 		if pvcTexture:
 			$VSCPU_Banner.texture = pvcTexture
 			$VSCPU_Banner.scale = Vector2(0.6, 0.6)
@@ -58,6 +59,7 @@ func _ready():
 	elif nextSceneType == SceneManager.SceneType.SingleMatchCpuVsCpu:
 		$Logo.visible = false
 		$VSCPU_Banner.visible = true
+		_difficultySelector.visible = true
 		if cvcTexture:
 			$VSCPU_Banner.texture = cvcTexture
 			$VSCPU_Banner.scale = Vector2(0.6, 0.6)
@@ -67,6 +69,7 @@ func _ready():
 		if pvpTexture:
 			$Logo.texture = pvpTexture
 		$VSCPU_Banner.visible = false
+		_difficultySelector.visible = false
 		
 func _check_if_cancel_p1_selection_needed() -> bool:
 	if !_menu_p1.selection_performed():
