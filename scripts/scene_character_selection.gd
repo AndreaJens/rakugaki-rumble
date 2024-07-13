@@ -174,7 +174,8 @@ func _process(_delta):
 			_menu_p1.active = true
 		_menu_p1.update(buttonsPressedP1)
 		_menu_p2.update(buttonsPressedP1)
-		_difficultySelector.update(buttonsPressedP1)
+		if _difficultySelector.visible:
+			_difficultySelector.update(buttonsPressedP1)
 		_update_stage_selection(buttonsPressedP1)
 	else:
 		var buttonsPressedP1 = _update_input_p1()
